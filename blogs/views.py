@@ -10,12 +10,12 @@ def topics(request):
 
 def subtopics(request,slug):
     context = {
-        "blogs": BlogTopics.objects.filter(link_to=slug)
+        "blogs": BlogTopics.objects.filter(link_to__slug=slug)
     }
     return render(request,"blogs/subtopic.html",context)
 
 def blog_post(request,slug, blog):
-    blog_content = BlogTopics.objects.filter(pk=blog)
+    blog_content = BlogTopics.objects.filter(slug=blog)
     context = {
         "blog_content" : blog_content
     }

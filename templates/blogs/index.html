@@ -2,6 +2,6 @@
 
 {% block content %}
     {% for blog in blogs %}
-        <a href="{% url 'blogs:sub_topic' blog.pk %}">{{ blog.topic }}</a>
+        <a href="{% url 'blogs:sub_topic' blog.slug %}">{{ blog.topic }}</a>
     {% endfor %}
 {% endblock content %}
