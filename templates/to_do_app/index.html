@@ -4,7 +4,7 @@
     <div class="row mt-4">
         <div class="col">
             <h2>Add Item</h2>
-            <form class="form-inline" action="{% url 'add_todo' %}" method="POST">
+            <form class="form-inline" action="{% url 'to_do_app:add_todo' %}" method="POST">
                 {% csrf_token %}
                 <input type="text" class="form-control mb-2 mr-sm-2" name="content" placeholder="Type here..">
             <button type="submit" class="btn btn-primary mb-2">Submit</button>

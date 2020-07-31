@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+    <h1>Register</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <!-- {% for field in form %}
+            {{ field.label }}
+            {{ field }}
+        {% endfor %}
+         -->
+
+
+        <form>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ form.username.label }}</label>
+              <div class="col-sm-10">
+                  <div >
+                    {{ form.username}}
+                  </div>
+                
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword3" class="col-sm-2 col-form-label">{{ form.email.label }}</label>
+              <div class="col-sm-10">
+                  <div>
+                      {{ form.email }}
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">{{ form.password1.label }}</label>
+                <div class="col-sm-10">
+                    <div>
+                        {{ form.password1 }}
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">{{ form.password2.label }}</label>
+                <div class="col-sm-10">
+                    <div>
+                        {{ form.password2 }}
+                    </div>
+                </div>
+              </div>
+          
+            {% if errors %}
+            {{ errors }}
+            {% endif %}
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+              </div>
+            </div>
+          </form>
+
+
+
+
+
+        <!-- <input type="submit" name="create_user"> -->
+    </form>
+
+</body>
+
+{% endblock %}
