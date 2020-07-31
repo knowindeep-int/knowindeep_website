@@ -21,20 +21,22 @@ class LikeInline(admin.StackedInline):
     extra = 1
     max_num = 1
 
-class BlogAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields':['topic']}),
-        ('Date information', {'fields': [], 'classes': ['collapse']})
-    ]
-    inlines = [BlogTopicsInline]
-
 class BlogTopicAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':['heading']})
     ]
     inlines = [LikeInline]
 
-admin.site.register(BlogTopics)
+class BlogAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields':['topic']}),
+        ('Date information', {'fields': [], 'classes': ['collapse']})
+    ]
+    inlines = [BlogTopicsInline,]
+
+
+
+admin.site.register(BlogTopics, BlogTopicAdmin)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)
