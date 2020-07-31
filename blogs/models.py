@@ -7,6 +7,7 @@ from django.utils import timezone
 class Blog(models.Model):
    # id = models.IntegerField(primary_key=True)
     topic = models.CharField(max_length=30)
+    slug = models.SlugField(null=True,blank=True)
 
 
     def __str__(self):
@@ -20,6 +21,7 @@ class BlogTopics(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
     content = models.CharField(max_length=1000, null=False,blank=False)
+    slug = models.SlugField(null=True,blank=True)
 
     class Meta:
         verbose_name_plural = "Blog Topics"
@@ -72,13 +74,13 @@ class Comment(models.Model):
 
 
 
-# def r_pre_save_receiever(sender,instance,*args,**kwargs):
-#     print('saving')
-#     print(instance.timestamp)
-#     if not instance.slug:
-#         instance.slug = unique_slug_generator(instance)
-#         instance.save()
+def r_pre_save_receiever(sender,instance,*args,**kwargs):
+    print('saving')
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+        instance.save()
 
   
 
-# pre_save.connect(r_pre_save_receiever, sender=Restaurant)
+pre_save.connect(r_pre_save_receiever, sender=Blog)
+pre_save.connect(r_pre_save_receiever, sender=BlogTopics)
