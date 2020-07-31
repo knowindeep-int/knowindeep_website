@@ -67,7 +67,7 @@ class Comment(models.Model):
 
     
 
-pre_save.connect(save_blog, sender=Blog)
+# pre_save.connect(save_blog, sender=Blog)
 # post_save.connect(save_blog, sender=Blog)
 
 
