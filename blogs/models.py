@@ -1,34 +1,74 @@
 from django.db import models
 from django.db.models.signals import pre_save,post_save
 from .utils import unique_slug_generator
+from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 
 class Blog(models.Model):
-    id = models.AutoField(primary_key=True)
+   # id = models.IntegerField(primary_key=True)
     topic = models.CharField(max_length=30)
 
+
+    def __str__(self):
+        return self.topic
+
+
 class BlogTopics(models.Model):
-    id = models.AutoField(primary_key=True)
-    link_to = models.ForeignKey(Blog,on_delete=models.CASCADE)
-    author_name = models.CharField(max_length=30)
+   # id = models.IntegerField(primary_key=True,auto_created=True)
+    link_to = models.ForeignKey(Blog,on_delete=models.CASCADE, null=True,default=None)
+    author_name = models.CharField(max_length=30, null=False,blank=False)
     date_posted = models.DateTimeField(auto_now_add=True)
-    heading = models.CharField(max_length=40)
-    content = models.CharField(max_length=1000)
+    heading = models.CharField(max_length=40,null=False,blank=False)
+    content = models.CharField(max_length=1000, null=False,blank=False)
 
     class Meta:
         verbose_name_plural = "Blog Topics"
+
+    def __str__(self):
+        return self.heading
+
+    @property
+    def like_count(self):
+        return Like.objects.filter(link_to=self)
+
+    def comments(self):
+        return Comment.objects.filter(link_to=self)
+
+
+
+def create_blog(sender, instance, created,**kwargs):
+    # BlogTopics.objects.create(instance)
+    if instance.id is not None:
+        Blog.objects.create(topic=str(instance))
+
+def save_blog(sender, instance, *args,**kwargs):
+    # BlogTopics.objects.create(instance)
+    if instance.id is not None:
+        print(Blog.objects.create(topic = str(instance)))
+        
+    
 
 class Like(models.Model):
     link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE)
     no_of_likes = models.IntegerField(default=0)
 
+    def __str__(self):
+        return str(self.link_to)
+
+    
 class Comment(models.Model):
+    link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE)
     user_name = models.CharField(max_length=30)
     user_email = models.EmailField(max_length=30)
     comment_text = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.user_name + self.comment_text
 
+    
 
+pre_save.connect(save_blog, sender=Blog)
+# post_save.connect(save_blog, sender=Blog)
 
 
 
