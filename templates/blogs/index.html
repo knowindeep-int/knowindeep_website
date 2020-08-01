@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
    
+    <style>
+
+        .blur {
+            -webkit-filter: blur(10px);  
+            backdrop-filter: blur(4px);  
+            width: 20px;
+        }
+
+        .image {
+            width:"50";
+            height:"600";
+        }
+
+        
+
+    </style>
 
     <div class="row container">
         <div class="col s12 m7 ">
@@ -8,11 +24,12 @@
                 {% for blog in blogs %}
 
                     <div class="card-image">
-                        <img src="media/sample.jpeg">
+                        <img class="blur" src="media/{{ blog.topic_image }}">
+                        <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
                     </div>
                     <div class="card-content">
                         <span class="card-title">{{ blog.topic }}</span>
-                        <p>Some small blog info.</p>
+                        <p>{{ blog.topic_content }}</p>
                     </div>
                     <div class="card-action">
                         <a href="{% url 'blogs:sub_topic' blog.slug %}">Go to blog</a>

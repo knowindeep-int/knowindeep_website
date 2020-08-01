@@ -9,6 +9,7 @@ class Blog(models.Model):
    # id = models.IntegerField(primary_key=True)
     topic = models.CharField(max_length=30)
     topic_image = models.ImageField(null=True, upload_to='media/')
+    topic_content = models.CharField(max_length=300, blank=True, null=True)
     slug = models.SlugField(null=True,blank=True)
     # con = HTMLField(default = '')
 
