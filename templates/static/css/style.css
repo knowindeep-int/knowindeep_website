@@ -1,8 +1,13 @@
+/* FOR BASE */
 * {
     font-family: 'Philosopher', sans-serif;
     size: 16px;
     padding: 0px;
     margin: 0px;
+}
+
+body {
+    position: relative;
 }
 
 nav#navbar {
@@ -24,20 +29,44 @@ li.active a {
     color: #7E76D7;
 }
 
+div.card {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 .card .card-image img {
     object-fit: unset; 
     width: 300px; 
     height: 300px;
 }
 
-button.btn {
+button.btn{
     background-color: #7E76D7;
     border-radius: 15px;
     padding-left: 20px;
     padding-right: 20px;
 }
 
+button#logInBtn a:hover {
+    background: none;
+    color: white;
+}
+
 button.btn:hover {
     background-color: #51A6C5;
     color: white;
+}
+
+/* FOR LOGIN PAGE */
+
+button#submitButton {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 30px;
+    font-size: 22px;
+    position: absolute;
+    left: 50%;
+    text-align: center;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }

@@ -3,41 +3,35 @@
 {% block content %}
 
 <body>
-    <h1>Login</h1>
-
-    <form action="" method="POST">
-        {% csrf_token %}
-    
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" name="username" id="inputEmail3">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                  <input type="password" class="form-control" name="password" id="inputEmail3">
-                </div>
-              </div>
-
-            
-          
-            {% if error %}
-            {{ error }}
-            {% endif %}
-            <div class="form-group row">
-              <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Login</button>
-              </div>
-            </div>
-
-
-
-
-
+  <div class="container">
+    <h1 class="center">Login</h1>
+    <form action="" method="POST" class="col s12">
+      {% csrf_token %}
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="inputEmail3">Email</label>
+          <input type="text" class="validate" name="username" id="inputEmail3" placeholder="Enter your Email">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="inputEmail3">Password</label>
+          <input type="password" class="validate" name="password" id="inputEmail3" placeholder="Enter password">
+          <span class="helper-text">New user? <a href="http://127.0.0.1:8000/user/register/">sign up here!</a></span>
+        </div>
+      </div>
+      {% if error %}
+      {{ error }}
+      {% endif %}
+      <div class="row">
+        <div class="col sm12">
+          <button class="waves-effect waves-light btn" id="submitButton" type="submit">
+            Submit
+          </button>
+        </div>
+      </div>
     </form>
-
+  </div>
 </body>
 
 {% endblock %}
