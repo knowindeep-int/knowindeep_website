@@ -3,71 +3,66 @@
 {% block content %}
 
 <body>
-    <h1>Register</h1>
+  <div class="container">
+    <h1 class="center">Register</h1>
 
-    <form action="" method="POST">
-        {% csrf_token %}
-        <!-- {% for field in form %}
+    <form action="" method="POST" class="col s12">
+      {% csrf_token %}
+      <!-- {% for field in form %}
             {{ field.label }}
             {{ field }}
         {% endfor %}
          -->
-
-
-        <form>
-            <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">{{ form.username.label }}</label>
-              <div class="col-sm-10">
-                  <div >
-                    {{ form.username}}
-                  </div>
-                
-              </div>
+      <form>
+        <div class="row">
+          <div class="input-field col s12">
+          <label for="inputEmail3">{{ form.username.label }}</label>
+            <div>
+              {{ form.username}}
             </div>
-            <div class="form-group row">
-              <label for="inputPassword3" class="col-sm-2 col-form-label">{{ form.email.label }}</label>
-              <div class="col-sm-10">
-                  <div>
-                      {{ form.email }}
-                  </div>
-              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+          <label for="inputPassword3">{{ form.email.label }}</label>
+            <div>
+              {{ form.email }}
             </div>
+          </div>
+        </div>
 
-            <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">{{ form.password1.label }}</label>
-                <div class="col-sm-10">
-                    <div>
-                        {{ form.password1 }}
-                    </div>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">{{ form.password2.label }}</label>
-                <div class="col-sm-10">
-                    <div>
-                        {{ form.password2 }}
-                    </div>
-                </div>
-              </div>
-          
-            {% if errors %}
-            {{ errors }}
-            {% endif %}
-            <div class="form-group row">
-              <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Sign in</button>
-              </div>
+        <div class="row">
+          <div class="input-field col s12">
+          <label for="inputPassword3">{{ form.password1.label }}</label>
+            <div>
+              {{ form.password1 }}
             </div>
-          </form>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="input-field col s12">
+          <label for="inputPassword3">{{ form.password2.label }}</label>
+            <div>
+              {{ form.password2 }}
+            </div>
+            <span class="helper-text">Already a user? <a href="http://127.0.0.1:8000/user/login/">log in here!</a></span>
+          </div>
+        </div>
 
-
-
-
-        <!-- <input type="submit" name="create_user"> -->
+        {% if errors %}
+        {{ errors }}
+        {% endif %}
+        <div class="row">
+          <div class="col s12">
+            <button class="waves-effect waves-light btn" id="submitButton" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+      <!-- <input type="submit" name="create_user"> -->
     </form>
-
+  </div>
 </body>
 
 {% endblock %}
