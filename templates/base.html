@@ -40,8 +40,8 @@
     </nav>
 
     <ul class="sidenav" id="mobile-demo">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Blogs</a></li>
+        <li><a href="{% url 'blogs:index' %}">Home</a></li>
+        <!-- <li><a href="#">Blogs</a></li> -->
         <li><a href="#">About Us</a></li>
         <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
         <li><button href="{% url 'site_users:logout' %}" class="waves-effect waves-light btn">Log Out</button></li>
