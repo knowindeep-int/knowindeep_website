@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for blog in blogs %}
-        <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}">{{ blog.heading }}</a>
-    {% endfor %}
+    {% if blogs %}
+        {% for blog in blogs %}
+            <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}">{{ blog.heading }}</a>
+        {% endfor %}
+    {% else %}
+        <h1>No blogs for the particular url</h1>
+    {% endif %}
 {% endblock content %}

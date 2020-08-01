@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 from .models import Blog,BlogTopics
 
@@ -10,6 +11,7 @@ def topics(request):
 
 def subtopics(request,slug):
     blog = BlogTopics.objects.filter(link_to__slug=slug)
+    print(blog)
     context = {
         "blogs": blog,
         "blog_heading": slug
