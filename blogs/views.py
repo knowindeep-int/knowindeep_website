@@ -11,7 +11,8 @@ def topics(request):
 
 def subtopics(request,slug):
     blog = BlogTopics.objects.filter(link_to__slug=slug)
-    print(blog)
+    like = blog[0].like_count
+    print(like)
     context = {
         "blogs": blog,
         "blog_heading": slug

@@ -4,7 +4,7 @@ import string
 
 from . import models
 
-DONT_USE = ['create']
+DONT_USE = ['create','user','login','register']
 
 def random_string_generator(size=10,chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))

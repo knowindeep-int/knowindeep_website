@@ -9,6 +9,7 @@ class Blog(models.Model):
    # id = models.IntegerField(primary_key=True)
     topic = models.CharField(max_length=30)
     slug = models.SlugField(null=True,blank=True)
+    # con = HTMLField(default = '')
 
     def __str__(self):
         return self.topic
@@ -31,10 +32,11 @@ class BlogTopics(models.Model):
 
     @property
     def like_count(self):
-        return Like.objects.filter(link_to=self)
+        return Like.objects.get(link_to=self).no_of_likes
 
     def comments(self):
         return Comment.objects.filter(link_to=self)
+
 
 
 

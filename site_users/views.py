@@ -19,8 +19,7 @@ def login_page(request):
         if user is not None:
             login(request,user)
             print(user)
-            print('reacehed')
-            return redirect(reverse('to_do_app:index'))
+            return redirect(reverse('blogs:index'))
         else:
             error = "Username or password is incorrect"
 
@@ -37,7 +36,7 @@ def logout_user(request):
 def register_page(request):
 
     if request.user.is_authenticated:
-        return redirect(reverse('to_do_app:index'))
+        return redirect(reverse('blogs:index'))
 
     form = CreateUserForm()
     errors = None
