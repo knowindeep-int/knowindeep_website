@@ -8,6 +8,7 @@ from django.utils import timezone
 class Blog(models.Model):
    # id = models.IntegerField(primary_key=True)
     topic = models.CharField(max_length=30)
+    topic_image = models.ImageField(null=True, upload_to='media/')
     slug = models.SlugField(null=True,blank=True)
     # con = HTMLField(default = '')
 

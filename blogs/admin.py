@@ -29,7 +29,7 @@ class BlogTopicAdmin(admin.ModelAdmin):
 
 class BlogAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['topic',]}),
+        (None, {'fields':['topic','topic_image']}),
         ('Date information', {'fields': [], 'classes': ['collapse']})
     ]
     inlines = [BlogTopicsInline,]
