@@ -35,25 +35,11 @@ class BlogTopics(models.Model):
         return Like.objects.get(link_to=self).no_of_likes
 
     def comments(self):
-        return Comment.objects.filter(link_to=self)
-
-
-
-
-def create_blog(sender, instance, created,**kwargs):
-    # BlogTopics.objects.create(instance)
-    if instance.id is not None:
-        Blog.objects.create(topic=str(instance))
-
-def save_blog(sender, instance, *args,**kwargs):
-    # BlogTopics.objects.create(instance)
-    if instance.id is not None:
-        print(Blog.objects.create(topic = str(instance)))
-        
+        return Comment.objects.filter(link_to=self)    
     
 
 class Like(models.Model):
-    link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE)
+    link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
     no_of_likes = models.IntegerField(default=0)
 
     def __str__(self):
@@ -71,6 +57,21 @@ class Comment(models.Model):
 
     
 
+
+def create_blog(sender, instance, created,**kwargs):
+    # BlogTopics.objects.create(instance)
+    if instance.id is not None:
+        Blog.objects.create(topic=str(instance))
+
+def save_blog(sender, instance, *args,**kwargs):
+    # BlogTopics.objects.create(instance)
+    if instance.id is not None:
+        print(Blog.objects.create(topic = str(instance)))
+
+def create_like_for_blog_topic(sender,instance,*args,**kwargs):
+    if instance.likes.all().count() == 0:
+        instance.likes.create()
+
 # pre_save.connect(save_blog, sender=Blog)
 # post_save.connect(save_blog, sender=Blog)
 
@@ -86,3 +87,4 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
 
 pre_save.connect(r_pre_save_receiever, sender=Blog)
 pre_save.connect(r_pre_save_receiever, sender=BlogTopics)
+post_save.connect(create_like_for_blog_topic, sender=BlogTopics)

@@ -23,13 +23,13 @@ class LikeInline(admin.StackedInline):
 
 class BlogTopicAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['heading']})
+        (None, {'fields':['heading','link_to']})
     ]
-    inlines = [LikeInline]
+    inlines = []
 
 class BlogAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['topic','con']}),
+        (None, {'fields':['topic',]}),
         ('Date information', {'fields': [], 'classes': ['collapse']})
     ]
     inlines = [BlogTopicsInline,]
@@ -37,6 +37,6 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BlogTopics, BlogTopicAdmin)
-admin.site.register(Blog)
+admin.site.register(Blog,BlogAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)

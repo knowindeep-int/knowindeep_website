@@ -25,7 +25,15 @@
                 <li><a href="#">Blogs</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
-                <li><button href="{% url 'site_users:logout' %}" class="waves-effect waves-light btn">Log Out</button></li>
+                <li><button class="waves-effect waves-light btn">
+                    <a href="{% url 'site_users:logout' %}">
+                        {% if request.user.is_authenticated %}
+                        Log Out
+                        {% else %}
+                        Login
+                        {% endif %}
+                    </a>
+                </button></li>
             </ul>
         </div>
     </nav>
