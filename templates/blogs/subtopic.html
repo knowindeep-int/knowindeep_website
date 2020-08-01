@@ -1,9 +1,33 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
+
+    <link rel="stylesheet" href="{% static 'blogs/css/blog_content.css' %}">
+
+    <h2 id="blog_heading">
+        {{ main_blog.topic }}
+    </h2>
+    <p>{{ main_blog.topic_content }}</p>
+
     {% if blogs %}
         {% for blog in blogs %}
-            <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}">{{ blog.heading }}</a>
+                
+                
+                <div class="row container" >
+                    <div class="col s12 m7 ">
+                        <div class="card" id="blog">
+            
+                                <div class="card-action">
+                                    <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}">
+                                        {{ blog.heading }} : {{ content }}
+                                    </a>
+                                </div>
+            
+                            
+                        </div>
+                    </div>
+                </div>
+
         {% endfor %}
     {% else %}
         <h1>No blogs for the particular url</h1>

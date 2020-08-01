@@ -6,24 +6,22 @@ from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 
 class Blog(models.Model):
-   # id = models.IntegerField(primary_key=True)
     topic = models.CharField(max_length=30)
     topic_image = models.ImageField(null=True, upload_to='media/')
     topic_content = models.CharField(max_length=300, blank=True, null=True)
     slug = models.SlugField(null=True,blank=True)
-    # con = HTMLField(default = '')
 
     def __str__(self):
         return self.topic
 
 
 class BlogTopics(models.Model):
-   # id = models.IntegerField(primary_key=True,auto_created=True)
     link_to = models.ForeignKey(Blog,on_delete=models.CASCADE, null=True,default=None)
     author_name = models.CharField(max_length=30, null=False,blank=False)
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
-    content = models.CharField(max_length=1000, null=False,blank=False)
+   # content = models.CharField(max_length=1000, null=False,blank=False)
+    content = HTMLField()
     slug = models.SlugField(null=True,blank=True)
 
     class Meta:

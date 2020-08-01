@@ -2,6 +2,7 @@
 
 {% block content %}
     {% for blog in blog_content %}
-        <a href="{% url 'blogs:index' %}">{{ blog.content }}</a>
+        
+        <p>    {{ blog.content | safe | escape }} </p>
     {% endfor %}
 {% endblock content %}
