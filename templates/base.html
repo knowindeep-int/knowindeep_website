@@ -26,13 +26,15 @@
                 <li><a href="#">About Us</a></li>
                 <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
                 <li><button class="waves-effect waves-light btn">
-                    <a href="{% url 'site_users:logout' %}">
                         {% if request.user.is_authenticated %}
-                        Log Out
+                        <a href="{% url 'site_users:logout' %}">
+                            Log Out
+                        </a>
                         {% else %}
-                        Login
+                        <a href="{% url 'site_users:login' %}">
+                            Login
+                        </a>
                         {% endif %}
-                    </a>
                 </button></li>
             </ul>
         </div>
@@ -46,22 +48,8 @@
         <li><button href="{% url 'site_users:logout' %}" class="waves-effect waves-light btn">Log Out</button></li>
     </ul>
 
-    <div class="row container">
-        <div class="col s12 m7 ">
-            <div class="card">
-                <div class="card-image">
-                    <img src="">
-                </div>
-                <div class="card-content">
-                    <span class="card-title">{% block content %} {% endblock content %}</span>
-                    <p>Some small blog info.</p>
-                </div>
-                <div class="card-action">
-                    <a href="#">Go to blog</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    {%block content %}
+    {% endblock %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

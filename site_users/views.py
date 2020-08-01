@@ -10,7 +10,7 @@ def login_page(request):
     error = None
 
     if request.user.is_authenticated:
-        return redirect(reverse('to_do_app:index'))
+        return redirect(reverse('blogs:index'))
 
     if request.method == 'POST':
         username = request.POST.get('username')

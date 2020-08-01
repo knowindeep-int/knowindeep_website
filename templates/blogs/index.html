@@ -1,7 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for blog in blogs %}
-        <a href="{% url 'blogs:sub_topic' blog.slug %}">{{ blog.topic }}</a>
-    {% endfor %}
+   
+
+    <div class="row container">
+        <div class="col s12 m7 ">
+            <div class="card">
+                {% for blog in blogs %}
+
+                    <div class="card-image">
+                        <img src="">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">{{ blog.topic }}</span>
+                        <p>Some small blog info.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="{% url 'blogs:sub_topic' blog.slug %}">Go to blog</a>
+                    </div>
+
+                </a>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+
 {% endblock content %}
