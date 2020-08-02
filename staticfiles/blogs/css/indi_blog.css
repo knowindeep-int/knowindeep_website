@@ -1,0 +1,25 @@
+pre {
+    text-decoration-color: violet;
+    text-align: center;
+    color: green;
+    background-color:rgba(128,128,128,0.3);
+    
+}
+
+ul > a#listItem {
+    color: #029BD3;
+}
+
+a#listItem:hover {
+    cursor: pointer;
+    background-color: #EDEDED;
+    font-size: 20px;
+}   
+
+.breadcrumb {
+    align-self: center;
+}
+
+#video {
+    margin-top: 50px;
+}
