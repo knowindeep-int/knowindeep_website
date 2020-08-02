@@ -23,9 +23,13 @@ def subtopics(request,slug):
     return render(request,"blogs/subtopic.html",context)
 
 def blog_post(request,slug, blog):
-    blog_content = BlogTopics.objects.filter(slug=blog)
+    blog_content = BlogTopics.objects.get(slug=blog)
+    all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
+    print(all_blogs)
     context = {
-        "blog_content" : blog_content
+        "blog_content" : blog_content,
+        "slug":slug,
+        "all_blogs":all_blogs 
     }
     return render(request,"blogs/blog_post.html", context)
     
