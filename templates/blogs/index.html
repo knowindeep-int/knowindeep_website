@@ -8,7 +8,7 @@
 
     <div class="row container" >
         <div class="col s12 m7 ">
-            <div class="card" id="blog">
+            <div class="card hoverable" id="blog">
                 {% for blog in blogs %}
 
                     <div class="card-image">
@@ -20,7 +20,7 @@
                         <p>{{ blog.topic_content }}</p>
                     </div>
                     <div class="card-action">
-                        <a href="{% url 'blogs:sub_topic' blog.slug %}">Go to blog</a>
+                        <a href="{% url 'blogs:sub_topic' blog.slug %}" id="blogLink">Go to blog</a>
                     </div>
 
                 {% endfor %}
