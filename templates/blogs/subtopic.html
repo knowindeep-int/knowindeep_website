@@ -11,19 +11,14 @@
 
     {% if blogs %}
         {% for blog in blogs %}
-                
-                
                 <div class="row container" >
                     <div class="col s12 m7 ">
                         <div class="card" id="blog">
-            
                                 <div class="card-action">
                                     <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}">
                                         {{ blog.heading }} : {{ content }}
                                     </a>
                                 </div>
-            
-                            
                         </div>
                     </div>
                 </div>
