@@ -23,6 +23,7 @@ class BlogTopics(models.Model):
    # content = models.CharField(max_length=1000, null=False,blank=False)
     content = HTMLField()
     slug = models.SlugField(null=True,blank=True)
+    youtube_link = models.URLField(max_length=200, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Blog Topics"
