@@ -6,7 +6,7 @@
 <div class="center">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Github</li>
+        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=blog_heading  %}">{{ main_blog.topic | title }}</a></li>
     </ol>
 </div>
 <div class="container">
