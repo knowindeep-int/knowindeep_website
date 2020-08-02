@@ -10,7 +10,7 @@ ul > a#listItem {
     color: #029BD3;
 }
 
-a#listItem:hover {
+a#listItem:hover, #selected {
     cursor: pointer;
     background-color: #EDEDED;
     font-size: 17px;
