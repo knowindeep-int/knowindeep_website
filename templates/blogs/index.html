@@ -1,32 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-   
-    <head>
-        <link rel="stylesheet" href="{% static 'blogs/css/blogs.css' %}">
-    </head>
 
-    <div class="row container" >
-        <div class="col s12 m7 ">
-            <div class="card hoverable" id="blog">
-                {% for blog in blogs %}
+<head>
+    <link rel="stylesheet" href="{% static 'blogs/css/blogs.css' %}">
+</head>
 
-                    <div class="card-image">
-                        <img class="blur" src="media/{{ blog.topic_image }}">
-                        <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title">{{ blog.topic }}</span>
-                        <p>{{ blog.topic_content }}</p> 
-                    </div>
-                    <div class="card-action">
-                        <a href="{% url 'blogs:sub_topic' blog.slug %}" id="blogLink">Go to blog</a>
-                    </div>
+<div class="row container">
+    {% for blog in blogs %}
+    <div class="col-sm-12 col-md-12 col-lg-6">
+        <div class="card hoverable">
 
-                {% endfor %}
-                
+            <div class="container-img card-image">
+                <img class="blogImage" src="media/{{ blog.topic_image }}">
             </div>
+                <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
+            <div class="card-content">
+                <span class="card-title">{{ blog.topic }}</span>
+                <p>{{ blog.topic_content }}</p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'blogs:sub_topic' blog.slug %}" id="blogLink">Go to blog</a>
+            </div>
+
+
         </div>
     </div>
+    {% endfor %}
+</div>
 
 {% endblock content %}
