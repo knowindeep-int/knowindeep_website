@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'blogs/css/indi_blog.css' %}">
 <div class="center">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ main_blog }}</a></li> 
             <li class="breadcrumb-item active">{{ blog_content.heading | title }}</li>
         </ol>
