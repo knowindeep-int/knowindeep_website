@@ -4,10 +4,32 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'blogs/css/indi_blog.css' %}">
-    {% for blog in blog_content %}
-        
-        <p> 
-            {{ blog.content | safe | escape }} 
-        </p>
-    {% endfor %}
+<div class="center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Github</a></li>
+            <li class="breadcrumb-item active">Git Clone</li>
+        </ol>
+</div>
+<h2 class="center">Git Clone - Pratyush Udhani</h2>
+    <div class="row container">
+        <div class="col-sm-12 col-md-3 col-lg-2">
+            <ul class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action" id="listItem">First Topic</a>        
+                <a class="list-group-item list-group-item-action" id="listItem">First Topic</a>        
+                <a class="list-group-item list-group-item-action" id="listItem">First Topic</a>        
+                <a class="list-group-item list-group-item-action" id="listItem">First Topic</a>        
+            </ul>
+        </div>
+        <div class="col-sm-12 col-md-9 col-lg-10 ">
+            {% for blog in blog_content %}
+            <p>
+                {{ blog.content | safe | escape }}
+            </p>
+            {% endfor %}
+            <div class="view-container center">
+                <iframe width="653" height="380" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen id="video"></iframe>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

@@ -2,29 +2,40 @@
 {% load static %}
 {% block content %}
 
-    <link rel="stylesheet" href="{% static 'blogs/css/blog_content.css' %}">
+<link rel="stylesheet" href="{% static 'blogs/css/blog_content.css' %}">
+<div class="center">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">Github</li>
+    </ol>
+</div>
+<div class="container">
 
-    <h2 id="blog_heading">
+    <h2 id="blog_heading" class="center">
         {{ main_blog.topic }}
     </h2>
-    <p>{{ main_blog.topic_content }}</p>
-
+    <div class="center">
+        <div id="content">
+            {{ main_blog.topic_content }}
+        </div>
+    </div>
     {% if blogs %}
-        {% for blog in blogs %}
-                <div class="row container" >
-                    <div class="col s12 m7 ">
-                        <div class="card" id="blog">
-                                <div class="card-action">
-                                    <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}">
-                                        {{ blog.heading }} : {{ content }}
-                                    </a>
-                                </div>
-                        </div>
-                    </div>
+    {% for blog in blogs %}
+    <div class="row">
+        <div class="col s12 m7">
+            <div id="blog" class="card hoverable">
+                <div class="card-action">
+                    <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}" id="blogLink">
+                        {{ blog.heading }} : {{ content }}
+                    </a>
                 </div>
+            </div>
+        </div>
+    </div>
 
-        {% endfor %}
+    {% endfor %}
     {% else %}
-        <h1>No blogs for the particular url</h1>
+    <h1>No blogs for the particular url</h1>
     {% endif %}
+</div>
 {% endblock content %}
