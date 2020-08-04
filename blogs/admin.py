@@ -29,9 +29,12 @@ class BlogTopicAdmin(admin.ModelAdmin):
 
 class BlogAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['topic','topic_image','topic_content']}),
+        (None, {'fields':['topic','topic_image','topic_content','no_of_views']}),
         ('Date information', {'fields': [], 'classes': ['collapse']})
     ]
+    list_display = ['topic','topic_content','no_of_views']
+    ordering = ['-no_of_views']
+    readonly_fields = ['no_of_views']
     inlines = [BlogTopicsInline,]
 
 

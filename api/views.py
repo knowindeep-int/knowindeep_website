@@ -10,9 +10,9 @@ from .serializers import BlogSerializer
 
 @api_view(['GET',])
 def api_detail_blog_view(request,slug):
-
-
+    
     blog = get_object_or_404(Blog,slug=slug)
+
 
     if request.method == 'GET':
         if blog is not None:
@@ -24,8 +24,7 @@ def api_detail_blog_view(request,slug):
 
 @api_view(['PUT',])
 def api_detail_blog_update_view(request,slug):
-    blog = get_object_or_404(Blog,slug=slug)
-    print(request.data)
+    blog = get_object_or_404(Blog,slug=slug) 
     if request.method == "PUT":
         if blog is not None:
             serializer = BlogSerializer(blog,data=request.data)
@@ -35,3 +34,13 @@ def api_detail_blog_update_view(request,slug):
                 data["success"] = "Update successful"
                 return Response(data=data)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET',])
+def api_all_detail_view(request):
+    blogs = Blog.objects.all()
+    if request.method == 'GET':
+        if blogs is not None:
+            serializer = BlogSerializer(blogs,many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)

@@ -23,9 +23,13 @@ class Blog(models.Model):
     topic_image = models.ImageField(null=True, upload_to='media/')
     topic_content = models.CharField(max_length=300, blank=True, null=True)
     slug = models.SlugField(null=True,blank=True)
+    no_of_views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.topic
+
+    def increase_view(self):
+        self.no_of_views += 1
 
 
 class BlogTopics(models.Model):
@@ -57,7 +61,7 @@ class Like(models.Model):
     no_of_likes = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.link_to)
+        return str(self.link_to) +  " : "  + str(self.link_to.link_to)
 
     
 class Comment(models.Model):

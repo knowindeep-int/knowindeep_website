@@ -5,12 +5,14 @@ from .models import Blog,BlogTopics
 
 def topics(request):
     context = {
-        "blogs":Blog.objects.all()
+        "blogs":Blog.objects.all().order_by('-no_of_views')
     }
     return render(request,"blogs/index.html",context)
 
 def subtopics(request,slug):
     main_blog = Blog.objects.get(slug=slug)
+    main_blog.increase_view()
+    main_blog.save()
     blog = BlogTopics.objects.filter(link_to__slug=slug)
     content = main_blog.topic_content[0:100] + "....."
     print(content)
@@ -25,9 +27,11 @@ def subtopics(request,slug):
 def blog_post(request,slug, blog):
     blog_content = BlogTopics.objects.get(slug=blog)
     all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
-    main_blog = Blog.objects.get(slug=slug).topic
+    main_blog = Blog.objects.get(slug=slug)
+    main_blog.increase_view()
+    main_blog.save()
     context = {
-        "main_blog":main_blog,
+        "main_blog":main_blog.topic,
         "blog_content" : blog_content,
         "slug":slug,
         "all_blogs":all_blogs,
