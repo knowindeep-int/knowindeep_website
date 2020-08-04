@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'site_users.apps.SiteUsersConfig',
     'blogs.apps.BlogsConfig',
     'tinymce',
+    'rest_framework'
 
 ]
 

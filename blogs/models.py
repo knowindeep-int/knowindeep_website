@@ -5,6 +5,19 @@ from .utils import unique_slug_generator
 from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 
+
+class Author(models.Model):
+    dp = models.ImageField(null=True,upload_to='profiles/')
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=200)
+    email_id = models.EmailField(max_length=30)
+    linkedin_id = models.URLField(max_length=70)
+    github_id = models.URLField(max_length=70)
+
+    def __str__(self):
+        return self.name
+
+
 class Blog(models.Model):
     topic = models.CharField(max_length=30)
     topic_image = models.ImageField(null=True, upload_to='media/')
@@ -17,7 +30,7 @@ class Blog(models.Model):
 
 class BlogTopics(models.Model):
     link_to = models.ForeignKey(Blog,on_delete=models.CASCADE, null=True,default=None)
-    author_name = models.CharField(max_length=30, null=False,blank=False)
+    author_name = models.ForeignKey(Author,on_delete=models.CASCADE, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
    # content = models.CharField(max_length=1000, null=False,blank=False)

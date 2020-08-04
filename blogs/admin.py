@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import BlogTopics, Blog, Comment, Like
+from .models import BlogTopics, Blog, Comment, Like, Author
 # from django.apps import apps
 
 # models = apps.get_models()
@@ -42,3 +42,4 @@ admin.site.register(BlogTopics, BlogTopicAdmin)
 admin.site.register(Blog,BlogAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)
+admin.site.register(Author)
