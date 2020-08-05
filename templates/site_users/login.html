@@ -17,7 +17,7 @@
         <div class="input-field col s12">
           <label for="inputEmail3">Password</label>
           <input type="password" class="validate" name="password" id="inputEmail3" placeholder="Enter password">
-          <span class="helper-text">New user? <a href="http://127.0.0.1:8000/user/register/">sign up here!</a></span>
+          <span class="helper-text">New user? <a href="{% url 'site_users:register' %}">sign up here!</a></span>
         </div>
       </div>
       {% if error %}

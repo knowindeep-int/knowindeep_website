@@ -39,7 +39,7 @@
           <div class="input-field col s12">
           <label for="inputPassword3">{{ form.password2.label }}</label>
             <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="Confirm your password">  
-            <span class="helper-text">Already a user? <a href="http://127.0.0.1:8000/user/login/">log in here!</a></span>
+            <span class="helper-text">Already a user? <a href="{% url 'site_users:login' %}">log in here!</a></span>
           </div>
         </div>
 
