@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
 from .models import Blog,BlogTopics
@@ -38,3 +39,7 @@ def blog_post(request,slug, blog):
     }
     return render(request,"blogs/blog_post.html", context)
     
+
+def error404(request, exception):
+    print("called 404")
+    return HttpResponse("error")
