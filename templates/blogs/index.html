@@ -8,7 +8,7 @@
 
 <div class="row container">
     {% for blog in blogs %}
-    <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="col-sm-12 col-md-12 col-lg-6" onclick="location.href='{% url 'blogs:sub_topic' blog.slug %}';">
         <div class="card hoverable">
 
             <div class="container-img card-image">

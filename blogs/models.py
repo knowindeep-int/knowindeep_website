@@ -41,6 +41,7 @@ class BlogTopics(models.Model):
     content = HTMLField()
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)
+    no_of_likes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "Blog Topics"
@@ -56,12 +57,12 @@ class BlogTopics(models.Model):
         return Comment.objects.filter(link_to=self)    
     
 
-class Like(models.Model):
-    link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
-    no_of_likes = models.IntegerField(default=0)
+# class Like(models.Model):
+#     link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
+#     no_of_likes = models.IntegerField(default=0)
 
-    def __str__(self):
-        return str(self.link_to) +  " : "  + str(self.link_to.link_to)
+#     def __str__(self):
+#         return str(self.link_to) +  " : "  + str(self.link_to.link_to)
 
     
 class Comment(models.Model):
@@ -105,4 +106,4 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
 
 pre_save.connect(r_pre_save_receiever, sender=Blog)
 pre_save.connect(r_pre_save_receiever, sender=BlogTopics)
-post_save.connect(create_like_for_blog_topic, sender=BlogTopics)
+# post_save.connect(create_like_for_blog_topic, sender=BlogTopics)
