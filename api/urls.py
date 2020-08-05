@@ -10,5 +10,6 @@ handler404 = "blogs.views.error404"
 urlpatterns = [
     path('blogs/',api_all_detail_view),
     path('<slug:slug>/',api_detail_blog_view),
-    path('<slug:slug>/update',api_detail_blog_update_view)
+    path('<slug:slug>/update',api_detail_blog_update_view),
+
 ]

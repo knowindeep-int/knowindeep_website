@@ -1,8 +1,20 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.urls import reverse, reverse_lazy
 
-from .models import Blog,BlogTopics
+from .models import Blog,BlogTopics, Like
+
+
+def like_blog(request,slug,blog):
+   try:
+       like = Like.objects.get(user = request.user)
+       like.delete()     
+       return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
+   except Like.DoesNotExist:
+        like = Like.objects.create(user=request.user, link_to=BlogTopics.objects.get(slug=slug))
+        return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
+   
 
 def topics(request):
     context = {

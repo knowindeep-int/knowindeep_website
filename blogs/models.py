@@ -5,6 +5,8 @@ from .utils import unique_slug_generator
 from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 
+from django.contrib.auth.models import User
+
 
 class Author(models.Model):
     dp = models.ImageField(null=True,upload_to='profiles/')
@@ -41,7 +43,7 @@ class BlogTopics(models.Model):
     content = HTMLField()
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)
-    no_of_likes = models.IntegerField(default=0)
+  #  no_of_likes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "Blog Topics"
@@ -55,14 +57,22 @@ class BlogTopics(models.Model):
 
     def comments(self):
         return Comment.objects.filter(link_to=self)    
+
+    # @property
+    # def decreaseLikes(self):
+    #     self.no_of_likes -= 1
+
+    # @property
+    # def increaseLikes(self):
+    #     self.no_of_likes += 1
     
 
-# class Like(models.Model):
-#     link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
-#     no_of_likes = models.IntegerField(default=0)
+class Like(models.Model):
+    link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="liked_users")
 
-#     def __str__(self):
-#         return str(self.link_to) +  " : "  + str(self.link_to.link_to)
+    def __str__(self):
+        return str(self.link_to)
 
     
 class Comment(models.Model):
@@ -87,9 +97,8 @@ def save_blog(sender, instance, *args,**kwargs):
     if instance.id is not None:
         print(Blog.objects.create(topic = str(instance)))
 
-def create_like_for_blog_topic(sender,instance,*args,**kwargs):
-    if instance.likes.all().count() == 0:
-        instance.likes.create()
+
+
 
 # pre_save.connect(save_blog, sender=Blog)
 # post_save.connect(save_blog, sender=Blog)

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import BlogTopics, Blog, Comment, Author
+from .models import BlogTopics, Blog, Comment, Author, Like
 # from django.apps import apps
 
 # models = apps.get_models()
@@ -14,24 +14,24 @@ from .models import BlogTopics, Blog, Comment, Author
 
 class BlogTopicsInline(admin.TabularInline):
     model = BlogTopics
-    fields = ['author_name','heading','youtube_link','no_of_likes','content']
+    fields = ['author_name','heading','youtube_link','content',]
     extra = 1
-    readonly_fields = ['no_of_likes']
+   # readonly_fields = ['no_of_likes']
 
     
     
     
-# class LikeInline(admin.StackedInline):
-#     model = Like
-#     extra = 1
-#     max_num = 1
+class LikeInline(admin.StackedInline):
+    model = Like
+    extra = 0
+    # max_num = 1
 
 class BlogTopicAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author_name','link_to','heading','youtube_link','no_of_likes','content']})
+        (None, {'fields':['author_name','link_to','heading','youtube_link','content',]})
     ]
-    readonly_fields = ['no_of_likes']
-    inlines = []
+   # readonly_fields = ['no_of_likes']
+    inlines = [LikeInline]
     search_fields = ['heading','content']
 
 class BlogAdmin(admin.ModelAdmin):
