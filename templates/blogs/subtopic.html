@@ -6,7 +6,8 @@
 <div class="center">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=blog_heading  %}">{{ main_blog.topic | title }}</a></li>
+        <li class="breadcrumb-item"><a
+                href="{% url 'blogs:sub_topic' slug=blog_heading  %}">{{ main_blog.topic | title }}</a></li>
     </ol>
 </div>
 <div class="container">
@@ -21,15 +22,11 @@
     </div>
     {% if blogs %}
     {% for blog in blogs %}
-    <div class="row">
-        <div class="col s12 m7">
-            <div id="blog" class="card hoverable">
-                <div class="card-action">
-                    <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}" id="blogLink">
-                        {{ blog.heading }} : {{ content }}
-                    </a>
-                </div>
-            </div>
+    <div id="blog" class="card hoverable" id="hover">
+        <div class="card-action">
+            <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}" id="blogLink">
+                {{ blog.heading }} : {{ content }}
+            </a>
         </div>
     </div>
 
