@@ -14,9 +14,9 @@ from .models import BlogTopics, Blog, Comment, Author, Like
 
 class BlogTopicsInline(admin.TabularInline):
     model = BlogTopics
-    fields = ['author_name','heading','youtube_link','content',]
+    fields = ['author_name','no_of_likes','heading','youtube_link','content']
     extra = 1
-   # readonly_fields = ['no_of_likes']
+    readonly_fields = ['no_of_likes']
 
     
     
@@ -26,12 +26,18 @@ class LikeInline(admin.StackedInline):
     extra = 0
     # max_num = 1
 
+class CommentInline(admin.StackedInline):
+    model = Comment
+    extra = 0
+    fields = ['link_to','timestamp','comment_text','user']
+    readonly_fields = ['timestamp']
+
 class BlogTopicAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author_name','link_to','heading','youtube_link','content',]})
+        (None, {'fields':['author_name','link_to','heading','youtube_link','content','no_of_likes']})
     ]
-   # readonly_fields = ['no_of_likes']
-    inlines = [LikeInline]
+    readonly_fields = ['no_of_likes']
+    inlines = [LikeInline,CommentInline]
     search_fields = ['heading','content']
 
 class BlogAdmin(admin.ModelAdmin):
@@ -52,5 +58,5 @@ class BlogAdmin(admin.ModelAdmin):
 admin.site.register(BlogTopics, BlogTopicAdmin)
 admin.site.register(Blog,BlogAdmin)
 admin.site.register(Comment)
-# admin.site.register(Like)
+admin.site.register(Like)
 admin.site.register(Author)

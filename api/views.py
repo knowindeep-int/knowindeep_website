@@ -3,8 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
-from blogs.models import Blog
+from blogs.models import Blog, BlogTopics, Like, Comment
 
 from .serializers import BlogSerializer
 
@@ -44,3 +45,43 @@ def api_all_detail_view(request):
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['POST',])
+def api_like_blog_view(request):
+    
+    # blog = request.get('blog')
+    if request.method == 'POST':
+        slug = request.POST.get('slug')
+        blog = BlogTopics.objects.get(slug=slug)
+        data = {}
+        print("called like")
+        try:
+            like = Like.objects.get(user = request.user)
+            like.delete()
+            data["success"] = False
+            blog.decreaseLikes()
+            data["likes"] = blog.no_of_likes
+            return Response(data=data)  
+            # return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
+        except Like.DoesNotExist:
+            like = Like.objects.create(user=request.user, link_to=blog)
+            blog.increaseLikes()
+            data["success"] = True
+            data["likes"] = blog.no_of_likes
+            return Response(data=data)
+      #  return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
+
+@api_view(['POST',])
+def api_comment_blog_view(request):
+    if request.method == 'POST':
+        slug = request.POST.get('slug')
+        blog = BlogTopics.objects.get(slug=slug)
+        comment_text = request.POST.get('comment_text')
+        comment = Comment.objects.create(link_to=blog,user=request.user,timestamp=timezone.now(),comment_text=comment_text)
+        comment.save()
+        data = {}
+        data["success"] = "commented " + str(comment.time)
+        print(data)
+        return Response(data=data)
+
