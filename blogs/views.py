@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
+import requests
 
-from .models import Blog,BlogTopics, Like
+from .models import Blog,BlogTopics, Like, Comment
 
 
 def like_blog(request,slug,blog):
@@ -41,6 +42,7 @@ def blog_post(request,slug, blog):
     blog_content = BlogTopics.objects.get(slug=blog)
     all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
     main_blog = Blog.objects.get(slug=slug)
+    comments = Comment.objects.filter(link_to=blog_content)
     main_blog.increase_view()
     main_blog.save()
     context = {
@@ -48,6 +50,7 @@ def blog_post(request,slug, blog):
         "blog_content" : blog_content,
         "slug":slug,
         "all_blogs":all_blogs,
+        "comments":comments,
     }
     return render(request,"blogs/blog_post.html", context)
     

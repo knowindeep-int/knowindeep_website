@@ -33,6 +33,7 @@ class Blog(models.Model):
 
     def increase_view(self):
         self.no_of_views += 1
+    
 
 
 class BlogTopics(models.Model):
@@ -53,10 +54,10 @@ class BlogTopics(models.Model):
         return self.heading
 
     def get_like_url(self):
-        context = {
-            "slug":self.slug,
-        }
         return reverse("api:like-post")
+    
+    def get_comment_url(self):
+        return reverse("api:comment-post")
 
 
     @property

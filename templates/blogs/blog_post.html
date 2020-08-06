@@ -8,6 +8,41 @@
         $('#likes').text(likes)
     }
 
+    function updateComment(user, comment) {
+        var el = document.getElementById('comments-list')
+        var node = document.createElement('h5')
+        var userNode = document.createTextNode(toString(user))
+        el.appendChild(userNode)
+        // var cmt = document.createElement('p')
+        // var commentNode = document.createTextNode(toString(comment.comment_text))
+        // el.appendChild(commentNode)
+        alert(user)
+    }
+
+    $("#comment-btn").click(function(e){
+        e.preventDefault()
+        var this_ = $(this)
+        var commentUrl = this_.attr('data-comment')
+        var slug = this_.attr('data-comment-slug')
+        $.ajax({
+            url: commentUrl,
+            method: "POST",
+            data: {
+                'slug':slug,
+                'comment_text':document.getElementById('comment').value,
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function(data){
+                    if(data.success) {
+                        
+                    } else {
+                       
+                    }
+                }, error: function(error){
+                },
+        })
+    })
+
         $("#like-btn").click(function(e){
             e.preventDefault();
             var this_ = $(this) 
@@ -23,11 +58,12 @@
                 } ,
                 success: function(data){
                     console.log(data)
-                    if(data.success) {
-                        updateLikes(data.likes)
-                    } else {
-                        updateLikes(data.likes)
-                    }
+                    // if(data.success) {
+                    //     updateLikes(data.likes)
+                    // } else {
+                    //     updateLikes(data.likes)
+                    // }
+                    updateLikes(data.likes)
                 }, error: function(error){
                     alert(error)
                 },
@@ -114,11 +150,17 @@
     <div class="col-sm-12 col-md-6 col-lg-8 container">
         <h4 class="start">Comments</h4>
         <div class="input-field">
-            <input type="text" class="validate" id="comment" placeholder="Enter your comment">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" class="validate" id="comment" placeholder="Enter your comment">
+                <input type="button" name="submit" value="Click" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}" data-comment-slug={{blog_content.slug}}>
+            </form>
         </div>
-        <div>
-            <h5 class="">Name</h5>
-            <p> Soaskjcbbasjkcbkasjcbaksjbckajsc</p>
+        <div id="comments-list">
+            {% for comment in comments %}
+                <h5>{{ comment.user.username }}</h5>
+                <p>{{ comment.comment_text }}</p>
+            {% endfor %}
         </div>
     </div>
 </div>

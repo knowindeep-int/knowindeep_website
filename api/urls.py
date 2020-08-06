@@ -13,6 +13,6 @@ urlpatterns = [
     path('<slug:slug>/',api_detail_blog_view),
     path('<slug:slug>/update',api_detail_blog_update_view),
     path('blogtopic/like',api_like_blog_view,name='like-post'),
-    path('blogtopic/comment',api_comment_blog_view)
+    path('blogtopic/comment',api_comment_blog_view,name="comment-post")
 
 ]

@@ -55,7 +55,6 @@ def api_like_blog_view(request):
         slug = request.POST.get('slug')
         blog = BlogTopics.objects.get(slug=slug)
         data = {}
-        print("called like")
         try:
             like = Like.objects.get(user = request.user)
             like.delete()
@@ -74,14 +73,17 @@ def api_like_blog_view(request):
 
 @api_view(['POST',])
 def api_comment_blog_view(request):
+    data = {}
+    data["success"] = False
+    print('called comment')
     if request.method == 'POST':
         slug = request.POST.get('slug')
         blog = BlogTopics.objects.get(slug=slug)
         comment_text = request.POST.get('comment_text')
         comment = Comment.objects.create(link_to=blog,user=request.user,timestamp=timezone.now(),comment_text=comment_text)
-        comment.save()
-        data = {}
-        data["success"] = "commented " + str(comment.time)
-        print(data)
+        data["success"] = True
+        data["user"] = request.user.username
+        data["comment"] = comment_text
+        print("data")
         return Response(data=data)
 
