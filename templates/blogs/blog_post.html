@@ -4,34 +4,86 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'blogs/css/indi_blog.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="center">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ main_blog }}</a></li> 
-            <li class="breadcrumb-item active">{{ blog_content.heading | title }}</li>
-        </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ main_blog }}</a></li>
+        <li class="breadcrumb-item active">{{ blog_content.heading | title }}</li>
+    </ol>
 </div>
 <h2 class="center">{{ blog_content.heading }}</h2>
-    <div class="row">
-        <div class="col-sm-12 col-md-3 col-lg-2">
-            <ul class="list-group list-group-flush">
-                {% for blog in all_blogs %}
-                {% if blog.slug == blog_content.slug %}
-                <a class="list-group-item list-group-item-action" id="selected" href="{% url 'blogs:blog_post' slug=slug blog=blog.slug %}">{{ blog.heading }}</a>
-                {% else %}
-                <a class="list-group-item list-group-item-action" id="listItem" href="{% url 'blogs:blog_post' slug=slug blog=blog.slug %}">{{ blog.heading }}</a>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-       
-        <div class="col-sm-12 col-md-9 col-lg-10 container">
-            <p>
-                {{ blog_content.content | safe | escape }}
-            </p>
-            <div class="view-container center">
-                <iframe width="653" height="380" src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
+
+
+<div class="col-sm-12 col-md-6 col-lg-8 center-div">
+    <div class="card-panel grey lighten-5 z-depth-1">
+        <div class="row valign-wrapper">
+            <div class="col-sm-2">
+                <img src="https://picsum.photos/200" alt="" class="circle responsive-img">
+                <!-- notice the "circle" class -->
+            </div>
+            <div class="col-sm-10">
+                <span class="black-text">
+                    This is a square image. Add the "circle" class to it to make it appear circular. This is a square
+                    image. Add the "circle" class to it to make it appear circular.
+                </span>
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-3 col-lg-2">
+        <ul class="list-group list-group-flush">
+            {% for blog in all_blogs %}
+            {% if blog.slug == blog_content.slug %}
+            <a class="list-group-item list-group-item-action" id="selected"
+                href="{% url 'blogs:blog_post' slug=slug blog=blog.slug %}">{{ blog.heading }}</a>
+            {% else %}
+            <a class="list-group-item list-group-item-action" id="listItem"
+                href="{% url 'blogs:blog_post' slug=slug blog=blog.slug %}">{{ blog.heading }}</a>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 container">
+        <p>
+            {{ blog_content.content | safe | escape }}
+        </p>
+        <div class="view-container center">
+            <iframe width="653" height="380" src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen
+                id="video"></iframe>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-3 col-lg-2">
+        <ul class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action" id="selected" href="">Some alksjcn</a>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-8 container center">
+        <i onclick="" class="fa fa-thumbs-up medium icon-btn"></i>
+        <i onclick="" class="fa fa-thumbs-down medium icon-btn"></i>
+    </div>
+</div>
+
+<div class="row" id="commentsContainer">
+    <div class="col-sm-12 col-md-6 col-lg-8 container">
+        <h4 class="start">Comments</h4>
+        <div class="input-field">
+            <input type="text" class="validate" id="comment" placeholder="Enter your comment">
+        </div>
+        <div>
+            <h5 class="">Name</h5>
+            <p> Soaskjcbbasjkcbkasjcbaksjbckajsc</p>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
