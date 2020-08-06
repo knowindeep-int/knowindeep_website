@@ -6,6 +6,12 @@
     z-index: 1;
 } */
 
+.container {
+    max-width: none;
+    width: 80%;
+}
+
+
 .blogImage {
     width: 100%;
     max-width: 500px;

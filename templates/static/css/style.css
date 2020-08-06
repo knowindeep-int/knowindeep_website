@@ -18,6 +18,11 @@ a:hover {
     color: brown;
 }
 
+.container {
+    max-width: none;
+    width: 80%;
+}
+
 li a:hover {
     text-decoration: none;
     color: #51A6C5;
