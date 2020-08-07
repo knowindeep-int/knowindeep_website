@@ -33,6 +33,7 @@ class Blog(models.Model):
 
     def increase_view(self):
         self.no_of_views += 1
+        self.save()
     
 
 

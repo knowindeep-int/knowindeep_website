@@ -3,20 +3,16 @@
 {% load static %}
 
 <script type="text/javascript">
+
     {% block jquery %}
     function updateLikes(likes) {
         $('#likes').text(likes)
     }
 
     function updateComment(user, comment) {
-        var el = document.getElementById('comments-list')
-        var node = document.createElement('h5')
-        var userNode = document.createTextNode(toString(user))
-        el.appendChild(userNode)
-        // var cmt = document.createElement('p')
-        // var commentNode = document.createTextNode(toString(comment.comment_text))
-        // el.appendChild(commentNode)
-        alert(user)
+        var com = document.getElementById('comments-list')
+        com.innerHTML = '<h5>{{user}}</h5><p>' + comment + '</p>' + com.innerHTML
+        document.getElementById('comment').value = ''
     }
 
     $("#comment-btn").click(function(e){
@@ -34,7 +30,7 @@
             },
             success: function(data){
                     if(data.success) {
-                        
+                        updateComment(data.user,data.comment)
                     } else {
                        
                     }
@@ -144,11 +140,9 @@
     <div class="col-sm-12 col-md-6 col-lg-8 container">
         <h4 class="start">Comments</h4>
         <div class="input-field">
-            <form method="POST">
                 {% csrf_token %}
                 <input type="text" class="validate" id="comment" placeholder="Enter your comment">
-                <input type="button" name="submit" value="Click" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}" data-comment-slug={{blog_content.slug}}>
-            </form>
+                <input type="button" value="Click" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}" data-comment-slug={{blog_content.slug}}>
         </div>
         <div id="comments-list">
             {% for comment in comments %}
@@ -158,5 +152,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+    </script>
 {% endblock content %}

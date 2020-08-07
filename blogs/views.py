@@ -44,7 +44,6 @@ def blog_post(request,slug, blog):
     main_blog = Blog.objects.get(slug=slug)
     comments = Comment.objects.filter(link_to=blog_content)
     main_blog.increase_view()
-    main_blog.save()
     context = {
         "main_blog":main_blog.topic,
         "blog_content" : blog_content,
