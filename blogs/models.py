@@ -43,6 +43,7 @@ class BlogTopics(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
    # content = models.CharField(max_length=1000, null=False,blank=False)
+    description = models.CharField(max_length=300,blank=True,null=True)
     content = HTMLField()
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)

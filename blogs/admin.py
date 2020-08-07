@@ -14,7 +14,7 @@ from .models import BlogTopics, Blog, Comment, Author, Like
 
 class BlogTopicsInline(admin.TabularInline):
     model = BlogTopics
-    fields = ['author_name','no_of_likes','heading','youtube_link','content']
+    fields = ['author_name','no_of_likes','heading','youtube_link','content','description']
     extra = 1
     readonly_fields = ['no_of_likes']
 
@@ -34,7 +34,7 @@ class CommentInline(admin.StackedInline):
 
 class BlogTopicAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author_name','link_to','heading','youtube_link','content','no_of_likes']})
+        (None, {'fields':['author_name','link_to','heading','youtube_link','content','no_of_likes','description']})
     ]
     readonly_fields = ['no_of_likes']
     inlines = [LikeInline,CommentInline]

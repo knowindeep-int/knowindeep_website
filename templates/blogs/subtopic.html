@@ -25,7 +25,7 @@
     <div id="blog" class="card hoverable" id="hover">
         <div class="card-action">
             <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}" id="blogLink">
-                {{ blog.heading }} : {{ content }}
+                {{ blog.heading }} : {{ blog.description }}
             </a>
         </div>
     </div>
