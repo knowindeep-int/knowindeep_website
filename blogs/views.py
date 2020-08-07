@@ -43,6 +43,7 @@ def blog_post(request,slug, blog):
     all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
     main_blog = Blog.objects.get(slug=slug)
     comments = Comment.objects.filter(link_to=blog_content)
+    author = blog_content.author_name
     main_blog.increase_view()
     context = {
         "main_blog":main_blog.topic,
@@ -50,6 +51,7 @@ def blog_post(request,slug, blog):
         "slug":slug,
         "all_blogs":all_blogs,
         "comments":comments,
+        "author": author
     }
     return render(request,"blogs/blog_post.html", context)
     
