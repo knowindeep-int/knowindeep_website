@@ -12,9 +12,9 @@ from .models import BlogTopics, Blog, Comment, Author, Like
 #     except admin.sites.AlreadyRegistered:
 #         pass
 
-class BlogTopicsInline(admin.TabularInline):
+class BlogTopicsInline(admin.StackedInline):
     model = BlogTopics
-    fields = ['author_name','no_of_likes','heading','youtube_link','content','description']
+    fields = ['author_name','no_of_likes','description','heading','youtube_link','content',]
     extra = 1
     readonly_fields = ['no_of_likes']
 
