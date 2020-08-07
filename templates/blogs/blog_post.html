@@ -9,14 +9,26 @@
         $('#likes').text(likes)
     }
 
+    function showLoader() {
+        var loader = document.getElementById('comment_loader')
+        loader.style.display = 'block'
+    }
+
+    function hideLoader() {
+        var loader = document.getElementById('comment_loader')
+        loader.style.display = 'none'
+    }
+
     function updateComment(user, comment) {
         var com = document.getElementById('comments-list')
+        hideLoader()
         com.innerHTML = '<h5>{{user}}</h5><p>' + comment + '</p>' + com.innerHTML
         document.getElementById('comment').value = ''
     }
 
     $("#comment-btn").click(function(e){
         e.preventDefault()
+        showLoader()
         var this_ = $(this)
         var commentUrl = this_.attr('data-comment')
         var slug = this_.attr('data-comment-slug')
@@ -145,6 +157,9 @@
                 <input type="button" value="Click" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}" data-comment-slug={{blog_content.slug}}>
         </div>
         <div id="comments-list">
+            <div class="spinner-border text-primary center" role="status" id='comment_loader' style="display: none;">
+                <span class="sr-only">Loading...</span>
+              </div>
             {% for comment in comments %}
                 <h5>{{ comment.user.username }}</h5>
                 <p>{{ comment.comment_text }}</p>
