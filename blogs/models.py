@@ -14,8 +14,8 @@ class Author(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=200)
     email_id = models.EmailField(max_length=30)
-    linkedin_id = models.URLField(max_length=70)
-    github_id = models.URLField(max_length=70)
+    linkedin_id = models.URLField(max_length=70,null=True,blank=True)
+    github_id = models.URLField(max_length=70,null=True,blank=True)
 
     def __str__(self):
         return self.name
