@@ -26,7 +26,7 @@
         document.getElementById('comment').value = ''
     }
 
-    $("#comment-btn").click(function(e){
+    $("#comment-btn").click(function (e) {
         e.preventDefault()
         showLoader()
         var this_ = $(this)
@@ -36,42 +36,47 @@
             url: commentUrl,
             method: "POST",
             data: {
-                'slug':slug,
-                'comment_text':document.getElementById('comment').value,
+                'slug': slug,
+                'comment_text': document.getElementById('comment').value,
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
             },
-            success: function(data){
-                    if(data.success) {
-                        updateComment(data.user,data.comment)
-                    } else {
-                       
-                    }
-                }, error: function(error){
-                },
+            success: function (data) {
+                if (data.success) {
+                    updateComment(data.user, data.comment)
+                } else {
+
+                }
+            }, error: function (error) {
+            },
         })
     })
 
-        $("#like-btn").click(function(e){
-            e.preventDefault();
-            var this_ = $(this) 
+    $("#like-btn").click(function (e) {
+        e.preventDefault();
+        var this_ = $(this)
+        var user = this_.attr('data-user')
+        if (user) {
             var likeUrl = this_.attr('data-href')
             var slug = this_.attr('data-slug')
             var likes = this_.attr('data-likes')
-            $.ajax ({
+            $.ajax({
                 url: likeUrl,
                 method: "POST",
-                data:{
-                    'slug':slug,
-                    'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()
-                } ,
-                success: function(data){
-                    updateLikes(data.likes)
-                }, error: function(error) {
-                    
+                data: {
+                    'slug': slug,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
                 },
-               
+                success: function (data) {
+                    updateLikes(data.likes)
+                }, error: function (error) {
+
+                },
+
             })
-        })
+        } if (user == "False") {
+            alert('You need to login to like this post')
+        }
+    })
     {% endblock %}
 </script>
 
@@ -142,33 +147,41 @@
     <div class="col-sm-12 col-md-6 col-lg-8 container center">
         {% csrf_token %}
         <p id="likes">{{ blog_content.no_of_likes }}</p>
-        <i onclick="" class="fa fa-thumbs-up medium icon-btn" id="like-btn" data-href='{{ blog_content.get_like_url }}' data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}></i>
-        <i onclick="" class="fa fa-thumbs-down medium icon-btn"></i>
+        <i onclick="" class="fa fa-thumbs-up medium icon-btn" id="like-btn"
+            data-user="{{ request.user.is_authenticated }}" data-href='{{ blog_content.get_like_url }}'
+            data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}></i>
     </div>
 </div>
 
 <div class="row" id="commentsContainer">
     <div class="col-sm-12 col-md-6 col-lg-8 container">
         <h4 class="start">Comments</h4>
+        {% if request.user.is_authenticated %}
         <div class="input-field">
-                {% csrf_token %}
-                <input type="text" class="validate" id="comment" placeholder="Enter your comment">
-                <input type="button" value="Click" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}" data-comment-slug={{blog_content.slug}}>
+            {% csrf_token %}
+            <input type="text" class="validate" id="comment" placeholder="Enter your comment">
+            <input type="button" value="Click" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}"
+                data-comment-slug={{blog_content.slug}}>
         </div>
+        {% else %}
+        <div>
+            <p>Login to comment</p>
+        </div>
+        {% endif %}
         <div id="comments-list">
             <div class="spinner-border text-primary center" role="status" id='comment_loader' style="display: none;">
                 <span class="sr-only">Loading...</span>
-              </div>
+            </div>
             {% for comment in comments %}
-                <h5>{{ comment.user.username }}</h5>
-                <p>{{ comment.comment_text }}</p>
+            <h5>{{ comment.user.username }}</h5>
+            <p>{{ comment.comment_text }}</p>
             {% endfor %}
         </div>
     </div>
 </div>
 <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
     }
-    </script>
+</script>
 {% endblock content %}
