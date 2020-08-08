@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     # other
     'tinymce',
     'rest_framework',
+    'ckeditor',
+    'ckeditor_uploader',
 
     # local
     'to_do_app.apps.ToDoAppConfig',
@@ -154,6 +156,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
 }
 
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -187,3 +192,15 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'JXUZpVkWDSax6neyxglQV5Yb'
 
 SOCIAL_AUTH_GITHUB_KEY = 'Iv1.4532905365c0d4dc'
 SOCIAL_AUTH_GITHUB_SECRET = '1df38b24bdd5a27124b573eb73faf13ad23f0d55'
+
+# ckeditor conf
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
