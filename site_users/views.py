@@ -31,6 +31,7 @@ def login_page(request):
 
 def logout_user(request):
     logout(request)
+    
     return redirect(reverse('site_users:login'))
 
 def register_page(request):

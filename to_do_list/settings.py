@@ -184,3 +184,6 @@ STATICFILES_DIRS = (os.path.join(os.path.join(BASE_DIR,'templates'),'static'),)
 # LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/google/login/callback/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '409652441762-tbmf33ha4u4adbj6fhd9jlnculv6o8j9.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'JXUZpVkWDSax6neyxglQV5Yb'
+
+SOCIAL_AUTH_GITHUB_KEY = 'Iv1.4532905365c0d4dc'
+SOCIAL_AUTH_GITHUB_SECRET = '1df38b24bdd5a27124b573eb73faf13ad23f0d55'
