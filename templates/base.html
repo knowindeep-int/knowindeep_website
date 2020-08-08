@@ -30,7 +30,7 @@
                             Log Out
                         </a>
                         {% else %}
-                        <a href="{% url 'site_users:login' %}">
+                        <a href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}">
                             Login
                         </a>
                         {% endif %}

@@ -37,12 +37,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # other
+    'tinymce',
+    'rest_framework',
+
+    # local
     'to_do_app.apps.ToDoAppConfig',
     'site_users.apps.SiteUsersConfig',
     'blogs.apps.BlogsConfig',
-    'tinymce',
-    'rest_framework'
 
+    # social
+    'social_django',
+
+]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'to_do_list.urls'
@@ -69,6 +83,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -164,3 +180,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (os.path.join(os.path.join(BASE_DIR,'templates'),'static'),)
+
+# LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/google/login/callback/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '409652441762-tbmf33ha4u4adbj6fhd9jlnculv6o8j9.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'JXUZpVkWDSax6neyxglQV5Yb'

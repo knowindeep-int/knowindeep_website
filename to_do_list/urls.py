@@ -30,6 +30,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
     path('',include('blogs.urls')),
+    path('oauth/',include('social_django.urls'),name='social')
 ]
 
  
