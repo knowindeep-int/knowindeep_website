@@ -30,8 +30,10 @@
         e.preventDefault()
         showLoader()
         var this_ = $(this)
+    
         var commentUrl = this_.attr('data-comment')
         var slug = this_.attr('data-comment-slug')
+    
         $.ajax({
             url: commentUrl,
             method: "POST",
@@ -173,7 +175,7 @@
                 <span class="sr-only">Loading...</span>
             </div>
             {% for comment in comments %}
-            <h5>{{ comment.user.username }}</h5>
+            <h5>{{ comment.user.first_name }} {{comment.user.last_name}}</h5>
             <p>{{ comment.comment_text }}</p>
             {% endfor %}
         </div>
