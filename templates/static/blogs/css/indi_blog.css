@@ -47,6 +47,9 @@ p#likes {
     transform: translateY(-50%);
   }
   
+i#like-btn {
+}
+
 .container {
     max-width: none;
     width: 80%;
