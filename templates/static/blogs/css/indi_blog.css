@@ -5,12 +5,55 @@ pre {
     background-color:rgba(128,128,128,0.3);
 }
 
+* {
+    font-family: 'Philosopher', sans-serif;
+    font-size: 18px;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+i#like-btn {
+    font-size: 3rem;
+}
+
+.liked {
+    color: blue;
+}
+
+.anim-class {
+    -webkit-animation:spin 500ms linear;
+    -moz-animation:spin 500ms linear;
+    animation:spin 500ms linear;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+p#likes {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  
 .container {
     max-width: none;
     width: 80%;
 }
 
 #commentsContainer {
+    position: relative;
     margin-top: 40px;
 }
 
@@ -18,10 +61,6 @@ ul > a#listItem {
     color: #029BD3;
 }
 
-i.icon-btn {
-    margin-left: 40px;
-    margin-right: 40px;
-}
 
 a#listItem:hover, #selected {
     cursor: pointer;
@@ -36,7 +75,20 @@ a#listItem:hover, #selected {
     align-self: center;
 }
 
+input.btn{
+    background-color: #7E76D7;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+}
+
+input#comment-btn:hover {
+    background-color: #51A6C5;
+    color: white;
+}
+
 #video {
-    width: 70%;
-    margin-top: 50px;
+    width: 100%;
+    height: 400px;
 }

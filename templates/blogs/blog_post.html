@@ -6,6 +6,12 @@
 
     {% block jquery %}
     function updateLikes(likes) {
+        $('#like-btn').addClass('anim-class');
+        if (likes == 1) {
+            $('#like-btn').addClass('liked');
+        } else {
+            $('#like-btn').removeClass('liked');
+        }
         $('#likes').text(likes)
     }
 
@@ -52,6 +58,7 @@
     })
 
     $("#like-btn").click(function (e) {
+        $('#like-btn').removeClass('anim-class');
         e.preventDefault();
         var this_ = $(this)
         var user = this_.attr('data-user')
@@ -91,28 +98,17 @@
         <li class="breadcrumb-item active">{{ blog_content.heading | title }}</li>
     </ol>
 </div>
-<h2 class="center">{{ blog_content.heading }}</h2>
-
-
-<div class="col-sm-12 col-md-6 col-lg-8 center-div">
-    <div class="card-panel grey lighten-5 z-depth-1">
-        <div class="row valign-wrapper">
-            <div class="col-sm-2">
-                <!-- <img src="https://picsum.photos/200" alt="" class="circle responsive-img"> -->
-                <!-- notice the "circle" class -->
-            </div>
-            <div class="col-sm-10">
-                <span class="black-text">
-                    {{ author.description }}
-                </span>
-            </div>
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-2"></div>
+        <div class="col-sm-12 col-md-12 col-lg-8 container">
+            <h2>{{ blog_content.heading }}</h2>
         </div>
-    </div>
+        <div class="col-sm-12 col-md-12 col-lg-2"></div>
 </div>
 
 
 <div class="row">
-    <div class="col-sm-12 col-md-3 col-lg-2">
+    <div class="col-sm-12 col-md-12 col-lg-2 container">
         <ul class="list-group list-group-flush">
             {% for blog in all_blogs %}
             {% if blog.slug == blog_content.slug %}
@@ -126,17 +122,17 @@
         </ul>
     </div>
 
-    <div class="col-sm-12 col-md-6 col-lg-8 container">
+    <div class="col-sm-12 col-md-12 col-lg-8 container">
+        <div>
+            <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen
+                id="video"></iframe>
+        </div>
         <p>
             {{ blog_content.content | safe | escape }}
         </p>
-        <div class="view-container center">
-            <iframe width="653" height="380" src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen
-                id="video"></iframe>
-        </div>
     </div>
 
-    <div class="col-sm-12 col-md-3 col-lg-2">
+    <div class="col-sm-12 col-md-12 col-lg-2">
         <!-- <ul class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action" id="selected" href="">Some alksjcn</a>
         </ul> -->
@@ -144,24 +140,58 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12 col-md-6 col-lg-8 container center">
-        {% csrf_token %}
-        <p id="likes">{{ blog_content.no_of_likes }}</p>
-        <i onclick="" class="fa fa-thumbs-up medium icon-btn" id="like-btn"
-            data-user="{{ request.user.is_authenticated }}" data-href='{{ blog_content.get_like_url }}'
-            data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}></i>
+    <div class="col-sm-12 col-md-6 col-lg-8 center-div">
+        <div class="card-panel grey lighten-5 z-depth-1">
+            <div class="row valign-wrapper">
+                <div class="col-sm-2">
+                    <img src="https://picsum.photos/200" alt="" class="circle responsive-img">
+                </div>
+                <div class="col-sm-10">
+                    <div>
+                        <a href="#" class="font-weight-bold">
+                            Name of the author
+                        </a>
+                    </div>
+                    <div>
+                        <span class="black-text">
+                            {{ author.description }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-8 container center">
+       
+    </div>
+</div> -->
+
 <div class="row" id="commentsContainer">
     <div class="col-sm-12 col-md-6 col-lg-8 container">
-        <h4 class="start">Comments</h4>
+        <div class="row no-gutters">
+            <div class="col-6">
+                <h4>Comments</h4>
+            </div>
+            <div class="col-6">
+                <div class="row right vertical-center">
+                    {% csrf_token %}
+                    <i onclick="" class="fa fa-thumbs-up icon-btn" id="like-btn"
+                    data-user="{{ request.user.is_authenticated }}" data-href='{{ blog_content.get_like_url }}'
+                    data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}></i>
+                    <p id="likes">{{ blog_content.no_of_likes }}</p>
+                </div>
+            </div>
+        </div>
+            
         {% if request.user.is_authenticated %}
         <div class="input-field">
             {% csrf_token %}
             <input type="text" class="validate" id="comment" placeholder="Enter your comment">
-            <input type="button" value="Click" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}"
-                data-comment-slug={{blog_content.slug}}>
+            <input type="button" value="Submit" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}"
+                data-comment-slug={{blog_content.slug}} class="btn">
         </div>
         {% else %}
         <div>
