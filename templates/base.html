@@ -18,7 +18,10 @@
 <body>
     <nav id="navbar">
         <div class="nav-wrapper container">
-            <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a>
+            <a href="{% url 'blogs:index' %}">
+                <img src="/static/images/kid-white.png" class="brand-logo" alt="brandLogo" height="100%">
+            </a>
+            <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
             <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" id="nav-mobile">
                 <li><a href="{% url 'blogs:index' %}">Home</a></li>
@@ -30,7 +33,8 @@
                             Log Out
                         </a>
                         {% else %}
-                        <a href="{% url 'site_users:login' %}">
+                        <!-- <a id="loginLink" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"> -->
+                        <a data-href="{% url 'site_users:login' %}" id="loginLink" onclick="myFunc()">
                             Login
                         </a>
                         {% endif %}
@@ -61,11 +65,19 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            {% block jquery %}{% endblock %}
-        })
-    </script>
-</body>
+    <script src="static/js/script.js"></script>
+    <script type="text/javascript">
 
-</html>
+        function myFunc() {
+            var url = document.getElementById('loginLink').getAttribute('data-href')
+            window.open(url, "", "width=700, height=700")
+        }
+
+        // document.getElementById("logInLink").addEventListener("click", function () {
+        //     window.open('url "site_users:login"', "", "width=700, height=700")
+        //     console.log("clicked")
+        // })
+    </script>
+    </body>
+    
+    </html>

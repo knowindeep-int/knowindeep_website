@@ -82,7 +82,7 @@ def api_comment_blog_view(request):
         comment_text = request.POST.get('comment_text')
         comment = Comment.objects.create(link_to=blog,user=request.user,timestamp=timezone.now(),comment_text=comment_text)
         data["success"] = True
-        data["user"] = request.user.username
+        data["user"] = request.user.first_name
         data["comment"] = comment_text
         print("data")
         return Response(data=data)

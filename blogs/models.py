@@ -5,6 +5,7 @@ from .utils import unique_slug_generator
 from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 
 from django.contrib.auth.models import User
 
@@ -44,7 +45,8 @@ class BlogTopics(models.Model):
     heading = models.CharField(max_length=40,null=False,blank=False)
    # content = models.CharField(max_length=1000, null=False,blank=False)
     description = models.CharField(max_length=300,blank=True,null=True)
-    content = HTMLField()
+  #  content = HTMLField()
+    content = RichTextUploadingField()
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)
     no_of_likes = models.IntegerField(default=0)
