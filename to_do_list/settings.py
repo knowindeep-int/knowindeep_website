@@ -200,22 +200,15 @@ CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
-# CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': None,
-#     },
-# }
 
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': 'full',
-#         'extraPlugins': ','.join(
-#             [
-#                'bootstrapTabs',
-#             ]
-#         ),
-#         'extraAllowedContent' : 'a(*){*}[*];'+'li(*){*}[*]',
-#     },
-# }
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'default',
+        'extraPlugins': ','.join(
+            [
+               'bootstrapTabs',
+            ]
+        ),
+    },
+}
