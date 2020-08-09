@@ -31,8 +31,7 @@ def login_page(request):
 
 def logout_user(request):
     logout(request)
-    
-    return redirect(reverse('site_users:login'))
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def register_page(request):
 

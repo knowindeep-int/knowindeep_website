@@ -47,7 +47,7 @@
 
     <div>
         <dialog id="myFirstDialog" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">
-            <i class="fa fa-google-plus-square" style="font-size:36px" id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{window.close}}"></i>
+            <i class="fa fa-google-plus-square" style="font-size:36px" id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"></i>
             <i class="fa fa-github" style="font-size:36px" id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"></i>
         </dialog>
     </div>
@@ -100,12 +100,12 @@
         console.log("here")
         document.getElementById('googleLogin').onclick = function() {    
             var url = document.getElementById('googleLogin').getAttribute('google-href')
-            window.open(url,"", "width=700, height=700")
+            window.open(url,"_self")
         };    
 
         document.getElementById('githubLogin').onclick = function() {    
             var url = document.getElementById('githubLogin').getAttribute('github-href')
-            window.open(url,"", "width=700, height=700")
+            window.open(url,"_self")
         }; 
 
     })();   
