@@ -36,10 +36,10 @@
         e.preventDefault()
         showLoader()
         var this_ = $(this)
-    
+
         var commentUrl = this_.attr('data-comment')
         var slug = this_.attr('data-comment-slug')
-    
+
         $.ajax({
             url: commentUrl,
             method: "POST",
@@ -102,10 +102,10 @@
 </div>
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-2"></div>
-        <div class="col-sm-12 col-md-12 col-lg-8 container">
-            <h2>{{ blog_content.heading }}</h2>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-2"></div>
+    <div class="col-sm-12 col-md-12 col-lg-8 container">
+        <h2>{{ blog_content.heading }}</h2>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-2"></div>
 </div>
 
 
@@ -126,8 +126,7 @@
 
     <div class="col-sm-12 col-md-12 col-lg-8 container">
         <div>
-            <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen
-                id="video"></iframe>
+            <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
         </div>
         <p>
             {{ blog_content.content | safe | escape }}
@@ -171,6 +170,7 @@
     </div>
 </div> -->
 
+
 <div class="row" id="commentsContainer">
     <div class="col-sm-12 col-md-6 col-lg-8 container">
         <div class="row no-gutters">
@@ -181,13 +181,13 @@
                 <div class="row right vertical-center">
                     {% csrf_token %}
                     <i onclick="" class="fa fa-thumbs-up icon-btn" id="like-btn"
-                    data-user="{{ request.user.is_authenticated }}" data-href='{{ blog_content.get_like_url }}'
-                    data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}></i>
+                        data-user="{{ request.user.is_authenticated }}" data-href='{{ blog_content.get_like_url }}'
+                        data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}></i>
                     <p id="likes">{{ blog_content.no_of_likes }}</p>
                 </div>
             </div>
         </div>
-            
+
         {% if request.user.is_authenticated %}
         <div class="input-field">
             {% csrf_token %}
@@ -216,4 +216,7 @@
         window.history.replaceState(null, null, window.location.href);
     }
 </script>
+
+
+
 {% endblock content %}

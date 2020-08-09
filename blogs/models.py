@@ -5,6 +5,7 @@ from .utils import unique_slug_generator
 from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 from django.urls import reverse
+import markdown
 from ckeditor_uploader.fields import RichTextUploadingField
 
 from django.contrib.auth.models import User

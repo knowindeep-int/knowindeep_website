@@ -55,7 +55,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(BlogTopics, BlogTopicAdmin)
+admin.site.register(BlogTopics)
 admin.site.register(Blog,BlogAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)
