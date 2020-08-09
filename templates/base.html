@@ -46,7 +46,7 @@
     </nav>
 
     <div>
-        <dialog id="myFirstDialog" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">
+        <dialog id="loginDialog" style="width:50%;background-color:#7E76D7;border:1px dotted black;align-self: center;">
             <i class="fa fa-google-plus-square" style="font-size:36px" id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"></i>
             <i class="fa fa-github" style="font-size:36px" id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"></i>
         </dialog>
@@ -90,7 +90,7 @@
 
     <script type="text/JavaScript">
     (function() {    
-        var dialog = document.getElementById('myFirstDialog');    
+        var dialog = document.getElementById('loginDialog');    
         document.getElementById('loginLink').onclick = function() {    
             dialog.show();    
         };    
