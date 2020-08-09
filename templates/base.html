@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -34,14 +35,22 @@
                         </a>
                         {% else %}
                         <!-- <a id="loginLink" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"> -->
-                        <a data-href="{% url 'site_users:login' %}" id="loginLink" onclick="myFunc()">
+                        <!-- <a data-href="{% url 'site_users:login' %}" id="loginLink" onclick="myFunc()"> -->
+                        <a id="loginLink" data-href="{% url 'site_users:login' %}">
                             Login
                         </a>
                         {% endif %}
-                </button></li>
+                    </button></li>
             </ul>
         </div>
     </nav>
+
+    <div>
+        <dialog id="myFirstDialog" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">
+            <i class="fa fa-google-plus-square" style="font-size:36px" id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{window.close}}"></i>
+            <i class="fa fa-github" style="font-size:36px" id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"></i>
+        </dialog>
+    </div>
 
     <ul class="sidenav" id="mobile-demo">
         <li><a href="{% url 'blogs:index' %}">Home</a></li>
@@ -64,7 +73,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="static/js/script.js"></script>
     <script type="text/javascript">
 
@@ -78,6 +87,30 @@
         //     console.log("clicked")
         // })
     </script>
-    </body>
-    
-    </html>
+
+    <script type="text/JavaScript">
+    (function() {    
+        var dialog = document.getElementById('myFirstDialog');    
+        document.getElementById('loginLink').onclick = function() {    
+            dialog.show();    
+        };    
+        // document.getElementById('hide').onclick = function() {    
+        //     dialog.close();    
+        // }; 
+        console.log("here")
+        document.getElementById('googleLogin').onclick = function() {    
+            var url = document.getElementById('googleLogin').getAttribute('google-href')
+            window.open(url,"", "width=700, height=700")
+        };    
+
+        document.getElementById('githubLogin').onclick = function() {    
+            var url = document.getElementById('githubLogin').getAttribute('github-href')
+            window.open(url,"", "width=700, height=700")
+        }; 
+
+    })();   
+    </script>
+
+</body>
+
+</html>

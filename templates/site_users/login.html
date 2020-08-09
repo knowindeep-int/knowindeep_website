@@ -5,17 +5,17 @@
 <body>
   <div class="container">
     <h1 class="center">Login with</h1>
-    <div class="row" style="margin-top: 50px;"> 
+    <div class="row" style="margin-top: 50px;">
       <div class="col-6 center">
         <a href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}">
-          <img src="/static/images/google-logo.svg" alt="googleLogo" width="200" height="200"/>
+          <img src="/static/images/google-logo.svg" alt="googleLogo" width="200" height="200" />
         </a>
       </div>
       <div class="col-6 center">
         <a href="{% url 'social:begin' 'github' %}?next={{request.path}}">
-          <img src="/static/images/github-logo.svg" alt="githubLogo" width="200" height="200"/>
+          <img src="/static/images/github-logo.svg" alt="githubLogo" width="200" height="200" />
         </a>
-      </div>  
+      </div>
     </div>
 
 
@@ -47,5 +47,6 @@
     </form> -->
   </div>
 </body>
+
 
 {% endblock %}

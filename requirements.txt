@@ -12,6 +12,7 @@ Django==3.0.8
 django-allauth==0.42.0
 django-ckeditor==5.9.0
 django-js-asset==1.2.2
+django-markdown==0.8.4
 django-tinymce==3.0.2
 django-tinymce4-lite==1.7.4
 djangorestframework==3.11.0
@@ -22,10 +23,15 @@ google-auth-httplib2==0.0.4
 google-auth-oauthlib==0.4.1
 googleapis-common-protos==1.52.0
 gunicorn==20.0.4
+htmlmin==0.1.12
 httplib2==0.18.1
 idna==2.10
+Jinja2==2.11.2
 jsmin==2.2.2
 lxml==4.5.2
+Markdown==3.2.2
+markdown-fenced-code-tabs==1.0.5
+MarkupSafe==1.1.1
 oauthlib==3.1.0
 Pillow==7.2.0
 protobuf==3.12.4
@@ -34,6 +40,7 @@ pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
 PyJWT==1.7.1
+pymdown-extensions==7.1
 python-dateutil==2.8.1
 python3-openid==3.2.0
 pytz==2020.1

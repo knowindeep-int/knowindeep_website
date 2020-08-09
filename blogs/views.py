@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
+from bs4 import BeautifulSoup
 import requests
 
 from .models import Blog,BlogTopics, Like, Comment
@@ -45,6 +46,10 @@ def blog_post(request,slug, blog):
     comments = Comment.objects.filter(link_to=blog_content)
     author = blog_content.author_name
     main_blog.increase_view()
+    soup = BeautifulSoup(blog_content.content,"lxml")
+    for heading in soup.find_all(["h1", "h2", "h3"]):
+        print(heading.name + ' ' + heading.text.strip())
+        print(heading)
     context = {
         "main_blog":main_blog.topic,
         "blog_content" : blog_content,
