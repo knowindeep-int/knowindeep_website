@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
-
+    'django.contrib.sites',
+  
+    
     # local
     'to_do_app.apps.ToDoAppConfig',
     'site_users.apps.SiteUsersConfig',
@@ -51,9 +53,6 @@ INSTALLED_APPS = [
 
     # social
     'social_django',
-
-    'markdown_fenced_code_tabs',
-
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -61,6 +60,8 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend'
 ]
+SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -201,14 +202,9 @@ CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
-
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'default',
-        'extraPlugins': ','.join(
-            [
-               'bootstrapTabs',
-            ]
-        ),
+        'toolbar': None,
+        'extraPlugins':['bootstrapTabs']
     },
 }
