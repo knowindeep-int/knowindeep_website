@@ -99,12 +99,12 @@
         // }; 
         console.log("here")
         document.getElementById('googleLogin').onclick = function() {    
-            var url = document.getElementById('googleLogin').getAttribute('google-href')
+            var url = this.getAttribute('google-href')
             window.open(url,"_self")
         };    
 
         document.getElementById('githubLogin').onclick = function() {    
-            var url = document.getElementById('githubLogin').getAttribute('github-href')
+            var url = this.getAttribute('github-href')
             window.open(url,"_self")
         }; 
 
