@@ -37,12 +37,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # other
+    'tinymce',
+    'rest_framework',
+    'ckeditor',
+    'ckeditor_uploader',
+
+    # local
     'to_do_app.apps.ToDoAppConfig',
     'site_users.apps.SiteUsersConfig',
     'blogs.apps.BlogsConfig',
-    'tinymce',
-    'rest_framework'
 
+    # social
+    'social_django',
+
+]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'to_do_list.urls'
@@ -69,6 +85,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -138,6 +156,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
 }
 
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -164,3 +185,22 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (os.path.join(os.path.join(BASE_DIR,'templates'),'static'),)
+
+# LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/google/login/callback/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '409652441762-tbmf33ha4u4adbj6fhd9jlnculv6o8j9.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'JXUZpVkWDSax6neyxglQV5Yb'
+
+SOCIAL_AUTH_GITHUB_KEY = 'Iv1.4532905365c0d4dc'
+SOCIAL_AUTH_GITHUB_SECRET = '1df38b24bdd5a27124b573eb73faf13ad23f0d55'
+
+# ckeditor conf
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
