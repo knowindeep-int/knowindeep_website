@@ -6,11 +6,12 @@
 
     {% block jquery %}
     function updateLikes(likes) {
-        $('#like-btn').addClass('anim-class');
         if (likes == 1) {
             $('#like-btn').addClass('liked');
+            document.getElementById('likeImg').src = "/static/images/heart_active.svg";
         } else {
             $('#like-btn').removeClass('liked');
+            document.getElementById('likeImg').src = "/static/images/heart.svg";
         }
         $('#likes').text(likes)
     }
@@ -25,6 +26,16 @@
         loader.style.display = 'none'
     }
 
+    document.getElementById('googleLogin').onclick = function () {
+        var url = this.getAttribute('google-href')
+        window.open(url,"_self")
+    };
+
+    document.getElementById('githubLogin').onclick = function () {
+        var url = this.getAttribute('github-href')
+        window.open(url,"_self")
+    };
+    
     function updateComment(user, comment) {
         var com = document.getElementById('comments-list')
         hideLoader()
@@ -40,24 +51,29 @@
 
         var commentUrl = this_.attr('data-comment')
         var slug = this_.attr('data-comment-slug')
+            $.ajax({
+                url: commentUrl,
+                method: "POST",
+                data: {
+                    'slug': slug,
+                    'comment_text': document.getElementById('comment').value,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    if (data.success) {
+                        console.log(data.comment)
+                        if (data.comment != "") {
+                            updateComment(data.user, data.comment)
+                        } else {
+                            alert('Please enter a comment')
+                            hideLoader()
+                        }
+                    } else {
 
-        $.ajax({
-            url: commentUrl,
-            method: "POST",
-            data: {
-                'slug': slug,
-                'comment_text': document.getElementById('comment').value,
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function (data) {
-                if (data.success) {
-                    updateComment(data.user, data.comment)
-                } else {
-
-                }
-            }, error: function (error) {
-            },
-        })
+                    }
+                }, error: function (error) {
+                },
+            })
     })
 
     $("#like-btn").click(function (e) {
@@ -101,7 +117,7 @@
     </ol>
 </div>
 <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-2"></div>
+    <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
     <div class="col-sm-12 col-md-12 col-lg-8 container">
         <h2>{{ blog_content.heading }}</h2>
     </div>
@@ -124,13 +140,21 @@
         </ul>
     </div>
 
-    <div class="col-sm-12 col-md-12 col-lg-8 container">
-        <div>
-            <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
+    <div class="col-sm-12 col-md-12 col-lg-8 container" style="margin-top: 0px;">
+
+        <!-- for short desc -->
+        <div class="card-panel">
+            <p>
+                ng essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktoypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktoypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktoypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+            </p>
         </div>
-        <p>
+
+        <p style="margin-top: 50px;" class="container">
             {{ blog_content.content | safe | escape }}
         </p>
+        <div style="margin-top: 150px;">
+            <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
+        </div>
     </div>
 
     <div class="col-sm-12 col-md-12 col-lg-2">
@@ -140,27 +164,27 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" style="margin-top: 150px;">
     <div class="col-sm-12 col-md-6 col-lg-8 center-div">
-        <div class="card-panel grey lighten-5 z-depth-1">
-            <div class="row valign-wrapper">
-                <div class="col-sm-2">
-                    <img src="https://picsum.photos/200" alt="" class="circle responsive-img">
+        <hr>
+        <div class="row valign-wrapper">
+            <div class="col-sm-2">
+                <img src="https://picsum.photos/200" alt="" class="circle responsive-img">
+            </div>
+            <div class="col-sm-10">
+                <div>
+                    <a href="#" class="font-weight-bold">
+                        Name of the author
+                    </a>
                 </div>
-                <div class="col-sm-10">
-                    <div>
-                        <a href="#" class="font-weight-bold">
-                            Name of the author
-                        </a>
-                    </div>
-                    <div>
-                        <span class="black-text">
-                            {{ author.description }}
-                        </span>
-                    </div>
+                <div>
+                    <span class="black-text">
+                        {{ author.description }}
+                    </span>
                 </div>
             </div>
         </div>
+        <hr>
     </div>
 </div>
 
@@ -171,7 +195,7 @@
 </div> -->
 
 
-<div class="row" id="commentsContainer">
+<div class="row" id="commentsContainer" style="margin-top: 150px;">
     <div class="col-sm-12 col-md-6 col-lg-8 container">
         <div class="row no-gutters">
             <div class="col-6">
@@ -180,9 +204,11 @@
             <div class="col-6">
                 <div class="row right vertical-center">
                     {% csrf_token %}
-                    <i onclick="" class="fa fa-thumbs-up icon-btn" id="like-btn"
+                    <i onclick="" class="icon-btn" id="like-btn"
                         data-user="{{ request.user.is_authenticated }}" data-href='{{ blog_content.get_like_url }}'
-                        data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}></i>
+                        data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}>
+                        <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
+                    </i>
                     <p id="likes">{{ blog_content.no_of_likes }}</p>
                 </div>
             </div>
@@ -196,17 +222,41 @@
                 data-comment-slug={{blog_content.slug}} class="btn">
         </div>
         {% else %}
-        <div>
-            <p>Login to comment</p>
+        <div class="row">
+            <div class="col-10">
+                <p>Login to comment</p>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <div class="col-6 center-div">
+                        <a id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
+                        class="icon-btn">
+                        <img src="/static/images/google-logo.svg" alt="googleLogo" width="50px" height="50px" />
+                        </a>
+                    </div>
+                    <div class="col-6 center-div">
+                        <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
+                        <img src="/static/images/github-logo.svg" alt="githubLogo" width="50px" height="50px" />
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endif %}
-        <div id="comments-list">
+        <div id="comments-list" style="margin-top: 50px;">
             <div class="spinner-border text-primary center" role="status" id='comment_loader' style="display: none;">
                 <span class="sr-only">Loading...</span>
             </div>
             {% for comment in comments %}
-            <h5>{{ comment.user.first_name }} {{comment.user.last_name}}</h5>
-            <p>{{ comment.comment_text }}</p>
+            <div class="row">
+                <div class="col-1">
+                    <img src="https://picsum.photos/200" class="circle responsive-img">
+                </div>
+                <div class="col-11">
+                    <h5>{{ comment.user.first_name }} {{comment.user.last_name}}</h5>                
+                    <p>{{ comment.comment_text }}</p>
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>

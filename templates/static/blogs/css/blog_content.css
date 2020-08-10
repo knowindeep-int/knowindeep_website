@@ -4,11 +4,6 @@
     text-align: center;
 }
 
-.container {
-    max-width: none;
-    width: 80%;
-}
-
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
     color: #029BD3;
 }
