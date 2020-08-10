@@ -55,8 +55,8 @@
                         if (data.comment != "") {
                             updateComment(data.user, data.comment)
                         } else {
-                            alert('Please enter a comment')
-                            hideLoader()
+                           // alert('Please enter a comment')
+                           // hideLoader()
                         }
                     } else {
 
@@ -211,9 +211,9 @@
         {% if request.user.is_authenticated %}
         <div class="input-field">
             {% csrf_token %}
-            <input type="text" class="validate" id="comment" placeholder="Enter your comment">
+            <input type="text" class="validate" id="comment" placeholder="Enter your comment" onkeyup="stoppedTyping(this.value)">
             <input type="button" value="Submit" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}"
-                data-comment-slug={{blog_content.slug}} class="btn">
+                data-comment-slug={{blog_content.slug}} class="btn" disabled>
         </div>
         {% else %}
         <div class="row">
@@ -260,8 +260,16 @@
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
-    var dialog = document.getElementById('loginDialog');
-    console.log(dialog)
+
+    function stoppedTyping(value){
+        if(value.length > 0) { 
+            document.getElementById('comment-btn').disabled = false; 
+            console.log('gere')
+        } else { 
+            document.getElementById('comment-btn').disabled = true;
+        }
+    }
+    
     document.getElementById('googleLoginCmt').onclick = function() {    
             var url = this.getAttribute('google-href-cmt')
             window.open(url,"_self")
@@ -271,6 +279,8 @@
             var url = this.getAttribute('github-href-cmt')
             window.open(url,"_self")
         }; 
+
+      
 
 </script>
 
