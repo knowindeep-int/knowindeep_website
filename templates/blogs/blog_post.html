@@ -26,6 +26,16 @@
         loader.style.display = 'none'
     }
 
+    document.getElementById('googleLogin').onclick = function () {
+        var url = this.getAttribute('google-href')
+        window.open(url, "", "width=700, height=700")
+    };
+
+    document.getElementById('githubLogin').onclick = function () {
+        var url = this.getAttribute('github-href')
+        window.open(url, "", "width=700, height=700")
+    };
+    
     function updateComment(user, comment) {
         var com = document.getElementById('comments-list')
         hideLoader()
@@ -207,8 +217,25 @@
                 data-comment-slug={{blog_content.slug}} class="btn">
         </div>
         {% else %}
-        <div>
-            <p>Login to comment</p>
+        <div class="row">
+            <div class="col-10">
+                <p>Login to comment</p>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <div class="col-6 center-div">
+                        <a id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
+                        class="icon-btn">
+                        <img src="/static/images/google-logo.svg" alt="googleLogo" width="50px" height="50px" />
+                        </a>
+                    </div>
+                    <div class="col-6 center-div">
+                        <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
+                        <img src="/static/images/github-logo.svg" alt="githubLogo" width="50px" height="50px" />
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endif %}
         <div id="comments-list" style="margin-top: 50px;">
