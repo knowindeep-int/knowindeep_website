@@ -1,6 +1,6 @@
 /* FOR BASE */
 * {
-    font-family: 'Philosopher', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     font-size: 18px;
     padding: 0px;
     margin: 0px;
@@ -17,11 +17,6 @@ nav#navbar {
 
 a:hover {
     color: brown;
-}
-
-.container {
-    max-width: none;
-    width: 80%;
 }
 
 li a:hover {
@@ -63,6 +58,34 @@ button.btn:hover {
     background-color: #51A6C5;
     color: white;
 }
+
+#loginDialog {
+    border: solid #51A6C5 1px;
+    border-radius: 10px;
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 60%;
+    margin: 5% auto;
+    padding: 60px;
+    overflow: auto; 
+}
+
+.icon-btn:hover{
+    cursor: pointer;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
 
 /* FOR LOGIN PAGE */
 

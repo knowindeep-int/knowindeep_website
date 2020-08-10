@@ -125,12 +125,12 @@
     </div>
 
     <div class="col-sm-12 col-md-12 col-lg-8 container">
+        <p style="margin-top: 0px;" class="container">
+            {{ blog_content.content | safe | escape }}
+        </p>
         <div>
             <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
         </div>
-        <p>
-            {{ blog_content.content | safe | escape }}
-        </p>
     </div>
 
     <div class="col-sm-12 col-md-12 col-lg-2">
