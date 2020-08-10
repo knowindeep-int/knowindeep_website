@@ -28,12 +28,12 @@
 
     document.getElementById('googleLogin').onclick = function () {
         var url = this.getAttribute('google-href')
-        window.open(url, "", "width=700, height=700")
+        window.open(url,"_self")
     };
 
     document.getElementById('githubLogin').onclick = function () {
         var url = this.getAttribute('github-href')
-        window.open(url, "", "width=700, height=700")
+        window.open(url,"_self")
     };
     
     function updateComment(user, comment) {
