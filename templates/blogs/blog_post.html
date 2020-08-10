@@ -51,24 +51,29 @@
 
         var commentUrl = this_.attr('data-comment')
         var slug = this_.attr('data-comment-slug')
+            $.ajax({
+                url: commentUrl,
+                method: "POST",
+                data: {
+                    'slug': slug,
+                    'comment_text': document.getElementById('comment').value,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    if (data.success) {
+                        console.log(data.comment)
+                        if (data.comment != "") {
+                            updateComment(data.user, data.comment)
+                        } else {
+                            alert('Please enter a comment')
+                            hideLoader()
+                        }
+                    } else {
 
-        $.ajax({
-            url: commentUrl,
-            method: "POST",
-            data: {
-                'slug': slug,
-                'comment_text': document.getElementById('comment').value,
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function (data) {
-                if (data.success) {
-                    updateComment(data.user, data.comment)
-                } else {
-
-                }
-            }, error: function (error) {
-            },
-        })
+                    }
+                }, error: function (error) {
+                },
+            })
     })
 
     $("#like-btn").click(function (e) {
@@ -112,7 +117,7 @@
     </ol>
 </div>
 <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-2"></div>
+    <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
     <div class="col-sm-12 col-md-12 col-lg-8 container">
         <h2>{{ blog_content.heading }}</h2>
     </div>
