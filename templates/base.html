@@ -76,28 +76,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="static/js/script.js"></script>
     <script type="text/javascript">
-
-        function myFunc() {
-            var url = document.getElementById('loginLink').getAttribute('data-href')
-            window.open(url, "", "width=700, height=700")
-        }
-
-        // document.getElementById("logInLink").addEventListener("click", function () {
-        //     window.open('url "site_users:login"', "", "width=700, height=700")
-        //     console.log("clicked")
-        // })
     </script>
 
     <script type="text/JavaScript">
     (function() {    
         var dialog = document.getElementById('loginDialog');    
-        document.getElementById('loginLink').onclick = function() {    
-            dialog.show();    
-        };    
-        // document.getElementById('hide').onclick = function() {    
-        //     dialog.close();    
-        // }; 
-        console.log("here")
+        // document.getElementById('loginLink').onclick = function() {    
+        //     dialog.show();    
+        // };    
+        
         document.getElementById('googleLogin').onclick = function() {    
             var url = this.getAttribute('google-href')
             window.open(url,"_self")
@@ -109,6 +96,12 @@
         }; 
 
     })();   
+    </script>
+    <script>
+        $(document).ready(function(){
+        {% block jquery %}
+        {% endblock jquery %}
+        })
     </script>
 
 </body>

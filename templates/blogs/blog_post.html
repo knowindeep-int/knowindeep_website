@@ -35,6 +35,7 @@
     $("#comment-btn").click(function (e) {
         e.preventDefault()
         showLoader()
+        console.log('clicked')
         var this_ = $(this)
 
         var commentUrl = this_.attr('data-comment')
@@ -60,7 +61,6 @@
     })
 
     $("#like-btn").click(function (e) {
-        $('#like-btn').removeClass('anim-class');
         e.preventDefault();
         var this_ = $(this)
         var user = this_.attr('data-user')
