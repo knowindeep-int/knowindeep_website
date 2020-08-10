@@ -45,18 +45,27 @@ def blog_post(request,slug, blog):
     main_blog = Blog.objects.get(slug=slug)
     comments = Comment.objects.filter(link_to=blog_content)
     author = blog_content.author_name
+    has_liked = False
     main_blog.increase_view()
     soup = BeautifulSoup(blog_content.content,"lxml")
     for heading in soup.find_all(["h1", "h2", "h3"]):
         print(heading.name + ' ' + heading.text.strip())
         print(heading)
+    if request.user.is_authenticated:
+        try:
+            blog_content.likes.get(user=request.user)
+            has_liked = True
+        except Like.DoesNotExist:
+            has_liked = False
+
     context = {
         "main_blog":main_blog.topic,
         "blog_content" : blog_content,
         "slug":slug,
         "all_blogs":all_blogs,
         "comments":comments,
-        "author": author
+        "author": author,
+        "has_liked": has_liked
     }
     return render(request,"blogs/blog_post.html", context)
     

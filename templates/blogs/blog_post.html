@@ -5,8 +5,8 @@
 <script type="text/javascript">
 
     {% block jquery %}
-    function updateLikes(likes) {
-        if (likes == 1) {
+    function updateLikes(likes,success) {
+        if (success) {
             $('#like-btn').addClass('liked');
             document.getElementById('likeImg').src = "/static/images/heart_active.svg";
         } else {
@@ -26,16 +26,6 @@
         loader.style.display = 'none'
     }
 
-    document.getElementById('googleLogin').onclick = function () {
-        var url = this.getAttribute('google-href')
-        window.open(url,"_self")
-    };
-
-    document.getElementById('githubLogin').onclick = function () {
-        var url = this.getAttribute('github-href')
-        window.open(url,"_self")
-    };
-    
     function updateComment(user, comment) {
         var com = document.getElementById('comments-list')
         hideLoader()
@@ -92,7 +82,7 @@
                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
                 },
                 success: function (data) {
-                    updateLikes(data.likes)
+                    updateLikes(data.likes,data.success)
                 }, error: function (error) {
 
                 },
@@ -207,7 +197,11 @@
                     <i onclick="" class="icon-btn" id="like-btn"
                         data-user="{{ request.user.is_authenticated }}" data-href='{{ blog_content.get_like_url }}'
                         data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}>
-                        <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
+                       {% if not has_liked %}
+                       <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
+                       {% else %}
+                       <img id="likeImg" src="/static/images/heart_active.svg" style="width: 30px; height: 30px;">
+                       {% endif %}
                     </i>
                     <p id="likes">{{ blog_content.no_of_likes }}</p>
                 </div>
@@ -229,13 +223,13 @@
             <div class="col-2">
                 <div class="row">
                     <div class="col-6 center-div">
-                        <a id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
+                        <a id="googleLoginCmt" google-href-cmt="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
                         class="icon-btn">
                         <img src="/static/images/google-logo.svg" alt="googleLogo" width="50px" height="50px" />
                         </a>
                     </div>
                     <div class="col-6 center-div">
-                        <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
+                        <a id="githubLoginCmt" github-href-cmt="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
                         <img src="/static/images/github-logo.svg" alt="githubLogo" width="50px" height="50px" />
                         </a>
                     </div>
@@ -262,9 +256,22 @@
     </div>
 </div>
 <script>
+    
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
+    var dialog = document.getElementById('loginDialog');
+    console.log(dialog)
+    document.getElementById('googleLoginCmt').onclick = function() {    
+            var url = this.getAttribute('google-href-cmt')
+            window.open(url,"_self")
+        };    
+
+        document.getElementById('githubLoginCmt').onclick = function() {    
+            var url = this.getAttribute('github-href-cmt')
+            window.open(url,"_self")
+        }; 
+
 </script>
 
 
