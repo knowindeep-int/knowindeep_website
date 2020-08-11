@@ -20,24 +20,41 @@
         showLoader()
         $.ajax({
             method: 'GET',
-            url:'{% url "api:blogComments" %}',
+            url: '{% url "api:blogComments" %}',
             data: {
                 'blog_content_slug': '{{ blog_content.slug }}'
             },
-            success: function(data) {
+            success: function (data) {
                 var com = document.getElementById('comments-list')
-                for(var i=0;i<data.length;i++) {
+                for (var i = 0; i < data.length; i++) {
                     com.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data[i].first_name + ' ' + data[i].last_name + '</h5><p>' + data[i].comment_text + '</p></div></div>'
                 }
                 hideLoader()
-            }, 
-            error: function(error) {
+            },
+            error: function (error) {
                 console.log('error')
             }
         })
     }
 
     fetchComments()
+
+    if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+
+    } else {
+        $.ajax({
+            url: '{% url "api:increase_view" %}',
+            method: "POST",
+            data: {
+                'slug': '{{slug}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (data) {
+                    console.log(data)
+            }, error: function (error) {
+            },
+        })
+    }
 
     function updateLikes(likes, success) {
         if (success) {
@@ -304,6 +321,8 @@
     </div>
 </div>
 <script>
+
+
 
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);

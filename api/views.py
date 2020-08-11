@@ -91,3 +91,14 @@ def api_comment_blog_view(request):
         data["comment"] = comment_text
         return Response(data=data)
 
+@api_view(['POST',])
+def increase_post_view(request):
+    if request.method == "POST":
+        slug = request.POST.get('slug')
+        blog = None
+        try:
+            blog = Blog.objects.get(slug=slug)
+            blog.increase_view
+            return Response({"sucess":"updated","no_of_likes":blog.no_of_views})
+        except Blog.DoesNotExist:
+            return Response({"error":"Some error occured"})

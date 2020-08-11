@@ -26,8 +26,7 @@ def topics(request):
 
 def subtopics(request,slug):
     main_blog = Blog.objects.get(slug=slug)
-    main_blog.increase_view()
-    main_blog.save()
+    main_blog.increase_view
     blog = BlogTopics.objects.filter(link_to__slug=slug)
     content = main_blog.topic_content[0:100] + "....."
     print(content)
@@ -44,7 +43,7 @@ def blog_post(request,slug, blog):
     all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
     main_blog = Blog.objects.get(slug=slug)
     author = blog_content.author
-    main_blog.increase_view
+    # main_blog.increase_view
     # soup = BeautifulSoup(blog_content.content,"lxml")
     # for heading in soup.find_all(["h1", "h2", "h3"]):
     #     print(heading.name + ' ' + heading.text.strip())
