@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from blogs.models import Blog, BlogTopics, Like, Comment
 
-from .serializers import BlogSerializer
+from .serializers import BlogSerializer, CommentSerializer
 
 @api_view(['GET',])
 def api_detail_blog_view(request,slug):
@@ -46,11 +46,20 @@ def api_all_detail_view(request):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['GET',])
+def fetchComments(request):
+    comments = None
+    if request.method == 'GET':
+        blog_content_slug = request.GET.get('blog_content_slug')
+        blog_content = BlogTopics.objects.get(slug=blog_content_slug)
+        comments = Comment.objects.filter(link_to=blog_content)
+        commentSerializer = CommentSerializer(comments, many=True)
+        print(commentSerializer.data)
+        return Response(commentSerializer.data)
+
 
 @api_view(['POST',])
 def api_like_blog_view(request):
-    
-    # blog = request.get('blog')
     if request.method == 'POST':
         slug = request.POST.get('slug')
         blog = BlogTopics.objects.get(slug=slug)
@@ -59,15 +68,12 @@ def api_like_blog_view(request):
             like = Like.objects.get(user = request.user)
             like.delete()
             data["success"] = False
-            blog.decreaseLikes()
-            data["likes"] = blog.no_of_likes
+            data["likes"] = blog.like_count
             return Response(data=data)  
-            # return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
         except Like.DoesNotExist:
             like = Like.objects.create(user=request.user, link_to=blog)
-            blog.increaseLikes()
             data["success"] = True
-            data["likes"] = blog.no_of_likes
+            data["likes"] = blog.like_count
             return Response(data=data)
       #  return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
 
@@ -75,7 +81,6 @@ def api_like_blog_view(request):
 def api_comment_blog_view(request):
     data = {}
     data["success"] = False
-    print('called comment')
     if request.method == 'POST':
         slug = request.POST.get('slug')
         blog = BlogTopics.objects.get(slug=slug)
@@ -84,6 +89,16 @@ def api_comment_blog_view(request):
         data["success"] = True
         data["user"] = request.user.first_name
         data["comment"] = comment_text
-        print("data")
         return Response(data=data)
 
+@api_view(['POST',])
+def increase_post_view(request):
+    if request.method == "POST":
+        slug = request.POST.get('slug')
+        blog = None
+        try:
+            blog = Blog.objects.get(slug=slug)
+            blog.increase_view
+            return Response({"sucess":"updated","no_of_likes":blog.no_of_views})
+        except Blog.DoesNotExist:
+            return Response({"error":"Some error occured"})

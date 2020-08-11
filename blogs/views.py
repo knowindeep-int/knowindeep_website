@@ -26,8 +26,6 @@ def topics(request):
 
 def subtopics(request,slug):
     main_blog = Blog.objects.get(slug=slug)
-    main_blog.increase_view()
-    main_blog.save()
     blog = BlogTopics.objects.filter(link_to__slug=slug)
     content = main_blog.topic_content[0:100] + "....."
     print(content)
@@ -35,7 +33,7 @@ def subtopics(request,slug):
         "blogs": blog,
         "blog_heading": slug,
         "main_blog":main_blog,
-        "content":content
+        "content":content,
     }
     return render(request,"blogs/subtopic.html",context)
 
@@ -43,27 +41,18 @@ def blog_post(request,slug, blog):
     blog_content = BlogTopics.objects.get(slug=blog)
     all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
     main_blog = Blog.objects.get(slug=slug)
-    comments = Comment.objects.filter(link_to=blog_content)
-    author = blog_content.author_name
-    has_liked = False
-    main_blog.increase_view()
-    soup = BeautifulSoup(blog_content.content,"lxml")
-    for heading in soup.find_all(["h1", "h2", "h3"]):
-        print(heading.name + ' ' + heading.text.strip())
-        print(heading)
-    if request.user.is_authenticated:
-        try:
-            blog_content.likes.get(user=request.user)
-            has_liked = True
-        except Like.DoesNotExist:
-            has_liked = False
-
+    author = blog_content.author
+    # main_blog.increase_view
+    # soup = BeautifulSoup(blog_content.content,"lxml")
+    # for heading in soup.find_all(["h1", "h2", "h3"]):
+    #     print(heading.name + ' ' + heading.text.strip())
+    #     print(heading)
+    has_liked = blog_content.has_user_liked(request.user)
     context = {
         "main_blog":main_blog.topic,
         "blog_content" : blog_content,
         "slug":slug,
         "all_blogs":all_blogs,
-        "comments":comments,
         "author": author,
         "has_liked": has_liked
     }

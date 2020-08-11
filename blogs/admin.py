@@ -5,7 +5,7 @@ from .models import BlogTopics, Blog, Comment, Author, Like
 # from django.apps import apps
 
 # models = apps.get_models()
-
+                                                        # This can be used to register all models in the app
 # for model in models:
 #     try:
 #         admin.site.register(model)
@@ -14,9 +14,8 @@ from .models import BlogTopics, Blog, Comment, Author, Like
 
 class BlogTopicsInline(admin.StackedInline):
     model = BlogTopics
-    fields = ['author_name','no_of_likes','description','heading','youtube_link','content',]
+    fields = ['author','description','heading','youtube_link','content',]
     extra = 1
-    readonly_fields = ['no_of_likes']
 
     
     
@@ -34,9 +33,8 @@ class CommentInline(admin.StackedInline):
 
 class BlogTopicAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author_name','link_to','heading','youtube_link','content','no_of_likes','description']})
+        (None, {'fields':['author','link_to','heading','youtube_link','content','description']})
     ]
-    readonly_fields = ['no_of_likes']
     inlines = [LikeInline,CommentInline]
     search_fields = ['heading','content']
 

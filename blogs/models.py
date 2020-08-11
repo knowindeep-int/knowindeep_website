@@ -33,6 +33,7 @@ class Blog(models.Model):
     def __str__(self):
         return self.topic
 
+    @property
     def increase_view(self):
         self.no_of_views += 1
         self.save()
@@ -41,7 +42,7 @@ class Blog(models.Model):
 
 class BlogTopics(models.Model):
     link_to = models.ForeignKey(Blog,on_delete=models.CASCADE, null=True,default=None)
-    author_name = models.ForeignKey(Author,on_delete=models.CASCADE, null=True, blank=True)
+    author = models.ForeignKey(Author,on_delete=models.CASCADE, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
    # content = models.CharField(max_length=1000, null=False,blank=False)
@@ -50,7 +51,7 @@ class BlogTopics(models.Model):
     content = RichTextUploadingField()
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)
-    no_of_likes = models.IntegerField(default=0)
+    # no_of_likes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "Blog Topics"
@@ -67,7 +68,7 @@ class BlogTopics(models.Model):
 
     @property
     def like_count(self):
-        return Like.objects.get(link_to=self).no_of_likes
+        return Like.objects.filter(link_to=self).count()
 
     def comments(self):
         return Comment.objects.filter(link_to=self)    
@@ -79,6 +80,14 @@ class BlogTopics(models.Model):
     def decreaseLikes(self):
         self.no_of_likes -= 1
         self.save()
+
+    def has_user_liked(self,user):
+        try:
+            self.likes.get(user=user)
+            return True
+        except Like.DoesNotExist:
+            has_liked = False
+            return False
     
 
 class Like(models.Model):
