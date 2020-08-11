@@ -2,11 +2,42 @@
 
 {% load static %}
 
+<div class="row">
+    <div class="col-1">
+        <span class="glyphicon glyphicon-user"></span>
+    </div>
+    <div class="col-11">
+        <h5>{{ comment.user.first_name }} {{comment.user.last_name}}</h5>
+        <p>{{ comment.comment_text }}</p>
+    </div>
+</div>
+
 <script type="text/javascript">
 
     {% block jquery %}
 
-    console.log('loaded')
+    function fetchComments() {
+        showLoader()
+        $.ajax({
+            method: 'GET',
+            url:'{% url "api:blogComments" %}',
+            data: {
+                'blog_content_slug': '{{ blog_content.slug }}'
+            },
+            success: function(data) {
+                var com = document.getElementById('comments-list')
+                for(var i=0;i<data.length;i++) {
+                    com.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data[i].first_name + ' ' + data[i].last_name + '</h5><p>' + data[i].comment_text + '</p></div></div>'
+                }
+                hideLoader()
+            }, 
+            error: function(error) {
+                console.log('error')
+            }
+        })
+    }
+
+    fetchComments()
 
     function updateLikes(likes, success) {
         if (success) {
@@ -258,7 +289,7 @@
             <div class="spinner-border text-primary center" role="status" id='comment_loader' style="display: none;">
                 <span class="sr-only">Loading...</span>
             </div>
-            {% for comment in comments %}
+            <!-- {% for comment in comments %}
             <div class="row">
                 <div class="col-1">
                     <span class="glyphicon glyphicon-user"></span>
@@ -268,7 +299,7 @@
                     <p>{{ comment.comment_text }}</p>
                 </div>
             </div>
-            {% endfor %}
+            {% endfor %} -->
         </div>
     </div>
 </div>

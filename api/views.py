@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from blogs.models import Blog, BlogTopics, Like, Comment
 
-from .serializers import BlogSerializer
+from .serializers import BlogSerializer, CommentSerializer
 
 @api_view(['GET',])
 def api_detail_blog_view(request,slug):
@@ -45,6 +45,17 @@ def api_all_detail_view(request):
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET',])
+def fetchComments(request):
+    comments = None
+    if request.method == 'GET':
+        blog_content_slug = request.GET.get('blog_content_slug')
+        blog_content = BlogTopics.objects.get(slug=blog_content_slug)
+        comments = Comment.objects.filter(link_to=blog_content)
+        commentSerializer = CommentSerializer(comments, many=True)
+        print(commentSerializer.data)
+        return Response(commentSerializer.data)
 
 
 @api_view(['POST',])

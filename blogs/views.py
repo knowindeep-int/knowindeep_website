@@ -43,7 +43,6 @@ def blog_post(request,slug, blog):
     blog_content = BlogTopics.objects.get(slug=blog)
     all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
     main_blog = Blog.objects.get(slug=slug)
-    comments = Comment.objects.filter(link_to=blog_content)
     author = blog_content.author_name
     has_liked = False
     main_blog.increase_view()
@@ -57,13 +56,11 @@ def blog_post(request,slug, blog):
             has_liked = True
         except Like.DoesNotExist:
             has_liked = False
-
     context = {
         "main_blog":main_blog.topic,
         "blog_content" : blog_content,
         "slug":slug,
         "all_blogs":all_blogs,
-        "comments":comments,
         "author": author,
         "has_liked": has_liked
     }
