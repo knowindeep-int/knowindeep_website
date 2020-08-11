@@ -60,8 +60,6 @@ def fetchComments(request):
 
 @api_view(['POST',])
 def api_like_blog_view(request):
-    
-    # blog = request.get('blog')
     if request.method == 'POST':
         slug = request.POST.get('slug')
         blog = BlogTopics.objects.get(slug=slug)
@@ -70,15 +68,12 @@ def api_like_blog_view(request):
             like = Like.objects.get(user = request.user)
             like.delete()
             data["success"] = False
-            blog.decreaseLikes()
-            data["likes"] = blog.no_of_likes
+            data["likes"] = blog.like_count
             return Response(data=data)  
-            # return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
         except Like.DoesNotExist:
             like = Like.objects.create(user=request.user, link_to=blog)
-            blog.increaseLikes()
             data["success"] = True
-            data["likes"] = blog.no_of_likes
+            data["likes"] = blog.like_count
             return Response(data=data)
       #  return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
 
@@ -86,7 +81,6 @@ def api_like_blog_view(request):
 def api_comment_blog_view(request):
     data = {}
     data["success"] = False
-    print('called comment')
     if request.method == 'POST':
         slug = request.POST.get('slug')
         blog = BlogTopics.objects.get(slug=slug)
@@ -95,6 +89,5 @@ def api_comment_blog_view(request):
         data["success"] = True
         data["user"] = request.user.first_name
         data["comment"] = comment_text
-        print("data")
         return Response(data=data)
 

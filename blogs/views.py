@@ -50,12 +50,7 @@ def blog_post(request,slug, blog):
     for heading in soup.find_all(["h1", "h2", "h3"]):
         print(heading.name + ' ' + heading.text.strip())
         print(heading)
-    if request.user.is_authenticated:
-        try:
-            blog_content.likes.get(user=request.user)
-            has_liked = True
-        except Like.DoesNotExist:
-            has_liked = False
+    has_liked = blog_content.has_user_liked(request.user)
     context = {
         "main_blog":main_blog.topic,
         "blog_content" : blog_content,

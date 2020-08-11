@@ -50,7 +50,7 @@ class BlogTopics(models.Model):
     content = RichTextUploadingField()
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)
-    no_of_likes = models.IntegerField(default=0)
+    # no_of_likes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "Blog Topics"
@@ -67,7 +67,7 @@ class BlogTopics(models.Model):
 
     @property
     def like_count(self):
-        return Like.objects.get(link_to=self).no_of_likes
+        return Like.objects.filter(link_to=self).count()
 
     def comments(self):
         return Comment.objects.filter(link_to=self)    
@@ -79,6 +79,14 @@ class BlogTopics(models.Model):
     def decreaseLikes(self):
         self.no_of_likes -= 1
         self.save()
+
+    def has_user_liked(self,user):
+        try:
+            self.likes.get(user=user)
+            return True
+        except Like.DoesNotExist:
+            has_liked = False
+            return False
     
 
 class Like(models.Model):
