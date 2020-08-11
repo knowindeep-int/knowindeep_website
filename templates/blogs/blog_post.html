@@ -8,7 +8,7 @@
 
     console.log('loaded')
 
-    function updateLikes(likes,success) {
+    function updateLikes(likes, success) {
         if (success) {
             $('#like-btn').addClass('liked');
             document.getElementById('likeImg').src = "/static/images/heart_active.svg";
@@ -44,29 +44,29 @@
 
         var commentUrl = this_.attr('data-comment')
         var slug = this_.attr('data-comment-slug')
-            $.ajax({
-                url: commentUrl,
-                method: "POST",
-                data: {
-                    'slug': slug,
-                    'comment_text': document.getElementById('comment').value,
-                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-                },
-                success: function (data) {
-                    if (data.success) {
-                        console.log(data.comment)
-                        if (data.comment != "") {
-                            updateComment(data.user, data.comment)
-                        } else {
-                           // alert('Please enter a comment')
-                           // hideLoader()
-                        }
+        $.ajax({
+            url: commentUrl,
+            method: "POST",
+            data: {
+                'slug': slug,
+                'comment_text': document.getElementById('comment').value,
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (data) {
+                if (data.success) {
+                    console.log(data.comment)
+                    if (data.comment != "") {
+                        updateComment(data.user, data.comment)
                     } else {
-
+                        // alert('Please enter a comment')
+                        // hideLoader()
                     }
-                }, error: function (error) {
-                },
-            })
+                } else {
+
+                }
+            }, error: function (error) {
+            },
+        })
     })
 
     $("#like-btn").click(function (e) {
@@ -85,7 +85,7 @@
                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
                 },
                 success: function (data) {
-                    updateLikes(data.likes,data.success)
+                    updateLikes(data.likes, data.success)
                 }, error: function (error) {
 
                 },
@@ -138,7 +138,18 @@
         <!-- for short desc -->
         <div class="card-panel">
             <p>
-                ng essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktoypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktoypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktoypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                ng essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages, and more recently with desktoypesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktoypesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                recently with desktoypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown
             </p>
         </div>
 
@@ -162,7 +173,7 @@
         <hr>
         <div class="row valign-wrapper">
             <div class="col-sm-2">
-                <img src="https://picsum.photos/200" alt="" class="circle responsive-img">
+                <img src="glyphicon glyphicon-user" alt="" class="circle responsive-img">
             </div>
             <div class="col-sm-10">
                 <div>
@@ -197,14 +208,14 @@
             <div class="col-6">
                 <div class="row right vertical-center">
                     {% csrf_token %}
-                    <i onclick="" class="icon-btn" id="like-btn"
-                        data-user="{{ request.user.is_authenticated }}" data-href='{{ blog_content.get_like_url }}'
-                        data-slug={{blog_content.slug}} data-likes={{blog_content.no_of_likes}}>
-                       {% if not has_liked %}
-                       <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
-                       {% else %}
-                       <img id="likeImg" src="/static/images/heart_active.svg" style="width: 30px; height: 30px;">
-                       {% endif %}
+                    <i onclick="" class="icon-btn" id="like-btn" data-user="{{ request.user.is_authenticated }}"
+                        data-href='{{ blog_content.get_like_url }}' data-slug={{blog_content.slug}}
+                        data-likes={{blog_content.no_of_likes}}>
+                        {% if not has_liked %}
+                        <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
+                        {% else %}
+                        <img id="likeImg" src="/static/images/heart_active.svg" style="width: 30px; height: 30px;">
+                        {% endif %}
                     </i>
                     <p id="likes">{{ blog_content.no_of_likes }}</p>
                 </div>
@@ -214,7 +225,8 @@
         {% if request.user.is_authenticated %}
         <div class="input-field">
             {% csrf_token %}
-            <input type="text" class="validate" id="comment" placeholder="Enter your comment" onkeyup="stoppedTyping(this.value)">
+            <input type="text" class="validate" id="comment" placeholder="Enter your comment"
+                onkeyup="stoppedTyping(this.value)">
             <input type="button" value="Submit" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}"
                 data-comment-slug={{blog_content.slug}} class="btn" disabled>
         </div>
@@ -226,14 +238,16 @@
             <div class="col-2">
                 <div class="row">
                     <div class="col-6 center-div">
-                        <a id="googleLoginCmt" google-href-cmt="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
-                        class="icon-btn">
-                        <img src="/static/images/google-logo.svg" alt="googleLogo" width="50px" height="50px" />
+                        <a id="googleLoginCmt"
+                            google-href-cmt="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
+                            class="icon-btn">
+                            <img src="/static/images/google-logo.svg" alt="googleLogo" width="50px" height="50px" />
                         </a>
                     </div>
                     <div class="col-6 center-div">
-                        <a id="githubLoginCmt" github-href-cmt="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
-                        <img src="/static/images/github-logo.svg" alt="githubLogo" width="50px" height="50px" />
+                        <a id="githubLoginCmt" github-href-cmt="{% url 'social:begin' 'github' %}?next={{request.path}}"
+                            class="icon-btn">
+                            <img src="/static/images/github-logo.svg" alt="githubLogo" width="50px" height="50px" />
                         </a>
                     </div>
                 </div>
@@ -247,10 +261,10 @@
             {% for comment in comments %}
             <div class="row">
                 <div class="col-1">
-                    <img src="https://picsum.photos/200" class="circle responsive-img">
+                    <span class="glyphicon glyphicon-user"></span>
                 </div>
                 <div class="col-11">
-                    <h5>{{ comment.user.first_name }} {{comment.user.last_name}}</h5>                
+                    <h5>{{ comment.user.first_name }} {{comment.user.last_name}}</h5>
                     <p>{{ comment.comment_text }}</p>
                 </div>
             </div>
@@ -259,31 +273,31 @@
     </div>
 </div>
 <script>
- 
+
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
 
-    function stoppedTyping(value){
-        if(value.length > 0) { 
-            document.getElementById('comment-btn').disabled = false; 
+    function stoppedTyping(value) {
+        if (value.length > 0) {
+            document.getElementById('comment-btn').disabled = false;
             console.log('gere')
-        } else { 
+        } else {
             document.getElementById('comment-btn').disabled = true;
         }
     }
-    
-    document.getElementById('googleLoginCmt').onclick = function() {    
-            var url = this.getAttribute('google-href-cmt')
-            window.open(url,"_self")
-        };    
 
-        document.getElementById('githubLoginCmt').onclick = function() {    
-            var url = this.getAttribute('github-href-cmt')
-            window.open(url,"_self")
-        }; 
+    document.getElementById('googleLoginCmt').onclick = function () {
+        var url = this.getAttribute('google-href-cmt')
+        window.open(url, "_self")
+    };
 
-      
+    document.getElementById('githubLoginCmt').onclick = function () {
+        var url = this.getAttribute('github-href-cmt')
+        window.open(url, "_self")
+    };
+
+
 
 </script>
 
