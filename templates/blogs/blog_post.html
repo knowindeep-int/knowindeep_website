@@ -5,6 +5,9 @@
 <script type="text/javascript">
 
     {% block jquery %}
+
+    console.log('loaded')
+
     function updateLikes(likes,success) {
         if (success) {
             $('#like-btn').addClass('liked');
@@ -256,7 +259,7 @@
     </div>
 </div>
 <script>
-    
+ 
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
