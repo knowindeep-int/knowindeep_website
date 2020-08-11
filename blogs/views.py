@@ -43,13 +43,12 @@ def blog_post(request,slug, blog):
     blog_content = BlogTopics.objects.get(slug=blog)
     all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
     main_blog = Blog.objects.get(slug=slug)
-    author = blog_content.author_name
-    has_liked = False
-    main_blog.increase_view()
-    soup = BeautifulSoup(blog_content.content,"lxml")
-    for heading in soup.find_all(["h1", "h2", "h3"]):
-        print(heading.name + ' ' + heading.text.strip())
-        print(heading)
+    author = blog_content.author
+    main_blog.increase_view
+    # soup = BeautifulSoup(blog_content.content,"lxml")
+    # for heading in soup.find_all(["h1", "h2", "h3"]):
+    #     print(heading.name + ' ' + heading.text.strip())
+    #     print(heading)
     has_liked = blog_content.has_user_liked(request.user)
     context = {
         "main_blog":main_blog.topic,

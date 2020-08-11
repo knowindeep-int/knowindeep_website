@@ -33,6 +33,7 @@ class Blog(models.Model):
     def __str__(self):
         return self.topic
 
+    @property
     def increase_view(self):
         self.no_of_views += 1
         self.save()
@@ -41,7 +42,7 @@ class Blog(models.Model):
 
 class BlogTopics(models.Model):
     link_to = models.ForeignKey(Blog,on_delete=models.CASCADE, null=True,default=None)
-    author_name = models.ForeignKey(Author,on_delete=models.CASCADE, null=True, blank=True)
+    author = models.ForeignKey(Author,on_delete=models.CASCADE, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
    # content = models.CharField(max_length=1000, null=False,blank=False)
