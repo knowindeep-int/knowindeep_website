@@ -80,7 +80,7 @@
     function updateComment(user, comment) {
         var com = document.getElementById('comments-list')
         hideLoader()
-        com.innerHTML = '<h5>{{user}}</h5><p>' + comment + '</p>' + com.innerHTML
+        com.innerHTML = '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>{{user.first_name}} {{user.last_name}}</h5><p>' + comment + '</p></div></div>' + com.innerHTML
         document.getElementById('comment').value = ''
     }
 

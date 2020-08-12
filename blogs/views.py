@@ -27,12 +27,10 @@ def topics(request):
 def subtopics(request,slug):
     main_blog = Blog.objects.get(slug=slug)
     blog = BlogTopics.objects.filter(link_to__slug=slug)
-    content = main_blog.topic_content[0:100] + "....."
     context = {
         "blogs": blog,
         "blog_heading": slug,
         "main_blog":main_blog,
-        "content":content,
     }
     return render(request,"blogs/subtopic.html",context)
 
