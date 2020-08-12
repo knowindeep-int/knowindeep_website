@@ -52,7 +52,7 @@ def fetchComments(request):
     if request.method == 'GET':
         blog_content_slug = request.GET.get('blog_content_slug')
         blog_content = BlogTopics.objects.get(slug=blog_content_slug)
-        comments = Comment.objects.filter(link_to=blog_content)
+        comments = Comment.objects.filter(link_to=blog_content).order_by('-timestamp')
         commentSerializer = CommentSerializer(comments, many=True)
         print(commentSerializer.data)
         return Response(commentSerializer.data)
