@@ -7,17 +7,6 @@ import requests
 
 from .models import Blog,BlogTopics, Like, Comment
 
-
-def like_blog(request,slug,blog):
-   try:
-       like = Like.objects.get(user = request.user)
-       like.delete()     
-       return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
-   except Like.DoesNotExist:
-        like = Like.objects.create(user=request.user, link_to=BlogTopics.objects.get(slug=slug))
-        return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
-   
-
 def topics(request):
     context = {
         "blogs":Blog.objects.all().order_by('-no_of_views')
