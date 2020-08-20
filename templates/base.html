@@ -20,9 +20,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
+
+
 <body>
-    <nav id="navbar">
-        <div class="nav-wrapper container">
+
+    <nav id="navbar" class="navbar-default navbar-fixed-top">
+        <div class="nav-wrapper container ">
             <a href="{% url 'blogs:index' %}">
                 <img src="/static/images/kid-white.png" class="brand-logo" alt="brandLogo" height="100%">
             </a>
@@ -86,8 +89,10 @@
         <li><button href="{% url 'site_users:logout' %}" class="waves-effect waves-light btn">Log Out</button></li>
     </ul>
 
-    {%block content %}
-    {% endblock %}
+    <div class="container">
+        {%block content %}
+        {% endblock %}
+    </div>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax /libs/materialize/1.0.0/js/materialize.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

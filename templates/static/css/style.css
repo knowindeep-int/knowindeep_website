@@ -12,8 +12,15 @@ body {
 
 nav#navbar {
     background-color: #1D1B1C;
+    overflow: hidden;
+    position: fixed;
 }
 
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
 
 a:hover {
     color: brown;
