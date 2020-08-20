@@ -99,6 +99,6 @@ def increase_post_view(request):
         try:
             blog = Blog.objects.get(slug=slug)
             blog.increase_view
-            return Response({"sucess":"updated","no_of_likes":blog.no_of_views})
+            return Response({"sucess":"updated","no_of_views":blog.no_of_views})
         except Blog.DoesNotExist:
             return Response({"error":"Some error occured"})
