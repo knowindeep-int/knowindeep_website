@@ -204,9 +204,11 @@
         <p style="margin-top: 50px;" class="container">
             {{ blog_content.content | safe | escape }}
         </p>
+        {% if blog_content.youtube_link %}
         <div style="margin-top: 150px;">
             <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
         </div>
+        {% endif %}
     </div>
 
     <div class="col-sm-12 col-md-12 col-lg-2">
@@ -273,7 +275,7 @@
         {% if request.user.is_authenticated %}
         <div class="input-field">
             {% csrf_token %}
-            <input type="text" class="validate" id="comment" placeholder="Enter your comment"
+            <input type="text" class="validate" id="comment" placeholder="Enter your comment" autocomplete="off"
                 onkeyup="stoppedTyping(this.value)">
             <input type="button" value="Submit" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}"
                 data-comment-slug={{blog_content.slug}} class="btn" disabled>

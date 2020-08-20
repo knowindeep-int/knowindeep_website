@@ -82,12 +82,13 @@ class BlogTopics(models.Model):
         self.save()
 
     def has_user_liked(self,user):
-        try:
-            self.likes.get(user=user)
-            return True
-        except Like.DoesNotExist:
-            has_liked = False
-            return False
+        if not user.is_anonymous:
+            try:
+                self.likes.get(user=user)
+                return True
+            except Like.DoesNotExist:
+                has_liked = False
+                return False
     
 
 class Like(models.Model):
