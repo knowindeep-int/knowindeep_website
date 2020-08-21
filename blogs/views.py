@@ -46,5 +46,4 @@ def blog_post(request,slug, blog):
     
 
 def error404(request, exception):
-    print("called 404")
     return HttpResponse("error")

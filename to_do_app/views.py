@@ -13,7 +13,6 @@ def index(request):
 
 @login_required(login_url='site_users:login')
 def add_todo(request):
-    print(request)
     added_date = timezone.now()
     content = request.POST["content"]
     if content == "" or None:

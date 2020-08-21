@@ -18,7 +18,6 @@ def login_page(request):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
-            print(user)
             return redirect(reverse('blogs:index'))
         else:
             error = "Username or password is incorrect"
@@ -48,9 +47,6 @@ def register_page(request):
             return redirect(reverse('site_users:login'))
         else:
             data = form.errors
-            print(form.errors)
-            print(request.POST.get('password1'))
-            print(request.POST.get('password2'))
             errors = json.dumps(data.as_json.__self__)
             errors_list = list(json.loads(errors).keys())
             if errors_list[0] == 'password2':

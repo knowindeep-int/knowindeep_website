@@ -116,21 +116,8 @@ def create_blog(sender, instance, created,**kwargs):
     if instance.id is not None:
         Blog.objects.create(topic=str(instance))
 
-def save_blog(sender, instance, *args,**kwargs):
-    # BlogTopics.objects.create(instance)
-    if instance.id is not None:
-        print(Blog.objects.create(topic = str(instance)))
-
-
-
-
-# pre_save.connect(save_blog, sender=Blog)
-# post_save.connect(save_blog, sender=Blog)
-
-
 
 def r_pre_save_receiever(sender,instance,*args,**kwargs):
-    print('saving')
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
         instance.save()
