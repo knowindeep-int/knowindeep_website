@@ -217,16 +217,16 @@
     </div>
 </div>
 
-<div class="row" style="margin-top: 150px;">
+<div class="row" style="margin-top: 150px; height: 100px;">
     <div class="col-sm-12 col-md-6 col-lg-8 center-div">
         <hr>
         <div class="row valign-wrapper">
             <div class="col-sm-2">
-                <img src="glyphicon glyphicon-user" alt="" class="circle responsive-img">
+                <img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" class="circle responsive-img">
             </div>
             <div class="col-sm-10">
                 <div>
-                    <a href="#" class="font-weight-bold">
+                    <a href="{% url 'author:author_page' slug='some' %}" target="_blank" class="font-weight-bold">
                         Name of the author
                     </a>
                 </div>
@@ -307,17 +307,6 @@
             <div class="spinner-border text-primary center" role="status" id='comment_loader' style="display: none;">
                 <span class="sr-only">Loading...</span>
             </div>
-            <!-- {% for comment in comments %}
-            <div class="row">
-                <div class="col-1">
-                    <span class="glyphicon glyphicon-user"></span>
-                 </div>
-                <div class="col-11">
-                    <h5>{{ comment.user.first_name }} {{comment.user.last_name}}</h5>
-                    <p>{{ comment.comment_text }}</p>
-                </div>
-            </div>
-            {% endfor %} -->
         </div>
     </div>
 </div>
