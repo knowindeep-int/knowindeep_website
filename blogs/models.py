@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.urls import reverse
 import markdown
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.db.models import Max, Min
 
 from django.contrib.auth.models import User
 
@@ -65,6 +66,33 @@ class BlogTopics(models.Model):
     def get_comment_url(self):
         return reverse("api:comment-post")
 
+    @property
+    def get_next_blog(self):
+        blogTopics = None
+        maxID = BlogTopics.objects.aggregate(Max('id'))
+        if not self.id == maxID['id__max']:
+            for i in (self.id + 1,maxID['id__max']):
+                try:
+                    blogTopics = BlogTopics.objects.get(id = i, link_to=self.link_to)
+                except BlogTopics.DoesNotExist:
+                    pass
+                if blogTopics:
+                    return blogTopics
+            return blogTopics
+
+    @property
+    def get_previous_blog(self):
+        blogTopics = None
+        minID = BlogTopics.objects.aggregate(Min('id'))
+        if not self.id == minID['id__min']:
+            for i in (self.id - 1,minID['id__min'],-1):
+                try:
+                    blogTopics = BlogTopics.objects.get(id = i, link_to=self.link_to)
+                except BlogTopics.DoesNotExist:
+                    pass
+                if blogTopics:
+                    return blogTopics
+            return blogTopics
 
     @property
     def like_count(self):

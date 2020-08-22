@@ -33,6 +33,7 @@ def blog_post(request,slug, blog):
     # for heading in soup.find_all(["h1", "h2", "h3"]):
     #     print(heading.name + ' ' + heading.text.strip())
     #     print(heading)
+    # print(str(blog_content.get_next_blog) + str(blog_content.get_previous_blog))
     has_liked = blog_content.has_user_liked(request.user)
     context = {
         "main_blog":main_blog.topic,
