@@ -47,7 +47,6 @@ INSTALLED_APPS = [
   
     
     # local
-    'to_do_app.apps.ToDoAppConfig',
     'site_users.apps.SiteUsersConfig',
     'blogs.apps.BlogsConfig',
     'author.apps.AuthorConfig',

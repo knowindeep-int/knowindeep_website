@@ -27,7 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('author/',include('author.urls')),
-    # path('todo/',include('to_do_app.urls')),
     path('site/user/',include('site_users.urls')),
     path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
