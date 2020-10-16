@@ -35,6 +35,13 @@
                 <li><a href="{% url 'blogs:index' %}">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
+                {% if request.user.is_superuser %}
+               <li>
+                <a href="#" >
+                    All Blogs
+                </a>
+               </li>
+                {% endif %}
                 <li><button class="waves-effect waves-light btn" id="logInBtn">
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'site_users:logout' %}" style="display: block; width: 100%;">
