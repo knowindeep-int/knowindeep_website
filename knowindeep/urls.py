@@ -1,4 +1,4 @@
-"""to_do_list URL Configuration
+"""knowindeep URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -27,7 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('author/',include('author.urls')),
-    # path('todo/',include('to_do_app.urls')),
     path('site/user/',include('site_users.urls')),
     path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
