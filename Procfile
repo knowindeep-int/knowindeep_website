@@ -1,1 +1,1 @@
-web: gunicorn to_do_list.wsgi --log-file -
+web: gunicorn knowindeep.wsgi --log-file -
