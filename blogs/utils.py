@@ -27,3 +27,18 @@ def unique_slug_generator(instance,new_slug=None):
         new_slug = "{slug}-{randstr}".format(slug=slug,randstr=random_string_generator(size=4))
         return unique_slug_generator(instance, new_slug=new_slug)
     return slug
+
+
+def save_user(backend, user, response, *args, **kwargs):
+    print(backend)
+    print(response['email'])
+    # print(request.user.username)
+    print("request here")
+
+    user = models.Profile(
+        name = response['name'],
+        email_id = response['email'],
+        dp = response['picture']
+    )
+
+    user.save()
