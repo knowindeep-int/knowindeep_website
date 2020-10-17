@@ -45,35 +45,34 @@
                </li>
                 {% endif %}
 
-                        {% if request.user.is_authenticated %}
-                        <li><div class="dropdown">
-          <i class="fa fa-user-circle " type="button" id="logInBtn" data-toggle="dropdown" >
-
-        </i>
+        {% if request.user.is_authenticated %}
+        <li><div class="dropdown">
+            <i class="fa fa-user-circle " type="button" id="logInBtn" data-toggle="dropdown" >
+            </i>
         <div>
           <div class="dropdown-menu" >
           <a class="dropdown-item" href="#">Name</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">XXXXXXX</a>
-          <a class="dropdown-item" href="#">XXXXXXX</a>
-          <a class="dropdown-item" href="#">XXXXXXX</a>
-          <a class="dropdown-item" href="#">XXXXXXX</a>
-          <a class="dropdown-item" href="#">XXXXXXX</a>
-          <a class="dropdown-item" href="{% url 'site_users:logout' %}">Log Out</a>
-          </div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">XXXXXXX</a>
+            <a class="dropdown-item" href="#">XXXXXXX</a>
+            <a class="dropdown-item" href="#">XXXXXXX</a>
+            <a class="dropdown-item" href="#">XXXXXXX</a>
+            <a class="dropdown-item" href="#">XXXXXXX</a>
+            <a class="dropdown-item" href="{% url 'site_users:logout' %}">Log Out</a>
+            </div>
           </div>
         </div>
-          </li>
+        </li>
 
-                        {% else %}
-                        <li>
-                        <button class="waves-effect waves-light btn" id="logInBtn">
-                        <a id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog" type="button">
-                            Login
-                        </a>
-                        </button>
-                      </li>
-                        {% endif %}
+        {% else %}
+        <li>
+        <button class="waves-effect waves-light btn" id="logInBtn">
+        <a id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog" type="button">
+            Login
+        </a>
+        </button>
+        </li>
+        {% endif %}
 
             </ul>
         </div>
