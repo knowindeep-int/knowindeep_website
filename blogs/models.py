@@ -48,7 +48,7 @@ class BlogTopics(models.Model):
    # content = models.CharField(max_length=1000, null=False,blank=False)
     description = models.CharField(max_length=300,blank=True,null=True)
   #  content = HTMLField()
-    content = RichTextUploadingField()
+    content = RichTextUploadingField(blank=True,null=True)
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)
     # no_of_likes = models.IntegerField(default=0)
