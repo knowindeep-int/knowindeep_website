@@ -46,7 +46,7 @@
                 {% endif %}
 
         {% if request.user.is_authenticated %}
-        <li><div class="dropdown">
+        <!-- <li><div class="dropdown">
             <i class="fa fa-user-circle " type="button" id="logInBtn" data-toggle="dropdown" >
             </i>
         <div>
@@ -62,8 +62,12 @@
             </div>
           </div>
         </div>
-        </li>
-
+        </li> -->
+        <div class="dropdown-content" id="myDropdown">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
         {% else %}
         <li>
         <button class="waves-effect waves-light btn" id="logInBtn">
