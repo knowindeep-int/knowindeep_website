@@ -5,16 +5,16 @@ from django.urls import reverse, reverse_lazy
 from bs4 import BeautifulSoup
 import requests
 
-from .models import Blog,BlogTopics, Like, Comment
+from .models import Project,BlogTopics, Like, Comment
 
 def topics(request):
     context = {
-        "blogs":Blog.objects.all().order_by('-no_of_views')
+        "projects":Project.objects.all().order_by('-no_of_views')
     }
     return render(request,"blogs/index.html",context)
 
 def subtopics(request,slug):
-    main_blog = Blog.objects.get(slug=slug)
+    main_blog = Project.objects.get(slug=slug)
     blog = BlogTopics.objects.filter(link_to__slug=slug)
     context = {
         "blogs": blog,
@@ -26,7 +26,7 @@ def subtopics(request,slug):
 def blog_post(request,slug, blog):
     blog_content = BlogTopics.objects.get(slug=blog)
     all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
-    main_blog = Blog.objects.get(slug=slug)
+    main_blog = Project.objects.get(slug=slug)
     author = blog_content.author
     # main_blog.increase_view
     # soup = BeautifulSoup(blog_content.content,"lxml")

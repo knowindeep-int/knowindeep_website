@@ -5,14 +5,14 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
-from blogs.models import Blog, BlogTopics, Like, Comment
+from blogs.models import Project, BlogTopics, Like, Comment
 
 from .serializers import BlogSerializer, CommentSerializer
 
 @api_view(['GET',])
 def api_detail_blog_view(request,slug):
     
-    blog = get_object_or_404(Blog,slug=slug)
+    blog = get_object_or_404(Project,slug=slug)
 
 
     if request.method == 'GET':
@@ -25,7 +25,7 @@ def api_detail_blog_view(request,slug):
 
 @api_view(['PUT',])
 def api_detail_blog_update_view(request,slug):
-    blog = get_object_or_404(Blog,slug=slug) 
+    blog = get_object_or_404(Project,slug=slug) 
     if request.method == "PUT":
         if blog is not None:
             serializer = BlogSerializer(blog,data=request.data)

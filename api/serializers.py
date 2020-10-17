@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from blogs.models import Blog, Comment
+from blogs.models import Project, Comment
 
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Blog
+        model = Project
         fields = ['topic','topic_image','topic_content']
 
 class CommentSerializer(serializers.ModelSerializer):

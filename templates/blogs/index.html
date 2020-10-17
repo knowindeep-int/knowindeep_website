@@ -7,21 +7,19 @@
 </head>
 
 <div class="row container">
-    {% for blog in blogs %}
-    <div class="col-sm-12 col-md-12 col-lg-6" onclick="location.href='{% url 'blogs:sub_topic' blog.slug %}';">
+    {% for project in projects %}
+    <div class="col-sm-12 col-md-12 col-lg-6" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">
         <div class="card hoverable">
 
             <div class="container-img card-image">
-                <img class="blogImage" src="media/{{ blog.topic_image }}">
+                <img class="blogImage" src="media/{{ project.image }}">
             </div>
             <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
             <div class="card-content">
-                <span class="card-title">{{ blog.topic }}</span>
-                <p>{{ blog.topic_content }}</p>
+                <span class="card-title">{{ project.title }}</span>
+                <p>{{ project.overview }}</p>
             </div>
-            <div class="card-action">
-                <a href="{% url 'blogs:sub_topic' blog.slug %}" id="blogLink">Go to blog</a>
-            </div>
+  
             {% if request.user.is_superuser  %}
             
             {% endif %}

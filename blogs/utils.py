@@ -13,8 +13,8 @@ def unique_slug_generator(instance,new_slug=None):
     if new_slug is not None:
         slug = new_slug
     else:
-        if instance.__class__ == models.Blog:
-            slug = slugify(instance.topic)
+        if instance.__class__ == models.Project:
+            slug = slugify(instance.title)
         elif instance.__class__ == models.BlogTopics:
             slug = slugify(instance.heading)
     if slug in DONT_USE:
