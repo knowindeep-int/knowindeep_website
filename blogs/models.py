@@ -37,7 +37,7 @@ class Blog(models.Model):
     def increase_view(self):
         self.no_of_views += 1
         self.save()
-    
+
 
 
 class BlogTopics(models.Model):
@@ -48,7 +48,6 @@ class BlogTopics(models.Model):
    # content = models.CharField(max_length=1000, null=False,blank=False)
     description = models.CharField(max_length=300,blank=True,null=True)
   #  content = HTMLField()
-  # Comment for ani
     content = RichTextUploadingField(blank=True,null=True)
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)
@@ -62,7 +61,7 @@ class BlogTopics(models.Model):
 
     def get_like_url(self):
         return reverse("api:like-post")
-    
+
     def get_comment_url(self):
         return reverse("api:comment-post")
 
@@ -99,7 +98,7 @@ class BlogTopics(models.Model):
         return Like.objects.filter(link_to=self).count()
 
     def comments(self):
-        return Comment.objects.filter(link_to=self)    
+        return Comment.objects.filter(link_to=self)
 
     def increaseLikes(self):
         self.no_of_likes += 1
@@ -117,7 +116,7 @@ class BlogTopics(models.Model):
             except Like.DoesNotExist:
                 has_liked = False
                 return False
-    
+
 
 class Like(models.Model):
     link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
@@ -126,17 +125,17 @@ class Like(models.Model):
     def __str__(self):
         return str(self.link_to)
 
-    
+
 class Comment(models.Model):
     link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     comment_text = models.CharField(max_length=200)
- 
+
     def __str__(self):
         return self.user.username + self.comment_text
 
-    
+
 
 
 def create_blog(sender, instance, created,**kwargs):
@@ -150,7 +149,7 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
         instance.slug = unique_slug_generator(instance)
         instance.save()
 
-  
+
 
 pre_save.connect(r_pre_save_receiever, sender=Blog)
 pre_save.connect(r_pre_save_receiever, sender=BlogTopics)
