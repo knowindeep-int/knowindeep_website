@@ -23,6 +23,7 @@
                 <a href="{% url 'blogs:sub_topic' blog.slug %}" id="blogLink">Go to blog</a>
             </div>
             {% if request.user.is_superuser  %}
+            <!-- Add the remove and approve button -->
             
             {% endif %}
 
