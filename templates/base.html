@@ -14,11 +14,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
 
 </head>
 
@@ -26,17 +31,17 @@
 
 <body>
 
-    <nav id="navbar" class="navbar-default navbar-fixed-top">
+    <nav id="navbar" class="navbar-default navbar-static-top" style="overflow:visible">
         <div class="nav-wrapper container ">
             <a href="{% url 'blogs:index' %}">
-                <img src="/static/images/kid-white.png" class="brand-logo" alt="brandLogo" height="100%">
+                <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" alt="brandLogo" height="100%">
             </a>
             <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
             <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" id="nav-mobile">
                 <li><a href="{% url 'blogs:index' %}">Home</a></li>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
+                <li><a href="#"><i class="fa fa-search"></i>Search</a></li>
                 {% if request.user.is_superuser %}
                <li>
                 <a href="#" >
@@ -47,12 +52,14 @@
 
                         {% if request.user.is_authenticated %}
                         <li><div class="dropdown">
-          <i class="fa fa-user-circle " type="button" id="logInBtn" data-toggle="dropdown" >
+          <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg" class="img-circle" height="25" width="25" type="button" id="logInBtn" data-toggle="dropdown" >
 
-        </i>
-        <div>
+        </img>
+
           <div class="dropdown-menu" >
-          <a class="dropdown-item" href="#">Name</a>
+          <a class="dropdown-item" href="#"><img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg" class="img-circle" height="25" width="25" type="button" id="logInBtn" data-toggle="dropdown" >
+
+        </img>&nbsp &nbspName</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">XXXXXXX</a>
           <a class="dropdown-item" href="#">XXXXXXX</a>
@@ -61,7 +68,7 @@
           <a class="dropdown-item" href="#">XXXXXXX</a>
           <a class="dropdown-item" href="{% url 'site_users:logout' %}">Log Out</a>
           </div>
-          </div>
+
         </div>
           </li>
 
@@ -78,6 +85,7 @@
             </ul>
         </div>
     </nav>
+
 
     <div>
 
@@ -122,6 +130,7 @@
         {% block content %}
         {% endblock %}
     </div>
+
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax /libs/materialize/1.0.0/js/materialize.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -188,6 +197,7 @@
         {% endblock jquery %}
         })
     </script>
+
 
 </body>
 
