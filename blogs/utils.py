@@ -35,10 +35,17 @@ def save_user(backend, user, response, *args, **kwargs):
     # print(request.user.username)
     print("request here")
 
-    user = models.Profile(
-        name = response['name'],
-        email_id = response['email'],
-        dp = response['picture']
-    )
-
-    user.save()
+    try:
+        user = models.Profile(
+            name = response['name'],
+            email_id = response['email'],
+            dp = response['picture']
+        )
+        
+    except Profile.DoesNotExist:
+        user = models.Profile(
+            name = response['name'],
+            email_id = response['email'],
+            dp = response['picture']
+        )
+        user.save()

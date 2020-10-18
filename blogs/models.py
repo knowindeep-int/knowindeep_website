@@ -16,7 +16,7 @@ class Profile(models.Model):
     dp = models.ImageField(null=True,upload_to='profiles/')
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=200)
-    email_id = models.EmailField(max_length=30)
+    email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
     phone_number = models.IntegerField(unique=True,null=True, blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(1000000000)])
     linkedin_id = models.URLField(max_length=70,null=True,blank=True)
     github_id = models.URLField(max_length=70,null=True,blank=True)
