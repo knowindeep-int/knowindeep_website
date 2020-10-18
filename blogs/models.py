@@ -6,32 +6,46 @@ from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.core.validators import MinValueValidator, int_list_validator, MaxValueValidator
 from django.db.models import Max, Min
 
 from django.contrib.auth.models import User
 
 
-class Author(models.Model):
+class Profile(models.Model):
     dp = models.ImageField(null=True,upload_to='profiles/')
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=200)
     email_id = models.EmailField(max_length=30)
+    phone_number = models.IntegerField(unique=True,null=True, blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(1000000000)])
     linkedin_id = models.URLField(max_length=70,null=True,blank=True)
     github_id = models.URLField(max_length=70,null=True,blank=True)
+    twitter_id = models.URLField(max_length=70, null=True, blank=True)
+    isAuthor = models.BooleanField(default=False)
+    account_number = models.CharField(max_length=30, null=True, blank=True)
+    total_earnings = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
-class Blog(models.Model):
-    topic = models.CharField(max_length=30)
-    topic_image = models.ImageField(null=True, upload_to='media/')
-    topic_content = models.CharField(max_length=300, blank=True, null=True)
+class Project(models.Model):
+    # topic = models.CharField(max_length=30)
+    # topic_image = models.ImageField(null=True, upload_to='media/')
+    # topic_content = models.CharField(max_length=300, blank=True, null=True)
     slug = models.SlugField(null=True,blank=True)
     no_of_views = models.IntegerField(default=0)
 
+
+    # update
+    image = models.ImageField(null=True,upload_to='project/')
+    title = models.CharField(max_length=25)
+    overview = models.CharField(max_length=300)
+    pre_req = models.CharField(max_length=300)
+
+
     def __str__(self):
-        return self.topic
+        return self.title
 
     @property
     def increase_view(self):
@@ -41,8 +55,8 @@ class Blog(models.Model):
 
 
 class BlogTopics(models.Model):
-    link_to = models.ForeignKey(Blog,on_delete=models.CASCADE, null=True,default=None)
-    author = models.ForeignKey(Author,on_delete=models.CASCADE, null=True, blank=True)
+    link_to = models.ForeignKey(Project,on_delete=models.CASCADE, null=True,default=None)
+    author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
    # content = models.CharField(max_length=1000, null=False,blank=False)
@@ -120,7 +134,7 @@ class BlogTopics(models.Model):
 
 class Like(models.Model):
     link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
-    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="liked_users")
+    user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="liked_users")
 
     def __str__(self):
         return str(self.link_to)
@@ -128,7 +142,7 @@ class Like(models.Model):
 
 class Comment(models.Model):
     link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
+    user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     comment_text = models.CharField(max_length=200)
 
@@ -141,7 +155,7 @@ class Comment(models.Model):
 def create_blog(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
     if instance.id is not None:
-        Blog.objects.create(topic=str(instance))
+        Project.objects.create(title=str(instance))
 
 
 def r_pre_save_receiever(sender,instance,*args,**kwargs):
@@ -151,6 +165,6 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
 
 
 
-pre_save.connect(r_pre_save_receiever, sender=Blog)
+pre_save.connect(r_pre_save_receiever, sender=Project)
 pre_save.connect(r_pre_save_receiever, sender=BlogTopics)
 # post_save.connect(create_like_for_blog_topic, sender=BlogTopics)

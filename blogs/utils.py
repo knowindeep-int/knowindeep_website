@@ -13,8 +13,8 @@ def unique_slug_generator(instance,new_slug=None):
     if new_slug is not None:
         slug = new_slug
     else:
-        if instance.__class__ == models.Blog:
-            slug = slugify(instance.topic)
+        if instance.__class__ == models.Project:
+            slug = slugify(instance.title)
         elif instance.__class__ == models.BlogTopics:
             slug = slugify(instance.heading)
     if slug in DONT_USE:
@@ -27,3 +27,18 @@ def unique_slug_generator(instance,new_slug=None):
         new_slug = "{slug}-{randstr}".format(slug=slug,randstr=random_string_generator(size=4))
         return unique_slug_generator(instance, new_slug=new_slug)
     return slug
+
+
+def save_user(backend, user, response, *args, **kwargs):
+    print(backend)
+    print(response['email'])
+    # print(request.user.username)
+    print("request here")
+
+    user = models.Profile(
+        name = response['name'],
+        email_id = response['email'],
+        dp = response['picture']
+    )
+
+    user.save()
