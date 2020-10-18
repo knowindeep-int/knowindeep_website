@@ -41,4 +41,5 @@ def save_user(backend, user, response, *args, **kwargs):
         dp = response['picture']
     )
 
+
     user.save()
