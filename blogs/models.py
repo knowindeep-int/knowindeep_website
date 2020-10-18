@@ -62,7 +62,6 @@ class BlogTopics(models.Model):
    # content = models.CharField(max_length=1000, null=False,blank=False)
     description = models.CharField(max_length=300,blank=True,null=True)
   #  content = HTMLField()
-  # new comment
     content = RichTextUploadingField(blank=True,null=True)
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)

@@ -10,15 +10,23 @@
     <link rel="stylesheet" href="{% static  'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
 
 </head>
 
@@ -26,133 +34,146 @@
 
 <body>
 
-    <nav id="navbar" class="navbar-default navbar-fixed-top">
+    <nav id="navbar" class="navbar-default navbar-static-top" style="overflow:visible">
         <div class="nav-wrapper container ">
             <a href="{% url 'blogs:index' %}">
-                <img src="/static/images/kid-white.png" class="brand-logo" alt="brandLogo" height="100%">
+                <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" alt="brandLogo" height="100%">
             </a>
             <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
             <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" id="nav-mobile">
                 <li><a href="{% url 'blogs:index' %}">Home</a></li>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
+                <li><a href="#"><i class="fa fa-search"></i>Search</a></li>
                 {% if request.user.is_superuser %}
-               <li>
-                <a href="#" >
-                    All Blogs
-                </a>
-               </li>
+                <li>
+                    <a href="#">
+                        All Blogs
+                    </a>
+                </li>
                 {% endif %}
 
-        {% if request.user.is_authenticated %}
-        <!-- <li><div class="dropdown">
-            <i class="fa fa-user-circle " type="button" id="logInBtn" data-toggle="dropdown" >
-            </i>
-        <div>
-          <div class="dropdown-menu" >
-          <a class="dropdown-item" href="#">Name</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">XXXXXXX</a>
-            <a class="dropdown-item" href="#">XXXXXXX</a>
-            <a class="dropdown-item" href="#">XXXXXXX</a>
-            <a class="dropdown-item" href="#">XXXXXXX</a>
-            <a class="dropdown-item" href="#">XXXXXXX</a>
-            <a class="dropdown-item" href="{% url 'site_users:logout' %}">Log Out</a>
-            </div>
-          </div>
-        </div>
-        </li> -->
-        <div class="dropdown-content" id="myDropdown">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-          </div>
-        {% else %}
-        <li>
-        <button class="waves-effect waves-light btn" id="logInBtn">
-        <a id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog" type="button">
-            Login
-        </a>
-        </button>
-        </li>
-        {% endif %}
+                {% if request.user.is_authenticated %}
+                <li>
+                    <div class="dropdown">
+                        <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
+                            class="img-circle" height="25" width="25" type="button" id="logInBtn"
+                            data-toggle="dropdown">
+
+                        </img>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"><img
+                                    src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
+                                    class="img-circle" height="25" width="25" type="button" id="logInBtn"
+                                    data-toggle="dropdown">
+
+                                </img>&nbsp &nbspName</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">XXXXXXX</a>
+                            <a class="dropdown-item" href="#">XXXXXXX</a>
+                            <a class="dropdown-item" href="#">XXXXXXX</a>
+                            <a class="dropdown-item" href="#">XXXXXXX</a>
+                            <a class="dropdown-item" href="#">XXXXXXX</a>
+                            <a class="dropdown-item" href="{% url 'site_users:logout' %}">Log Out</a>
+                        </div>
+
+
+                    </div>
+                </li>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+                {% else %}
+                <li>
+                    <button class="waves-effect waves-light btn" id="logInBtn">
+                        <a id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog" type="button">
+                            Login
+                        </a>
+                    </button>
+                </li>
+                {% endif %}
 
             </ul>
         </div>
     </nav>
 
+
     <div>
 
-    <div class="modal" id="loginDialog">
-        <div class="row">
-            <div class="col-10 offset-1">
-                <h1 class="center">Login with</h1>
+        <div class="modal" id="loginDialog">
+            <div class="row">
+                <div class="col-10 offset-1">
+                    <h1 class="center">Login with</h1>
+                </div>
+                <div class="col-1">
+                    <span class="center icon-btn" id="closeDialog">X</span>
+                </div>
             </div>
-            <div class="col-1">
-                <span class="center icon-btn" id="closeDialog">X</span>
+            <div class="row" style="margin-top: 100px;">
+                <div class="col-6 center">
+                    <a id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
+                        class="icon-btn">
+                        <img src="/static/images/google-logo.svg" alt="googleLogo" width="200" height="200" />
+                    </a>
+                </div>
+                <div class="col-6 center">
+                    <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"
+                        class="icon-btn">
+                        <img src="/static/images/github-logo.svg" alt="githubLogo" width="200" height="200" />
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="row" style="margin-top: 100px;">
-            <div class="col-6 center">
-                <a id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
-                    class="icon-btn">
-                    <img src="/static/images/google-logo.svg" alt="googleLogo" width="200" height="200" />
-                </a>
-            </div>
-            <div class="col-6 center">
-                <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
-                    <img src="/static/images/github-logo.svg" alt="githubLogo" width="200" height="200" />
-                </a>
-            </div>
-        </div>
 
-        <!-- <dialog id="loginDialog" class="container">
+            <!-- <dialog id="loginDialog" class="container">
                 <i class="fa fa-google-plus-square" style="font-size:36px" id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"></i>
                 <i class="fa fa-github" style="font-size:36px" id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"></i>
             </dialog> -->
-    </div>
+        </div>
 
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="{% url 'blogs:index' %}">Home</a></li>
-        <!-- <li><a href="#">Blogs</a></li> -->
-        <li><a href="#">About Us</a></li>
-        <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
-        <li><button href="{% url 'site_users:logout' %}" class="waves-effect waves-light btn">Log Out</button></li>
-    </ul>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="{% url 'blogs:index' %}">Home</a></li>
+            <!-- <li><a href="#">Blogs</a></li> -->
+            <li><a href="#">About Us</a></li>
+            <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
+            <li><button href="{% url 'site_users:logout' %}" class="waves-effect waves-light btn">Log Out</button></li>
+        </ul>
 
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax /libs/materialize/1.0.0/js/materialize.min.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript">
-    </script>
 
-    <script>
-        window.onscroll = function() {myFunction()};
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax /libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        </script>
 
-        function myFunction() {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        // document.getElementById("myBar").style.width = scrolled + "%";
-        console.log(scrolled)
-        }
-    </script>
+        <script>
+            window.onscroll = function () { myFunction() };
 
-    <script type="text/JavaScript">
+            function myFunction() {
+                var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var scrolled = (winScroll / height) * 100;
+                // document.getElementById("myBar").style.width = scrolled + "%";
+                console.log(scrolled)
+            }
+        </script>
+
+        <script type="text/JavaScript">
     (function() {
         var dialog = document.getElementById('loginDialog');
         document.getElementById('loginLink').onclick = function() {
@@ -185,12 +206,13 @@
         // });
     })();
     </script>
-    <script>
-        $(document).ready(function () {
-            {% block jquery %}
-        {% endblock jquery %}
-        })
-    </script>
+        <script>
+            $(document).ready(function () {
+                {% block jquery %}
+                {% endblock jquery %}
+            })
+        </script>
+
 
 </body>
 
