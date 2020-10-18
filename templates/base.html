@@ -25,6 +25,27 @@
     <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+    .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+}
+</style>
+
 
 
 
@@ -56,43 +77,43 @@
                 {% if request.user.is_authenticated %}
                 <li>
                     <div class="dropdown">
+
                         <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
                             class="img-circle" height="25" width="25" type="button" id="logInBtn"
                             data-toggle="dropdown">
-
                         </img>
 
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#"><img
                                     src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
-                                    class="img-circle" height="25" width="25" type="button" id="logInBtn"
+                                    class="img-circle" height="35" width="35" type="button" id="logInBtn"
                                     data-toggle="dropdown">
 
-                                </img>&nbsp &nbspName</a>
+                                </img><span class="text-center align-middle">&nbspName</span></a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">XXXXXXX</a>
-                            <a class="dropdown-item" href="#">XXXXXXX</a>
-                            <a class="dropdown-item" href="#">XXXXXXX</a>
-                            <a class="dropdown-item" href="#">XXXXXXX</a>
-                            <a class="dropdown-item" href="#">XXXXXXX</a>
-                            <a class="dropdown-item" href="{% url 'site_users:logout' %}">Log Out</a>
+                            <a class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a class="text-center" style="color:black" href="{% url 'site_users:logout' %}">Log Out</a>
                         </div>
 
 
                     </div>
                 </li>
-                <div class="dropdown-content" id="myDropdown">
+            <!--    <div class="dropdown-content" id="myDropdown">
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
-                </div>
+                </div>  -->
                 {% else %}
                 <li>
-                    <button class="waves-effect waves-light btn" id="logInBtn">
-                        <a id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog" type="button">
+                  <a id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog">
+                    <button class="waves-effect waves-light btn" style="background-color: green" id="logInBtn">
                             Login
-                        </a>
                     </button>
+                        </a>
                 </li>
                 {% endif %}
 
