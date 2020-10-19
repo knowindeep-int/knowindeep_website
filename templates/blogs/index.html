@@ -17,11 +17,22 @@
             <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
+
                 <p>{{ project.overview }}</p>
+
             </div>
-
+                <div class="row">
+                    <div class="col-sm-4 ml-4">
+                <a href="#">Go to blog</a>
+                    </div>
             {% if request.user.is_superuser  %}
-
+                    <div class="col-sm-4 ">
+                  <a href="#">Approve</a>
+                    </div>
+                  <a href="#">Remove</a>
+                </div>
+            {% else %}
+                </div>
             {% endif %}
 
         </div>
