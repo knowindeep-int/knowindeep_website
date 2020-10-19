@@ -36,7 +36,7 @@ class Project(models.Model):
     slug = models.SlugField(null=True,blank=True)
     no_of_views = models.IntegerField(default=0)
 
-
+    isApproved = models.BooleanField(default=False)
     # update
     image = models.ImageField(null=True,upload_to='project/')
     title = models.CharField(max_length=25)

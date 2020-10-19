@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -8,9 +8,15 @@ import requests
 from .models import Project,BlogTopics, Like, Comment
 
 def topics(request):
-    context = {
-        "projects":Project.objects.all().order_by('-no_of_views')
-    }
+    context = None
+    if request.user.is_superuser:
+        context = {
+            "projects":Project.objects.all().order_by('-no_of_views')
+        }
+    else:
+        context = {
+            "projects":Project.objects.filter(isApproved = True).order_by('-no_of_views')
+        }
     return render(request,"blogs/index.html",context)
 
 def subtopics(request,slug):
@@ -45,6 +51,21 @@ def blog_post(request,slug, blog):
     }
     return render(request,"blogs/blog_post.html", context)
     
+def remove(request,slug):
+    project = Project.objects.get(slug=slug)
+    project.isApproved = False
+    project.save()
+
+    return redirect('blogs:index')
+
+
+def approve(request,slug):
+    project = Project.objects.get(slug=slug)
+    project.isApproved = True
+    project.save()
+
+    return redirect('blogs:index')
+
 
 def error404(request, exception):
     return HttpResponse("error")

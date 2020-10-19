@@ -4,7 +4,6 @@ from .views import api_detail_blog_view, api_detail_blog_update_view, api_all_de
 
 from django.conf.urls import handler404
 
-handler404 = "blogs.views.error404"
 
 app_name = "api"
 

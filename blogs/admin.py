@@ -38,9 +38,9 @@ class BlogTopicAdmin(admin.ModelAdmin):
     inlines = [LikeInline,CommentInline]
     search_fields = ['heading','content']
 
-class BlogAdmin(admin.ModelAdmin):
+class ProjectAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['title','image','overview','no_of_views','pre_req']}),
+        (None, {'fields':['title','image','overview','no_of_views','pre_req','isApproved']}),
         ('Date information', {'fields': [], 'classes': ['collapse']})
     ]
     list_display = ['title','overview','no_of_views']
@@ -54,7 +54,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BlogTopics,BlogTopicAdmin)
-admin.site.register(Project,BlogAdmin)
+admin.site.register(Project,ProjectAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)
 admin.site.register(Profile)

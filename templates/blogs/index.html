@@ -8,7 +8,7 @@
 
 <div class="row container">
     {% for project in projects %}
-    <div class="col-sm-12 col-md-12 col-lg-6" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">
+    <div class="col-sm-12 col-md-12 col-lg-6">
         <div class="card hoverable">
 
             <div class="container-img card-image">
@@ -23,13 +23,21 @@
             </div>
                 <div class="row">
                     <div class="col-sm-4 ml-4">
-                <a href="#">Go to blog</a>
+                <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
                     </div>
             {% if request.user.is_superuser  %}
+                   
                     <div class="col-sm-4 ">
-                  <a href="#">Approve</a>
+                        {% if not project.isApproved %}
+                        <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a>
+                        {% else %}
+                        <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
+                        {% endif %}
                     </div>
-                  <a href="#">Remove</a>
+                    
+                
+                    
+                  
                 </div>
             {% else %}
                 </div>
