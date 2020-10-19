@@ -2,8 +2,6 @@ from django.urls import path
 
 from .views import api_detail_blog_view, api_detail_blog_update_view, api_all_detail_view, api_like_blog_view, api_comment_blog_view, fetchComments, increase_post_view
 
-from django.conf.urls import handler404
-
 
 app_name = "api"
 
