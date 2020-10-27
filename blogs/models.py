@@ -124,27 +124,22 @@ class BlogTopics(models.Model):
 
     def has_user_liked(self,user):
         if not user.is_anonymous:
-            # try:
-            #     print(self.likes.all()[0])
-            #     isLiked = Like.objects.get(link_to=self, profile.email_id==user.email)
-            #     # self.likes.get(profile.email_id == user.email)
-            #     return True
-            # except Like.DoesNotExist:
-            #     has_liked = False
-            #     return False
-            like = Like.objects.get(link_to=self)
-            isLiked = like.profile.email_id == user.email
-            if isLiked:
+            try:
+                isLiked = Like.objects.get(profile__email_id=user.email,link_to=self)
+                # self.likes.get(profile.email_id == user.email)
                 return True
-            return False
+            except Like.DoesNotExist:
+                has_liked = False
+                return False
 
 
 class Like(models.Model):
     link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="liked_users")
 
-    def __str__(self):
-        return str(self.link_to)
+    # def __str__(self):
+    #     return str(self.link_to)
+        
 
 
 class Comment(models.Model):

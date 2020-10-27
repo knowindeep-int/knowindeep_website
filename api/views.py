@@ -5,7 +5,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
-from blogs.models import Project, BlogTopics, Like, Comment
+from blogs.models import Project, BlogTopics, Like, Comment, Profile
 
 from .serializers import BlogSerializer, CommentSerializer
 
@@ -64,13 +64,15 @@ def api_like_blog_view(request):
         blog = BlogTopics.objects.get(slug=slug)
         data = {}
         try:
-            like = Like.objects.get(user = request.user)
+            like = Like.objects.get(profile__email_id = request.user.email, link_to=blog)
             like.delete()
             data["success"] = False
             data["likes"] = blog.like_count
             return Response(data=data)  
         except Like.DoesNotExist:
-            like = Like.objects.create(user=request.user, link_to=blog)
+            print(request.user.email)
+            profile = Profile.objects.get(email_id = request.user.email)
+            like = Like.objects.create(profile=profile, link_to=blog)
             data["success"] = True
             data["likes"] = blog.like_count
             return Response(data=data)
