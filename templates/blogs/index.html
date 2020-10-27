@@ -5,51 +5,27 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}">
     <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script>
+    <link rel="stylesheet" href="{% static  'css/style1.css' %}">
 </head>
 
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
-<style>
-    .image {
-        background-image: url("/static/images/cover_photo.jpg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        max-height: 60%;
-    }
 
-    .jumbo {
-        color: white;
-        padding: 15% 5% 7.5% 10%;
-    }
-
-    body,
-    html {
-        margin-right: 0;
-    }
-
-    .display {
-        font-size: 4vw;
-    }
-
-    .lead {
-        font-size: 1.5vw;
-    }
-</style>
 
 
 <div class="jumbo image">
     <h1 class="display">Hello, world!</h1>
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
         featured content or information.</p>
-    <hr class="my-4">
+    <h3 class="my-4">
     <p class="lead">It uses utility classes for typography and spacing to space content out within the larger container.
     </p>
     <a class="btn btn-primary btn-lg">Learn more</a>
 </div>
 
-<div class="row container">
+
+<div class="container">
     {% for project in projects %}
-    <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="card hoverable">
 
             <div class="container-img card-image">
@@ -62,6 +38,7 @@
                 <p>{{ project.overview }}</p>
 
             </div>
+  
             <div class="row">
                 <div class="col-sm-4 ml-4">
                     <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
@@ -75,15 +52,10 @@
                     <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
                     {% endif %}
                 </div>
-
-
-
-
             </div>
             {% else %}
         </div>
         {% endif %}
-
     </div>
 </div>
 {% endfor %}
