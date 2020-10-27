@@ -13,7 +13,7 @@ def topics(request):
         context = {
             "projects":Project.objects.all().order_by('-no_of_views')
         }
-    else:
+    else: 
         context = {
             "projects":Project.objects.filter(isApproved = True).order_by('-no_of_views')
         }
@@ -42,7 +42,7 @@ def blog_post(request,slug, blog):
     # print(str(blog_content.get_next_blog) + str(blog_content.get_previous_blog))
     has_liked = blog_content.has_user_liked(request.user)
     context = {
-        "main_blog":main_blog.topic,
+        "main_blog":main_blog.title,
         "blog_content" : blog_content,
         "slug":slug,
         "all_blogs":all_blogs,
