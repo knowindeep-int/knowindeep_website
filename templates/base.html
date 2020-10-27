@@ -26,30 +26,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <style>
-    .btn {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 7px 7px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
+        .btn {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 7px 7px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
 
-.button1 {
-  background-color: white;
-  color: black;
-  border: 2px solid #4CAF50;
-}
+        .button1 {
+            background-color: white;
+            color: black;
+            border: 2px solid #4CAF50;
+        }
 
-.atkt{
-  padding-top: 2px;
- border:1px solid white;
-}
-</style>
+        .atkt {
+            padding-top: 2px;
+            border: 1px solid white;
+        }
+    </style>
 
 
 
@@ -107,20 +108,20 @@
 
                     </div>
                 </li>
-            <!--    <div class="dropdown-content" id="myDropdown">
+                <!--    <div class="dropdown-content" id="myDropdown">
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
                 </div>  -->
                 {% else %}
                 <li>
-                  <button class="btn atkt"  style="background:black;">
-                  <a class="mt-2" id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog">
+                    <button class="btn atkt" style="background:black;">
+                        <a class="mt-2" id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog">
 
                             Login
 
                         </a>
-                  </button>
+                    </button>
                 </li>
                 {% endif %}
 
