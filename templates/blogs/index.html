@@ -3,8 +3,44 @@
 {% block content %}
 
 <head>
-    <link rel="stylesheet" href="{% static 'blogs/css/blogs.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}">
+    <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script>
 </head>
+
+<!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
+<style>
+    .image {
+background-image: url("/static/images/cover_photo.jpg");
+background-size:cover; 
+background-position: center;
+background-repeat: no-repeat;
+max-height: 60%;
+}
+.jumbo{
+color: white;
+padding: 15% 5% 7.5% 10%;
+}
+body,html {
+margin-right: 0;
+}
+.display{
+font-size: 4vw;
+}
+.lead {
+font-size: 1.5vw;
+}
+</style>
+
+
+<div class="jumbo image">
+    <h1 class="display">Hello, world!</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+        featured content or information.</p>
+    <hr class="my-4">
+    <p class="lead">It uses utility classes for typography and spacing to space content out within the larger container.
+    </p>
+    <a class="btn btn-primary btn-lg">Learn more</a>
+</div>
 
 <div class="row container">
     {% for project in projects %}
@@ -21,31 +57,31 @@
                 <p>{{ project.overview }}</p>
 
             </div>
-                <div class="row">
-                    <div class="col-sm-4 ml-4">
-                <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
-                    </div>
-            {% if request.user.is_superuser  %}
-                   
-                    <div class="col-sm-4 ">
-                        {% if not project.isApproved %}
-                        <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a>
-                        {% else %}
-                        <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
-                        {% endif %}
-                    </div>
-                    
-                
-                    
-                  
+            <div class="row">
+                <div class="col-sm-4 ml-4">
+                    <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
                 </div>
-            {% else %}
-                </div>
-            {% endif %}
+                {% if request.user.is_superuser  %}
 
+                <div class="col-sm-4 ">
+                    {% if not project.isApproved %}
+                    <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a>
+                    {% else %}
+                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
+                    {% endif %}
+                </div>
+
+
+
+
+            </div>
+            {% else %}
         </div>
+        {% endif %}
+
     </div>
-    {% endfor %}
+</div>
+{% endfor %}
 </div>
 
 {% endblock content %}
