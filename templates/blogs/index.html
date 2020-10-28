@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}">
     <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static  'css/style1.css' %}">
 </head>
 
@@ -26,11 +27,14 @@
 
 
 <div class="container">
+  <br>
+  <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Our Popular Projects</h3>
     {% for project in projects %}
-    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="col-sm-4">
+
         <div class="card hoverable">
 
-            <div class="container-img card-image">
+            <div class="card-image">
                 <img class="blogImage" src="media/{{ project.image }}">
             </div>
             <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
@@ -40,7 +44,7 @@
                 <p>{{ project.overview }}</p>
 
             </div>
-  
+
             <div class="row">
                 <div class="col-sm-4 ml-4">
                     <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
@@ -48,6 +52,7 @@
                 {% if request.user.is_superuser  %}
 
                 <div class="col-sm-4 ">
+
                     {% if not project.isApproved %}
                     <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a>
                     {% else %}
