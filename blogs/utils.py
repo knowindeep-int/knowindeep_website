@@ -30,12 +30,12 @@ def unique_slug_generator(instance,new_slug=None):
 
 
 def save_user(backend, user, response, *args, **kwargs):
-    print(backend)
-    print(response)
-    print(response['email'])
-    print(response['picture'])
-    # print(request.user.username)
-    print("request here")
+    # print(backend)
+    # print(response)
+    # print(response['email'])
+    # print(response['picture'])
+    # # print(request.user.username)
+    # print("request here")
 
     try:
         user = models.Profile.objects.get(name = response['name'],
