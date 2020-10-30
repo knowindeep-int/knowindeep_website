@@ -7,6 +7,7 @@
     <title>KnowInDeep</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="{% static  'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -60,6 +61,10 @@
         #image{
             margin-top: 10px;
         }
+        .displaya{
+            display: none;
+            padding-top: 64px;
+        }
     </style>
 
 
@@ -78,7 +83,7 @@
                 <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" id="image" alt="brandLogo" height="100%">
             </a>
             <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i onclick="functionOne()" class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" id="nav-mobile">
                 <li><a  id="cate" href="{% url 'blogs:index' %}">Home</a></li>
                 <li><a id="cate" href="#">About Us</a></li>
@@ -140,6 +145,13 @@
     </nav>
 
 
+    <ul class="displaya" id="myLinks">
+        <li>Home</li>
+        <li>About us</li>
+        <li>Search</li>
+        <li>All Blogs</li>
+    </ul>
+
 
 
 
@@ -200,6 +212,14 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
+    function functionOne() {
+         var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+        x.style.display = "none";
+        } else {
+        x.style.display = "block";
+  }
+}
     </script>
 
     <script>
@@ -212,6 +232,7 @@
             // document.getElementById("myBar").style.width = scrolled + "%";
             console.log(scrolled)
         }
+        
     </script>
 
     <script type="text/JavaScript">
