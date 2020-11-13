@@ -10,6 +10,8 @@ Brlapi==0.7.0
 bs4==0.0.1
 cachetools==4.1.1
 catalogue==1.0.0
+beautifulsoup4==4.9.1
+bs4==0.0.1
 certifi==2020.6.20
 cffi==1.14.1
 chardet==3.0.4
@@ -92,6 +94,14 @@ pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycairo==1.16.2
 pycodestyle==2.6.0
+django-tinymce==3.1.0
+django-tinymce4-lite==1.7.4
+djangorestframework==3.12.1
+htmlmin==0.1.12
+idna==2.10
+jsmin==2.2.2
+oauthlib==3.1.0
+Pillow==8.0.0
 pycparser==2.20
 pycups==1.9.73
 Pygments==2.6.1
@@ -149,3 +159,6 @@ whitenoise==5.1.0
 wordcloud==1.8.0
 wrapt==1.12.1
 xkit==0.0.0
+sqlparse==0.4.1
+urllib3==1.25.10
+whitenoise==5.2.0
