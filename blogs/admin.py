@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import BlogTopics, Project, Comment, Profile, Like
+from .models import BlogTopics, Project, Comment, Profile, Like, PreRequisite, Language
 # from django.apps import apps
 
 # models = apps.get_models()
@@ -40,7 +40,7 @@ class BlogTopicAdmin(admin.ModelAdmin):
 
 class ProjectAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['title','image','overview','no_of_views','pre_req','isApproved']}),
+        (None, {'fields':['title','image','overview', 'description', 'no_of_views','pre_req','isApproved', 'languages', 'difficulty_level', 'no_of_hours', 'author']}),
         ('Date information', {'fields': [], 'classes': ['collapse']})
     ]
     list_display = ['title','overview','no_of_views']
@@ -58,3 +58,5 @@ admin.site.register(Project,ProjectAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)
 admin.site.register(Profile)
+admin.site.register(PreRequisite)
+admin.site.register(Language)

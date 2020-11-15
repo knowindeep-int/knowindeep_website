@@ -11,6 +11,15 @@ from django.db.models import Max, Min
 
 from django.contrib.auth.models import User
 
+class Language(models.Model):
+    name = models.CharField(max_length = 100)
+    is_available = models.BooleanField(null = True, blank = True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural  = "Language"
 
 class Profile(models.Model):
     dp = models.ImageField(null=True,upload_to='profiles/')
@@ -24,24 +33,39 @@ class Profile(models.Model):
     isAuthor = models.BooleanField(default=False)
     account_number = models.CharField(max_length=30, null=True, blank=True)
     total_earnings = models.IntegerField(null=True, blank=True)
+    skills = models.ManyToManyField(to = Language)
 
     def __str__(self):
         return self.name
 
+class PreRequisite(models.Model):
+    name = models.CharField(max_length = 100)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = "Pre-Requisites"
+
 
 class Project(models.Model):
-    # topic = models.CharField(max_length=30)
+     # topic = models.CharField(max_length=30)
     # topic_image = models.ImageField(null=True, upload_to='media/')
     # topic_content = models.CharField(max_length=300, blank=True, null=True)
     slug = models.SlugField(null=True,blank=True)
     no_of_views = models.IntegerField(default=0)
-
+    description = models.TextField(null = True, blank = True)
+    author = models.ForeignKey(to = Profile, on_delete = models.CASCADE)
+    no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
+    difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = (('Easy', 'Easy'),('Medium', 'Medium'), ('Hard', 'Hard')))
     isApproved = models.BooleanField(default=False)
+    languages = models.ManyToManyField(to = Language, null = True, blank = True)
     # update
     image = models.ImageField(null=True,upload_to='project/')
     title = models.CharField(max_length=25)
     overview = models.CharField(max_length=300)
-    pre_req = models.CharField(max_length=300)
+    pre_req = models.ManyToManyField(to = PreRequisite, null = True, blank = True)
+
 
 
     def __str__(self):
@@ -139,7 +163,7 @@ class Like(models.Model):
 
     # def __str__(self):
     #     return str(self.link_to)
-        
+
 
 
 class Comment(models.Model):
