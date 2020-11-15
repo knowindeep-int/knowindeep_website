@@ -10,6 +10,7 @@ from django.core.validators import MinValueValidator, int_list_validator, MaxVal
 from django.db.models import Max, Min
 
 from django.contrib.auth.models import User
+from knowindeep import Constants
 
 class Language(models.Model):
     name = models.CharField(max_length = 100)
@@ -57,14 +58,14 @@ class Project(models.Model):
     description = models.TextField(null = True, blank = True)
     author = models.ForeignKey(to = Profile, on_delete = models.CASCADE)
     no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
-    difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = (('Easy', 'Easy'),('Medium', 'Medium'), ('Hard', 'Hard')))
+    difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
     isApproved = models.BooleanField(default=False)
-    languages = models.ManyToManyField(to = Language, null = True, blank = True)
+    languages = models.ManyToManyField(to = Language)
     # update
     image = models.ImageField(null=True,upload_to='project/')
     title = models.CharField(max_length=25)
     overview = models.CharField(max_length=300)
-    pre_req = models.ManyToManyField(to = PreRequisite, null = True, blank = True)
+    pre_req = models.ManyToManyField(to = PreRequisite)
 
 
 
