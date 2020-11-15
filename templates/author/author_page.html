@@ -13,6 +13,11 @@
                         alt="" class="circle responsive-img">
                 </div>
                 <div class="col-sm-10">
+                    <script>
+                        function makeEditable(){
+                            $(this).attr('disabled', false);
+                        }
+                    </script>
                     <div>
                         <a href="{% url 'author:author_page' slug='some' %}" class="font-weight-bold">
                             Name of the author
@@ -28,7 +33,7 @@
                     </div>
                     <div>
                         <span><h3>Name</h3></span>
-                        <span><input type="text" value = "{{profile.name}}" disabled> <button>EDIT</button></span><br>
+                        <span><input type="text" value = "{{profile.name}}" disabled> <button onclick = "makeEditable()">EDIT</button></span><br>
                         
                         Your name appears on your <a href=""> Profile page</a>, as your byline, and in your responses. It is a required field.
                         
@@ -36,21 +41,21 @@
                     <br>
                     <div>
                         <span><h3>Bio</h3></span>
-                        <span><input type="text" value="{{profile.description}}" disabled><span><button>EDIT</button></span></span><br>              
+                        <span><input type="text" value="{{profile.description}}" disabled><span><button onclick = "makeEditable()">EDIT</button></span></span><br>              
                         <span>Your bio appears on your <a href=""> Profile </a> page. Max 160 characters.</span>
                     </div>
                     <div>
                         <span><h3>Photo</h3></span>
                         <span>Your photo appears on your  <a href="">Profile</a> page and with your stories across Medium. <br>
     
-                            Recommended size: Square, at least 1000 pixels per side. File type: JPG, PNG or GIF.<span><button>EDIT</button></span></span>
+                            Recommended size: Square, at least 1000 pixels per side. File type: JPG, PNG or GIF.<span><button onclick = "makeEditable()">EDIT</button></span></span>
                             <span><img src="" alt="image"></span>
                             
                     </div>
                     <div>
                         <span><h2>Account</h2></span><hr>
                         <span><h3>Your Phone Number</h3></span>
-                        <span>{{profile.phone_number}}<span><button>Edit PhoneNumber</button></span></span>
+                        <span>{{profile.phone_number}}<span><button onclick = "makeEditable()">Edit PhoneNumber</button></span></span>
                         
                     </div>
                     <div>
@@ -59,6 +64,8 @@
                         <span>Permanently delete your account and all of your content.</span><br>
                         <span><a href="">Delete</a></span>
                     </div>
+                    
+                        
                 </div>
             </div>
             <hr>
