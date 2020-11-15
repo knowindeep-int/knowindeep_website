@@ -76,6 +76,14 @@ class Project(models.Model):
         self.no_of_views += 1
         self.save()
 
+    @classmethod
+    def get_popular_projects(KClass):
+        return KClass.objects.all().order_by('no_of_views')[:5]
+
+    @classmethod
+    def get_popular_approved_projects(KClass):
+        return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
+
 
 
 class BlogTopics(models.Model):

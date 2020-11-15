@@ -11,11 +11,11 @@ def topics(request):
     context = None
     if request.user.is_superuser:
         context = {
-            "projects":Project.objects.all().order_by('-no_of_views')
+            "projects":Project.get_popular_projects()
         }
     else: 
         context = {
-            "projects":Project.objects.filter(isApproved = True).order_by('-no_of_views')
+            "projects":Project.get_popular_approved_projects()
         }
     return render(request,"blogs/index.html",context)
 
