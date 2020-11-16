@@ -5,6 +5,8 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.forms.models import model_to_dict
+
 
 from blogs.models import Project, BlogTopics, Like, Comment, Profile
 
@@ -106,7 +108,6 @@ def increase_post_view(request):
         except Blog.DoesNotExist:
             return Response({"error":"Some error occured"})
 
-from django.forms.models import model_to_dict
 #@csrf_exempt
 @api_view(['PUT',])
 def update_profile(request):
@@ -115,14 +116,15 @@ def update_profile(request):
         profile_serializer = ProfileSerializer(data = request.data)
         if not profile_serializer.is_valid():
             return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
-        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=profile_serializer.data['email_id']))
-        print("updated_profile", profile_serializer.data)
-        print("updated_profile", model_to_dict(updated_profile))
+        print(request.data)
+        print(profile_serializer.data)
+        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=profile_serializer.data['email_id']), validated_data=request.data)
         data = {
             'profile':model_to_dict(updated_profile)
         }
         #serializer = ProfileSerializer(data = updated_profile.__dict__)
         #if not serializer.is_valid():
         #    print(serializer.errors)
-        return Response(to_dict(updated_profile), status = status.HTTP_200_OK)
+        se = ProfileSerializer(updated_profile)
+        return Response(se.data, status = status.HTTP_200_OK)
 

@@ -22,18 +22,28 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['link_to','comment_text','timestamp','user','first_name','last_name']
 
+class LanguageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Language
+        fields = ['name']
+        
+
 class ProfileSerializer(serializers.ModelSerializer):
     email_id = serializers.EmailField(required = True)
-    skills = serializers.ListField( 
-    child = serializers.CharField(max_length = 50) 
-    ) 
+    # skills = serializers.ListField( 
+    # child = serializers.CharField(max_length = 50) 
+    # ) 
+    skills_set = LanguageSerializer(many=True, read_only=True)
     #phone_number = serializers.IntegerField()
     
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['dp','name','description','email_id','phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set']
+        extra_kwargs = {'skills': {'required': False}}
         
-    def update(self, instance):       
+    def update(self, instance, validated_data):     
+        skills = validated_data.pop('skills')  
         instance.dp = self.validated_data.get('dp', instance.dp)        
         instance.name = (self.validated_data['name'],instance.name)[self.validated_data.get('name') is None]
         instance.description = (self.validated_data['description'], instance.description)[self.validated_data.get('description') is None]
@@ -44,8 +54,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.isAuthor = self.validated_data.get('isAuthor', instance.isAuthor)
         instance.account_number = (self.validated_data['account_number'], instance.account_number)[self.validated_data.get('account_number') is None]
         instance.total_earnings = (self.validated_data['total_earnings'], instance.total_earnings)[self.validated_data.get('total_earnings') is None]
-        
-        for skill in self.validated_data['skills']:
+
+        for skill in skills:
             
             try:
                 language = Language.objects.get(name__iexact = skill)
@@ -57,3 +67,4 @@ class ProfileSerializer(serializers.ModelSerializer):
         
         instance.save()
         return instance
+
