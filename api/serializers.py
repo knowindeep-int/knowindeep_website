@@ -27,6 +27,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     skills = serializers.ListField( 
     child = serializers.CharField(max_length = 50) 
     ) 
+    #phone_number = serializers.IntegerField()
     
     class Meta:
         model = Profile
@@ -45,10 +46,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.total_earnings = (self.validated_data['total_earnings'], instance.total_earnings)[self.validated_data.get('total_earnings') is None]
         
         for skill in self.validated_data['skills']:
+            
             try:
-                language = Language.objects.get(name = skill)
+                language = Language.objects.get(name__iexact = skill)
             except Language.DoesNotExist:
-                language = Language.objects.create(name = skill)
+                language = Language.objects.create(name = skill.capitalize())
 
             instance.skills.add(language)
 
