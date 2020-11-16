@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from knowindeep import Constants
 
 class Language(models.Model):
-    name = models.CharField(max_length = 100)
+    name = models.CharField(max_length = 100,unique = True, primary_key = True)
     is_available = models.BooleanField(null = True, blank = True)
 
     def __str__(self):

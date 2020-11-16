@@ -1,11 +1,12 @@
 from django.urls import path
 
-from .views import api_detail_blog_view, api_detail_blog_update_view, api_all_detail_view, api_like_blog_view, api_comment_blog_view, fetchComments, increase_post_view
+from .views import api_detail_blog_view, api_detail_blog_update_view, api_all_detail_view, api_like_blog_view, api_comment_blog_view, fetchComments, increase_post_view, update_profile
 
 
 app_name = "api"
 
 urlpatterns = [
+    path('update_profile/', update_profile, name='update-profile'),
     path('blogs/',api_all_detail_view),
     path('increaseView',increase_post_view,name='increase_view'),
     path('comments/',fetchComments,name='blogComments'),

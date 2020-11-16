@@ -4,10 +4,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from blogs.models import Project, BlogTopics, Like, Comment, Profile
 
-from .serializers import BlogSerializer, CommentSerializer
+from .serializers import BlogSerializer, CommentSerializer, ProfileSerializer
 
 @api_view(['GET',])
 def api_detail_blog_view(request,slug):
@@ -103,3 +104,18 @@ def increase_post_view(request):
             return Response({"sucess":"updated","no_of_views":blog.no_of_views})
         except Blog.DoesNotExist:
             return Response({"error":"Some error occured"})
+
+from django.forms.models import model_to_dict
+#@csrf_exempt
+@api_view(['PUT',])
+def update_profile(request):
+    if request.method == "PUT":
+        print(request.data)
+        profile_serializer = ProfileSerializer(data = request.data)
+        if not profile_serializer.is_valid():
+            return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=profile_serializer.data['email_id']))
+        print("updated_profile", profile_serializer.data)
+        return Response(profile_serializer.data, status = status.HTTP_200_OK)
+
