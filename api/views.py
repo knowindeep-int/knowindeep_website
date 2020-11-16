@@ -108,23 +108,16 @@ def increase_post_view(request):
         except Blog.DoesNotExist:
             return Response({"error":"Some error occured"})
 
-#@csrf_exempt
 @api_view(['PUT',])
 def update_profile(request):
     if request.method == "PUT":
-        #profile_obj = Profile.objects.get(pk="4354@frgws.kiuk")
         profile_serializer = ProfileSerializer(data = request.data)
         if not profile_serializer.is_valid():
             return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
-        print(request.data)
-        print(profile_serializer.data)
         updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=profile_serializer.data['email_id']), validated_data=request.data)
-        data = {
-            'profile':model_to_dict(updated_profile)
-        }
-        #serializer = ProfileSerializer(data = updated_profile.__dict__)
-        #if not serializer.is_valid():
-        #    print(serializer.errors)
+        #data = {
+        #    'profile':model_to_dict(updated_profile)
+        #}
         se = ProfileSerializer(updated_profile)
         return Response(se.data, status = status.HTTP_200_OK)
 
