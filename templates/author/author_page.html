@@ -1,6 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 
+<script type="text/javascript">
+    {% block jquery %}
+
+        function updateProfile() {
+
+            var profile = '{{ profile }}'
+
+            $.ajax({
+                url: "{% url api:update_profile %}",
+                method: "POST",
+                data: {
+                    profile: profile,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                dataType: JSON,
+                success: function(data) {
+
+                }, error: function(error) {
+
+                },
+            })
+        }
+
+    {% endblock jquery %}
+</script>
+
 
 {% block content %}
 <div class="container">
