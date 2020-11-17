@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 
 
-from blogs.models import Project, BlogTopics, Like, Comment, Profile
+from blogs.models import Project, Chapter, Like, Comment, Profile
 
 from .serializers import BlogSerializer, CommentSerializer, ProfileSerializer
 from .utils import to_dict
@@ -55,7 +55,7 @@ def fetchComments(request):
     comments = None
     if request.method == 'GET':
         blog_content_slug = request.GET.get('blog_content_slug')
-        blog_content = BlogTopics.objects.get(slug=blog_content_slug)
+        blog_content = Chapter.objects.get(slug=blog_content_slug)
         comments = Comment.objects.filter(link_to=blog_content).order_by('-timestamp')
         commentSerializer = CommentSerializer(comments, many=True)
         return Response(commentSerializer.data)
@@ -65,7 +65,7 @@ def fetchComments(request):
 def api_like_blog_view(request):
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        blog = BlogTopics.objects.get(slug=slug)
+        blog = Chapter.objects.get(slug=slug)
         data = {}
         try:
             like = Like.objects.get(profile__email_id = request.user.email, link_to=blog)
@@ -88,7 +88,7 @@ def api_comment_blog_view(request):
     data["success"] = False
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        blog = BlogTopics.objects.get(slug=slug)
+        blog = Chapter.objects.get(slug=slug)
         comment_text = request.POST.get('comment_text')
         comment = Comment.objects.create(link_to=blog,user=request.user,timestamp=timezone.now(),comment_text=comment_text)
         data["success"] = True

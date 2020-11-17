@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from bs4 import BeautifulSoup
 import requests
 
-from .models import Project,BlogTopics, Like, Comment
+from .models import Project,Chapter, Like, Comment
 
 def topics(request):
     context = None
@@ -21,7 +21,7 @@ def topics(request):
 
 def subtopics(request,slug):
     main_blog = Project.objects.get(slug=slug)
-    blog = BlogTopics.objects.filter(link_to__slug=slug)
+    blog = Chapter.objects.filter(link_to__slug=slug)
     context = {
         "blogs": blog,
         "blog_heading": slug,
@@ -30,8 +30,8 @@ def subtopics(request,slug):
     return render(request,"blogs/subtopic.html",context)
 
 def blog_post(request,slug, blog):
-    blog_content = BlogTopics.objects.get(slug=blog)
-    all_blogs = BlogTopics.objects.filter(link_to__slug=slug)
+    blog_content = Chapter.objects.get(slug=blog)
+    all_blogs = Chapter.objects.filter(link_to__slug=slug)
     main_blog = Project.objects.get(slug=slug)
     author = blog_content.author
     # main_blog.increase_view

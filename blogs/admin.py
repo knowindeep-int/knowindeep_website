@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 
-from .models import BlogTopics, Project, Comment, Profile, Like, PreRequisite, Language
+from .models import Chapter, Project, Comment, Profile, Like, PreRequisite, Language
 # from django.apps import apps
 
 # models = apps.get_models()
-                                                        # This can be used to register all models in the app
+# This can be used to register all models in the app
 # for model in models:
 #     try:
 #         admin.site.register(model)
@@ -13,7 +13,7 @@ from .models import BlogTopics, Project, Comment, Profile, Like, PreRequisite, L
 #         pass
 
 class BlogTopicsInline(admin.StackedInline):
-    model = BlogTopics
+    model = Chapter
     fields = ['author','description','heading','youtube_link','content',]
     extra = 1
 
@@ -31,7 +31,7 @@ class CommentInline(admin.StackedInline):
     fields = ['link_to','timestamp','comment_text','user']
     readonly_fields = ['timestamp']
 
-class BlogTopicAdmin(admin.ModelAdmin):
+class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':['author','link_to','heading','youtube_link','content','description']})
     ]
@@ -53,7 +53,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(BlogTopics,BlogTopicAdmin)
+admin.site.register(Chapter,ChapterAdmin)
 admin.site.register(Project,ProjectAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)

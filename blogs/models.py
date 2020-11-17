@@ -91,7 +91,7 @@ class Project(models.Model):
 
 
 
-class BlogTopics(models.Model):
+class Chapter(models.Model):
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, null=True,default=None)
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
@@ -105,7 +105,7 @@ class BlogTopics(models.Model):
     # no_of_likes = models.IntegerField(default=0)
 
     class Meta:
-        verbose_name_plural = "Blog Topics"
+        verbose_name_plural = "Chapters"
 
     def __str__(self):
         return self.heading
@@ -119,12 +119,12 @@ class BlogTopics(models.Model):
     @property
     def get_next_blog(self):
         blogTopics = None
-        maxID = BlogTopics.objects.aggregate(Max('id'))
+        maxID = Chapter.objects.aggregate(Max('id'))
         if not self.id == maxID['id__max']:
             for i in (self.id + 1,maxID['id__max']):
                 try:
-                    blogTopics = BlogTopics.objects.get(id = i, link_to=self.link_to)
-                except BlogTopics.DoesNotExist:
+                    blogTopics = Chapter.objects.get(id = i, link_to=self.link_to)
+                except Chapter.DoesNotExist:
                     pass
                 if blogTopics:
                     return blogTopics
@@ -133,12 +133,12 @@ class BlogTopics(models.Model):
     @property
     def get_previous_blog(self):
         blogTopics = None
-        minID = BlogTopics.objects.aggregate(Min('id'))
+        minID = Chapter.objects.aggregate(Min('id'))
         if not self.id == minID['id__min']:
             for i in (self.id - 1,minID['id__min'],-1):
                 try:
-                    blogTopics = BlogTopics.objects.get(id = i, link_to=self.link_to)
-                except BlogTopics.DoesNotExist:
+                    blogTopics = Chapter.objects.get(id = i, link_to=self.link_to)
+                except Chapter.DoesNotExist:
                     pass
                 if blogTopics:
                     return blogTopics
@@ -171,7 +171,7 @@ class BlogTopics(models.Model):
 
 
 class Like(models.Model):
-    link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE,related_name="likes")
+    link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE,related_name="likes")
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="liked_users")
 
     # def __str__(self):
@@ -180,7 +180,7 @@ class Like(models.Model):
 
 
 class Comment(models.Model):
-    link_to = models.ForeignKey(BlogTopics, on_delete=models.CASCADE)
+    link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     comment_text = models.CharField(max_length=200)
@@ -205,5 +205,5 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
 
 
 pre_save.connect(r_pre_save_receiever, sender=Project)
-pre_save.connect(r_pre_save_receiever, sender=BlogTopics)
+pre_save.connect(r_pre_save_receiever, sender=Chapter)
 # post_save.connect(create_like_for_blog_topic, sender=BlogTopics)
