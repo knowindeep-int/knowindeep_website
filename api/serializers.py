@@ -39,7 +39,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ['dp','name','description','email_id','phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set']
+        fields = ['name','description','email_id','phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set']
         extra_kwargs = {'skills': {'required': False}}
         
     def update(self, instance, validated_data):     
