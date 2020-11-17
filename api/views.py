@@ -111,6 +111,7 @@ def increase_post_view(request):
 @api_view(['POST',])
 def update_profile(request):
     if request.method == "POST":
+        print(request.data)
         profile_serializer = ProfileSerializer(data = request.data)
         if not profile_serializer.is_valid():
             print(profile_serializer.errors)
