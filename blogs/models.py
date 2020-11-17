@@ -83,7 +83,7 @@ class Project(models.Model):
 
     @classmethod
     def get_popular_projects(KClass):
-        return KClass.objects.all().order_by('no_of_views')[:5]
+        return KClass.objects.all().order_by('-no_of_views')[:5]
 
     @classmethod
     def get_popular_approved_projects(KClass):
@@ -98,7 +98,7 @@ class BlogTopics(models.Model):
     heading = models.CharField(max_length=40,null=False,blank=False)
    # content = models.CharField(max_length=1000, null=False,blank=False)
     description = models.CharField(max_length=300,blank=True,null=True)
-  #  content = HTMLField()
+  #  content = HTMLField()  .
     content = RichTextUploadingField(blank=True,null=True)
     slug = models.SlugField(null=True,blank=True)
     youtube_link = models.URLField(max_length=200, blank=True, null=True)

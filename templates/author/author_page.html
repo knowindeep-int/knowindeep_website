@@ -11,7 +11,9 @@
 
     const FIELDS = {
         NAME: "name",
-        DESCRIPTION: "description"
+        DESCRIPTION: "description",
+        DP: "dp",
+        PHONENUMBER: "phone_number"
     }
 
     function updateProfile(field, value) {
@@ -61,6 +63,18 @@
     }
 
     $('#editPhoneNumber').click(function (e) {
+        e.preventDefault()
+        updateProfile()
+    })
+    $('#editName').click(function (e) {
+        e.preventDefault()
+        updateProfile()
+    })
+    $('#editDescription').click(function (e) {
+        e.preventDefault()
+        updateProfile()
+    })
+    $('#editDp').click(function (e) {
         e.preventDefault()
         updateProfile()
     })
@@ -125,8 +139,8 @@
                             <h3>Bio</h3>
                         </span>
                         <span>
-                            <input type="text" id="description" value="{{profile.description}}" disabled><span>
-                                <button onclick="editProfile(FIELDS.DESCRIPTION)">EDIT
+                            <input type="text" id=FIELDS.DESCRIPTION value="{{profile.description}}" disabled><span>
+                                <button onclick="editProfile(FIELDS.DESCRIPTION)" id="editDescription">EDIT
                                 </button>
                             </span>
                         </span><br>
@@ -140,8 +154,8 @@
                             Medium. <br>
 
                             Recommended size: Square, at least 1000 pixels per side. File type: JPG, PNG or
-                            GIF.<span><button onclick="makeEditable()">EDIT</button></span></span>
-                        <span><img src="" alt="image"></span>
+                            GIF.<span><button id="editDp" onclick="makeEditable()">EDIT</button></span></span>
+                        <span><img src="" alt="image" id="image"></span>
 
                     </div>
                     <div>
@@ -153,8 +167,13 @@
                         <span>
                             <h3>Your Phone Number</h3>
                         </span>
-                        <span>{{profile.phone_number}}<span><button id="editPhoneNumber">Edit
-                                    PhoneNumber</button></span></span>
+                        <span>
+                            <input type="text" id=FIELDS.PHONENUMBER>{{profile.phone_number}}
+                            <span><button id="editPhoneNumber">Edit
+                                    PhoneNumber</button>
+                                </span>
+                            </input>
+                        </span>
 
                     </div>
                     <div>
