@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
 
+
+
+{% block content %}
+
+
 <script type="text/javascript">
     {% block jquery %}
 
     const FIELDS = {
-        NAME: "name"
+        NAME: "name",
+        DESCRIPTION: "description"
     }
 
     function updateProfile(field, value) {
@@ -65,11 +71,15 @@
         updateProfile(FIELDS.NAME, name)
     })
 
+    function editProfile(field) {
+        let value = document.getElementById(field).value
+        updateProfile(field, value)
+    }
+
     {% endblock jquery %}
 </script>
 
 
-{% block content %}
 <div class="container">
     <div class="row" style="margin-top: 150px;">
         <div class="col-sm-12 col-md-6 col-lg-8 center-div">
@@ -114,8 +124,12 @@
                         <span>
                             <h3>Bio</h3>
                         </span>
-                        <span><input type="text" value="{{profile.description}}" disabled><span><button
-                                    onclick="makeEditable()">EDIT</button></span></span><br>
+                        <span>
+                            <input type="text" id="description" value="{{profile.description}}" disabled><span>
+                                <button onclick="editProfile(FIELDS.DESCRIPTION)">EDIT
+                                </button>
+                            </span>
+                        </span><br>
                         <span>Your bio appears on your <a href=""> Profile </a> page. Max 160 characters.</span>
                     </div>
                     <div>
