@@ -62,29 +62,6 @@
         })
     }
 
-    $('#editPhoneNumber').click(function (e) {
-        e.preventDefault()
-        updateProfile()
-    })
-    $('#editName').click(function (e) {
-        e.preventDefault()
-        updateProfile()
-    })
-    $('#editDescription').click(function (e) {
-        e.preventDefault()
-        updateProfile()
-    })
-    $('#editDp').click(function (e) {
-        e.preventDefault()
-        updateProfile()
-    })
-
-    $('#editName').click(function (e) {
-        e.preventDefault()
-        let name = document.getElementById("userName").value
-        updateProfile(FIELDS.NAME, name)
-    })
-
     function editProfile(field) {
         let value = document.getElementById(field).value
         updateProfile(field, value)
@@ -126,12 +103,12 @@
                         <span>
                             <h3>Name</h3>
                         </span>
-                        <span><input type="text" id="userName" value="{{profile.name}}" disabled> <button
-                                onclick="makeEditable()" id="editName">EDIT</button></span><br>
-
+                        <span>
+                            <input type="text" id=FIELDS.NAME value="{{profile.name}}" disabled> 
+                            <button onclick="editProfile(FIELDS.NAME)" id="editName">EDIT</button>
+                        </span><br>
                         Your name appears on your <a href=""> Profile page</a>, as your byline, and in your responses.
                         It is a required field.
-
                     </div>
                     <br>
                     <div>
@@ -139,8 +116,10 @@
                             <h3>Bio</h3>
                         </span>
                         <span>
-                            <input type="text" id=FIELDS.DESCRIPTION value="{{profile.description}}" disabled><span>
-                                <button onclick="editProfile(FIELDS.DESCRIPTION)" id="editDescription">EDIT
+                            <input type="text" id=FIELDS.DESCRIPTION value="{{profile.description}}" disabled>
+                            <span>
+                                <button onclick="editProfile(FIELDS.DESCRIPTION)" id="editDescription">
+                                    EDIT
                                 </button>
                             </span>
                         </span><br>
@@ -154,8 +133,14 @@
                             Medium. <br>
 
                             Recommended size: Square, at least 1000 pixels per side. File type: JPG, PNG or
-                            GIF.<span><button id="editDp" onclick="makeEditable()">EDIT</button></span></span>
-                        <span><img src="media/{{ profile.dp }}" alt="image" id="image"></span>
+                            GIF.
+                            <span>
+                                <button id="editDp" onclick="editProfile(FIELDS.DP)">EDIT</button>
+                            </span>
+                        </span>
+                        <span>
+                            <img src="media/{{ profile.dp }}" alt="image" id=FIELDS.DP >
+                        </span>
 
                     </div>
                     <div>
@@ -168,9 +153,11 @@
                             <h3>Your Phone Number</h3>
                         </span>
                         <span>
-                            <input type="text" id=FIELDS.PHONENUMBER>{{profile.phone_number}}
-                            <span><button id="editPhoneNumber">Edit
-                                    PhoneNumber</button>
+                            <input type="text" id=FIELDS.PHONENUMBER value="{{profile.phone_number}}" disabled>
+                            <span>
+                                <button id="editPhoneNumber" onclick="editProfile(FIELDS.PHONENUMBER)">
+                                    Edit PhoneNumber
+                                </button>
                             </span>
                             </input>
                         </span>
@@ -184,7 +171,9 @@
                         <span>
                             <h3>Delete account</h3>
                         </span>
-                        <span>Permanently delete your account and all of your content.</span><br>
+                            <span>
+                                Permanently delete your account and all of your content.
+                            </span><br>
                         <span><a href="">Delete</a></span>
                     </div>
 
