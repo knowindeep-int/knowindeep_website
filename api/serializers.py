@@ -43,7 +43,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         extra_kwargs = {'skills': {'required': False}}
         
     def update(self, instance, validated_data):     
-        skills = validated_data.pop('skills')  
+        skills = validated_data.get('skills')  
         instance.dp = self.validated_data.get('dp', instance.dp)        
         instance.name = (self.validated_data['name'],instance.name)[self.validated_data.get('name') is None]
         instance.description = (self.validated_data['description'], instance.description)[self.validated_data.get('description') is None]
