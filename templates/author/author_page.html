@@ -4,28 +4,29 @@
 <script type="text/javascript">
     {% block jquery %}
 
-        if (performance.navigation.type == performance.navigation.TYPE_RELOAD){
-            updateProfile()
-        }
+       
         function updateProfile() {
-            alert("TEST")
             var profile = '{{ profile }}'
-
             $.ajax({
-                url: "{% url 'api:update_profile' %}",
-                method: "POST",
+                url: '{% url "api:update_profile" %}',
+                method: "PUT",
+                contentType: 'application/json',
                 data: {
-                    "profile": profile,
-                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                    "profile": profile
                 },
-                dataType: JSON,
                 success: function(data) {
                     alert("SUCCESS")
                 }, error: function(error) {
-                    alert("ERROR")
+                    alert(error)
                 },
             })
         }
+
+        $('#editPhoneNumber').click(function (e) {
+            e.preventDefault()
+            updateProfile()
+        })
 
     {% endblock jquery %}
 </script>
@@ -82,9 +83,10 @@
                             
                     </div>
                     <div>
+                        {% csrf_token %}
                         <span><h2>Account</h2></span><hr>
                         <span><h3>Your Phone Number</h3></span>
-                        <span>{{profile.phone_number}}<span><button onclick = "updateProfile()">Edit PhoneNumber</button></span></span>
+                        <span>{{profile.phone_number}}<span><button id="editPhoneNumber">Edit PhoneNumber</button></span></span>
                         
                     </div>
                     <div>
