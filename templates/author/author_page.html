@@ -6,13 +6,40 @@
 
        
         function updateProfile() {
-            var profile = '{{ profile }}'
+            event.preventDefault();
+            var dp = '{{ profile.dp }}'
+            var name = '{{ profile.name }}'
+            var description = '{{ profile.description }}'
+            var email_id = '{{ profile.email_id }}'
+            var phone_number = '{{ profile.phone_number }}'
+            var linkedin_id = '{{ profile.linkedin_id }}'
+            var twitter_id = '{{ profile.twitter_id }}'
+            var github_id = '{{ profile.github_id }}'
+            var isAuthor = '{{profile.isAuthor}}'
+            var account_number = '{{ profile.isAuthor }}'
+            var total_earnings = '{{ profile.total_earnings }}'
+            var skills = '{{ profile.skills }}'
+           
+
             $.ajax({
                 url: '{% url "api:update_profile" %}',
                 method: "POST",
                 data: {
                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                    profile: profile
+                    description:description,
+                    email_id:email_id,
+                    phone_number:phone_number,
+                    name:name,
+                    linkedin_id:"",
+                    twitter_id:"",
+                    github_id:"",
+                    dp:"",
+                    skills:skills,
+                    isAuthor:isAuthor,
+                    account_number:account_number,
+                    total_earnings:total_earnings
+                   
+                    
                 },
                 dataType: 'json',
                 success: function(data) {
