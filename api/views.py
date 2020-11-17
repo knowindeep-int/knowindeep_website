@@ -108,7 +108,7 @@ def increase_post_view(request):
         except Blog.DoesNotExist:
             return Response({"error":"Some error occured"})
 
-@api_view(['PUT',])
+@api_view(['POST',])
 def update_profile(request):
     print(request.data)
     if request.method == "POST":
