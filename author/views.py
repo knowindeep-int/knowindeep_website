@@ -6,7 +6,11 @@ from django.forms.models import model_to_dict
 
 def author_page(request, slug):
     context = None
-    profile = Profile.objects.all()[0]
+    try:
+        profile = Profile.objects.get(name=slug)
+    except Profile.DoesNotExist:
+        profile = None
+
     context = {
         "profile": profile
     }

@@ -24,7 +24,7 @@ class Language(models.Model):
 
 class Profile(models.Model):
     dp = models.ImageField(null=True,upload_to='profiles/')
-    name = models.CharField(max_length=30, null = True)
+    name = models.CharField(max_length=30, null = True, unique=True)
     description = models.CharField(max_length=200, null = True)
     email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
     phone_number = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(1000000000)])
