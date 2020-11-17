@@ -1,5 +1,6 @@
 from itertools import chain
 
+
 def to_dict(instance):
     opts = instance._meta
     data = {}

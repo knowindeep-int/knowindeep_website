@@ -110,7 +110,8 @@ def increase_post_view(request):
 
 @api_view(['PUT',])
 def update_profile(request):
-    if request.method == "PUT":
+    print(request.data)
+    if request.method == "POST":
         profile_serializer = ProfileSerializer(data = request.data)
         if not profile_serializer.is_valid():
             return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
