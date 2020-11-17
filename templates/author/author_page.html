@@ -4,22 +4,25 @@
 <script type="text/javascript">
     {% block jquery %}
 
+        if (performance.navigation.type == performance.navigation.TYPE_RELOAD){
+            updateProfile()
+        }
         function updateProfile() {
-
+            alert("TEST")
             var profile = '{{ profile }}'
 
             $.ajax({
-                url: "{% url api:update_profile %}",
+                url: "{% url 'api:update_profile' %}",
                 method: "POST",
                 data: {
-                    profile: profile,
+                    "profile": profile,
                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
                 },
                 dataType: JSON,
                 success: function(data) {
-
+                    alert("SUCCESS")
                 }, error: function(error) {
-
+                    alert("ERROR")
                 },
             })
         }
@@ -81,7 +84,7 @@
                     <div>
                         <span><h2>Account</h2></span><hr>
                         <span><h3>Your Phone Number</h3></span>
-                        <span>{{profile.phone_number}}<span><button onclick = "makeEditable()">Edit PhoneNumber</button></span></span>
+                        <span>{{profile.phone_number}}<span><button onclick = "updateProfile()">Edit PhoneNumber</button></span></span>
                         
                     </div>
                     <div>
