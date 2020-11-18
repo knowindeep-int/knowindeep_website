@@ -8,8 +8,8 @@ from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, int_list_validator, MaxValueValidator
 from django.db.models import Max, Min
-
 from django.contrib.auth.models import User
+
 from knowindeep import Constants
 
 class Language(models.Model):
@@ -23,6 +23,7 @@ class Language(models.Model):
         verbose_name_plural  = "Language"
 
 class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     dp = models.ImageField(null=True,upload_to='profiles/')
     name = models.CharField(max_length=30, null = True, unique=True)
     description = models.CharField(max_length=200, null = True)

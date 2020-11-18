@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 
-
 from blogs.models import Project, Chapter, Like, Comment, Profile
 
 from .serializers import BlogSerializer, CommentSerializer, ProfileSerializer

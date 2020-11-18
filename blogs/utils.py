@@ -30,21 +30,14 @@ def unique_slug_generator(instance,new_slug=None):
 
 
 def save_user(backend, user, response, *args, **kwargs):
-    # print(backend)
-    # print(response)
-    # print(response['email'])
-    # print(response['picture'])
-    # # print(request.user.username)
-    # print("request here")
 
     try:
-        user = models.Profile.objects.get(name = response['name'],
-            email_id = response['email'])
-        
+        profile = models.Profile.objects.get(user=user)
     except models.Profile.DoesNotExist:
-        user = models.Profile(
+        profile = models.Profile(
             name = response['name'],
             email_id = response['email'],
-            dp = response['picture']
+            dp = response['picture'],
+            user=user
         )
-        user.save()
+        profile.save()
