@@ -25,6 +25,7 @@ handler404 = "blogs.views.error404"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('teach/', include('teach.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('site/user/',include('site_users.urls')),
     path('tinymce/', include('tinymce.urls')),
