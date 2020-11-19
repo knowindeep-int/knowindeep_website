@@ -1,10 +1,9 @@
 from django.urls import path
 
-from . import views
+from .views import add_course
 
 app_name = "teach"
 
 urlpatterns=[
-    path('', views.sample, name="index")
+    path('', add_course, name="add_course")
 ]
-print('Hello')
