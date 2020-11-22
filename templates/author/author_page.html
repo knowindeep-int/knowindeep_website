@@ -9,12 +9,37 @@
 <script type="text/javascript">
     {% block jquery %}
 
+    window.onload = function(){
+        disableEdit();
+    };
+    
     const FIELDS = {
         NAME: "name",
         DESCRIPTION: "description",
         DP: "dp",
         PHONENUMBER: "phone_number"
     }
+    
+    function makeEditable() {
+        var is_verified = '{{is_verified}}'
+        alert(is_verified);
+        $(this).attr('disabled', false);
+    } 
+
+    function disableEdit(){
+        //event.preventDefault();
+        edit_buttons = document.getElementsByClassName("can_hide")
+        alert('{{is_verified}}')
+        //alert('HELLO WORLD!')
+        console.log(57483)
+        var is_verified = '{{is_verified}}'
+        if(is_verified == "False"){
+            for(var i=0; i<edit_buttons.length; i++){
+                edit_buttons[i].style.display = "none";
+            }
+        }
+    }
+           
 
     function updateProfile(field, value) {
         event.preventDefault();
@@ -64,13 +89,14 @@
 
     function editProfile(field) {
         let value = document.getElementById(field).value
+
         updateProfile(field, value)
     }
 
     {% endblock jquery %}
 </script>
 
-
+   
 <div class="container">
     <div class="row" style="margin-top: 150px;">
         <div class="col-sm-12 col-md-6 col-lg-8 center-div">
@@ -80,12 +106,9 @@
                     <img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                         alt="" class="circle responsive-img">
                 </div>
+                
                 <div class="col-sm-10">
-                    <script>
-                        function makeEditable() {
-                            $(this).attr('disabled', false);
-                        }
-                    </script>
+                    
                     <div>
                        
                     </div>
@@ -97,13 +120,13 @@
                     <div>
                         <h2>About You</h2>
                     </div>
-                    <div>
+                    <div >
                         <span>
                             <h3>Name</h3>
                         </span>
                         <span>
-                            <input type="text" id="name" value="{{profile.name}}" disabled> 
-                            <button onclick="editProfile(FIELDS.NAME)" id="editName">EDIT</button>
+                            <input type="text" id="name" value="{{profile.name}}"  disabled> 
+                            <button onclick="editProfile(FIELDS.NAME)" id="editName"  class="can_hide">EDIT</button>
                         </span><br>
                         Your name appears on your <a href=""> Profile page</a>, as your byline, and in your responses.
                         It is a required field.
@@ -116,7 +139,7 @@
                         <span>
                             <input type="text" id="description" value="{{profile.description}}" disabled>
                             <span>
-                                <button onclick="editProfile(FIELDS.DESCRIPTION)" id="editDescription">
+                                <button onclick="editProfile(FIELDS.DESCRIPTION)" id="editDescription" class="can_hide">
                                     EDIT
                                 </button>
                             </span>
@@ -133,7 +156,7 @@
                             Recommended size: Square, at least 1000 pixels per side. File type: JPG, PNG or
                             GIF.
                             <span>
-                                <button id="editDp" onclick="editProfile(FIELDS.DP)">EDIT</button>
+                                <button id="editDp" onclick="editProfile(FIELDS.DP)" class="can_hide">EDIT</button>
                             </span>
                         </span>
                         <span>
@@ -153,7 +176,7 @@
                         <span>
                             <input type="text" id="phone_number" value="{{profile.phone_number}}" disabled>
                             <span>
-                                <button id="editPhoneNumber" onclick="editProfile(FIELDS.PHONENUMBER)">
+                                <button id="editPhoneNumber" onclick="editProfile(FIELDS.PHONENUMBER)" class="can_hide">
                                     Edit PhoneNumber
                                 </button>
                             </span>
@@ -177,6 +200,8 @@
 
 
                 </div>
+               
+            
             </div>
             <hr>
         </div>

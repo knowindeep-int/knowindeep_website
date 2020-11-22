@@ -10,8 +10,10 @@ def author_page(request, slug):
         profile = Profile.objects.get(name=slug)
     except Profile.DoesNotExist:
         profile = None
-
+    is_verified = request.user == profile.user
     context = {
-        "profile": profile
+        "profile": profile,
+        "is_verified":is_verified
     }
     return render(request,"author/author_page.html",context)
+ 
