@@ -111,6 +111,11 @@
 
                 {% if request.user.is_authenticated %}
                 <li>
+                    <a id="cate" href="{% url 'site_users:logout' %}">
+                        Log Out
+                    </a>
+                </li>
+                <li>
                     <div class="dropdown">
 
                         <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
@@ -144,7 +149,7 @@
                 {% else %}
                 <li>
                     <button class="btn atkt" style="background:#f5b042;">
-                        <a id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog">
+                        <a id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog" href = "{% url 'site_users:login' %}">
 
                             Login
 
@@ -199,13 +204,7 @@
             </dialog> -->
     </div>
 
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="{% url 'blogs:index' %}">Home</a></li>
-        <!-- <li><a href="#">Blogs</a></li> -->
-        <li><a href="#">About Us</a></li>
-        <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
-        <li><button href="{% url 'site_users:logout' %}" class="waves-effect waves-light btn">Log Out</button></li>
-    </ul>
+    
 
     <div>
         {% block content %}
