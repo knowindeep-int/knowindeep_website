@@ -210,10 +210,15 @@
         <p style="margin-top: 50px;" class="container">
             {{ blog_content.content | safe | escape }}
         </p>
-        {% if blog_content.youtube_link %}
+        
+        {% if blog_content.youtube_link and blog_content.youtube_link.strip %}
         <div style="margin-top: 150px;">
             <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
         </div>
+        {% else %}
+            <div>
+                Video is Not available!
+            </div>
         {% endif %}
     </div>
 
