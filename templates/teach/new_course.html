@@ -10,6 +10,21 @@
 </head>
 
 <script>
+    function addChapter(){
+        var inputs = document.getElementsByClassName("chapter");
+        for (var i=0; i < inputs.length; i++) {
+            if(inputs[i].value=="" || inputs[i].value==null){
+                alert("Enter all fields!");
+                return false;
+            }
+        }
+        var inner_div = document.getElementById("append");
+        var outer_div = document.getElementById("add_chapter")
+        outer_div.innerHTML += '<div class="outer">' + inner_div.innerHTML + '</div>' 
+        
+        
+    }
+
     function showhide(id){
         if (document.getElementById) {
           var divid = document.getElementById(id);
@@ -19,7 +34,6 @@
           }
           divid.style.display = "block";
         } 
-        //return false;
     }
 </script>
 
@@ -113,13 +127,51 @@
 
     </div>
     <div>
-        <button style="float: right;" >Create project</button>
+        <button style="float: right;" onclick="showhide(5)">Continue</button>
     </div>
     
     <div>
         <button style="float: left;" onclick="showhide(3)">Previous</button>
     </div>
     
+</div>
+
+<div id=5 class="to_hide" style="display: none;">
+    <div id=add_chapter>
+        <div id="append">
+            <div>
+                <div class="jumbotron text-center" style="color: black;">
+                    <h2 style="color: black;">What about adding a chapter?</h2> 
+                </div>
+                <div>
+                    <span>Heading</span>
+                    <input class="chapter" type="text" id="heading_input">
+                </div>
+                <div>
+                    <span>Description</span>
+                    <input class="chapter" type="text">
+                </div>
+                <div >
+                    <span>content</span>
+                    <input class="chapter" type="text">
+                </div>
+                <div>
+                    <span>Youtube Link</span>
+                    <input type="text" class="chapter">
+                </div>
+            </div>        
+        </div>
+    </div>
+    <div>
+        <button onclick="addChapter()">
+            ADD
+        </button>
+    </div>
+    <div>
+        <button style="float: right;">
+            CONTINUE
+        </button>
+    </div>
 </div>
 
 
