@@ -10,7 +10,7 @@
 </head>
 
 <script>
-    function addChapter(){
+    function addChapter() {
         var inputs = document.getElementsByClassName("chapter");
         for (var i=0; i < inputs.length; i++) {
             if(inputs[i].value=="" || inputs[i].value==null){
@@ -19,10 +19,10 @@
             }
         }
         var inner_div = document.getElementById("append");
-        var outer_div = document.getElementById("add_chapter")
-        outer_div.innerHTML += '<div class="outer">' + inner_div.innerHTML + '</div>' 
-        
-        
+        var newDiv = document.createElement('div');
+        newDiv.innerHTML = inner_div.innerHTML;
+        var outer_div = document.getElementById("add_chapter");
+        outer_div.append(newDiv);
     }
 
     function showhide(id){
