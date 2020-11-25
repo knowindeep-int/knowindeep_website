@@ -23,6 +23,7 @@ class Language(models.Model):
         verbose_name_plural  = "Language"
 
 class Profile(models.Model):
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dp = models.ImageField(null=True,upload_to='profiles/')
     name = models.CharField(max_length=30, null = True, unique=True)
