@@ -13,10 +13,10 @@ class CommentSerializer(serializers.ModelSerializer):
     last_name = serializers.SerializerMethodField('last_name_method')
 
     def first_name_method(self,comment):
-        return comment.user.first_name
+        return comment.user.user.first_name
 
     def last_name_method(self,comment):
-        return comment.user.last_name
+        return comment.user.user.last_name
 
     class Meta:
         model = Comment

@@ -21,7 +21,8 @@ def topics(request):
 
 def subtopics(request,slug):
     main_blog = Project.objects.get(slug=slug)
-    blog = Chapter.objects.filter(link_to__slug=slug)
+    #blog = Chapter.objects.filter(link_to__slug=slug)
+    blog = Project.getAllChapters(slug)
     context = {
         "blogs": blog,
         "blog_heading": slug,
@@ -31,8 +32,10 @@ def subtopics(request,slug):
 
 def blog_post(request,slug, blog):
     blog_content = Chapter.objects.get(slug=blog)
-    all_blogs = Chapter.objects.filter(link_to__slug=slug)
-    main_blog = Project.objects.get(slug=slug)
+    #all_blogs = Chapter.objects.filter(link_to__slug=slug)
+    all_blogs = Project.getAllChapters(slug)
+    #main_blog = Project.objects.get(slug=slug)
+    title = Project.getTitle(slug = slug)
     author = blog_content.author
     # main_blog.increase_view
     # soup = BeautifulSoup(blog_content.content,"lxml")
@@ -42,7 +45,7 @@ def blog_post(request,slug, blog):
     # print(str(blog_content.get_next_blog) + str(blog_content.get_previous_blog))
     has_liked = blog_content.has_user_liked(request.user)
     context = {
-        "main_blog":main_blog.title,
+        "main_blog":title,
         "blog_content" : blog_content,
         "slug":slug,
         "all_blogs":all_blogs,

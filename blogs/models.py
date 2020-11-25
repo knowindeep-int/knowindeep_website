@@ -40,6 +40,12 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def getUser(cls, name):
+        profile = cls(name = name)
+        return profile.user
+        
+
     @property
     def skills_set(self):
         return self.skills.all()
@@ -72,10 +78,18 @@ class Project(models.Model):
     overview = models.CharField(max_length=300)
     pre_req = models.ManyToManyField(to = PreRequisite)
 
-
-
     def __str__(self):
         return self.title
+
+    @classmethod
+    def getTitle(cls, slug):
+        project = cls.objects.get(slug = slug)
+        return project.title
+
+    @classmethod
+    def getAllChapters(cls, slug):
+        project = cls.objects.get(slug = slug)
+        return project.chapter_set.all()
 
     @property
     def increase_view(self):
@@ -170,6 +184,10 @@ class Chapter(models.Model):
                 has_liked = False
                 return False
 
+    @classmethod
+    def getAllComments(cls, blog_content_slug):
+        blog = cls.objects.get(slug = blog_content_slug)
+        return blog.comment_set.all().order_by('-timestamp')
 
 class Like(models.Model):
     link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE,related_name="likes")
@@ -187,9 +205,7 @@ class Comment(models.Model):
     comment_text = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.user.username + self.comment_text
-
-
+        return self.user.name + self.comment_text
 
 
 def create_blog(sender, instance, created,**kwargs):
