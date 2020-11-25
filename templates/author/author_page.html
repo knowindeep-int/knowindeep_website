@@ -44,7 +44,7 @@
     function updateProfile(field, value) {
         event.preventDefault();
         var dp = '{{ profile.dp }}'
-        var name = '{{ profile.name }}'
+        var name = '{{ profile.user.name }}'
         var description = '{{ profile.description }}'
         var email_id = '{{ profile.email_id }}'
         var phone_number = '{{ profile.phone_number }}'
@@ -125,7 +125,7 @@
                             <h3>Name</h3>
                         </span>
                         <span>
-                            <input type="text" id="name" value="{{profile.name}}"  disabled> 
+                            <input type="text" id="name" value="{{profile.user.name}}"  disabled> 
                             <button onclick="editProfile(FIELDS.NAME)" id="editName"  class="can_hide">EDIT</button>
                         </span><br>
                         Your name appears on your <a href=""> Profile page</a>, as your byline, and in your responses.
