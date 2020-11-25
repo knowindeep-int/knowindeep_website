@@ -1,26 +1,210 @@
 {% extends "base.html" %}
+{% load static %}
+
+
+
 {% block content %}
-<div class="row" style="margin-top: 150px;">
-    <div class="col-sm-12 col-md-6 col-lg-8 center-div">
-        <hr>
-        <div class="row valign-wrapper">
-            <div class="col-sm-2">
-                <img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" class="circle responsive-img">
-            </div>
-            <div class="col-sm-10">
-                <div>
-                    <a href="{% url 'author:author_page' slug='some' %}" class="font-weight-bold">
-                        Name of the author
-                    </a>
+
+
+<script type="text/javascript">
+    {% block jquery %}
+
+    window.onload = function(){
+        disableEdit();
+    };
+    
+    const FIELDS = {
+        NAME: "name",
+        DESCRIPTION: "description",
+        DP: "dp",
+        PHONENUMBER: "phone_number"
+    }
+    
+    function makeEditable() {
+        var is_verified = '{{is_verified}}'
+        alert(is_verified);
+        $(this).attr('disabled', false);
+    } 
+
+    function disableEdit(){
+        //event.preventDefault();
+        edit_buttons = document.getElementsByClassName("can_hide")
+        alert('{{is_verified}}')
+        //alert('HELLO WORLD!')
+        console.log(57483)
+        var is_verified = '{{is_verified}}'
+        if(is_verified == "False"){
+            for(var i=0; i<edit_buttons.length; i++){
+                edit_buttons[i].style.display = "none";
+            }
+        }
+    }
+           
+
+    function updateProfile(field, value) {
+        event.preventDefault();
+        var dp = '{{ profile.dp }}'
+        var name = '{{ profile.name }}'
+        var description = '{{ profile.description }}'
+        var email_id = '{{ profile.email_id }}'
+        var phone_number = '{{ profile.phone_number }}'
+        var linkedin_id = '{{ profile.linkedin_id }}'
+        var twitter_id = '{{ profile.twitter_id }}'
+        var github_id = '{{ profile.github_id }}'
+        var isAuthor = '{{profile.isAuthor}}'
+        var account_number = '{{ profile.isAuthor }}'
+        var total_earnings = '{{ profile.total_earnings }}'
+        var skills = '{{ profile.skills }}'
+
+        let data = {
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            "description": description,
+            "email_id": email_id,
+            "phone_number": phone_number,
+            "name": name,
+            "linkedin_id": linkedin_id,
+            "twitter_id": twitter_id,
+            "github_id": github_id,
+            "dp": dp,
+            "skills": skills,
+            "isAuthor": isAuthor,
+            "account_number": account_number,
+            "total_earnings": total_earnings
+        }
+
+        data[field] = value
+
+        $.ajax({
+            url: '{% url "api:update_profile" %}',
+            method: "POST",
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                alert("SUCCESS")
+            }, error: function (error) {
+                alert(error)
+            },
+        })
+    }
+
+    function editProfile(field) {
+        let value = document.getElementById(field).value
+
+        updateProfile(field, value)
+    }
+
+    {% endblock jquery %}
+</script>
+
+   
+<div class="container">
+    <div class="row" style="margin-top: 150px;">
+        <div class="col-sm-12 col-md-6 col-lg-8 center-div">
+            <hr>
+            <div class="row valign-wrapper">
+                <div class="col-sm-2">
+                    <img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                        alt="" class="circle responsive-img">
                 </div>
-                <div>
-                    <span class="black-text">
-                        {{ author.description }}
-                    </span>
+                
+                <div class="col-sm-10">
+                    
+                    <div>
+                       
+                    </div>
+                    <div>
+                        <span class="black-text">
+                            {{ author.description }}
+                        </span>
+                    </div>
+                    <div>
+                        <h2>About You</h2>
+                    </div>
+                    <div >
+                        <span>
+                            <h3>Name</h3>
+                        </span>
+                        <span>
+                            <input type="text" id="name" value="{{profile.name}}"  disabled> 
+                            <button onclick="editProfile(FIELDS.NAME)" id="editName"  class="can_hide">EDIT</button>
+                        </span><br>
+                        Your name appears on your <a href=""> Profile page</a>, as your byline, and in your responses.
+                        It is a required field.
+                    </div>
+                    <br>
+                    <div>
+                        <span>
+                            <h3>Bio</h3>
+                        </span>
+                        <span>
+                            <input type="text" id="description" value="{{profile.description}}" disabled>
+                            <span>
+                                <button onclick="editProfile(FIELDS.DESCRIPTION)" id="editDescription" class="can_hide">
+                                    EDIT
+                                </button>
+                            </span>
+                        </span><br>
+                        <span>Your bio appears on your <a href=""> Profile </a> page. Max 160 characters.</span>
+                    </div>
+                    <div>
+                        <span>
+                            <h3>Photo</h3>
+                        </span>
+                        <span>Your photo appears on your <a href="">Profile</a> page and with your stories across
+                            Medium. <br>
+
+                            Recommended size: Square, at least 1000 pixels per side. File type: JPG, PNG or
+                            GIF.
+                            <span>
+                                <button id="editDp" onclick="editProfile(FIELDS.DP)" class="can_hide">EDIT</button>
+                            </span>
+                        </span>
+                        <span>
+                            <img src="media/{{ profile.dp }}" alt="image" id=FIELDS.DP >
+                        </span>
+
+                    </div>
+                    <div>
+                        {% csrf_token %}
+                        <span>
+                            <h2>Account</h2>
+                        </span>
+                        <hr>
+                        <span>
+                            <h3>Your Phone Number</h3>
+                        </span>
+                        <span>
+                            <input type="text" id="phone_number" value="{{profile.phone_number}}" disabled>
+                            <span>
+                                <button id="editPhoneNumber" onclick="editProfile(FIELDS.PHONENUMBER)" class="can_hide">
+                                    Edit PhoneNumber
+                                </button>
+                            </span>
+                            </input>
+                        </span>
+
+                    </div>
+                    <div>
+                        <span>
+                            <h2>Security</h2>
+                        </span>
+                        <hr>
+                        <span>
+                            <h3>Delete account</h3>
+                        </span>
+                            <span>
+                                Permanently delete your account and all of your content.
+                            </span><br>
+                        <span><a href="">Delete</a></span>
+                    </div>
+
+
                 </div>
+               
+            
             </div>
+            <hr>
         </div>
-        <hr>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

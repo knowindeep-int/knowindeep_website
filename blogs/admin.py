@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 
-from .models import BlogTopics, Blog, Comment, Author, Like
+from .models import Chapter, Project, Comment, Profile, Like, PreRequisite, Language
 # from django.apps import apps
 
 # models = apps.get_models()
-                                                        # This can be used to register all models in the app
+# This can be used to register all models in the app
 # for model in models:
 #     try:
 #         admin.site.register(model)
@@ -13,7 +13,7 @@ from .models import BlogTopics, Blog, Comment, Author, Like
 #         pass
 
 class BlogTopicsInline(admin.StackedInline):
-    model = BlogTopics
+    model = Chapter
     fields = ['author','description','heading','youtube_link','content',]
     extra = 1
 
@@ -31,30 +31,32 @@ class CommentInline(admin.StackedInline):
     fields = ['link_to','timestamp','comment_text','user']
     readonly_fields = ['timestamp']
 
-class BlogTopicAdmin(admin.ModelAdmin):
+class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':['author','link_to','heading','youtube_link','content','description']})
     ]
     inlines = [LikeInline,CommentInline]
     search_fields = ['heading','content']
 
-class BlogAdmin(admin.ModelAdmin):
+class ProjectAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['topic','topic_image','topic_content','no_of_views']}),
+        (None, {'fields':['title','image','overview', 'description', 'no_of_views','pre_req','isApproved', 'languages', 'difficulty_level', 'no_of_hours', 'author']}),
         ('Date information', {'fields': [], 'classes': ['collapse']})
     ]
-    list_display = ['topic','topic_content','no_of_views']
+    list_display = ['title','overview','no_of_views']
     ordering = ['-no_of_views']
     readonly_fields = ['no_of_views']
     inlines = [BlogTopicsInline,]
-    search_fields = ['topic','topic_content']
+    search_fields = ['title','overview']
 
 
 
 
 
-admin.site.register(BlogTopics,BlogTopicAdmin)
-admin.site.register(Blog,BlogAdmin)
+admin.site.register(Chapter,ChapterAdmin)
+admin.site.register(Project,ProjectAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)
-admin.site.register(Author)
+admin.site.register(Profile)
+admin.site.register(PreRequisite)
+admin.site.register(Language)

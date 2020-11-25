@@ -134,7 +134,7 @@
                 success: function (data) {
                     updateLikes(data.likes, data.success)
                 }, error: function (error) {
-
+                    alert(error)
                 },
 
             })
@@ -210,10 +210,15 @@
         <p style="margin-top: 50px;" class="container">
             {{ blog_content.content | safe | escape }}
         </p>
-        {% if blog_content.youtube_link %}
+        
+        {% if blog_content.youtube_link and blog_content.youtube_link.strip %}
         <div style="margin-top: 150px;">
             <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
         </div>
+        {% else %}
+            <div>
+                Video is Not available!
+            </div>
         {% endif %}
     </div>
 
@@ -229,7 +234,8 @@
         <hr>
         <div class="row valign-wrapper">
             <div class="col-sm-2">
-                <img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" class="circle responsive-img">
+                <img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                    alt="" class="circle responsive-img">
             </div>
             <div class="col-sm-10">
                 <div>

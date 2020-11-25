@@ -1,11 +1,13 @@
 
 **/__pycache__
+**/migrations
+blogs/migrations/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 __pycache__
 *.py[cod]
 *$py.class
-
+**/migrations/
 # C extensions
 *.so
 .idea

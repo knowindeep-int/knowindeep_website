@@ -25,11 +25,12 @@ handler404 = "blogs.views.error404"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('teach/', include('teach.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('author/',include('author.urls')),
     path('site/user/',include('site_users.urls')),
     path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
+    path('<slug:slug>',include('author.urls')),
     path('',include('blogs.urls')),
     path('oauth/',include('social_django.urls'),name='social'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

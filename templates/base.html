@@ -7,58 +7,173 @@
     <title>KnowInDeep</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="{% static  'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        .btn {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 7px 7px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: white;
+            color: black;
+            border: 2px solid #4CAF50;
+        }
+
+        .atkt {
+            padding-bottom: 2px 20px 2px 20px;
+            font-size: 20px;
+            border: 1px solid white;
+        }
+
+        #image{
+            margin-top: 10px;
+        }
+        .displaya{
+            display: none;
+            padding-top: 64px;
+        }
+        i{
+            font-size: 30px;
+        }
+        .searches{
+            padding-left: 5px;
+            font-size: 24px;
+        }
+        .home{
+            padding-right:15px ;
+            padding-left: 15px;
+        }
+        @media (max-width: 601px) {
+            #image{
+               margin-top: 0;            
+            }
+            
+        }
+    </style>
+
+
+
+
 </head>
 
 
 
 <body>
 
-    <nav id="navbar" class="navbar-default navbar-fixed-top">
+
+    <nav id="navbar" class="navbar-default navbar-static-top" style="overflow:hidden">
         <div class="nav-wrapper container ">
             <a href="{% url 'blogs:index' %}">
-                <img src="/static/images/kid-white.png" class="brand-logo" alt="brandLogo" height="100%">
+                <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" id="image" alt="brandLogo" height="100%">
             </a>
             <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i onclick="functionOne()" class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" id="nav-mobile">
-                <li><a href="{% url 'blogs:index' %}">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
+                <li><a class="searches home" href="{% url 'blogs:index' %}">Home</a></li>
+                <li><a class="searches home" href="#">About Us</a></li>
+                <li><a class="searches home" href="{% url 'teach:add_course' %}">Teach with Us</a></li>
+                <li><a id="cate" href="#"><i class="fa fa-search fa-xs" id="SC"></i><span class="searches">Search</span></a></li>
                 {% if request.user.is_superuser %}
-               <li>
-                <a href="#" >
-                    All Blogs
-                </a>
-               </li>
+                <li>
+                    <a id="cate" href="#">
+                        All Blogs
+                    </a>
+                </li>
                 {% endif %}
-                <li><button class="waves-effect waves-light btn" id="logInBtn">
-                        {% if request.user.is_authenticated %}
-                        <a href="{% url 'site_users:logout' %}" style="display: block; width: 100%;">
-                            Log Out
-                        </a>
-                        {% else %}
-                        <a id="loginLink" data-href="{% url 'site_users:login' %}" target="#loginDialog" type="button">
+
+                {% if request.user.is_authenticated %}
+                <li>
+                    <a id="cate" href="{% url 'site_users:logout' %}">
+                        Log Out
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown">
+
+                        <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
+                            class="img-circle" height="25" width="25" type="button" id="logInBtn" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </img>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"><img
+                                   src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
+                                    class="img-circle" height="35" width="35" type="button" id="logInBtn"
+                                    data-toggle="dropdown">
+
+                                </img><span class="text-center align-middle">&nbspName</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a id="cate"class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
+                            <a id="cate" class="text-center" style="color:black" href="{% url 'site_users:logout' %}">Log Out</a>
+                        </div>
+
+
+                    </div>
+                </li>
+                <!--    <div class="dropdown-content" id="myDropdown">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>  -->
+                {% else %}
+                <li>
+                    <button class="btn atkt" style="background:#f5b042;">
+                        <a id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog" href = "{% url 'site_users:login' %}">
+
                             Login
+
                         </a>
-                        {% endif %}
-                    </button></li>
+                    </button>
+                </li>
+                {% endif %}
+
             </ul>
         </div>
     </nav>
 
-    <div>
-    
+
+    <ul class="displaya" id="myLinks">
+        <li>Home</li>
+        <li>About us</li>
+        <li>Search</li>
+        <li>All Blogs</li>
+    </ul>
+
+
+
+
+
     <div class="modal" id="loginDialog">
         <div class="row">
             <div class="col-10 offset-1">
@@ -76,30 +191,26 @@
                 </a>
             </div>
             <div class="col-6 center">
-                <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
+                <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"
+                    class="icon-btn">
                     <img src="/static/images/github-logo.svg" alt="githubLogo" width="200" height="200" />
                 </a>
             </div>
         </div>
-    
+
         <!-- <dialog id="loginDialog" class="container">
                 <i class="fa fa-google-plus-square" style="font-size:36px" id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"></i>
                 <i class="fa fa-github" style="font-size:36px" id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"></i>
             </dialog> -->
     </div>
 
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="{% url 'blogs:index' %}">Home</a></li>
-        <!-- <li><a href="#">Blogs</a></li> -->
-        <li><a href="#">About Us</a></li>
-        <li><a href="#"><i class="material-icons left">search</i>Search</a></li>
-        <li><button href="{% url 'site_users:logout' %}" class="waves-effect waves-light btn">Log Out</button></li>
-    </ul>
+    
 
-    <div class="container">
+    <div>
         {% block content %}
         {% endblock %}
     </div>
+
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax /libs/materialize/1.0.0/js/materialize.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -113,59 +224,78 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
+    function functionOne() {
+         var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+        x.style.display = "none";
+        } else {
+        x.style.display = "block";
+        }
+    }
+
+    window.addEventListener("resize", function () {
+        var a = window.innerWidth;
+        if ( a > 993 ){  
+        var x = document.getElementById("myLinks");
+        x.style.display = "none";
+        }
+    });
     </script>
 
     <script>
-        window.onscroll = function() {myFunction()};
+        window.onscroll = function () { myFunction() };
 
         function myFunction() {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        // document.getElementById("myBar").style.width = scrolled + "%";
-        console.log(scrolled)
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            // document.getElementById("myBar").style.width = scrolled + "%";
+            console.log(scrolled)
         }
+        
     </script>
 
     <script type="text/JavaScript">
-    (function() {    
-        var dialog = document.getElementById('loginDialog');    
-        document.getElementById('loginLink').onclick = function() {  
+    (function() {
+        var dialog = document.getElementById('loginDialog');
+        document.getElementById('loginLink').onclick = function() {
             dialog.style.display = "block";
-        };    
-        
+        };
+
         window.onclick = function() {
             if (event.target == dialog) {
                 dialog.style.display = "none";
             };
         };
 
-        document.getElementById('googleLogin').onclick = function() {    
+        document.getElementById('googleLogin').onclick = function() {
             var url = this.getAttribute('google-href')
             window.open(url,"_self")
-        };    
+        };
 
         document.getElementById('closeDialog').onclick = function() {
             dialog.style.display = "none";
         };
 
-        document.getElementById('githubLogin').onclick = function() {    
+        document.getElementById('githubLogin').onclick = function() {
             var url = this.getAttribute('github-href')
             window.open(url,"_self")
-        }; 
+        };
 
         // document.addEventListener('DOMContentLoaded', function() {
         //     var element = document.querySelectorAll('.sidenav');
         //     var instances = M.Sidenav.init(element, options);
         // });
-    })();   
+    })();
     </script>
     <script>
         $(document).ready(function () {
             {% block jquery %}
-        {% endblock jquery %}
+            console.log("print")
+            {% endblock jquery %}
         })
     </script>
+
 
 </body>
 
