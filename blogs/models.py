@@ -38,7 +38,7 @@ class Profile(models.Model):
     skills = models.ManyToManyField(to = Language, related_name="skills")
 
     def __str__(self):
-        return self.name
+        return self.email_id
 
     @classmethod
     def getUser(cls, name):
