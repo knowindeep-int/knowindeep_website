@@ -27,150 +27,128 @@
 
     function showhide(id){
         if (document.getElementById) {
-          var divid = document.getElementById(id);
-          var divs = document.getElementsByClassName("to_hide");
-          for(var i=0;i<divs.length;i++) {
-            divs[i].style.display = "none";
-          }
-          divid.style.display = "block";
+            //e.preventDefault();
+            var divid = document.getElementById(id);
+            var divs = document.getElementsByClassName("to_hide");
+            for(var i=0;i<divs.length;i++) {
+              divs[i].style.display = "none";
+              divs[i].style.visiblity = "hidden";
+            }
+            divid.style.visibility = "visible";
+            divid.style.display = "block";
+            //var main_div = document.getElementById("main_div");
+            //var form = document.getElementById("form")
+            //form.appendChild(document.getElementById(id));
+            //main_div.innerHTML = "<div>" + divid.innerHTML + "</div>";
         } 
     }
+    window.onload = function(){
+        createTitlePage();
+        showhide(1);
+    };
+
+    
+    function createDescriptionPage(){
+        //if(titleForm.innerHTML != ""){
+         //   showhide(1);
+          //  return true ;
+        //};
+        //e.preventDefault();
+        
+        document.getElementById(2).innerHTML = "";
+        showhide(2);
+        var form = document.createElement('form');
+        var input = document.createElement('input');
+        var div = document.createElement('div');
+        var CONTINUE = document.createElement('button');
+        var PREVIOUS = document.createElement('button');
+        var h2 = document.createElement('h2');
+    
+        h2.innerHTML = "DESCIPTION PAGE";
+
+        div.setAttribute("class", "jumbotron text-center") ;
+        div.setAttribute("style", "color: black");
+
+        CONTINUE.setAttribute("name", "CONTINUE");
+        CONTINUE.setAttribute("style", "float : right;height : 50px;width : 200px;");
+        CONTINUE.setAttribute("onclick", "");
+        CONTINUE.setAttribute("type", "button");
+        CONTINUE.innerHTML = "CONTINUE";
+        
+
+        PREVIOUS.setAttribute("type", "button");
+        PREVIOUS.setAttribute("name", "PREVIOUS");
+        PREVIOUS.setAttribute("style", "float : left;height : 50px;width : 200px;");
+        PREVIOUS.innerHTML = "PREVIOUS";
+        PREVIOUS.setAttribute("onclick", "createTitlePage();");
+
+        input.setAttribute("type", "text");
+        input.setAttribute("placeholder", "eg. Enter your project description ");
+
+        form.append(input);
+        form.append(CONTINUE);
+        form.append(PREVIOUS);
+
+        div.appendChild(h2);
+        document.getElementById(2).appendChild(div);
+        document.getElementById(2).appendChild(form);
+    
+    }
+    
+    var titleForm  = document.createElement('form');
+    function getTitlePage(){
+        showhide(1);
+    };
+    function createTitlePage(){
+        
+        showhide(1);
+        
+        var inputTitle = document.createElement('input');
+        var form = titleForm;
+        form.setAttribute("id", "titleForm");
+        var div = document.createElement('div');
+        div.setAttribute("class", "jumbotron text-center") ;
+        div.setAttribute("style", "color: black");
+        var h2 = document.createElement('h2');
+        h2.setAttribute("color", "black");       
+        h2.innerHTML = "TITLE PAGE";
+        
+        var submit = document.createElement('button');
+        //form.setAttribute("onsubmit", "createDescriptionPage()");
+        inputTitle.setAttribute("type", "text");
+        inputTitle.setAttribute("placeholder", "e.g. Enter title for your project");
+        //input.setAttribute("style", "display: none");
+        submit.setAttribute("value", "CREATE");
+        submit.setAttribute("type", "button");
+        submit.setAttribute("onclick", "createDescriptionPage()");
+        submit.setAttribute("style", "height:50px;width:200px");
+        submit.innerHTML = "CONTINUE";
+        
+        //  submit.setAttribute("style", "float: right;");
+        
+        //document.getElementById(1).innerHTML = "";
+        //document.getElementById("titleForm").destroy();
+        form.append(inputTitle);
+        form.append(submit);
+        titleForm = form;
+        div.appendChild(h2);        
+        document.getElementById(1).appendChild(div);
+        document.getElementById(1).appendChild(form);
+        
+       
+    }
+
+    
 </script>
 
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
-<div id=1 class="to_hide">
-<div class="jumbotron text-center" style="color: black;">
-    <h2 style="color: black;">How About a working Title?</h2> 
-</div>
-
-<div>
-    <input placeholder="e.g. Enter title for your project" maxlength="60" id="input-course-title" value="">
-</div>
-<div>
-    <button style="float: right;" onclick="showhide(2)">Continue</button>
-</div>
-
-
-</div>
-
-<div id=2 class="to_hide" style="display: none;">
-    <div class="jumbotron text-center" style="color: black;">
-        <h2 style="color: black;">How About a working Description?</h2> 
-    </div>
-
+<div id="main_div">
     <div>
-        <input placeholder="e.g. Enter your project Description" maxlength="60" id="input-course-description" value="">
-    </div>
-    
-    <div>
-        <button style="float: right;" onclick="showhide(3)">Continue</button>
-    </div>
-    
-    <div>
-        <button style="float: left;" onclick="showhide(1)">Previous</button>
-    </div>
-    
-    </div>
-
-
-
-<div id=3 class="to_hide" style="display: none;">
-    <div class="jumbotron text-center" style="color: black;">
-        <h2 style="color: black;">What category best fits the knowledge you'll share?</h2> 
-    </div>
-
-    <div>
-        <select id="courseCategory" class="form-control">
-            <option value="default">Choose a category</option>
-            <option value="328" name="328">Finance &amp; Accounting</option>
-            <option value="288" name="288">Development</option>
-            <option value="268" name="268">Business</option>
-            <option value="294" name="294 ">IT &amp; Software</option>
-            <option value="292" name="292">Office Productivity</option>
-            <option value="296" name="296">Personal Development</option>
-            <option value="269" name="269">Design</option>
-            <option value="290" name="290">Marketing</option>
-            <option value="274" name="274">Lifestyle</option>
-            <option value="273" name="273">Photography &amp; Video</option>
-            <option value="276" name="276">Health &amp; Fitness</option>
-            <option value="278" name="278">Music</option>
-            <option value="300" name="300">Teaching &amp; Academics</option>
-            <option value="-1">I don't know yet</option>
-        </select>
-    </div>
-    <div>
-        <button style="float: right;" onclick="showhide(4)">Continue</button>
-    </div>
-    
-    <div>
-        <button style="float: left;" onclick="showhide(2)">Previous</button>
-    </div>
-    </div>
-
-
-<div id=4 class="to_hide" style="display: none;">
-    <div class="jumbotron text-center" style="color: black;">
-        <h2 style="color: black;">How much time can you spend creating your course per week?
-        </h2> 
-        <h2><small>There's no wrong answer. We can help you achieve your goals even if you don't have much time.</small></h2>
-    </div>
-
-    <div class="jumbotron text-center">
-        <input type="radio" id="a" >
-        <label for="a">0-2 Hours</label><br>
-        <input type="radio" id="b" class="form-control">
-        <label for="b">2-4 Hours</label><br>
-        <input type="radio" id="c" class="form-control">
-        <label for="c">4-6 Hours</label><br>
-        <input type="radio" id="d" value="" class="form-control">
-        <label for="d">I haven't decided yet.</label><br>
-
-    </div>
-    <div>
-        <button style="float: right;" onclick="showhide(5)">Continue</button>
-    </div>
-    
-    <div>
-        <button style="float: left;" onclick="showhide(3)">Previous</button>
-    </div>
-    
-</div>
-
-<div id=5 class="to_hide" style="display: none;">
-    <div id=add_chapter>
-        <div id="append">
-            <div>
-                <div class="jumbotron text-center" style="color: black;">
-                    <h2 style="color: black;">What about adding a chapter?</h2> 
-                </div>
-                <div>
-                    <span>Heading</span>
-                    <input class="chapter" type="text" id="heading_input">
-                </div>
-                <div>
-                    <span>Description</span>
-                    <input class="chapter" type="text">
-                </div>
-                <div >
-                    <span>content</span>
-                    <input class="chapter" type="text">
-                </div>
-                <div>
-                    <span>Youtube Link</span>
-                    <input type="text" class="chapter">
-                </div>
-            </div>        
-        </div>
-    </div>
-    <div>
-        <button onclick="addChapter()">
-            ADD
-        </button>
-    </div>
-    <div>
-        <button style="float: right;">
-            CONTINUE
-        </button>
+        <div id=1 class="to_hide"></div>
+        <div id=2 class="to_hide"></div>
+        <div id=3 class="to_hide"></div>
+        <div id=4 class="to_hide"></div>
+        <div id=5 class="to_hide"></div>
     </div>
 </div>
 
