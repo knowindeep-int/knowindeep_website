@@ -177,7 +177,7 @@ class Chapter(models.Model):
     def has_user_liked(self,user):
         if not user.is_anonymous:
             try:
-                isLiked = Like.objects.get(profile__email_id=user.email,link_to=self)
+                isLiked = Like.objects.get(profile__user__email=user.email,link_to=self)
                 # self.likes.get(profile.email_id == user.email)
                 return True
             except Like.DoesNotExist:
