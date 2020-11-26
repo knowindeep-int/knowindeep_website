@@ -39,12 +39,17 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ['description','email_id','phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set']
+        first_name = serializers.CharField(source = 'user.first_name')
+        last_name = serializers.CharField(source = 'user.last_name') 
+        fields = ['description', 'email_id','phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set']
         extra_kwargs = {'skills': {'required': False}}
-        
+        #read_only_fields = ('user',)
+
     def update(self, instance, validated_data):     
-        skills = validated_data.get('skills')  
-        instance.dp = self.validated_data.get('dp', instance.dp)        
+        skills = validated_data.get('skills')
+        instance.dp = self.validated_data.get('dp', instance.dp)
+        instance.user.last_name = (validated_data['last_name'], instance.user.last_name)[validated_data.get('last_name') is None]
+        instance.user.first_name = (validated_data['first_name'],instance.user.first_name)[validated_data.get('first_name') is None]
         instance.description = (self.validated_data['description'], instance.description)[self.validated_data.get('description') is None]
         instance.phone_number = (self.validated_data['phone_number'], instance.phone_number)[self.validated_data.get('phone_number') is None]
         instance.linkedin_id = (self.validated_data['linkedin_id'], instance.linkedin_id)[self.validated_data.get('linkedin_id') is None]
@@ -53,7 +58,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.isAuthor = self.validated_data.get('isAuthor', instance.isAuthor)
         instance.account_number = (self.validated_data['account_number'], instance.account_number)[self.validated_data.get('account_number') is None]
         instance.total_earnings = (self.validated_data['total_earnings'], instance.total_earnings)[self.validated_data.get('total_earnings') is None]
-
+        
         for skill in skills:
             
             try:
@@ -63,7 +68,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
             instance.skills.add(language)
 
-        
+        instance.user.save()
         instance.save()
         return instance
 
