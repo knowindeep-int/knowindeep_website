@@ -20,13 +20,13 @@ def topics(request):
     return render(request,"blogs/index.html",context)
 
 def subtopics(request,slug):
-    main_blog = Project.objects.get(slug=slug)
+    project = Project.objects.get(slug=slug)
     #blog = Chapter.objects.filter(link_to__slug=slug)
-    blog = Project.getAllChapters(slug)
+    chapters = Project.getAllChapters(slug)
     context = {
-        "blogs": blog,
-        "blog_heading": slug,
-        "main_blog":main_blog,
+        "chapters": chapters,
+        "chapter_heading": slug,
+        "project":project,
     }
     return render(request,"blogs/subtopic.html",context)
 

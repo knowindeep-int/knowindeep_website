@@ -11,7 +11,7 @@
             url: '{% url "api:increase_view" %}',
             method: "POST",
             data: {
-                'slug': '{{blog_heading}}',
+                'slug': '{{chapter_heading}}',
                 'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             success: function (data) {
@@ -31,63 +31,63 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
         <li class="breadcrumb-item"><a
-                href="{% url 'blogs:sub_topic' slug=blog_heading  %}">{{ main_blog.topic | title }}</a></li>
+                href="{% url 'blogs:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
     </ol>
 </div>
 <div class="container" id="cont">
     
     <h2 id="blog_heading" class="center">
-        {{ main_blog.title }}
+        {{ project.title }}
     </h2>
     <div style="text-align: center;">
-        <img src="/media/{{ main_blog.image }}" >
+        <img src="/media/{{ project.image }}" >
     </div>
     <div>
         <h3>What will you do in this course:</h3>
-        {{main_blog.description}}
+        {{project.description}}
     </div>
 
     <div>
         <h3>Pre- Requisites for this course?</h3>
         <ul>
-            {% for pre_req in main_blog.pre_req.all %}
+            {% for pre_req in project.pre_req.all %}
             <li style="list-style-type: circle">{{pre_req}}</li>
             {% endfor %}
         </ul>
     </div>
     <div>
         <h3>Difficulty Level:</h3>
-        {{main_blog.difficulty_level}}
+        {{project.difficulty_level}}
     </div>
     <div>
         <h3>Course Duration</h3>
-        {{main_blog.no_of_hours}}
+        {{project.no_of_hours}}
     </div>
     <div>
         <h3>Languages Used:</h3>
         <ul>
-        {% if main_blog.languages.all %}
-        {% for language in main_blog.languages.all %}
+        {% if project.languages.all %}
+        {% for language in project.languages.all %}
         <li style="list-style-type: circle">{{language}}</li>
         {% endfor %}
         {% endif %}
         </ul>
     </div>
     <div>
-        <h3>Author Name :</h3> {{main_blog.author.user.first_name }} {{main_blog.author.user.last_name}}
+        <h3>Author Name :</h3> {{project.author.user.first_name }} {{project.author.user.last_name}}
     </div>
     
     <div class="center">
         <div id="content">
-            {{ main_blog.topic_content }}
+            {{ project.topic_content }}
         </div>
     </div>
-    {% if blogs %}
-    {% for blog in blogs %}
+    {% if chapters %}
+    {% for chapter in chapters %}
     <div id="blog" class="card hoverable" id="hover">
         <div class="card-action">
-            <a href="{% url 'blogs:blog_post' slug=blog_heading blog=blog.slug %}" id="blogLink">
-                {{ blog.heading }} : {{ blog.description }}
+            <a href="{% url 'blogs:blog_post' slug=chapter_heading blog=chapter.slug %}" id="blogLink">
+                {{ chapter.heading }} : {{ chapter.description }}
             </a>
             
             
