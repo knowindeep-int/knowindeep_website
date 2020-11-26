@@ -30,22 +30,29 @@ class LanguageSerializer(serializers.ModelSerializer):
         
 
 class ProfileSerializer(serializers.ModelSerializer):
-    email_id = serializers.EmailField(required = True)
+    #email_id = serializers.EmailField(required = True)
     # skills = serializers.ListField( 
     # child = serializers.CharField(max_length = 50) 
     # ) 
+    #first_name = serializers.CharField(source = 'user.first_name')
+    #last_name = serializers.CharField(source = 'user.last_name')
+    #email_id = serializers.CharField(source = 'user.email') 
+    #profile_id = serializers.PrimaryKeyRelatedField(read_only = True)
     skills_set = LanguageSerializer(many=True, read_only=True)
     #phone_number = serializers.IntegerField()
     
     class Meta:
         model = Profile
-        fields = ['name','description','email_id','phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set']
-        extra_kwargs = {'skills': {'required': False}}
-        
+        fields = ['user', 'description', 'phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set']
+        extra_kwargs = {'skills': {'required': False}, 'user': {'required': False}}
+        read_only_fields = ('user',)
+
     def update(self, instance, validated_data):     
-        skills = validated_data.get('skills')  
-        instance.dp = self.validated_data.get('dp', instance.dp)        
-        instance.name = (self.validated_data['name'],instance.name)[self.validated_data.get('name') is None]
+        skills = validated_data.get('skills')
+        instance.dp = self.validated_data.get('dp', instance.dp)
+        instance.user.email = (validated_data['email_id'], instance.user.email)[validated_data.get('email_id') is None]
+        instance.user.last_name = (validated_data['last_name'], instance.user.last_name)[validated_data.get('last_name') is None]
+        instance.user.first_name = (validated_data['first_name'],instance.user.first_name)[validated_data.get('first_name') is None]
         instance.description = (self.validated_data['description'], instance.description)[self.validated_data.get('description') is None]
         instance.phone_number = (self.validated_data['phone_number'], instance.phone_number)[self.validated_data.get('phone_number') is None]
         instance.linkedin_id = (self.validated_data['linkedin_id'], instance.linkedin_id)[self.validated_data.get('linkedin_id') is None]
@@ -54,7 +61,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.isAuthor = self.validated_data.get('isAuthor', instance.isAuthor)
         instance.account_number = (self.validated_data['account_number'], instance.account_number)[self.validated_data.get('account_number') is None]
         instance.total_earnings = (self.validated_data['total_earnings'], instance.total_earnings)[self.validated_data.get('total_earnings') is None]
-
+        
         for skill in skills:
             
             try:
@@ -64,7 +71,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
             instance.skills.add(language)
 
-        
+        instance.user.save()
         instance.save()
         return instance
 

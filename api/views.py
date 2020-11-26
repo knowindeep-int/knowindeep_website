@@ -116,7 +116,7 @@ def update_profile(request):
         if not profile_serializer.is_valid():
             print(profile_serializer.errors)
             return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
-        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=profile_serializer.data['email_id']), validated_data=request.data)
+        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.data['profile_id']), validated_data=request.data)
         #data = {
         #    'profile':model_to_dict(updated_profile)
         #}

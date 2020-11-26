@@ -35,8 +35,6 @@ def save_user(backend, user, response, *args, **kwargs):
         profile = models.Profile.objects.get(user=user)
     except models.Profile.DoesNotExist:
         profile = models.Profile(
-            name = response['name'],
-            email_id = response['email'],
             dp = response['picture'],
             user=user
         )

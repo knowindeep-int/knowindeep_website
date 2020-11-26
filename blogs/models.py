@@ -23,11 +23,11 @@ class Language(models.Model):
         verbose_name_plural  = "Language"
 
 class Profile(models.Model):
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dp = models.ImageField(null=True,upload_to='profiles/')
-    name = models.CharField(max_length=30, null = True, unique=True)
     description = models.CharField(max_length=200, null = True)
-    email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
+    #email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
     phone_number = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(1000000000)])
     linkedin_id = models.URLField(max_length=70,null=True,blank=True)
     github_id = models.URLField(max_length=70,null=True,blank=True)
@@ -38,7 +38,7 @@ class Profile(models.Model):
     skills = models.ManyToManyField(to = Language, related_name="skills")
 
     def __str__(self):
-        return self.name
+        return self.user.first_name + self.user.last_name
 
     @classmethod
     def getUser(cls, name):
