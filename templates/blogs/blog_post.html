@@ -22,7 +22,7 @@
             method: 'GET',
             url: '{% url "api:blogComments" %}',
             data: {
-                'blog_content_slug': '{{ blog_content.slug }}'
+                'blog_content_slug': '{{ chapter_content.slug }}'
             },
             success: function (data) {
                 var com = document.getElementById('comments-list')
@@ -152,14 +152,14 @@
 <div class="center">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ main_blog }}</a></li>
-        <li class="breadcrumb-item active">{{ blog_content.heading | title }}</li>
+        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
+        <li class="breadcrumb-item active">{{ chapter_content.heading | title }}</li>
     </ol>
 </div>
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
     <div class="col-sm-12 col-md-12 col-lg-8 container">
-        <h2>{{ blog_content.heading }}</h2>
+        <h2>{{ chapter_content.heading }}</h2>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-2"></div>
 </div>
@@ -168,13 +168,13 @@
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-2 container">
         <ul class="list-group list-group-flush">
-            {% for blog in all_blogs %}
-            {% if blog.slug == blog_content.slug %}
+            {% for chapter in chapters %}
+            {% if chapter.slug == chapter_content.slug %}
             <a class="list-group-item list-group-item-action" id="selected"
-                href="{% url 'blogs:blog_post' slug=slug blog=blog.slug %}">{{ blog.heading }}</a>
+                href="{% url 'blogs:blog_post' slug=slug chapter=chapter.slug %}">{{ chapter.heading }}</a>
             {% else %}
             <a class="list-group-item list-group-item-action" id="listItem"
-                href="{% url 'blogs:blog_post' slug=slug blog=blog.slug %}">{{ blog.heading }}</a>
+                href="{% url 'blogs:blog_post' slug=slug chapter=chapter.slug %}">{{ chapter.heading }}</a>
             {% endif %}
             {% endfor %}
         </ul>
@@ -208,12 +208,12 @@
         </div>
 
         <p style="margin-top: 50px;" class="container">
-            {{ blog_content.content | safe | escape }}
+            {{ chapter_content.content | safe | escape }}
         </p>
         
-        {% if blog_content.youtube_link and blog_content.youtube_link.strip %}
+        {% if chapter_content.youtube_link and chapter_content.youtube_link.strip %}
         <div style="margin-top: 150px;">
-            <iframe src="{{ blog_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
+            <iframe src="{{ chapter_content.youtube_link }}" frameborder="0" allowfullscreen id="video"></iframe>
         </div>
         {% else %}
             <div>
@@ -271,15 +271,15 @@
                 <div class="row right vertical-center">
                     {% csrf_token %}
                     <i onclick="" class="icon-btn" id="like-btn" data-user="{{ request.user.is_authenticated }}"
-                        data-href='{{ blog_content.get_like_url }}' data-slug={{blog_content.slug}}
-                        data-likes={{blog_content.no_of_likes}}>
+                        data-href='{{ chapter_content.get_like_url }}' data-slug={{chapter_content.slug}}
+                        data-likes={{chapter_content.no_of_likes}}>
                         {% if not has_liked %}
                         <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
                         {% else %}
                         <img id="likeImg" src="/static/images/heart_active.svg" style="width: 30px; height: 30px;">
                         {% endif %}
                     </i>
-                    <p id="likes">{{ blog_content.like_count }}</p>
+                    <p id="likes">{{ chapter_content.like_count }}</p>
                 </div>
             </div>
         </div>
@@ -289,8 +289,8 @@
             {% csrf_token %}
             <input type="text" class="validate" id="comment" placeholder="Enter your comment" autocomplete="off"
                 onkeyup="stoppedTyping(this.value)">
-            <input type="button" value="Submit" id="comment-btn" data-comment="{{ blog_content.get_comment_url }}"
-                data-comment-slug={{blog_content.slug}} class="btn" disabled>
+            <input type="button" value="Submit" id="comment-btn" data-comment="{{ chapter_content.get_comment_url }}"
+                data-comment-slug={{chapter_content.slug}} class="btn" disabled>
         </div>
         {% else %}
         <div class="row">

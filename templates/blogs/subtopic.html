@@ -86,7 +86,7 @@
     {% for chapter in chapters %}
     <div id="blog" class="card hoverable" id="hover">
         <div class="card-action">
-            <a href="{% url 'blogs:blog_post' slug=chapter_heading blog=chapter.slug %}" id="blogLink">
+            <a href="{% url 'blogs:blog_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
             
