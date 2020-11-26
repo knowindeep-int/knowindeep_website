@@ -186,8 +186,8 @@ class Chapter(models.Model):
 
     @classmethod
     def getAllComments(cls, blog_content_slug):
-        blog = cls.objects.get(slug = blog_content_slug)
-        return blog.comment_set.all().order_by('-timestamp')
+        chapter = cls.objects.get(slug = blog_content_slug)
+        return chapter.comment_set.all().order_by('-timestamp')
 
 class Like(models.Model):
     link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE,related_name="likes")
