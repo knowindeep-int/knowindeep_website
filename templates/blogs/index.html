@@ -40,7 +40,7 @@
                 <span class="card-title">{{ project.title }}</span>
 
                 <p>{{ project.overview }}</p>
-                <p>Author Name: {{ project.author.name }}</p>
+                <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
                 <p>Hours To Complete: {{ project.no_of_hours }}</p>
                 <p>Level: {{ project.difficulty_level }}</p>
                 <p>Languages Used: {{project.languages.all|join:', '}}</p>
