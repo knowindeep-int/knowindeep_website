@@ -20,7 +20,7 @@ def api_detail_blog_view(request,slug):
 
     if request.method == 'GET':
         if project is not None:
-            serializer = BlogSerializer(project)
+            serializer = ChapterSerializer(project)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -31,7 +31,7 @@ def api_detail_blog_update_view(request,slug):
     project = get_object_or_404(Project,slug=slug) 
     if request.method == "PUT":
         if project is not None:
-            serializer = BlogSerializer(project,data=request.data)
+            serializer = ChapterSerializer(project,data=request.data)
             data = {}
             if serializer.is_valid():
                 serializer.save()
@@ -44,7 +44,7 @@ def api_all_detail_view(request):
     chapters = Chapter.objects.all()
     if request.method == 'GET':
         if chapters is not None:
-            serializer = BlogSerializer(chapters,many=True)
+            serializer = ChapterSerializer(chapters,many=True)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -53,7 +53,7 @@ def api_all_detail_view(request):
 def fetchComments(request):
     comments = None
     if request.method == 'GET':
-        blog_content_slug = request.GET.get('blog_content_slug')
+        blog_content_slug = request.GET.get('chapter_content_slug')
         #blog_content = Chapter.objects.get(slug=blog_content_slug)
         #comments = Comment.objects.filter(link_to=blog_content).order_by('-timestamp')
         comments = Chapter.getAllComments(blog_content_slug)

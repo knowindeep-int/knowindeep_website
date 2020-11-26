@@ -30,25 +30,25 @@ def subtopics(request,slug):
     }
     return render(request,"blogs/subtopic.html",context)
 
-def blog_post(request,slug, blog):
-    blog_content = Chapter.objects.get(slug=blog)
+def blog_post(request,slug, chapter):
+    chapter_content = Chapter.objects.get(slug=chapter)
     #all_blogs = Chapter.objects.filter(link_to__slug=slug)
-    all_blogs = Project.getAllChapters(slug)
+    chapters = Project.getAllChapters(slug)
     #main_blog = Project.objects.get(slug=slug)
     title = Project.getTitle(slug = slug)
-    author = blog_content.author
+    author = chapter_content.author
     # main_blog.increase_view
     # soup = BeautifulSoup(blog_content.content,"lxml")
     # for heading in soup.find_all(["h1", "h2", "h3"]):
     #     print(heading.name + ' ' + heading.text.strip())
     #     print(heading)
     # print(str(blog_content.get_next_blog) + str(blog_content.get_previous_blog))
-    has_liked = blog_content.has_user_liked(request.user)
+    has_liked = chapter_content.has_user_liked(request.user)
     context = {
-        "main_blog":title,
-        "blog_content" : blog_content,
+        "title":title,
+        "chapter_content" : chapter_content,
         "slug":slug,
-        "all_blogs":all_blogs,
+        "chapters":chapters,
         "author": author,
         "has_liked": has_liked
     }
