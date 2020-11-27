@@ -12,7 +12,7 @@ from .models import Chapter, Project, Comment, Profile, Like, PreRequisite, Lang
 #     except admin.sites.AlreadyRegistered:
 #         pass
 
-class BlogTopicsInline(admin.StackedInline):
+class ChapterTopicsInline(admin.StackedInline):
     model = Chapter
     fields = ['author','description','heading','youtube_link','content',]
     extra = 1
@@ -46,7 +46,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['title','overview','no_of_views']
     ordering = ['-no_of_views']
     readonly_fields = ['no_of_views']
-    inlines = [BlogTopicsInline,]
+    inlines = [ChapterTopicsInline,]
     search_fields = ['title','overview']
 
 
