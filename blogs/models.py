@@ -205,7 +205,7 @@ class Comment(models.Model):
     comment_text = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.user.name + self.comment_text
+        return self.user.user.first_name + self.comment_text
 
 
 def create_blog(sender, instance, created,**kwargs):
