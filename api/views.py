@@ -13,7 +13,7 @@ from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer
 from .utils import to_dict
 
 @api_view(['GET',])
-def api_detail_blog_view(request,slug):
+def api_detail_chapter_view(request,slug):
     
     project = get_object_or_404(Project,slug=slug)
 
@@ -27,7 +27,7 @@ def api_detail_blog_view(request,slug):
 
 
 @api_view(['PUT',])
-def api_detail_blog_update_view(request,slug):
+def api_detail_chapter_update_view(request,slug):
     project = get_object_or_404(Project,slug=slug) 
     if request.method == "PUT":
         if project is not None:
