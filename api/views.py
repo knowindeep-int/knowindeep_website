@@ -62,7 +62,7 @@ def fetchComments(request):
 
 
 @api_view(['POST',])
-def api_like_blog_view(request):
+def api_like_chapter_view(request):
     if request.method == 'POST':
         slug = request.POST.get('slug')
         chapter = Chapter.objects.get(slug=slug)
@@ -85,7 +85,7 @@ def api_like_blog_view(request):
       #  return HttpResponseRedirect(reverse('blogs:blog_post',args=[ ,slug]))
 
 @api_view(['POST',])
-def api_comment_blog_view(request):
+def api_comment_chapter_view(request):
     data = {}
     data["success"] = False
     if request.method == 'POST':
