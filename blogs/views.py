@@ -30,7 +30,7 @@ def subtopics(request,slug):
     }
     return render(request,"blogs/subtopic.html",context)
 
-def blog_post(request,slug, chapter):
+def chapter_post(request,slug, chapter):
     chapter_content = Chapter.objects.get(slug=chapter)
     #all_blogs = Chapter.objects.filter(link_to__slug=slug)
     chapters = Project.getAllChapters(slug)
