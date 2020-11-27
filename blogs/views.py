@@ -71,4 +71,10 @@ def approve(request,slug):
 
 
 def error404(request, exception):
-    return HttpResponse("error")
+    return HttpResponse("error404")
+
+def error400(request, exception):
+    return HttpResponse("error400")
+
+def error500(request):
+    return HttpResponse("error500")

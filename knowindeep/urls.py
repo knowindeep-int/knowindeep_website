@@ -22,6 +22,8 @@ from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 handler404 = "blogs.views.error404"
+handler400 = "blogs.views.error400"
+handler500 = "blogs.views.error500"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
