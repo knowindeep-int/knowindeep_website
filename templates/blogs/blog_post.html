@@ -171,10 +171,10 @@
             {% for chapter in chapters %}
             {% if chapter.slug == chapter_content.slug %}
             <a class="list-group-item list-group-item-action" id="selected"
-                href="{% url 'blogs:blog_post' slug=slug chapter=chapter.slug %}">{{ chapter.heading }}</a>
+                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{ chapter.heading }}</a>
             {% else %}
             <a class="list-group-item list-group-item-action" id="listItem"
-                href="{% url 'blogs:blog_post' slug=slug chapter=chapter.slug %}">{{ chapter.heading }}</a>
+                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{ chapter.heading }}</a>
             {% endif %}
             {% endfor %}
         </ul>
