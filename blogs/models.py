@@ -132,32 +132,32 @@ class Chapter(models.Model):
         return reverse("api:comment-post")
 
     @property
-    def get_next_blog(self):
-        blogTopics = None
+    def get_next_chapter(self):
+        chapterTopics = None
         maxID = Chapter.objects.aggregate(Max('id'))
         if not self.id == maxID['id__max']:
             for i in (self.id + 1,maxID['id__max']):
                 try:
-                    blogTopics = Chapter.objects.get(id = i, link_to=self.link_to)
+                    chapterTopics = Chapter.objects.get(id = i, link_to=self.link_to)
                 except Chapter.DoesNotExist:
                     pass
-                if blogTopics:
-                    return blogTopics
-            return blogTopics
+                if chapterTopics:
+                    return chapterTopics
+            return chapterTopics
 
     @property
-    def get_previous_blog(self):
-        blogTopics = None
+    def get_previous_chapter(self):
+        chapterTopics = None
         minID = Chapter.objects.aggregate(Min('id'))
         if not self.id == minID['id__min']:
             for i in (self.id - 1,minID['id__min'],-1):
                 try:
-                    blogTopics = Chapter.objects.get(id = i, link_to=self.link_to)
+                    chapterTopics = Chapter.objects.get(id = i, link_to=self.link_to)
                 except Chapter.DoesNotExist:
                     pass
-                if blogTopics:
-                    return blogTopics
-            return blogTopics
+                if chapterTopics:
+                    return chapterTopics
+            return chapterTopics
 
     @property
     def like_count(self):
@@ -185,8 +185,8 @@ class Chapter(models.Model):
                 return False
 
     @classmethod
-    def getAllComments(cls, blog_content_slug):
-        chapter = cls.objects.get(slug = blog_content_slug)
+    def getAllComments(cls, chapter_content_slug):
+        chapter = cls.objects.get(slug = chapter_content_slug)
         return chapter.comment_set.all().order_by('-timestamp')
 
 class Like(models.Model):
@@ -208,7 +208,7 @@ class Comment(models.Model):
         return self.user.user.first_name + self.comment_text
 
 
-def create_blog(sender, instance, created,**kwargs):
+def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
     if instance.id is not None:
         Project.objects.create(title=str(instance))

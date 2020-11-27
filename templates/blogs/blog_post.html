@@ -22,7 +22,7 @@
             method: 'GET',
             url: '{% url "api:blogComments" %}',
             data: {
-                'blog_content_slug': '{{ chapter_content.slug }}'
+                'chapter_content_slug': '{{ chapter_content.slug }}'
             },
             success: function (data) {
                 var com = document.getElementById('comments-list')
