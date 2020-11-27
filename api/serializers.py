@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from blogs.models import Project, Comment, Profile, Language, Chapter
 
-class ChapterSerializer(serializers.ModelSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
