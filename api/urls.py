@@ -9,7 +9,7 @@ urlpatterns = [
     path('update_profile/', update_profile, name='update_profile'),
     path('blogs/',api_all_detail_view),
     path('increaseView',increase_post_view,name='increase_view'),
-    path('comments/',fetchComments,name='blogComments'),
+    path('comments/',fetchComments,name='chapterComments'),
     path('<slug:slug>/',api_detail_blog_view),
     path('<slug:slug>/update',api_detail_blog_update_view),
     path('chaptertopic/like',api_like_chapter_view,name='like-post'),

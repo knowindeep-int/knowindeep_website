@@ -20,7 +20,7 @@
         showLoader()
         $.ajax({
             method: 'GET',
-            url: '{% url "api:blogComments" %}',
+            url: '{% url "api:chapterComments" %}',
             data: {
                 'chapter_content_slug': '{{ chapter_content.slug }}'
             },
