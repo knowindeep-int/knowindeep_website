@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import handler404
+from django.conf.urls import handler404, handler400, handler500
 
 from . import  settings
 from django.contrib.staticfiles.urls import static
