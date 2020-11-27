@@ -9,29 +9,29 @@ from django.forms.models import model_to_dict
 
 from blogs.models import Project, Chapter, Like, Comment, Profile
 
-from .serializers import BlogSerializer, CommentSerializer, ProfileSerializer
+from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer
 from .utils import to_dict
 
 @api_view(['GET',])
-def api_detail_blog_view(request,slug):
+def api_detail_chapter_view(request,slug):
     
-    blog = get_object_or_404(Project,slug=slug)
+    project = get_object_or_404(Project,slug=slug)
 
 
     if request.method == 'GET':
-        if blog is not None:
-            serializer = BlogSerializer(blog)
+        if project is not None:
+            serializer = ProjectSerializer(project)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['PUT',])
-def api_detail_blog_update_view(request,slug):
-    blog = get_object_or_404(Project,slug=slug) 
+def api_detail_chapter_update_view(request,slug):
+    project = get_object_or_404(Project,slug=slug) 
     if request.method == "PUT":
-        if blog is not None:
-            serializer = BlogSerializer(blog,data=request.data)
+        if project is not None:
+            serializer = ProjectSerializer(project,data=request.data)
             data = {}
             if serializer.is_valid():
                 serializer.save()
@@ -41,10 +41,10 @@ def api_detail_blog_update_view(request,slug):
 
 @api_view(['GET',])
 def api_all_detail_view(request):
-    blogs = Blog.objects.all()
+    projects = Project.objects.all()
     if request.method == 'GET':
-        if blogs is not None:
-            serializer = BlogSerializer(blogs,many=True)
+        if projects is not None:
+            serializer = ProjectSerializer(projects,many=True)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -53,46 +53,49 @@ def api_all_detail_view(request):
 def fetchComments(request):
     comments = None
     if request.method == 'GET':
-        blog_content_slug = request.GET.get('blog_content_slug')
+        chapter_content_slug = request.GET.get('chapter_content_slug')
         #blog_content = Chapter.objects.get(slug=blog_content_slug)
         #comments = Comment.objects.filter(link_to=blog_content).order_by('-timestamp')
-        comments = Chapter.getAllComments(blog_content_slug)
+        comments = Chapter.getAllComments(chapter_content_slug)
         commentSerializer = CommentSerializer(comments, many=True)
         return Response(commentSerializer.data)
 
 
 @api_view(['POST',])
-def api_like_blog_view(request):
+def api_like_chapter_view(request):
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        blog = Chapter.objects.get(slug=slug)
+        chapter = Chapter.objects.get(slug=slug)
         data = {}
         try:
-            like = Like.objects.get(profile__email_id = request.user.email, link_to=blog)
+            like = Like.objects.get(profile__user__email = request.user.email, link_to=chapter)
+            #like = Like.objects.get(link_to = chapter, profile__user__email = 'dev.krishang.09@gmail.comewfewfvrfewefefe4feferfrr')
+            #like = Like.objects.getlink_to = chapter)
             like.delete()
             data["success"] = False
-            data["likes"] = blog.like_count
+            data["likes"] = chapter.like_count
             return Response(data=data)  
         except Like.DoesNotExist:
-            print(request.user.email)
-            profile = Profile.objects.get(email_id = request.user.email)
-            like = Like.objects.create(profile=profile, link_to=blog)
+            #print(request.user.email)
+            profile = Profile.objects.get(user__email = request.user.email)
+            like = Like.objects.create(profile=profile, link_to=chapter)
             data["success"] = True
-            data["likes"] = blog.like_count
+            data["likes"] = chapter.like_count
             return Response(data=data)
-      #  return HttpResponseRedirect(reverse('blogs:blog_post',args=[blog,slug]))
+      #  return HttpResponseRedirect(reverse('blogs:blog_post',args=[ ,slug]))
 
 @api_view(['POST',])
-def api_comment_blog_view(request):
+def api_comment_chapter_view(request):
     data = {}
     data["success"] = False
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        blog = Chapter.objects.get(slug=slug)
+        chapter = Chapter.objects.get(slug=slug)
         comment_text = request.POST.get('comment_text')
-        comment = Comment.objects.create(link_to=blog,user=request.user,timestamp=timezone.now(),comment_text=comment_text)
+        profile = Profile.objects.get(user = request.user)
+        comment = Comment.objects.create(link_to=chapter,user=profile,timestamp=timezone.now(),comment_text=comment_text)
         data["success"] = True
-        data["user"] = request.user.first_name
+        data["user"] = request.user.first_name + request.user.last_name
         data["comment"] = comment_text
         return Response(data=data)
 
@@ -100,13 +103,14 @@ def api_comment_blog_view(request):
 def increase_post_view(request):
     if request.method == "POST":
         slug = request.POST.get('slug')
-        blog = None
+        project = None
         try:
-            blog = Blog.objects.get(slug=slug)
-            blog.increase_view
-            return Response({"sucess":"updated","no_of_views":blog.no_of_views})
-        except Blog.DoesNotExist:
+            project = Project.objects.get(slug=slug)
+            project.increase_view
+            return Response({"sucess":"updated","no_of_views":project.no_of_views})
+        except Project.DoesNotExist:
             return Response({"error":"Some error occured"})
+
 
 @api_view(['POST',])
 def update_profile(request):

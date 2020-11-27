@@ -10,5 +10,5 @@ urlpatterns = [
     path('remove/<slug:slug>/', views.remove, name='remove'),
     path('approve/<slug:slug>/', views.approve, name = 'approve'),
     path('<slug:slug>/',views.subtopics, name='sub_topic'),
-    path('<slug:slug>/<slug:blog>/',views.blog_post,name='blog_post'),
+    path('<slug:slug>/<slug:chapter>/',views.chapter_post,name='chapter_post'),
 ]
