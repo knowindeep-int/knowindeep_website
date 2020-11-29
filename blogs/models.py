@@ -71,11 +71,11 @@ class Project(models.Model):
     no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
     isApproved = models.BooleanField(default=False)
-    languages = models.ManyToManyField(to = Language)
+    languages = models.ManyToManyField(to = Language, blank = True)
     # update
-    image = models.ImageField(null=True,upload_to='project/')
-    title = models.CharField(max_length=25)
-    overview = models.CharField(max_length=300)
+    image = models.ImageField(null=True,upload_to='project/', blank = True)
+    title = models.CharField(max_length=25, null = True, blank = True)
+    overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
 
     def __str__(self):
