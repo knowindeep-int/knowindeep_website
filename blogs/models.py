@@ -36,6 +36,7 @@ class Profile(models.Model):
     account_number = models.CharField(max_length=30, null=True, blank=True)
     total_earnings = models.IntegerField(null=True, blank=True)
     skills = models.ManyToManyField(to = Language, related_name="skills", blank = True)
+    #projects = models.ManyToManyField(to = 'Project', null = True, blank = True)
 
     def __str__(self):
         return self.user.first_name + self.user.last_name
@@ -183,6 +184,8 @@ class Chapter(models.Model):
             except Like.DoesNotExist:
                 has_liked = False
                 return False
+        else:
+            return None
 
     @classmethod
     def getAllComments(cls, chapter_content_slug):
