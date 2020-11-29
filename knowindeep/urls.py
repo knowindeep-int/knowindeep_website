@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import handler404
+from django.conf.urls import handler404, handler400, handler500
 
 from . import  settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 handler404 = "blogs.views.error404"
+handler400 = "blogs.views.error400"
+handler500 = "blogs.views.error500"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
