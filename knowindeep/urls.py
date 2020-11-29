@@ -14,7 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.conf.urls import handler404
 from django.conf.urls import handler404, handler400, handler500
 
 from . import  settings
@@ -32,11 +33,11 @@ urlpatterns = [
     path('site/user/',include('site_users.urls')),
     path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
-    path('<slug:slug>',include('author.urls')),
+    re_path("^[@](?P<slug>[-\w]+)",include('author.urls')),
     path('',include('blogs.urls')),
     path('oauth/',include('social_django.urls'),name='social'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
- 
+
 # urlpatterns += staticfiles_urlpatterns()
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  
