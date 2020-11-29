@@ -25,7 +25,7 @@ class Language(models.Model):
 class Profile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    dp = models.ImageField(null=True,upload_to='profiles/')
+    dp = models.ImageField(null=True,upload_to='profiles/', blank = True)
     description = models.CharField(max_length=200, null = True)
     #email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
     phone_number = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(1000000000)])
@@ -35,7 +35,7 @@ class Profile(models.Model):
     isAuthor = models.BooleanField(default=False)
     account_number = models.CharField(max_length=30, null=True, blank=True)
     total_earnings = models.IntegerField(null=True, blank=True)
-    skills = models.ManyToManyField(to = Language, related_name="skills")
+    skills = models.ManyToManyField(to = Language, related_name="skills", blank = True, null = True)
 
     def __str__(self):
         return self.user.first_name + self.user.last_name
