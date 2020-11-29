@@ -74,7 +74,7 @@ class Project(models.Model):
     languages = models.ManyToManyField(to = Language, blank = True)
     # update
     image = models.ImageField(null=True,upload_to='project/', blank = True)
-    title = models.CharField(max_length=25, null = True, blank = True)
+    title = models.CharField(max_length=25)
     overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
 
