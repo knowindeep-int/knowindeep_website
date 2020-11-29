@@ -25,8 +25,8 @@ class Language(models.Model):
 class Profile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    dp = models.ImageField(null=True,upload_to='profiles/')
-    description = models.CharField(max_length=200, null = True)
+    dp = models.ImageField(null=True,upload_to='profiles/', blank = True)
+    description = models.CharField(max_length=200, null = True, blank = True)
     #email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
     phone_number = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(1000000000)])
     linkedin_id = models.URLField(max_length=70,null=True,blank=True)
@@ -35,7 +35,7 @@ class Profile(models.Model):
     isAuthor = models.BooleanField(default=False)
     account_number = models.CharField(max_length=30, null=True, blank=True)
     total_earnings = models.IntegerField(null=True, blank=True)
-    skills = models.ManyToManyField(to = Language, related_name="skills")
+    skills = models.ManyToManyField(to = Language, related_name="skills", blank = True)
 
     def __str__(self):
         return self.user.first_name + self.user.last_name
@@ -71,12 +71,12 @@ class Project(models.Model):
     no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
     isApproved = models.BooleanField(default=False)
-    languages = models.ManyToManyField(to = Language)
+    languages = models.ManyToManyField(to = Language, blank = True)
     # update
-    image = models.ImageField(null=True,upload_to='project/')
+    image = models.ImageField(null=True,upload_to='project/', blank = True)
     title = models.CharField(max_length=25)
-    overview = models.CharField(max_length=300)
-    pre_req = models.ManyToManyField(to = PreRequisite)
+    overview = models.CharField(max_length=300, null = True, blank = True)
+    pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
 
     def __str__(self):
         return self.title
