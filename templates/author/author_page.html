@@ -173,7 +173,7 @@
                             <h3>Ongoing Courses - </h3>
                             {% for package, percent_progress in progresses %}
                                 {% if percent_progress != 100 %}
-                                {{package.project}}-
+                                <a href="{% url 'blogs:chapter_post' slug=package.project.slug chapter=package.current_chapter.slug %}">{{package.project}}</a>-
                                 {{percent_progress}}%<br>
                                 {% endif %}
                             {% endfor %}
@@ -181,7 +181,7 @@
                             <h3>Completed Courses - </h3>
                             {% for package, percent_progress in progresses %}
                                 {% if percent_progress == 100 %}
-                                {{package.project}}-
+                                <a href="{% url 'blogs:sub_topic' slug=package.project.slug %}">{{package.project}}</a>-
                                 {{percent_progress}}%<br>
                                 {% endif %}
                             {% endfor %}
