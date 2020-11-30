@@ -215,11 +215,16 @@ class Package(models.Model):
     project = models.ForeignKey(to = Project, on_delete = models.CASCADE)
     added_on = models.DateTimeField(auto_now_add = True)
 
+    def __str__(self):
+        return str(self.profile) + '_' + str(self.project)
+
 class Progress(models.Model):
     package = models.ForeignKey(to = Package, on_delete = models.CASCADE)
     chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE)
     isCompleted = models.BooleanField()
 
+    def __str__(self):
+        return str(self.package) + '_' + str(self.chapter)
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
