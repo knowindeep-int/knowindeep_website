@@ -20,12 +20,10 @@ def author_page(request, slug):
 
     is_verified = request.user == profile.user
     packages = Package.objects.filter(profile = profile)
-    #print(packages[0].project)
     percent_progress = []
     for i in range(packages.count()):
         percent_progress.append(packages[i].progress_set.all().count() / packages[i].project.chapter_set.all().count() * 100 ) 
-    print(percent_progress)
-    print(tuple(zip(packages, percent_progress)))
+   
     context = {
         "profile": profile,
         "is_verified":is_verified,
