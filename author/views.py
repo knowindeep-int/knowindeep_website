@@ -22,13 +22,11 @@ def author_page(request, slug):
     packages = Package.objects.filter(profile = profile)
     percent_progress = []
     for i in range(packages.count()):
-        percent_progress.append(packages[i].progress_set.all().count() / packages[i].project.chapter_set.all().count() * 100 ) 
-   
+        percent_progress.append(packages[i].progress_set.all().count() / packages[i].project.chapter_set.all().count() * 100 )
+
     context = {
         "profile": profile,
         "is_verified":is_verified,
-        #"packages" : packages,
-        #"percent_progress" : percent_progress
         "progresses":tuple(zip(packages, percent_progress))
     }
     return render(request,"author/author_page.html",context)
