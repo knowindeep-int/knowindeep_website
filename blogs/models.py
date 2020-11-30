@@ -210,6 +210,16 @@ class Comment(models.Model):
     def __str__(self):
         return self.user.user.first_name + self.comment_text
 
+class Package(models.Model):
+    profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE)
+    project = models.ForeignKey(to = Project, on_delete = models.CASCADE)
+    added_on = models.DateTimeField(auto_now_add = True)
+
+class Progress(models.Model):
+    package = models.ForeignKey(to = Package, on_delete = models.CASCADE)
+    chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE)
+    isCompleted = models.BooleanField()
+
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
