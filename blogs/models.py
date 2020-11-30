@@ -214,6 +214,7 @@ class Package(models.Model):
     profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE)
     project = models.ForeignKey(to = Project, on_delete = models.CASCADE)
     added_on = models.DateTimeField(auto_now_add = True)
+    current_chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE, null = True)
 
     def __str__(self):
         return str(self.profile) + '_' + str(self.project)
