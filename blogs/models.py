@@ -221,10 +221,11 @@ class Package(models.Model):
 class Progress(models.Model):
     package = models.ForeignKey(to = Package, on_delete = models.CASCADE)
     chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE)
-    isCompleted = models.BooleanField()
+    completed_on = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
         return str(self.package) + '_' + str(self.chapter)
+        
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
