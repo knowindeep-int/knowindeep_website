@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import Chapter, Project, Comment, Profile, Like, PreRequisite, Language
+from .models import Chapter, Project, Comment, Profile, Like, PreRequisite, Language, Package, Progress
 # from django.apps import apps
 
 # models = apps.get_models()
@@ -60,3 +60,5 @@ admin.site.register(Like)
 admin.site.register(Profile)
 admin.site.register(PreRequisite)
 admin.site.register(Language)
+admin.site.register(Package)
+admin.site.register(Progress)

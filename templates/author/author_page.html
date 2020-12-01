@@ -165,6 +165,33 @@
 
                     </div>
                     <div>
+                        <div>
+                            <h2>Your Progress</h2>
+                        </div>
+                        <div>
+                            {% if profile.package_set.all %} 
+                            <h3>Ongoing Courses - </h3>
+                            {% for package, percent_progress in progresses %}
+                                {% if percent_progress != 100 %}
+                                <a href="{% url 'blogs:chapter_post' slug=package.project.slug chapter=package.current_chapter.slug %}">{{package.project}}</a>-
+                                {{percent_progress}}%<br>
+                                {% endif %}
+                            {% endfor %}
+
+                            <h3>Completed Courses - </h3>
+                            {% for package, percent_progress in progresses %}
+                                {% if percent_progress == 100 %}
+                                <a href="{% url 'blogs:sub_topic' slug=package.project.slug %}">{{package.project}}</a>-
+                                {{percent_progress}}%<br>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% else %}
+                                No Courses Available!
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
                         {% csrf_token %}
                         <span>
                             <h2>Account</h2>

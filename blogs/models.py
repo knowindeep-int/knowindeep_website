@@ -36,9 +36,25 @@ class Profile(models.Model):
     account_number = models.CharField(max_length=30, null=True, blank=True)
     total_earnings = models.IntegerField(null=True, blank=True)
     skills = models.ManyToManyField(to = Language, related_name="skills", blank = True)
+    #projects = models.ManyToManyField(to = 'Project', null = True, blank = True)
 
     def __str__(self):
         return self.user.first_name + self.user.last_name
+
+    def is_verified(self, user):
+        if user == self.user:
+            return True
+        return False
+
+    @property
+    def getPackageProgressTuple(self):
+        packages = self.package_set.all()
+        percent_progress = []
+        
+        for i in range(packages.count()):
+            percent_progress.append(packages[i].progress_set.all().count() / packages[i].project.chapter_set.all().count() * 100)        
+        
+        return tuple(zip(packages, percent_progress))
 
     @classmethod
     def getUser(cls, name):
@@ -183,6 +199,8 @@ class Chapter(models.Model):
             except Like.DoesNotExist:
                 has_liked = False
                 return False
+        else:
+            return None
 
     @classmethod
     def getAllComments(cls, chapter_content_slug):
@@ -207,6 +225,23 @@ class Comment(models.Model):
     def __str__(self):
         return self.user.user.first_name + self.comment_text
 
+class Package(models.Model):
+    profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE)
+    project = models.ForeignKey(to = Project, on_delete = models.CASCADE)
+    added_on = models.DateTimeField(auto_now_add = True)
+    current_chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE, null = True)
+
+    def __str__(self):
+        return str(self.profile) + '_' + str(self.project)
+
+class Progress(models.Model):
+    package = models.ForeignKey(to = Package, on_delete = models.CASCADE)
+    chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE)
+    completed_on = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return str(self.package) + '_' + str(self.chapter)
+        
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
