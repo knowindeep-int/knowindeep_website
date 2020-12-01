@@ -41,6 +41,21 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.first_name + self.user.last_name
 
+    def is_verified(self, user):
+        if user == self.user:
+            return True
+        return False
+
+    @property
+    def getPackageProgressTuple(self):
+        packages = self.package_set.all()
+        percent_progress = []
+        
+        for i in range(packages.count()):
+            percent_progress.append(packages[i].progress_set.all().count() / packages[i].project.chapter_set.all().count() * 100)        
+        
+        return tuple(zip(packages, percent_progress))
+
     @classmethod
     def getUser(cls, name):
         profile = cls(name = name)
