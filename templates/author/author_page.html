@@ -193,6 +193,7 @@
                         </div>
                         {% endif %}
                     </div>
+                    {% if request.user == profile.user %}
                     <div>
                         {% csrf_token %}
                         <span>
@@ -213,6 +214,9 @@
                         </span>
 
                     </div>
+                    {% endif %}
+
+                    {% if request.user == profile.user %}
                     <div>
                         <span>
                             <h2>Security</h2>
@@ -226,6 +230,7 @@
                             </span><br>
                         <span><a href="">Delete</a></span>
                     </div>
+                    {% endif %}
 
 
                 </div>
