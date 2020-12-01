@@ -165,6 +165,7 @@
 
                     </div>
                     <div>
+                        {% if request.user == profile.user %}
                         <div>
                             <h2>Your Progress</h2>
                         </div>
@@ -190,6 +191,7 @@
                                 No Courses Available!
                             {% endif %}
                         </div>
+                        {% endif %}
                     </div>
                     <div>
                         {% csrf_token %}
