@@ -18,16 +18,13 @@ def author_page(request, slug):
     except Profile.DoesNotExist:
         profile = None
 
-    is_verified = request.user == profile.user
-    packages = Package.objects.filter(profile = profile)
-    percent_progress = []
-    for i in range(packages.count()):
-        percent_progress.append(packages[i].progress_set.all().count() / packages[i].project.chapter_set.all().count() * 100 )
+    is_verified = profile.is_verified(user = request.user)
+    packages = profile.getPackageProgressTuple
 
     context = {
         "profile": profile,
         "is_verified":is_verified,
-        "progresses":tuple(zip(packages, percent_progress))
+        "progresses":packages
     }
     return render(request,"author/author_page.html",context)
  
