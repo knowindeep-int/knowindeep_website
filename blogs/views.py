@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from bs4 import BeautifulSoup
 import requests
+import sys
 
 from .models import Project,Chapter, Like, Comment
 
@@ -53,21 +54,25 @@ def chapter_post(request,slug, chapter):
         "has_liked": has_liked
     }
     return render(request,"blogs/blog_post.html", context)
-    
+
+
 def remove(request,slug):
-    project = Project.objects.get(slug=slug)
-    project.isApproved = False
-    project.save()
+    if request.user.is_superuser:
+        project = Project.objects.get(slug=slug)
+        project.isApproved = False
+        project.save()
 
-    return redirect('blogs:index')
-
+        return redirect('blogs:index')
+    return HttpResponse("You are not Authorized to access this Page", status = 500)
 
 def approve(request,slug):
-    project = Project.objects.get(slug=slug)
-    project.isApproved = True
-    project.save()
+    if request.user.is_superuser:
+        project = Project.objects.get(slug=slug)
+        project.isApproved = True
+        project.save()
 
-    return redirect('blogs:index')
+        return redirect('blogs:index')
+    return HttpResponse("You are not Authorized to access this Page", status = 500)
 
 
 def error404(request, exception):
@@ -77,4 +82,5 @@ def error400(request, exception):
     return HttpResponse("error400")
 
 def error500(request):
-    return HttpResponse("error500")
+    type_, value, traceback = sys.exc_info()
+    return HttpResponse(value)
