@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from bs4 import BeautifulSoup
 import requests
+import sys
 
 from .models import Project,Chapter, Like, Comment
 
@@ -81,4 +82,5 @@ def error400(request, exception):
     return HttpResponse("error400")
 
 def error500(request):
-    return HttpResponse("error500")
+    type_, value, traceback = sys.exc_info()
+    return HttpResponse(value)
