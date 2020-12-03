@@ -76,3 +76,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class ChapterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chapter
+        fields = '__all__'
