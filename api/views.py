@@ -6,10 +6,11 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
+from django.db.models import Q
 
 from blogs.models import Project, Chapter, Like, Comment, Profile
 
-from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer
+from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer
 from .utils import to_dict
 
 @api_view(['GET',])
@@ -127,4 +128,35 @@ def update_profile(request):
         se = ProfileSerializer(updated_profile)
         return Response(se.data, status = status.HTTP_200_OK)
 
+@api_view(['GET',])
+def search_project(request):
+    if request.method == "GET":
+        search_input = request.GET['search_input']
 
+        project_searches = Project.objects.filter(
+            Q(slug__istartswith = search_input) |
+            Q(title__icontains = search_input) |
+            Q(author__user__username__icontains = search_input),
+        )
+
+        author_searches = Profile.objects.filter(
+            Q(user__username__icontains = search_input)
+        )
+
+        chapter_searches = Chapter.objects.filter(
+            Q(slug__istartswith = search_input) |
+            Q(author__user__username__icontains = search_input) |
+            Q(heading__icontains = search_input)
+        )
+
+        project_searches_serializer = ProjectSerializer(project_searches, many = True)
+        author_searches_serializer = ProfileSerializer(author_searches, many = True)
+        chapter_searches_serializer = ChapterSerializer(chapter_searches, many = True)
+    
+        data = {
+            "projects": project_searches_serializer.data, 
+            "authors": author_searches_serializer.data, 
+            "chapters": chapter_searches_serializer.data
+        }
+
+        return Response(data, status = status.HTTP_200_OK)
