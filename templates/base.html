@@ -96,7 +96,7 @@
             search_input = document.getElementById('search_input').innerHTML;
             alert("SUCCESS!!");
             $.ajax({
-                url: '{% url "api:search" %}',
+                url: '{% url "api:search" search_input %}',
                 method: "GET",
                 data: {
                     'search': search_input,
