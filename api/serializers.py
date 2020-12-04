@@ -6,7 +6,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
-        fields = ['image', 'title', 'description']
+        fields = ['image', 'title', 'description', 'slug']
+        extra_kwargs = {'slug': {'required': False}}
 
 class CommentSerializer(serializers.ModelSerializer):
 
