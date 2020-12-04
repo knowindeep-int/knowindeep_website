@@ -9,6 +9,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, int_list_validator, MaxValueValidator
 from django.db.models import Max, Min
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 from knowindeep import Constants
 
@@ -66,6 +67,13 @@ class Profile(models.Model):
     def skills_set(self):
         return self.skills.all()
 
+    @classmethod
+    def getAuthorSearches(cls, search_input):
+        author_searches = cls.objects.filter(
+            Q(user__username__icontains = search_input)
+        )
+        return author_searches
+
 class PreRequisite(models.Model):
     name = models.CharField(max_length = 100)
 
@@ -96,6 +104,15 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def getProjectSearches(cls, search_input):
+        project_searches = cls.objects.filter(
+            Q(slug__istartswith = search_input) |
+            Q(title__icontains = search_input) |
+            Q(author__user__username__icontains = search_input)
+        )
+        return project_searches
 
     @classmethod
     def getTitle(cls, slug):
@@ -206,6 +223,16 @@ class Chapter(models.Model):
     def getAllComments(cls, chapter_content_slug):
         chapter = cls.objects.get(slug = chapter_content_slug)
         return chapter.comment_set.all().order_by('-timestamp')
+    
+    @classmethod
+    def getChapterSearches(cls, search_input):
+        author_searches = cls.objects.filter(
+            Q(slug__istartswith = search_input) |
+            Q(author__user__username__icontains = search_input) |
+            Q(heading__icontains = search_input)
+        )
+        return author_searches
+
 
 class Like(models.Model):
     link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE,related_name="likes")
