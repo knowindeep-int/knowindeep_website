@@ -41,12 +41,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     #email_id = serializers.CharField(source = 'user.email') 
     #profile_id = serializers.PrimaryKeyRelatedField(read_only = True)
     skills_set = LanguageSerializer(many=True, read_only=True)
+    username = serializers.CharField(source='user.username')
     #phone_number = serializers.IntegerField()
     
     class Meta:
         model = Profile
-        fields = ['user', 'description', 'phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set']
-        extra_kwargs = {'skills': {'required': False}, 'user': {'required': False}}
+        fields = ['user', 'description', 'phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set', 'username']
+        extra_kwargs = {'skills': {'required': False}, 'user': {'required': False}, 'username': {'required': False}}
         read_only_fields = ('user',)
 
     def update(self, instance, validated_data):     
@@ -78,6 +79,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
 
 class ChapterSerializer(serializers.ModelSerializer):
+    project_slug = serializers.CharField(source='link_to.slug')
     class Meta:
         model = Chapter
-        fields = '__all__'
+        fields = ['slug', 'project_slug', 'heading']
+        extra_kwargs = { 'project_slug' : {'required': False}}
