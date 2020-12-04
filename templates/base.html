@@ -74,13 +74,56 @@
         @media (max-width: 601px) {
             #image{
                margin-top: 0;            
-            }
-            
+            }        
         }
     </style>
+    <script type="text/javascript">
 
+        function showSearchBar(){
+            search_bar = document.getElementById("search_form")
+            if( search_bar.style.display == "inline"){
+                search_bar.style.display = "none";
+            }
+            else{
+                search_bar.style.display = "inline";
+            }
+            
+        };
 
+        function implementSearch(){
 
+            search_input = document.getElementById('searchInput').value;
+            $.ajax({
+                url: '{% url "api:search" %}',
+                method: "GET",
+                data: {
+                    'search_input': search_input,
+                },
+                success: function(data){
+                    var result = document.getElementById("result");
+                    result.innerHTML = "";
+                    result.innerHTML += '<p class="list-group-item" style="color:black;" >Projects:</p>'
+                    for(var i = 0; i < data.projects.length; i++){
+                        result.innerHTML += '<a class="list-group-item" href="/' +data.projects[i].slug + '" >'  + data.projects[i].title + '</a>';
+                    }
+
+                    result.innerHTML += '<p class="list-group-item" style="color:black;" >Chapters:</p>'
+                    for(var i = 0; i < data.chapters.length; i++){
+                        result.innerHTML += '<a class="list-group-item" href="/' + data.chapters[i].project_slug +'/' + data.chapters[i].slug + '" >'  + data.chapters[i].heading + '</a>';
+                    }
+                    
+                    result.innerHTML += '<p class="list-group-item" style="color:black;" >Authors:</p>'
+                    for(var i = 0; i < data.authors.length; i++){
+                        result.innerHTML += '<a class="list-group-item" href="/@' +data.authors[i].username + '" >'  + data.authors[i].username + '</a>';
+                    }
+
+                },error: function (error){
+                    alert(error)
+                },
+            });
+        };
+        
+    </script>
 
 </head>
 
@@ -89,7 +132,7 @@
 <body>
 
 
-    <nav id="navbar" class="navbar-default navbar-static-top" style="overflow:hidden">
+    <nav id="navbar" class="navbar-default navbar-static-top" style="overflow: visible">
         <div class="nav-wrapper container ">
             <a href="{% url 'blogs:index' %}">
                 <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" id="image" alt="brandLogo" height="100%">
@@ -100,7 +143,27 @@
                 <li><a class="searches home" href="{% url 'blogs:index' %}">Home</a></li>
                 <li><a class="searches home" href="#">About Us</a></li>
                 <li><a class="searches home" href="{% url 'teach:add_course' %}">Teach with Us</a></li>
-                <li><a id="cate" href="#"><i class="fa fa-search fa-xs" id="SC"></i><span class="searches">Search</span></a></li>
+                <li><a id="cate" href="#" onclick="showSearchBar();"><i class="fa fa-search fa-xs" id="SC"></i><span class="searches">Search</span></a></li>
+                <!--<li>
+                    <div id="search_form" style="display: visible;">
+                        <form class="form-inline my-2 my-lg-0">
+                            <input id="search_input" onkeyup="implementSearch();" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+                    </div>
+                    <div id="result_list" data-toggle="collapse">
+                        
+                    </div>
+                </li> -->
+                <li>
+                    <form autocomplete="off" action="">
+                        <div class="autocomplete" style="width:300px;position: relative;display: inline-block;">
+                          <input id="searchInput" type="text" name="search" placeholder="Search" onkeyup="implementSearch();">
+                        </div>
+                        <div id="result"></div>
+                       
+                      </form>
+                </li>
+                
                 {% if request.user.is_superuser %}
                 <li>
                     <a id="cate" href="#">
