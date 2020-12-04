@@ -1,17 +1,12 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
-from django.forms.models import model_to_dict
-from django.db.models import Q
 
 from blogs.models import Project, Chapter, Like, Comment, Profile
 
 from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer
-from .utils import to_dict
 
 @api_view(['GET',])
 def api_detail_chapter_view(request,slug):
@@ -122,9 +117,6 @@ def update_profile(request):
             print(profile_serializer.errors)
             return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
         updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.data['profile_id']), validated_data=request.data)
-        #data = {
-        #    'profile':model_to_dict(updated_profile)
-        #}
         se = ProfileSerializer(updated_profile)
         return Response(se.data, status = status.HTTP_200_OK)
 
@@ -132,22 +124,9 @@ def update_profile(request):
 def search_project(request):
     if request.method == "GET":
         search_input = request.GET['search_input']
-
-        project_searches = Project.objects.filter(
-            Q(slug__istartswith = search_input) |
-            Q(title__icontains = search_input) |
-            Q(author__user__username__icontains = search_input),
-        )
-
-        author_searches = Profile.objects.filter(
-            Q(user__username__icontains = search_input)
-        )
-
-        chapter_searches = Chapter.objects.filter(
-            Q(slug__istartswith = search_input) |
-            Q(author__user__username__icontains = search_input) |
-            Q(heading__icontains = search_input)
-        )
+        project_searches = Project.getProjectSearches(search_input = search_input)
+        author_searches = Profile.getAuthorSearches(search_input = search_input)
+        chapter_searches = Chapter.getChapterSearches(search_input = search_input)
 
         project_searches_serializer = ProjectSerializer(project_searches[:3], many = True)
         author_searches_serializer = ProfileSerializer(author_searches[:3], many = True)
