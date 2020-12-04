@@ -132,22 +132,9 @@ def update_profile(request):
 def search_project(request):
     if request.method == "GET":
         search_input = request.GET['search_input']
-
-        project_searches = Project.objects.filter(
-            Q(slug__istartswith = search_input) |
-            Q(title__icontains = search_input) |
-            Q(author__user__username__icontains = search_input),
-        )
-
-        author_searches = Profile.objects.filter(
-            Q(user__username__icontains = search_input)
-        )
-
-        chapter_searches = Chapter.objects.filter(
-            Q(slug__istartswith = search_input) |
-            Q(author__user__username__icontains = search_input) |
-            Q(heading__icontains = search_input)
-        )
+        project_searches = Project.getProjectSearches(search_input = search_input)
+        author_searches = Profile.getAuthorSearches(search_input = search_input)
+        chapter_searches = Chapter.getChapterSearches(search_input = search_input)
 
         project_searches_serializer = ProjectSerializer(project_searches[:3], many = True)
         author_searches_serializer = ProfileSerializer(author_searches[:3], many = True)
