@@ -149,9 +149,9 @@ def search_project(request):
             Q(heading__icontains = search_input)
         )
 
-        project_searches_serializer = ProjectSerializer(project_searches, many = True)
-        author_searches_serializer = ProfileSerializer(author_searches, many = True)
-        chapter_searches_serializer = ChapterSerializer(chapter_searches, many = True)
+        project_searches_serializer = ProjectSerializer(project_searches[:3], many = True)
+        author_searches_serializer = ProfileSerializer(author_searches[:3], many = True)
+        chapter_searches_serializer = ChapterSerializer(chapter_searches[:3], many = True)
     
         data = {
             "projects": project_searches_serializer.data, 
