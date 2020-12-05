@@ -10,7 +10,23 @@
 </head>
 
 <script>
-    function addChapter() {
+    var title = "";
+    var description = "";
+    var category = "";
+
+    function setGlobal(){
+        var title_input = document.getElementById("title_input");
+        var description_input = document.getElementById("description_input");
+        if(title_input != null && title_input.value != "" ){
+            title = title_input.value;
+        };
+        if(description_input != null && description_input.value != "" ){
+            description = description_input.value;
+        };
+        
+    };
+
+    function addChapter(event) {
         var inputs = document.getElementsByClassName("chapter");
         for (var i=0; i < inputs.length; i++) {
             if(inputs[i].value=="" || inputs[i].value==null){
@@ -18,138 +34,175 @@
                 return false;
             }
         }
-        var inner_div = document.getElementById("append");
-        var newDiv = document.createElement('div');
-        newDiv.innerHTML = inner_div.innerHTML;
-        var outer_div = document.getElementById("add_chapter");
-        outer_div.append(newDiv);
-    }
+        
+        var elem = document.getElementById('chapter_left_button');
+        elem.parentNode.removeChild(elem);
+        var elem = document.getElementById('chapter_right_button');
+        elem.parentNode.removeChild(elem);
+
+        div = document.getElementById("chapter_div");
+        div_4 = document.getElementById("4");
+        new_div = document.createElement('div');
+        new_div.setAttribute("style", "color: black;");
+        new_div.innerHTML = '<br><br>' + div.innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button>';
+        div_4.appendChild(new_div);
+        
+    };
 
     function showhide(id){
         if (document.getElementById) {
             //e.preventDefault();
             var divid = document.getElementById(id);
             var divs = document.getElementsByClassName("to_hide");
-            for(var i=0;i<divs.length;i++) {
+            for(var i=0; i<divs.length; i++) {
               divs[i].style.display = "none";
               divs[i].style.visiblity = "hidden";
+              if(divs[i] != divid){
+                  divs[i].innerHTML = "";
+              };
             }
             divid.style.visibility = "visible";
             divid.style.display = "block";
-            //var main_div = document.getElementById("main_div");
-            //var form = document.getElementById("form")
-            //form.appendChild(document.getElementById(id));
-            //main_div.innerHTML = "<div>" + divid.innerHTML + "</div>";
         } 
-    }
+    };
     window.onload = function(){
         createTitlePage();
-        showhide(1);
     };
-
     
     function createDescriptionPage(){
-        //if(titleForm.innerHTML != ""){
-         //   showhide(1);
-          //  return true ;
-        //};
-        //e.preventDefault();
-        
-        document.getElementById(2).innerHTML = "";
-        showhide(2);
-        var form = document.createElement('form');
-        var input = document.createElement('input');
-        var div = document.createElement('div');
-        var CONTINUE = document.createElement('button');
-        var PREVIOUS = document.createElement('button');
-        var h2 = document.createElement('h2');
-    
-        h2.innerHTML = "DESCIPTION PAGE";
+        setGlobal();
+        showhide("2");
+        var div_1 = document.getElementById("1");
+        div_1.setAttribute("style", "display:none");
+        div_1.innerHTML = "";
 
+        var div_3 = document.getElementById("3");
+        div_3.setAttribute("style", "display:none");
+        div_3.innerHTML = "";
+
+        div_4 = document.getElementById("4");
+        div_4.setAttribute("style", "display: none;");
+        div_4.innerHTML = "";
+
+        var div = document.getElementById(2);
+        if (div.innerHTML != ""){
+            return false
+        }
         div.setAttribute("class", "jumbotron text-center") ;
-        div.setAttribute("style", "color: black");
-
-        CONTINUE.setAttribute("name", "CONTINUE");
-        CONTINUE.setAttribute("style", "float : right;height : 50px;width : 200px;");
-        CONTINUE.setAttribute("onclick", "");
-        CONTINUE.setAttribute("type", "button");
-        CONTINUE.innerHTML = "CONTINUE";
-        
-
-        PREVIOUS.setAttribute("type", "button");
-        PREVIOUS.setAttribute("name", "PREVIOUS");
-        PREVIOUS.setAttribute("style", "float : left;height : 50px;width : 200px;");
-        PREVIOUS.innerHTML = "PREVIOUS";
-        PREVIOUS.setAttribute("onclick", "createTitlePage();");
-
-        input.setAttribute("type", "text");
-        input.setAttribute("placeholder", "eg. Enter your project description ");
-
-        form.append(input);
-        form.append(CONTINUE);
-        form.append(PREVIOUS);
-
-        div.appendChild(h2);
-        document.getElementById(2).appendChild(div);
-        document.getElementById(2).appendChild(form);
-    
-    }
-    
-    var titleForm  = document.createElement('form');
-    function getTitlePage(){
-        showhide(1);
-    };
-    function createTitlePage(){
-        
-        showhide(1);
-        
-        var inputTitle = document.createElement('input');
-        var form = titleForm;
-        form.setAttribute("id", "titleForm");
-        var div = document.createElement('div');
-        div.setAttribute("class", "jumbotron text-center") ;
-        div.setAttribute("style", "color: black");
-        var h2 = document.createElement('h2');
-        h2.setAttribute("color", "black");       
-        h2.innerHTML = "TITLE PAGE";
-        
-        var submit = document.createElement('button');
-        //form.setAttribute("onsubmit", "createDescriptionPage()");
-        inputTitle.setAttribute("type", "text");
-        inputTitle.setAttribute("placeholder", "e.g. Enter title for your project");
-        //input.setAttribute("style", "display: none");
-        submit.setAttribute("value", "CREATE");
-        submit.setAttribute("type", "button");
-        submit.setAttribute("onclick", "createDescriptionPage()");
-        submit.setAttribute("style", "height:50px;width:200px");
-        submit.innerHTML = "CONTINUE";
-        
-        //  submit.setAttribute("style", "float: right;");
-        
-        //document.getElementById(1).innerHTML = "";
-        //document.getElementById("titleForm").destroy();
-        form.append(inputTitle);
-        form.append(submit);
-        titleForm = form;
-        div.appendChild(h2);        
-        document.getElementById(1).appendChild(div);
-        document.getElementById(1).appendChild(form);
-        
+        div.innerHTML += "<h2 style='color: black;'>DESCRIPTION PAGE</h2>" ;
+        div.innerHTML += '<input id="description_input" type="text" style="color: black"; value=" ' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createCategoryPage()">Next</button>';
        
     }
+    
+    function createTitlePage(){
+        setGlobal();
+        var div_2 = document.getElementById("2")
+        div_2.innerHTML = "";
+        div_2.setAttribute("style", "display: none;")
+        showhide("1");
+
+        div_4 = document.getElementById("4");
+        div_4.setAttribute("style", "display: none;");
+        div_4.innerHTML = "";
+
+        var div = document.getElementById("1");
+        div.setAttribute("class", "jumbotron text-center") ;
+        div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'>" + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage()">Next</button>'
+
+    }
+
+    function createCategoryPage(){
+        setGlobal();
+        showhide("3");
+        div_1 = document.getElementById("1");
+        div_1.setAttribute("style", "display: none;");
+        div_1.innerHTML = "";
+
+        div_2 = document.getElementById("2");
+        div_2.setAttribute("style", "display: none;");
+        div_2.innerHTML = "";
+
+        div_4 = document.getElementById("4");
+        div_4.setAttribute("style", "display: none;");
+        div_4.innerHTML = "";
+
+        div = document.getElementById("3");
+        div.setAttribute("class", "jumbotron text-center") ;
+        div.innerHTML += "<h2 style='color: black;'>CATEGORY PAGE</h2>" ;
+        div.innerHTML += '<div>' +
+                    '<select id="courseCategory" class="form-control">' +
+                        '<option value="default">Choose a category</option>' +
+                        '<option value="328" name="328">Finance &amp; Accounting</option>' +
+                        '<option value="288" name="288">Development</option>' +
+                        '<option value="268" name="268">Business</option>' +
+                        '<option value="294" name="294 ">IT &amp; Software</option>' +
+                        '<option value="292" name="292">Office Productivity</option>' +
+                        '<option value="296" name="296">Personal Development</option>' +
+                        '<option value="269" name="269">Design</option>' +
+                        '<option value="290" name="290">Marketing</option>' +
+                        '<option value="274" name="274">Lifestyle</option>' +
+                        '<option value="273" name="273">Photography &amp; Video</option>' +
+                        '<option value="276" name="276">Health &amp; Fitness</option>' +
+                        '<option value="278" name="278">Music</option>' +
+                        '<option value="300" name="300">Teaching &amp; Academics</option>' +
+                        '<option value="-1">I dont know yet</option>' +  
+                        '</select>';
+        div.innerHTML += ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><button type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>';
+
+    }
+
+    function createChapterPage(){
+        showhide("4");
+        div_1 = document.getElementById("1");
+        div_1.setAttribute("style", "display: none;");
+        div_1.innerHTML = "";
+
+        div_2 = document.getElementById("2");
+        div_2.setAttribute("style", "display: none;");
+        div_2.innerHTML = "";
+
+        div_3 = document.getElementById("3");
+        div_3.setAttribute("style", "display: none;");
+        div_3.innerHTML = "";
+
+        var div = document.getElementById("4");
+        div.setAttribute("class", "jumbotron text-center") ;
+        div.innerHTML += "<h2 style='color: black;'> CHAPTER PAGE</h2>" ;
+        div.innerHTML += '<div style="color: black;" id="chapter_div"><div>' +
+                    '<span>Heading</span>' +
+                    '<input class="chapter" type="text">' +
+                '</div>' +
+                '<div>' +
+                    '<span>Description</span>' +
+                    '<input class="chapter" type="text">' +
+                '</div>' +
+                '<div >' +
+                    '<span>content</span>' +
+                    '<input class="chapter" type="text">' +
+                '</div>' +
+                '<div>' +
+                    '<span>Youtube Link</span>' +
+                    '<input type="text" class="chapter">' +
+                '</div>' +
+                '<button type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button>' +
+                '</div>';
+        div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>';
 
     
+    }
+
 </script>
 
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
-<div id="main_div">
-    <div>
-        <div id=1 class="to_hide"></div>
-        <div id=2 class="to_hide"></div>
-        <div id=3 class="to_hide"></div>
-        <div id=4 class="to_hide"></div>
-        <div id=5 class="to_hide"></div>
+<div>
+    <div id="main_div">
+        <div id="1" class="to_hide"></div>
+        <div id="2" class="to_hide"></div>
+        <div id="3" class="to_hide"></div>
+        <div id="4" class="to_hide"></div>
+        <div id="5" class="to_hide"></div>
     </div>
+    
 </div>
 
 
