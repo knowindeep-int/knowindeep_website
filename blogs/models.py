@@ -23,6 +23,11 @@ class Language(models.Model):
     class Meta:
         verbose_name_plural  = "Language"
 
+    @classmethod
+    def getAllLanguages(cls):
+        languages = cls.objects.all()
+        return languages
+
 class Profile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -136,8 +141,6 @@ class Project(models.Model):
     @classmethod
     def get_popular_approved_projects(KClass):
         return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
-
-
 
 class Chapter(models.Model):
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, null=True,default=None)
