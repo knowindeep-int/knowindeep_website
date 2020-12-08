@@ -87,7 +87,11 @@ class PreRequisite(models.Model):
     
     class Meta:
         verbose_name_plural = "Pre-Requisites"
-
+    
+    @classmethod
+    def getAllPreReqs(cls):
+        pre_reqs = cls.objects.all()
+        return pre_reqs
 
 class Project(models.Model):
      # topic = models.CharField(max_length=30)
