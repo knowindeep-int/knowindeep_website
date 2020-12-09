@@ -14,22 +14,34 @@
     var description = "";
     var category = "";
 
-    function setGlobal(){
+    /*function setGlobal(){
         var title_input = document.getElementById("title_input");
         var description_input = document.getElementById("description_input");
         var category_option = document.getElementById("courseCategory");
+        
         if(title_input != null && title_input.value != "" ){
             title = title_input.value;
         };
         if(description_input != null && description_input.value != "" ){
             description = description_input.value;
         };
-        if(category_option != null && category_option.value !=null && category_option.value != "default"){ 
-            category = category_option.options[category_option.selectedIndex].text;
-            alert(category)
+        if(category_option != null && select != null && category_option.value !=null && category_option.value != "default"){ 
+            //category = category_option.options[category_option.selectedIndex].text;
+            var select = document.getElementById('courseCategory');
+            category = category_option.value;
+            alert(category);          
+            var option;
+
+            for (var i=0; i<select.options.length; i++) {
+                option = select.options[i];
+
+                if (option.value == category) {
+                    option.selected = true;
+                } 
+            }
         };
         
-    };
+    };*/
 
     function addChapter(event) {
         setGlobal();
@@ -76,7 +88,12 @@
     };
     
     function createDescriptionPage(){
-        setGlobal();
+        if(document.getElementById("title_input") != null){
+            title = document.getElementById("title_input").value;
+        }
+        if(document.getElementById("courseCategory")){
+            category = document.getElementById("courseCategory").options[document.getElementById("courseCategory").selectedIndex].value;
+        }
         showhide("2");
         var div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display:none");
@@ -101,7 +118,9 @@
     }
     
     function createTitlePage(){
-        setGlobal();
+        if( document.getElementById("description_input") != null){
+            description = document.getElementById("description_input").value;
+        }
         var div_2 = document.getElementById("2")
         div_2.innerHTML = "";
         div_2.setAttribute("style", "display: none;")
@@ -118,7 +137,11 @@
     }
 
     function createCategoryPage(){
-        setGlobal();
+        if(document.getElementById("description_input") != null){
+            description = document.getElementById("description_input").value;
+        }
+        
+    
         showhide("3");
         div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display: none;");
@@ -131,6 +154,10 @@
         div_4 = document.getElementById("4");
         div_4.setAttribute("style", "display: none;");
         div_4.innerHTML = "";
+
+        var select = document.getElementById('courseCategory');
+
+        
 
         div = document.getElementById("3");
         div.setAttribute("class", "jumbotron text-center") ;
@@ -152,13 +179,36 @@
                         '<option value="278" name="278">Music</option>' +
                         '<option value="300" name="300">Teaching &amp; Academics</option>' +
                         '<option value="-1">I dont know yet</option>' +  
-                        '</select>';
-        div
+                        '</select></div>';
+        
         div.innerHTML += ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><button type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>';
+                    
+        var select = document.getElementById("courseCategory");
+        if (select != null){
+            for (var i=0; i<select.options.length; i++) {
+                option = select.options[i];
 
+                if (option.value == category) {
+                    option.selected = true;
+                } 
+            }
+        }
     }
 
     function createChapterPage(){
+        
+        //setGlobal();
+        var select = document.getElementById("courseCategory");
+        if (select != null){
+            for (var i=0; i<select.options.length; i++) {
+                option = select.options[i];
+
+                if (option.value == category) {
+                    option.selected = true;
+                } 
+            }
+        }
+    
         showhide("4");
         div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display: none;");
