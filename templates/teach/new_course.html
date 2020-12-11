@@ -8,11 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static  'css/style1.css' %}">
 </head>
-
+<style>
+    input[data-state="invalid"] {
+        border: 0.125em solid hsl(30, 76%, 10%); 
+        border-color: hsl(0, 76%, 50%);
+    }
+</style>
 <script>
     var title = "";
     var description = "";
     var category = "";
+   
 
     /*function setGlobal(){
         var title_input = document.getElementById("title_input");
@@ -42,9 +48,9 @@
         };
         
     };*/
-
+    var chapter_innerHTML = "";
     function addChapter(event) {
-        setGlobal();
+        
         var inputs = document.getElementsByClassName("chapter");
         for (var i=0; i < inputs.length; i++) {
             if(inputs[i].value=="" || inputs[i].value==null){
@@ -57,14 +63,18 @@
         elem.parentNode.removeChild(elem);
         var elem = document.getElementById('chapter_right_button');
         elem.parentNode.removeChild(elem);
+        var elem = document.getElementById('chapter_add_button');
+        elem.parentNode.removeChild(elem); 
 
-        div = document.getElementById("chapter_div");
-        div_4 = document.getElementById("4");
+        div = document.getElementById("chapter_main_div");
+
         new_div = document.createElement('div');
         new_div.setAttribute("style", "color: black;");
-        new_div.innerHTML = '<br><br>' + div.innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button>';
-        div_4.appendChild(new_div);
-        
+        new_div.setAttribute("class", "chapter_div");
+        new_div.innerHTML = '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button>';
+        div.appendChild(new_div);
+        chapter_innerHTML = div.innerHTML;
+
     };
 
     function showhide(id){
@@ -90,10 +100,21 @@
     function createDescriptionPage(){
         if(document.getElementById("title_input") != null){
             title = document.getElementById("title_input").value;
+            if(document.getElementById("title_input").value == ""){
+                document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+                document.getElementById("error_title").style = "color: red;";
+                return;
+            } 
         }
         if(document.getElementById("courseCategory")){
             category = document.getElementById("courseCategory").options[document.getElementById("courseCategory").selectedIndex].value;
         }
+
+        
+        //if(document.getElementById("title_input").value == ""){
+        //    document.getElementById("1").innerHTML += "<span style='color: red;'>  Please enter a valid number</span>";
+        //    return
+        //}
         showhide("2");
         var div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display:none");
@@ -113,7 +134,7 @@
         }
         div.setAttribute("class", "jumbotron text-center") ;
         div.innerHTML += "<h2 style='color: black;'>DESCRIPTION PAGE</h2>" ;
-        div.innerHTML += '<input id="description_input" type="text" style="color: black"; value=" ' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createCategoryPage()">Next</button>';
+        div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createCategoryPage()">Next</button><span id="error_description"></span>';
        
     }
     
@@ -132,16 +153,39 @@
 
         var div = document.getElementById("1");
         div.setAttribute("class", "jumbotron text-center") ;
-        div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'>" + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage()">Next</button>'
-
+        div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage()">Next</button>'
+        document.getElementById("title_input").dataset.state = 'invalid';
+        //document.getElementById("title_input").validity.valid;
     }
-
+    let chapters = [];
     function createCategoryPage(){
+        //alert(document.getElementById('description_input') == "");
         if(document.getElementById("description_input") != null){
             description = document.getElementById("description_input").value;
+            if(document.getElementById("description_input").value == ""){
+                document.getElementById("error_description").innerHTML = "Cannot Be Empty!";
+                document.getElementById("error_description").style = "color: red;";
+                return;
+            }
         }
         
-    
+        
+        for(var i=0; i< document.getElementsByClassName("chapter_div").length; i++){
+            if(document.getElementsByClassName("heading")[i] != null){
+                let chapter_add = {};
+                chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
+                chapter_add['description'] = document.getElementsByClassName("description")[i].value;
+                chapter_add['content'] = document.getElementsByClassName("content")[i].value;
+                chapter_add['youtube'] = document.getElementsByClassName("youtube")[i].value;
+
+                
+                //alert(JSON.stringify(chapter_add, null, 4));
+                chapters[i] = chapter_add;
+                //alert(JSON.stringify(chapters, null, 4));
+            }
+        }
+
+        
         showhide("3");
         div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display: none;");
@@ -154,11 +198,7 @@
         div_4 = document.getElementById("4");
         div_4.setAttribute("style", "display: none;");
         div_4.innerHTML = "";
-
-        var select = document.getElementById('courseCategory');
-
         
-
         div = document.getElementById("3");
         div.setAttribute("class", "jumbotron text-center") ;
         div.innerHTML += "<h2 style='color: black;'>CATEGORY PAGE</h2>" ;
@@ -196,18 +236,11 @@
     }
 
     function createChapterPage(){
-        
-        //setGlobal();
-        var select = document.getElementById("courseCategory");
-        if (select != null){
-            for (var i=0; i<select.options.length; i++) {
-                option = select.options[i];
-
-                if (option.value == category) {
-                    option.selected = true;
-                } 
-            }
+        if(document.getElementById("courseCategory")){
+            category = document.getElementById("courseCategory").options[document.getElementById("courseCategory").selectedIndex].value;
         }
+        
+        
     
         showhide("4");
         div_1 = document.getElementById("1");
@@ -234,32 +267,84 @@
 
         var div = document.getElementById("4");
         div.setAttribute("class", "jumbotron text-center") ;
-        div.innerHTML += "<h2 style='color: black;'> CHAPTER PAGE</h2>" ;
-        div.innerHTML += '<div style="color: black;" id="chapter_div"><div>' +
+        div.innerHTML +="<h2 style='color: black;'> CHAPTER PAGE</h2>" ;
+        div.innerHTML += '<div id="chapter_main_div" ><div style="color: black;" class="chapter_div" class="current_chapter" >' + 
+                '<div>' +
                     '<span>Heading</span>' +
-                    '<input class="chapter" type="text">' +
+                    '<input class="heading chapter" id="heading" type="text" required>' +
+                    '<span class="error_heading"></span>' + 
                 '</div>' +
                 '<div>' +
                     '<span>Description</span>' +
-                    '<input class="chapter" type="text">' +
+                    '<input class="description chapter" id="description" type="text" required>' +
+                    '<span class="error_description"></span>' + 
                 '</div>' +
-                '<div >' +
+                '<div>' +
                     '<span>content</span>' +
-                    '<input class="chapter" type="text">' +
+                    '<input class="content chapter" id="content" type="text" required>' +
+                    '<span class="error_content"></span>' + 
                 '</div>' +
                 '<div>' +
                     '<span>Youtube Link</span>' +
-                    '<input type="text" class="chapter">' +
-                '</div>' +
-                '<button type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button>' +
-                '</div>';
-        div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button>';
-    
+                    '<input type="url"  pattern ="http://www\.youtube\.com\/(.+)|https://www\.youtube\.com\/(.+)" id="youtube" class="youtube chapter" required >' + 
+                    '<span class="error_youtube"></span>' +
+                '</div>' ;
+        if(chapter_innerHTML != ""){
+            document.getElementById("chapter_main_div").innerHTML = '<br><br>' + chapter_innerHTML ;   
+            //document.getElementById("chapter_main_div").innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button></div></div>';
+        }    
+        else{
+            div.innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button></div></div>';
+        }
+        if(document.getElementById('heading') != null){ 
+            for(var i=0; i< document.getElementsByClassName("chapter_div").length; i++){
+                //alert(chapters[i]['heading']);
+                document.getElementsByClassName("heading")[i].value = chapters[i]['heading'];
+                document.getElementsByClassName("description")[i].value = chapters[i]['description'];
+                document.getElementsByClassName("content")[i].value = chapters[i]['content'];
+                document.getElementsByClassName("youtube")[i].value = chapters[i]['youtube'];
+                //alert(JSON.stringify(chapter_add, null, 4));
+                //chapters[i] = chapter_add;
+            }
+        }
+        
     }
     
     function createLanguagesPage(){
-       
-        setGlobal();
+
+        for(var i=0; i< document.getElementsByClassName("chapter_div").length; i++){
+            if(document.getElementById('heading') != null){
+                var chapter_add = {};
+                chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
+                chapter_add['description'] = document.getElementsByClassName("description")[i].value;
+                chapter_add['content'] = document.getElementsByClassName("content")[i].value;
+                chapter_add['youtube'] = document.getElementsByClassName("youtube")[i].value;
+
+                if(document.getElementsByClassName("heading")[i].checkValidity() == false){
+                    document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
+                    document.getElementsByClassName("error_heading")[i].style = "color: red;";//return;
+                    return;
+                }
+                if(document.getElementsByClassName("description")[i].checkValidity() == false){
+                    document.getElementsByClassName("error_description")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
+                    document.getElementsByClassName("error_description")[i].style = "color: red;";//return;
+                    return;
+                }
+                if(document.getElementsByClassName("content")[i].checkValidity() == false){
+                    document.getElementsByClassName("error_content")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
+                    document.getElementsByClassName("error_content")[i].style = "color: red;";//return;
+                    return;
+                }
+                if(document.getElementsByClassName("youtube")[i].checkValidity() == false){
+                    document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
+                    document.getElementsByClassName("error_youtube")[i].style = "color: red;";//return;
+                    return;
+                }
+                //alert(JSON.stringify(chapter_add, null, 4));
+                chapters[i] = chapter_add;
+                //alert(JSON.stringify(chapters, null, 4));
+            }
+        }
         showhide("5");
         div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display: none;");
@@ -295,7 +380,9 @@
                          '{% for language in languages %}<option>{{language}}</option>{% endfor %}</select>'
 
         div.innerHTML  += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createChapterPage()">Previous</button>';
-        div.innerHTML += '</div>'
+        div.innerHTML += '</div>';
+
+        
 
     };
 
