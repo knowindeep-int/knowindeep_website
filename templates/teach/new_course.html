@@ -50,6 +50,7 @@
     };*/
     var counter = 1;
     var chapter_innerHTML = "";
+    var chapter_count = 2;
     function addChapter(event) {
         
         /*var inputs = document.getElementsByClassName("chapter");
@@ -129,15 +130,19 @@
         elem.parentNode.removeChild(elem); 
 
         div = document.getElementById("chapter_main_div");
-
+        //h2 = document.createElement('h2');
+        //h2.innerHTML = "Chapter " + chapter_count;
         new_div = document.createElement('div');
         new_div.setAttribute("style", "color: black;");
         new_div.setAttribute("class", "chapter_div");
         new_div.setAttribute("id", "chapter_div_" + counter)
-        new_div.innerHTML = '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button>';
+        new_div.innerHTML += '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button>';
+
         div.appendChild(new_div);
+        document.getElementsByClassName("chapter_h2_heading")[chapter_count - 1].innerHTML = "Chapter " + chapter_count;
         chapter_innerHTML = div.innerHTML;
-        counter+=1;
+        counter += 1;
+        chapter_count += 1;
 
     };
 
@@ -333,7 +338,7 @@
         div.setAttribute("class", "jumbotron text-center") ;
         div.innerHTML +="<h2 style='color: black;'> CHAPTER PAGE</h2>" ;
         div.innerHTML += '<div id="chapter_main_div" ><div style="color: black;" class="chapter_div" class="current_chapter" id="chapter_div_0">' + 
-                '<div>' +
+                '<h2 class="chapter_h2_heading">Chapter 1</h2><div>' +
                     '<span>Heading</span>' +
                     '<input class="heading chapter" id="heading" type="text" required>' +
                     '<span class="error_heading"></span>' + 
@@ -376,7 +381,7 @@
     
     function createLanguagesPage(){
 
-        let error =0;
+        let error = 0;
         let focus_on = null;
         for(var i=0; i< document.getElementsByClassName("chapter_div").length; i++){
             if(document.getElementById('heading') != null){
