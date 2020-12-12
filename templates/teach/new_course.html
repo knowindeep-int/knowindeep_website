@@ -52,12 +52,73 @@
     var chapter_innerHTML = "";
     function addChapter(event) {
         
-        var inputs = document.getElementsByClassName("chapter");
+        /*var inputs = document.getElementsByClassName("chapter");
         for (var i=0; i < inputs.length; i++) {
             if(inputs[i].value=="" || inputs[i].value==null){
                 alert("Enter all fields!");
                 return false;
             }
+        }*/
+        let error =0;
+        let focus_on = null;
+        for(var i=0; i< document.getElementsByClassName("chapter_div").length; i++){
+            if(document.getElementsByClassName("heading")[i] != null){
+                
+                if(document.getElementsByClassName("heading")[i].checkValidity() == false){
+                    document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
+                    document.getElementsByClassName("error_heading")[i].style = "color: red;";//return;
+                    error = 1;
+                    if(focus_on == null){
+                        document.getElementsByClassName("heading")[i].scrollIntoView({block: "center"});
+                        focus_on = "heading";
+                    }
+                }
+                else{
+                    document.getElementsByClassName("error_heading")[i].innerHTML = "" //alert("Enter All Fields!");    
+                }
+                if(document.getElementsByClassName("description")[i].checkValidity() == false){
+                    document.getElementsByClassName("error_description")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
+                    document.getElementsByClassName("error_description")[i].style = "color: red;";//return;
+                    error = 1;
+                    if(focus_on == null){
+                        document.getElementsByClassName("description")[i].scrollIntoView({block: "center"});
+                        focus_on = "description";
+                    }
+                }
+                else{
+                    document.getElementsByClassName("error_description")[i].innerHTML = "" //alert("Enter All Fields!");    
+                }
+                if(document.getElementsByClassName("content")[i].checkValidity() == false){
+                    document.getElementsByClassName("error_content")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
+                    document.getElementsByClassName("error_content")[i].style = "color: red;";//return;
+                    error = 1;
+                    if(focus_on == null){
+                        document.getElementsByClassName("content")[i].scrollIntoView({block: "center"});
+                        focus_on = "content";
+                    }
+                }
+                else{
+                    document.getElementsByClassName("error_content")[i].innerHTML = "" //alert("Enter All Fields!");    
+                }
+                if(document.getElementsByClassName("youtube")[i].checkValidity() == false){
+                    document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
+                    document.getElementsByClassName("error_youtube")[i].style = "color: red;";//return;
+                    document.getElementsByClassName("youtube")[i].scrollIntoView({block: "center"});
+                    error = 1;
+                    if(focus_on == null){
+                        document.getElementsByClassName("youtube")[i].scrollIntoView({block: "center"});
+                        focus_on = "youtube";
+                    }
+                }
+                else{
+                    document.getElementsByClassName("error_youtube")[i].innerHTML = "" //alert("Enter All Fields!");    
+                }
+                
+            }   
+
+        }
+        if(error == "1"){
+            return;
         }
         
         var elem = document.getElementById('chapter_left_button');
@@ -326,7 +387,7 @@
                 if(document.getElementsByClassName("heading")[i].checkValidity() == false){
                     document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_heading")[i].style = "color: red;";//return;
-                    document.getElementsByClassName("heading")[i].scrollIntoView();
+                    document.getElementsByClassName("heading")[i].scrollIntoView({block: "center"});
                     return;
                 }
                 else{
@@ -335,7 +396,7 @@
                 if(document.getElementsByClassName("description")[i].checkValidity() == false){
                     document.getElementsByClassName("error_description")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_description")[i].style = "color: red;";//return;
-                    document.getElementsByClassName("error_description")[i].scrollIntoView(true);
+                    document.getElementsByClassName("description")[i].scrollIntoView({block: "center"});
                     return;
                 }
                 else{
@@ -344,7 +405,7 @@
                 if(document.getElementsByClassName("content")[i].checkValidity() == false){
                     document.getElementsByClassName("error_content")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_content")[i].style = "color: red;";//return;
-                    document.getElementsByClassName("error_content")[i].scrollIntoView(true);
+                    document.getElementsByClassName("content")[i].scrollIntoView({block: "center"});
                     return;
                 }
                 else{
@@ -353,7 +414,7 @@
                 if(document.getElementsByClassName("youtube")[i].checkValidity() == false){
                     document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_youtube")[i].style = "color: red;";//return;
-                    document.getElementsByClassName("error_youtube")[i].scrollIntoView(true);
+                    document.getElementsByClassName("youtube")[i].scrollIntoView({block: "center"});
                     return;
                 }
                 else{
