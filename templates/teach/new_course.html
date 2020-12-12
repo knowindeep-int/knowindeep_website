@@ -18,6 +18,9 @@
     var title = "";
     var description = "";
     var category = "";
+    var difficulty_level = "";
+    var no_of_hours = "";
+    var languages = [];
    
 
     /*function setGlobal(){
@@ -104,7 +107,6 @@
                 if(document.getElementsByClassName("youtube")[i].checkValidity() == false){
                     document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_youtube")[i].style = "color: red;";//return;
-                    document.getElementsByClassName("youtube")[i].scrollIntoView({block: "center"});
                     error = 1;
                     if(focus_on == null){
                         document.getElementsByClassName("youtube")[i].scrollIntoView({block: "center"});
@@ -309,6 +311,14 @@
             category = document.getElementById("courseCategory").options[document.getElementById("courseCategory").selectedIndex].value;
         }
         
+        if(document.getElementById("selectpicker") != null){
+            languages = [];
+            for(var i=0; i < document.getElementById("selectpicker").length; i++ ){
+                if(document.getElementById("selectpicker")[i].selected){
+                    languages.push(document.getElementById("selectpicker")[i].innerHTML);
+                }
+            }
+        }
         
     
         showhide("4");
@@ -478,7 +488,7 @@
         div.innerHTML += "<h2 style='color: black;'> ADD LANGUAGES PAGE</h2>" ;
         div.innerHTML += '<div style="color: black;">';
         
-        div.innerHTML += '<select class="selectpicker" multiple data-live-search="true" style="display: block;color: black;">' +                 
+        div.innerHTML += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">' +                 
                          '{% for language in languages %}<option>{{language}}</option>{% endfor %}</select>'
 
         div.innerHTML  += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createChapterPage()">Previous</button>';
@@ -487,9 +497,23 @@
         
 
     };
-
     function createDifficultyPage(){
-        setGlobal();
+        if(document.getElementById("selectpicker") != null){
+            languages = [];
+            for(var i=0; i < document.getElementById("selectpicker").length; i++ ){
+                if(document.getElementById("selectpicker")[i].selected){
+                    languages.push(document.getElementById("selectpicker")[i].innerHTML);
+                }
+            }
+        }
+        if(document.getElementsByClassName("difficulty_radio_input") != null){
+            for(var i=0; i< document.getElementsByClassName("difficulty_radio_input").length; i++){
+                if(document.getElementsByClassName("difficulty_radio_input")[i].checked ){
+                    difficulty_level = document.getElementsByClassName("difficulty_radio_input")[i].value
+                }
+            }
+        }
+        alert(languages);
         showhide("6");
         div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display: none;");
@@ -519,11 +543,11 @@
         div.setAttribute("class", "jumbotron text-center") ;
         div.innerHTML += "<h2 style='color: black;'> ADD DIFFICULTY LEVEL FOR THE PROJECT</h2>" ;
         div.innerHTML += '<div style="color: black;">';
-        div.innerHTML += '<input type="radio" id="easy" name="" value="" disabled=false>' +
+        div.innerHTML += '<input class="difficulty_radio_input" type="radio" id="easy" name="" value="EASY" checked="checked">' +
                        '<label for="easy">EASY</label><br>' +
-                        '<input type="radio" id="medium" name="" value="">' +
+                        '<input class="difficulty_radio_input" type="radio" id="medium" name="" value="MEDIUM">' +
                         '<label for="meduim">MEDIUM</label><br>' +
-                        '<input type="radio" id="hard" name="" value="">' +
+                        '<input  class="difficulty_radio_input" type="radio" id="hard" name="" value="HARD">' +
                         '<label for="hard">HARD</label>' ;
         div.innerHTML  += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createLanguagesPage()">Previous</button>' +
                             '</div>'  ;
@@ -532,7 +556,13 @@
     };
 
     function createOverviewPage(){
-        setGlobal();
+        if(document.getElementsByClassName("difficulty_radio_input") != null){
+            for(var i=0; i< document.getElementsByClassName("difficulty_radio_input").length; i++){
+                if(document.getElementsByClassName("difficulty_radio_input")[i].checked ){
+                    difficulty_level = document.getElementsByClassName("difficulty_radio_input")[i].value
+                }
+            }
+        }
         var div_1 = document.getElementById("1")
         div_1.innerHTML = "";
         div_1.setAttribute("style", "display: none;")
@@ -711,7 +741,7 @@
         div.innerHTML += '<div style="color: black;">';
         div.innerHTML += '<input type="radio" id="0-2" name="" value="" disabled=false>' +
                        '<label for="0-2">0-2 HOURS</label><br>' +
-                        '<input type="radio" id="2-4" name="" value="">' +
+                        '<input type="radio" id="2-4" name="" value="" style="display: block;visibility: visible">' +
                         '<label for="2-4">2-4 HOURS</label><br>' +
                         '<input type="radio" id=">4" name="" value="">' +
                         '<label for=">4">MORE THAN 4 HOURS</label>' ;
