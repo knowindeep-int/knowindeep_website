@@ -48,6 +48,7 @@
         };
         
     };*/
+    var counter = 1;
     var chapter_innerHTML = "";
     function addChapter(event) {
         
@@ -71,9 +72,11 @@
         new_div = document.createElement('div');
         new_div.setAttribute("style", "color: black;");
         new_div.setAttribute("class", "chapter_div");
+        new_div.setAttribute("id", "chapter_div_" + counter)
         new_div.innerHTML = '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button>';
         div.appendChild(new_div);
         chapter_innerHTML = div.innerHTML;
+        counter+=1;
 
     };
 
@@ -268,7 +271,7 @@
         var div = document.getElementById("4");
         div.setAttribute("class", "jumbotron text-center") ;
         div.innerHTML +="<h2 style='color: black;'> CHAPTER PAGE</h2>" ;
-        div.innerHTML += '<div id="chapter_main_div" ><div style="color: black;" class="chapter_div" class="current_chapter" >' + 
+        div.innerHTML += '<div id="chapter_main_div" ><div style="color: black;" class="chapter_div" class="current_chapter" id="chapter_div_0">' + 
                 '<div>' +
                     '<span>Heading</span>' +
                     '<input class="heading chapter" id="heading" type="text" required>' +
@@ -286,7 +289,7 @@
                 '</div>' +
                 '<div>' +
                     '<span>Youtube Link</span>' +
-                    '<input type="url"  pattern ="http://www\.youtube\.com\/(.+)|https://www\.youtube\.com\/(.+)" id="youtube" class="youtube chapter" required >' + 
+                    '<input type="url"  id="youtube" class="youtube chapter" required >' + 
                     '<span class="error_youtube"></span>' +
                 '</div>' ;
         if(chapter_innerHTML != ""){
@@ -323,22 +326,38 @@
                 if(document.getElementsByClassName("heading")[i].checkValidity() == false){
                     document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_heading")[i].style = "color: red;";//return;
+                    document.getElementsByClassName("heading")[i].scrollIntoView();
                     return;
+                }
+                else{
+                    document.getElementsByClassName("error_heading")[i].innerHTML = "" //alert("Enter All Fields!");    
                 }
                 if(document.getElementsByClassName("description")[i].checkValidity() == false){
                     document.getElementsByClassName("error_description")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_description")[i].style = "color: red;";//return;
+                    document.getElementsByClassName("error_description")[i].scrollIntoView(true);
                     return;
+                }
+                else{
+                    document.getElementsByClassName("error_description")[i].innerHTML = "" //alert("Enter All Fields!");    
                 }
                 if(document.getElementsByClassName("content")[i].checkValidity() == false){
                     document.getElementsByClassName("error_content")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_content")[i].style = "color: red;";//return;
+                    document.getElementsByClassName("error_content")[i].scrollIntoView(true);
                     return;
+                }
+                else{
+                    document.getElementsByClassName("error_content")[i].innerHTML = "" //alert("Enter All Fields!");    
                 }
                 if(document.getElementsByClassName("youtube")[i].checkValidity() == false){
                     document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" //alert("Enter All Fields!");    
                     document.getElementsByClassName("error_youtube")[i].style = "color: red;";//return;
+                    document.getElementsByClassName("error_youtube")[i].scrollIntoView(true);
                     return;
+                }
+                else{
+                    document.getElementsByClassName("error_youtube")[i].innerHTML = "" //alert("Enter All Fields!");    
                 }
                 //alert(JSON.stringify(chapter_add, null, 4));
                 chapters[i] = chapter_add;
