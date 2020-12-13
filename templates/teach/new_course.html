@@ -140,7 +140,7 @@
         new_div.setAttribute("style", "color: black;");
         new_div.setAttribute("class", "chapter_div");
         new_div.setAttribute("id", "chapter_div_" + counter)
-        new_div.innerHTML += '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button>';
+        new_div.innerHTML += '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>';
 
         div.appendChild(new_div);
         document.getElementsByClassName("chapter_h2_heading")[chapter_count - 1].innerHTML = "Chapter " + chapter_count;
@@ -179,9 +179,23 @@
                 return;
             } 
         }
-        if(document.getElementById("courseCategory")){
-            category = document.getElementById("courseCategory").options[document.getElementById("courseCategory").selectedIndex].value;
+        for(var i=0; i< document.getElementsByClassName("chapter_div").length; i++){
+            if(document.getElementsByClassName("heading")[i] != null){
+                let chapter_add = {};
+                chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
+                chapter_add['description'] = document.getElementsByClassName("description")[i].value;
+                chapter_add['content'] = document.getElementsByClassName("content")[i].value;
+                chapter_add['youtube'] = document.getElementsByClassName("youtube")[i].value;
+
+                
+                //alert(JSON.stringify(chapter_add, null, 4));
+                chapters[i] = chapter_add;
+                //alert(JSON.stringify(chapters, null, 4));
+            }
         }
+        /*if(document.getElementById("courseCategory")){
+            category = document.getElementById("courseCategory").options[document.getElementById("courseCategory").selectedIndex].value;
+        }*/
 
         
         //if(document.getElementById("title_input").value == ""){
@@ -207,7 +221,7 @@
         }
         div.setAttribute("class", "jumbotron text-center") ;
         div.innerHTML += "<h2 style='color: black;'>DESCRIPTION PAGE</h2>" ;
-        div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createCategoryPage()">Next</button><span id="error_description"></span>';
+        div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><span id="error_description"></span>';
        
     }
     
@@ -231,7 +245,7 @@
         //document.getElementById("title_input").validity.valid;
     }
     let chapters = [];
-    function createCategoryPage(){
+    /*function createCategoryPage(){
         //alert(document.getElementById('description_input') == "");
         if(document.getElementById("description_input") != null){
             description = document.getElementById("description_input").value;
@@ -306,11 +320,19 @@
                 } 
             }
         }
-    }
+    }*/
 
     function createChapterPage(){
-        if(document.getElementById("courseCategory")){
+        /*if(document.getElementById("courseCategory")){
             category = document.getElementById("courseCategory").options[document.getElementById("courseCategory").selectedIndex].value;
+        }*/
+        if(document.getElementById("description_input") != null){
+            description = document.getElementById("description_input").value;
+            if(document.getElementById("description_input").value == ""){
+                document.getElementById("error_description").innerHTML = "Cannot Be Empty!";
+                document.getElementById("error_description").style = "color: red;";
+                return;
+            }
         }
         
         if(document.getElementById("selectpicker") != null){
@@ -376,7 +398,7 @@
             //document.getElementById("chapter_main_div").innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button></div></div>';
         }    
         else{
-            div.innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createCategoryPage()">Previous</button></div></div>';
+            div.innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createLanguagesPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button></div></div>';
         }
         if(document.getElementById('heading') != null){ 
             for(var i=0; i< document.getElementsByClassName("chapter_div").length; i++){
