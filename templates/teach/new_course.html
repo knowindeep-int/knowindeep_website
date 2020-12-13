@@ -498,14 +498,14 @@
         div.innerHTML += '<span id="error_language"></span></div>';
         if(document.getElementById("selectpicker") != null){
             for(var i=0; i < document.getElementById("selectpicker").length; i++ ){
-                for(var j=0; j< languages.length; j++){
+                //for(var j=0; j< languages.length; j++){
                     //for (var i=0; i<select.options.length; i++) {
                         option = document.getElementById("selectpicker").options[i];
                         if (languages.indexOf(option.value) != -1) {
                             option.selected = true;
                         }
                     //}
-                }
+                //}
             }
         }
 
@@ -532,11 +532,7 @@
 
         if(document.getElementById("overview_input") != null){
             overview = document.getElementById("overview_input").value;
-            if(document.getElementById("overview_input").value == ""){
-                document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
-                document.getElementById("error_overview").style = "color: red;";
-                return;
-            }
+            
         }
         
         
@@ -692,12 +688,12 @@
        div.innerHTML += '<span id="error_prereq" ></span></div>'
        if(document.getElementById("selectpicker_prereq") != null){
             for(var i=0; i < document.getElementById("selectpicker_prereq").length; i++ ){
-                for(var j=0; j< pre_reqs.length; j++){
-                    option = document.getElementById("selectpicker_prereq").options[j];
+                //for(var j=0; j< pre_reqs.length; j++){
+                    option = document.getElementById("selectpicker_prereq").options[i];
                     if (pre_reqs.indexOf(option.value) != -1) {
                         option.selected = true;
                     }
-                }
+                //}
             }
         }
    };
