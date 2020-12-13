@@ -15,5 +15,5 @@ urlpatterns = [
     path('<slug:slug>/update',api_detail_chapter_update_view),
     path('chaptertopic/like',api_like_chapter_view,name='like-post'),
     path('chaptertopic/comment',api_comment_chapter_view,name="comment-post"),
-    path('save_draft', api_save_draft, name="save-draft"),
+    path('save_draft', api_save_draft, name="save_draft"),
 ]
