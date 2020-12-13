@@ -22,6 +22,7 @@
     var no_of_hours = null;
     var languages = [];
     var overview = "";
+    var pre_reqs =[];
    
 
     /*function setGlobal(){
@@ -588,6 +589,16 @@
                 }
             }
         }
+
+        if(document.getElementById("selectpicker_prereq") != null){
+            pre_reqs = [];
+            for(var i=0; i < document.getElementById("selectpicker_prereq").length; i++ ){
+                if(document.getElementById("selectpicker_prereq")[i].selected){
+                    pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
+                }
+            }
+            
+        }
         var div_1 = document.getElementById("1")
         div_1.innerHTML = "";
         div_1.setAttribute("style", "display: none;")
@@ -674,12 +685,21 @@
        div.innerHTML += "<h2 style='color: black;'> ADD PRE-REQUISITES PAGE</h2>" ;
        div.innerHTML += '<div style="color: black;">';
        
-       div.innerHTML += '<select class="selectpicker" multiple data-live-search="true" style="display: block;color: black;">' +                 
+       div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">' +                 
                         '{% for pre_req in pre_reqs %}<option>{{pre_req}}</option>{% endfor %}</select>'
 
        div.innerHTML  += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createImagePage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
-       div.innerHTML += '</div>'
-
+       div.innerHTML += '<span id="error_prereq" ></span></div>'
+       if(document.getElementById("selectpicker_prereq") != null){
+            for(var i=0; i < document.getElementById("selectpicker_prereq").length; i++ ){
+                for(var j=0; j< pre_reqs.length; j++){
+                    option = document.getElementById("selectpicker_prereq").options[j];
+                    if (pre_reqs.indexOf(option.value) != -1) {
+                        option.selected = true;
+                    }
+                }
+            }
+        }
    };
 
    function createImagePage(){
@@ -689,6 +709,24 @@
                     no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
                 }
             }
+        }
+
+        if(document.getElementById("selectpicker_prereq") != null){
+            pre_reqs = [];
+            for(var i=0; i < document.getElementById("selectpicker_prereq").length; i++ ){
+                if(document.getElementById("selectpicker_prereq")[i].selected){
+                    pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
+                }
+            }
+            if(pre_reqs.length == 0){
+                document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+                document.getElementById("error_prereq").style = "color: red;";
+                return;
+            }
+            else{
+                document.getElementById("error_prereq").innerHTML = "";
+            } 
+            
         }
        showhide("9")
        div_1 = document.getElementById("1");
