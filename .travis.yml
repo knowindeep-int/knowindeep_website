@@ -1,6 +1,6 @@
 language: python # => 1
     python: # => 2
-      - "3.8.5"
+      - 3.8.5
     services: # => 3
       - mysql
     env: # => 4
