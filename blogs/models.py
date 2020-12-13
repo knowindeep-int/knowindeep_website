@@ -110,6 +110,7 @@ class Project(models.Model):
     title = models.CharField(max_length=25)
     overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
+    isCompleted = models.BooleanField(default = False)
 
     def __str__(self):
         return self.title
