@@ -139,3 +139,30 @@ def search_project(request):
         }
 
         return Response(data, status = status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_save_draft(request):
+    if request.method == "POST":
+        pk = request.POST.get('pk', None)
+        
+        user = Profile.objects.get(user = request.user)
+
+        if pk is None:
+            project = Project(author = user, title = "random")  #why error in case of using create ?Max recursion depth??
+            project.save()
+        else:
+            project = Project.objects.get(pk = pk)
+        
+        project_serializer = ProjectSerializer(data = request.data)
+        
+        if not project_serializer.is_valid():
+            return Response(project_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        
+        updated_project = project_serializer.update(instance = project)
+
+        pk = project.pk
+        data = {
+            'success': "Project updated successfully!", 
+            'pk': pk
+        }
+        return Response(data, status = status.HTTP_200_OK)
