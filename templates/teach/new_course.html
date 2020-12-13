@@ -18,8 +18,8 @@
     var title = "";
     var description = "";
     var category = "";
-    var difficulty_level = "";
-    var no_of_hours = "";
+    var difficulty_level = null;
+    var no_of_hours = null;
     var languages = [];
    
 
@@ -489,10 +489,22 @@
         div.innerHTML += '<div style="color: black;">';
         
         div.innerHTML += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">' +                 
-                         '{% for language in languages %}<option>{{language}}</option>{% endfor %}</select>'
-
+                         '{% for language in languages %}' +
+                                '<option>{{language}}</option>{% endfor %}</select>' ;
         div.innerHTML  += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createChapterPage()">Previous</button>';
-        div.innerHTML += '</div>';
+        div.innerHTML += '<span id="error_language"></span></div>';
+        if(document.getElementById("selectpicker") != null){
+            for(var i=0; i < document.getElementById("selectpicker").length; i++ ){
+                for(var j=0; j< languages.length; j++){
+                    //for (var i=0; i<select.options.length; i++) {
+                        option = document.getElementById("selectpicker").options[i];
+                        if (languages.indexOf(option.value) != -1) {
+                            option.selected = true;
+                        }
+                    //}
+                }
+            }
+        }
 
         
 
@@ -505,6 +517,14 @@
                     languages.push(document.getElementById("selectpicker")[i].innerHTML);
                 }
             }
+            if(languages.length == 0){
+                document.getElementById("error_language").innerHTML = "Cannot Be Empty!";
+                document.getElementById("error_language").style = "color: red;";
+                return;
+            }
+            else{
+                document.getElementById("error_language").innerHTML = "";
+            } 
         }
         if(document.getElementsByClassName("difficulty_radio_input") != null){
             for(var i=0; i< document.getElementsByClassName("difficulty_radio_input").length; i++){
@@ -513,7 +533,7 @@
                 }
             }
         }
-        alert(languages);
+        
         showhide("6");
         div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display: none;");
@@ -601,7 +621,7 @@
 
     function createPreReqsPage(){
        
-       setGlobal();
+       
        showhide("8")
        div_1 = document.getElementById("1");
        div_1.setAttribute("style", "display: none;");
@@ -651,7 +671,13 @@
    };
 
    function createImagePage(){
-        setGlobal();
+        if(document.getElementsByClassName("time_radio_input") != null){
+            for(var i=0; i< document.getElementsByClassName("time_radio_input").length; i++){
+                if(document.getElementsByClassName("time_radio_input")[i].checked ){
+                    no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+                }
+            }
+        }
        showhide("9")
        div_1 = document.getElementById("1");
        div_1.setAttribute("style", "display: none;");
@@ -701,7 +727,7 @@
    };
 
    function createNumberOfHours(){
-        setGlobal();
+        
         showhide("10");
         div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display: none;");
@@ -739,11 +765,11 @@
         div.setAttribute("class", "jumbotron text-center") ;
         div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>" ;
         div.innerHTML += '<div style="color: black;">';
-        div.innerHTML += '<input type="radio" id="0-2" name="" value="" disabled=false>' +
+        div.innerHTML += '<input class="time_radio_input" checked="checked" type="radio" id="0-2" name="" value="0-2" disabled=false>' +
                        '<label for="0-2">0-2 HOURS</label><br>' +
-                        '<input type="radio" id="2-4" name="" value="" style="display: block;visibility: visible">' +
+                        '<input class="time_radio_input" type="radio" id="2-4" name="" value="2-4" style="display: block;visibility: visible">' +
                         '<label for="2-4">2-4 HOURS</label><br>' +
-                        '<input type="radio" id=">4" name="" value="">' +
+                        '<input class="time_radio_input" type="radio" id=">4" name="" value=">4">' +
                         '<label for=">4">MORE THAN 4 HOURS</label>' ;
         div.innerHTML  += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
                             '</div>'  ;
