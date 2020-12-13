@@ -23,8 +23,33 @@
     var languages = [];
     var overview = "";
     var pre_reqs =[];
+    var pk = "";
    
-
+    function saveDraft(key, value){
+        var key = key;
+        var value = value;
+        
+        var data = {};
+        data[key] = value;
+        data['pk'] = pk;
+        data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
+        $.ajax({
+            method: "POST",
+            url: '{% url "api:save-draft" %}',
+            data : data,
+            /*data: {
+                key: value,
+                'pk': pk,
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },*/
+            success: function(data){
+                pk = data.pk
+            },error: function(error){
+                alert("ERROR!")
+            },
+            
+        })
+    }
     /*function setGlobal(){
         var title_input = document.getElementById("title_input");
         var description_input = document.getElementById("description_input");
@@ -193,6 +218,7 @@
                 //alert(JSON.stringify(chapters, null, 4));
             }
         }
+        saveDraft("title", title);
         /*if(document.getElementById("courseCategory")){
             category = document.getElementById("courseCategory").options[document.getElementById("courseCategory").selectedIndex].value;
         }*/
@@ -240,7 +266,7 @@
 
         var div = document.getElementById("1");
         div.setAttribute("class", "jumbotron text-center") ;
-        div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage()">Next</button>'
+        div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
         document.getElementById("title_input").dataset.state = 'invalid';
         //document.getElementById("title_input").validity.valid;
     }
@@ -344,7 +370,7 @@
             }
             
         }
-        
+        saveDraft("description", description);
     
         showhide("4");
         div_1 = document.getElementById("1");
@@ -850,6 +876,7 @@
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
 <div>
     <div id="main_div">
+        {% csrf_token %}
         <div id="1" class="to_hide"></div>
         <div id="2" class="to_hide"></div>
         <div id="3" class="to_hide"></div>
