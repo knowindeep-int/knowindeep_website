@@ -144,9 +144,11 @@ def search_project(request):
 def api_save_draft(request):
     if request.method == "POST":
         pk = request.POST.get('pk', None)
+        if pk == "":
+            pk = None
         
         user = Profile.objects.get(user = request.user)
-
+    
         if pk is None:
             project = Project(author = user, title = "random")  #why error in case of using create ?Max recursion depth??
             project.save()
