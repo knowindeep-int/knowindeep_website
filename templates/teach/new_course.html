@@ -21,6 +21,7 @@
     var difficulty_level = null;
     var no_of_hours = null;
     var languages = [];
+    var overview = "";
    
 
     /*function setGlobal(){
@@ -318,6 +319,7 @@
                     languages.push(document.getElementById("selectpicker")[i].innerHTML);
                 }
             }
+            
         }
         
     
@@ -526,13 +528,16 @@
                 document.getElementById("error_language").innerHTML = "";
             } 
         }
-        if(document.getElementsByClassName("difficulty_radio_input") != null){
-            for(var i=0; i< document.getElementsByClassName("difficulty_radio_input").length; i++){
-                if(document.getElementsByClassName("difficulty_radio_input")[i].checked ){
-                    difficulty_level = document.getElementsByClassName("difficulty_radio_input")[i].value
-                }
+
+        if(document.getElementById("overview_input") != null){
+            overview = document.getElementById("overview_input").value;
+            if(document.getElementById("overview_input").value == ""){
+                document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
+                document.getElementById("error_overview").style = "color: red;";
+                return;
             }
         }
+        
         
         showhide("6");
         div_1 = document.getElementById("1");
@@ -615,12 +620,19 @@
 
         var div = document.getElementById("7");
         div.setAttribute("class", "jumbotron text-center") ;
-        div.innerHTML += "<h2 style='color: black;'>OVERVIEW PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value=''> "  + '<button type="button" class="btn btn-primary" style="float: right;" onclick="createPreReqsPage()">Next</button><button type="button" class="btn btn-primary" style="float: left;" onclick="createDifficultyPage()">Previous</button>'
-
+        div.innerHTML += "<h2 style='color: black;'>OVERVIEW PAGE</h2>" + "<input id='overview_input' type='text' style='color: black;' value='" + overview + "'> "  + '<button type="button" class="btn btn-primary" style="float: right;" onclick="createPreReqsPage()">Next</button><button type="button" class="btn btn-primary" style="float: left;" onclick="createDifficultyPage()">Previous</button>'
+        div.innerHTML += " <span id='error_overview'></span>"
     };
 
     function createPreReqsPage(){
-       
+        if(document.getElementById("overview_input") != null){
+            overview = document.getElementById("overview_input").value;
+            if(document.getElementById("overview_input").value == ""){
+                document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
+                document.getElementById("error_overview").style = "color: red;";
+                return;
+            } 
+        }
        
        showhide("8")
        div_1 = document.getElementById("1");
