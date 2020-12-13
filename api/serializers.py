@@ -3,11 +3,18 @@ from rest_framework import serializers
 from blogs.models import Project, Comment, Profile, Language, Chapter
 
 class ProjectSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(allow_blank=True, allow_null=True, required = False, max_length = 25)
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
         fields = ['image', 'title', 'description', 'slug']
-        extra_kwargs = {'slug': {'required': False}}
+        extra_kwargs = {'slug': {'required': False}, 'title': {'required': False}}
+
+    def update(self, instance):
+        instance.description = (self.data['description'], instance.description)[self.data.get('description', None) is None]        
+        instance.title = (self.data['title'], instance.title)[self.data.get('title', None) is None]
+        instance.save()
+        return instance
 
 class CommentSerializer(serializers.ModelSerializer):
 
