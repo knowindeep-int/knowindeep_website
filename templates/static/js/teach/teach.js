@@ -14,12 +14,12 @@ let chapters = [];
     var chapter_count = 2;
 
     class Chapter {
-        constructor(title, description, content, youtube_link) {
-        this.title = title;
+        constructor(heading, description, content, youtube_link, link_to) {
+        this.heading = heading;
         this.description = description;
         this.content = content;
         this.youtube_link = youtube_link;
-
+        this.link_to = link_to;
         }
     }
 
@@ -284,7 +284,7 @@ function createLanguagesPage() {
     for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
         if (document.getElementById('heading') != null) {
             var chapter_add = {};
-            let chapter = new Chapter(document.getElementsByClassName("heading")[i].value, document.getElementsByClassName("description")[i].value, document.getElementsByClassName("content")[i].value, document.getElementsByClassName("youtube")[i].value)
+            let chapter = new Chapter(document.getElementsByClassName("heading")[i].value, document.getElementsByClassName("description")[i].value, document.getElementsByClassName("content")[i].value, document.getElementsByClassName("youtube")[i].value, pk)
             chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
             chapter_add['description'] = document.getElementsByClassName("description")[i].value;
             chapter_add['content'] = document.getElementsByClassName("content")[i].value;

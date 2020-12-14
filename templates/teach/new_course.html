@@ -39,7 +39,7 @@
             data: {
                 'chapters': JSON.stringify(chapters),
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                'pk': 50
+                'pk': pk
             },
             success: function(data){
                 chapters = data.chapters

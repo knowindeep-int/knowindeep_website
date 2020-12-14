@@ -173,23 +173,21 @@ import json
 @api_view(['POST',])
 def api_save_chapter_draft(request):
     if request.method == "POST":
-        pk = request.POST['pk']
-        project = Project.objects.get(pk = pk)
         print(request.data)
-
-        #for i in range(1):
-        #    print( request.data['chapters[' + str(i) + '][heading]'] )
+        pk = request.data['pk']
+        project = Project.objects.get(pk = pk)
             
-        chapter_serializer = ChapterSerializer(data = json.loads(request.data['chapters']), many = True)
+        chapter_serializer = ChapterSerializer(data = json.loads(request.data['chapters']), many = True, partial=True)
 
         if not chapter_serializer.is_valid():
             print(chapter_serializer.errors)
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
-        #chapter = chapter_serializer.save_or_create(data = request.data, project_instance = project)        
+        #chapter = chapter_serializer.save_or_create(data = request.data, project_instance = project)    
+        print("called here bedo")
         chapters = chapter_serializer.save()
-        print(chapters)
+        print("called here")
         #print(chapter)
         #print(chapter_serializer.data)
         return Response(chapter_serializer.data, status = status.HTTP_200_OK)
