@@ -21,7 +21,7 @@ class Language(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural  = "Language"
+        verbose_name_plural  = "Languages"
 
     @classmethod
     def getAllLanguages(cls):
@@ -273,6 +273,9 @@ class Progress(models.Model):
     package = models.ForeignKey(to = Package, on_delete = models.CASCADE)
     chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE)
     completed_on = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        verbose_name_plural  = "Progress"
 
     def __str__(self):
         return str(self.package) + '_' + str(self.chapter)
