@@ -12,6 +12,17 @@ let chapters = [];
     var counter = 1;
     var chapter_innerHTML = "";
     var chapter_count = 2;
+
+    class Chapter {
+        constructor(title, description, content, youtube_link) {
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.youtube_link = youtube_link;
+
+        }
+    }
+
     function addChapter(event) {
         let error = 0;
         let focus_on = null;
@@ -113,12 +124,14 @@ let chapters = [];
     };
     window.onload = function () {
         createTitlePage();
-        createAlert();
     };
 
     function createDescriptionPage() {
         if (document.getElementById("title_input") != null) {
+
             title = document.getElementById("title_input").value;
+            saveDraft("title", title);
+
             if (document.getElementById("title_input").value == "") {
                 document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
                 document.getElementById("error_title").style = "color: red;";
@@ -136,7 +149,7 @@ let chapters = [];
                 chapters[i] = chapter_add;
             }
         }
-        saveDraft("title", title);
+        
         showhide("2");
         var div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display:none");
@@ -271,6 +284,7 @@ function createLanguagesPage() {
     for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
         if (document.getElementById('heading') != null) {
             var chapter_add = {};
+            let chapter = new Chapter(document.getElementsByClassName("heading")[i].value, document.getElementsByClassName("description")[i].value, document.getElementsByClassName("content")[i].value, document.getElementsByClassName("youtube")[i].value)
             chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
             chapter_add['description'] = document.getElementsByClassName("description")[i].value;
             chapter_add['content'] = document.getElementsByClassName("content")[i].value;
@@ -323,9 +337,15 @@ function createLanguagesPage() {
             else {
                 document.getElementsByClassName("error_youtube")[i].innerHTML = "" 
             }
-            chapters[i] = chapter_add;
+            //chapters[i] = chapter_add;
+            console.log(chapter)
+            chapters.push(chapter)
+            console.log(chapters)
+            
         }
     }
+    alert(chapters);
+    saveChapterDraft();
     if (error == "1") {
         return;
     }

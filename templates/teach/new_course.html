@@ -30,6 +30,24 @@
         
     })
 }
+
+    function saveChapterDraft() {
+        console.log(chapters)
+        $.ajax({
+            method: "POST",
+            url: '{% url "api:save_chapter_draft" %}',
+            data: {
+                'chapters': JSON.stringify(chapters),
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'pk': 50
+            },
+            success: function(data){
+                chapters = data.chapters
+            }, error: function(error){
+                alert("ERROR!")
+            }
+        })
+}
 </script>
 
 <div>
