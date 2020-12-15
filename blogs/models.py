@@ -290,7 +290,8 @@ def create_chapter(sender, instance, created,**kwargs):
 def r_pre_save_receiever(sender,instance,*args,**kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
-        instance.save()
+        print(instance.slug)
+        #instance.save()
 
 
 
