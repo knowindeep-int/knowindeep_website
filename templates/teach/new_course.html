@@ -32,7 +32,6 @@
 }
 
     function saveChapterDraft() {
-        console.log(chapters)
         $.ajax({
             method: "POST",
             url: '{% url "api:save_chapter_draft" %}',

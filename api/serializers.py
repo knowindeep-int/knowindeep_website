@@ -86,11 +86,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
 
 class ChapterSerializer(serializers.ModelSerializer):
-    project_slug = serializers.CharField(source='link_to.slug', required = False)
     class Meta:
         model = Chapter
-        fields = ['slug', 'project_slug', 'heading']
-        extra_kwargs = { 'project_slug' : {'required': False}, 'heading':{'required': False}}
+        fields = '__all__'
+        #extra_kwargs = { 'link_to' : {'required': False}, 'heading':{'required': False}, 'id': {'read_only':True}}
     
     def save_or_create(self, project_instance, data):
         if 'pk' in data.keys():

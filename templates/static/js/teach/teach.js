@@ -338,10 +338,7 @@ function createLanguagesPage() {
                 document.getElementsByClassName("error_youtube")[i].innerHTML = "" 
             }
             //chapters[i] = chapter_add;
-            console.log(chapter)
-            chapters.push(chapter)
-            console.log(chapters)
-            
+            chapters.push(chapter)            
         }
     }
     alert(chapters);

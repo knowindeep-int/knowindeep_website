@@ -178,16 +178,11 @@ def api_save_chapter_draft(request):
         project = Project.objects.get(pk = pk)
             
         chapter_serializer = ChapterSerializer(data = json.loads(request.data['chapters']), many = True, partial=True)
-
+        print(repr(chapter_serializer))
         if not chapter_serializer.is_valid():
-            print(chapter_serializer.errors)
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-
-
+        print("json",json.loads(request.data['chapters']))
+        print(request.data['chapters'])
         #chapter = chapter_serializer.save_or_create(data = request.data, project_instance = project)    
-        print("called here bedo")
-        chapters = chapter_serializer.save()
-        print("called here")
-        #print(chapter)
-        #print(chapter_serializer.data)
+        chapter_serializer.save()
         return Response(chapter_serializer.data, status = status.HTTP_200_OK)

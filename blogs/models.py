@@ -148,7 +148,7 @@ class Project(models.Model):
         return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
 
 class Chapter(models.Model):
-    link_to = models.ForeignKey(Project,on_delete=models.CASCADE, null=True,default=None)
+    link_to = models.ForeignKey(Project,on_delete=models.CASCADE)
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
@@ -288,7 +288,6 @@ def create_chapter(sender, instance, created,**kwargs):
 
 
 def r_pre_save_receiever(sender,instance,*args,**kwargs):
-    print("slug", instance.slug)
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
         instance.save()
