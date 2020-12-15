@@ -33,7 +33,7 @@ class CommentInline(admin.StackedInline):
 
 class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author','link_to','heading','youtube_link','content','description']})
+        (None, {'fields':['author','link_to','heading','youtube_link','content','description','slug']})
     ]
     inlines = [LikeInline,CommentInline]
     search_fields = ['heading','content']
