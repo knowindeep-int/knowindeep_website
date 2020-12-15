@@ -33,14 +33,14 @@ class CommentInline(admin.StackedInline):
 
 class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author','link_to','heading','youtube_link','content','description']})
+        (None, {'fields':['author','link_to','heading','youtube_link','content','description','slug']})
     ]
     inlines = [LikeInline,CommentInline]
     search_fields = ['heading','content']
 
 class ProjectAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['title','image','overview', 'description', 'no_of_views','pre_req','isApproved', 'languages', 'difficulty_level', 'no_of_hours', 'author']}),
+        (None, {'fields':['title','image','overview', 'description', 'no_of_views','pre_req','isApproved', 'languages', 'difficulty_level', 'isCompleted', 'no_of_hours', 'author']}),
         ('Date information', {'fields': [], 'classes': ['collapse']})
     ]
     list_display = ['title','overview','no_of_views']

@@ -139,3 +139,50 @@ def search_project(request):
         }
 
         return Response(data, status = status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_save_draft(request):
+    if request.method == "POST":
+        pk = request.POST.get('pk', None)
+        if pk == "":
+            pk = None
+        
+        user = Profile.objects.get(user = request.user)
+    
+        if pk is None:
+            project = Project(author = user, title = "random")  #why error in case of using create ?Max recursion depth??
+            project.save()
+        else:
+            project = Project.objects.get(pk = pk)
+        
+        project_serializer = ProjectSerializer(data = request.data)
+        
+        if not project_serializer.is_valid():
+            return Response(project_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        
+        updated_project = project_serializer.update(instance = project)
+
+        pk = project.pk
+        data = {
+            'success': "Project updated successfully!", 
+            'pk': pk
+        }
+        return Response(data, status = status.HTTP_200_OK)
+
+import json
+@api_view(['POST',])
+def api_save_chapter_draft(request):
+    if request.method == "POST":
+        print(request.data)
+        pk = request.data['pk']
+        project = Project.objects.get(pk = pk)
+            
+        chapter_serializer = ChapterSerializer(data = json.loads(request.data['chapters']), many = True, partial=True)
+        print(repr(chapter_serializer))
+        if not chapter_serializer.is_valid():
+            return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        print("json",json.loads(request.data['chapters']))
+        print(request.data['chapters'])
+        #chapter = chapter_serializer.save_or_create(data = request.data, project_instance = project)    
+        chapter_serializer.save()
+        return Response(chapter_serializer.data, status = status.HTTP_200_OK)

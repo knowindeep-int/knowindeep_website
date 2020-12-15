@@ -3,11 +3,18 @@ from rest_framework import serializers
 from blogs.models import Project, Comment, Profile, Language, Chapter
 
 class ProjectSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(allow_blank=True, allow_null=True, required = False, max_length = 25)
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
         fields = ['image', 'title', 'description', 'slug']
-        extra_kwargs = {'slug': {'required': False}}
+        extra_kwargs = {'slug': {'required': False}, 'title': {'required': False}}
+
+    def update(self, instance):
+        instance.description = (self.data['description'], instance.description)[self.data.get('description', None) is None]        
+        instance.title = (self.data['title'], instance.title)[self.data.get('title', None) is None]
+        instance.save()
+        return instance
 
 class CommentSerializer(serializers.ModelSerializer):
 
@@ -79,8 +86,36 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
 
 class ChapterSerializer(serializers.ModelSerializer):
-    project_slug = serializers.CharField(source='link_to.slug')
     class Meta:
         model = Chapter
-        fields = ['slug', 'project_slug', 'heading']
-        extra_kwargs = { 'project_slug' : {'required': False}}
+        fields = '__all__'
+        #extra_kwargs = { 'link_to' : {'required': False}, 'heading':{'required': False}, 'id': {'read_only':True}}
+    
+    def save_or_create(self, project_instance, data):
+        if 'pk' in data.keys():
+            for i in range(1):
+                #chapter_instance.heading =  (data['chapters[' + i + ']heading'], chapter_instance.heading)[data.get('heading') is None],
+                chapter_instance.heading = data['chapters[' + str(i) + '][heading]']
+                chapter_instance.description = data['chapters[' + str(i) + '][description]']
+                chapter_instance.content = data['chapters[' + str(i) + '][content]']
+                chapter_instance.youtube_link = data['chapters[' + str(i) + '][youtube_link]']
+                chapter_instance.save()
+                return chapter_instance
+        
+        
+
+                #chapter_instance.description =  (data['description'], chapter_instance.description)[data.get('description') is None],
+                #chapter_instance.content =  (data['content'], chapter_instance.content)[data.get('content') is None],
+                #chapter_instance.youtube_link =  (data['youtube_link'], chapter_instance.youtube_link)[data.get('youtube_link') is None],
+            
+
+    #def update(self, validated_data, chapter_instance, project_instance):
+    ##    chapter_instance.heading =  (validated_data['heading'], chapter_instance.heading)[validated_data.get('heading') is None],
+     #   chapter_instance.description =  (validated_data['description'], chapter_instance.description)[validated_data.get('description') is None],
+     #   chapter_instance.content =  (validated_data['content'], chapter_instance.content)[validated_data.get('content') is None],
+     #   chapter_instance.youtube_link =  (validated_data['youtube_link'], chapter_instance.youtube_link)[validated_data.get('youtube_link') is None],
+     #2   #author = chapter_instance.author
+     #   chapter_instance.link_to = project_instance
+    #
+        
+        

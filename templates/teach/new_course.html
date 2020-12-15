@@ -3,156 +3,66 @@
 {% block content %}
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
     <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static  'css/style1.css' %}">
+    <script src="{% static 'js/teach/teach.js' %}"></script>
 </head>
-
 <script>
-    function addChapter() {
-        var inputs = document.getElementsByClassName("chapter");
-        for (var i=0; i < inputs.length; i++) {
-            if(inputs[i].value=="" || inputs[i].value==null){
-                alert("Enter all fields!");
-                return false;
+    function saveDraft(key, value) {
+    var key = key;
+    var value = value;
+    
+    var data = {};
+    data[key] = value;
+    data['pk'] = pk;
+    data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
+    $.ajax({
+        method: "POST",
+        url: '{% url "api:save_draft" %}',
+        data : data,
+        success: function(data){
+            pk = data.pk
+        },error: function(error){
+            alert("ERROR!")
+        },
+        
+    })
+}
+
+    function saveChapterDraft() {
+        $.ajax({
+            method: "POST",
+            url: '{% url "api:save_chapter_draft" %}',
+            data: {
+                'chapters': JSON.stringify(chapters),
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'pk': pk
+            },
+            success: function(data){
+                chapters = data.chapters
+            }, error: function(error){
+                alert("ERROR!")
             }
-        }
-        var inner_div = document.getElementById("append");
-        var newDiv = document.createElement('div');
-        newDiv.innerHTML = inner_div.innerHTML;
-        var outer_div = document.getElementById("add_chapter");
-        outer_div.append(newDiv);
-    }
-
-    function showhide(id){
-        if (document.getElementById) {
-            //e.preventDefault();
-            var divid = document.getElementById(id);
-            var divs = document.getElementsByClassName("to_hide");
-            for(var i=0;i<divs.length;i++) {
-              divs[i].style.display = "none";
-              divs[i].style.visiblity = "hidden";
-            }
-            divid.style.visibility = "visible";
-            divid.style.display = "block";
-            //var main_div = document.getElementById("main_div");
-            //var form = document.getElementById("form")
-            //form.appendChild(document.getElementById(id));
-            //main_div.innerHTML = "<div>" + divid.innerHTML + "</div>";
-        } 
-    }
-    window.onload = function(){
-        createTitlePage();
-        showhide(1);
-    };
-
-    
-    function createDescriptionPage(){
-        //if(titleForm.innerHTML != ""){
-         //   showhide(1);
-          //  return true ;
-        //};
-        //e.preventDefault();
-        
-        document.getElementById(2).innerHTML = "";
-        showhide(2);
-        var form = document.createElement('form');
-        var input = document.createElement('input');
-        var div = document.createElement('div');
-        var CONTINUE = document.createElement('button');
-        var PREVIOUS = document.createElement('button');
-        var h2 = document.createElement('h2');
-    
-        h2.innerHTML = "DESCIPTION PAGE";
-
-        div.setAttribute("class", "jumbotron text-center") ;
-        div.setAttribute("style", "color: black");
-
-        CONTINUE.setAttribute("name", "CONTINUE");
-        CONTINUE.setAttribute("style", "float : right;height : 50px;width : 200px;");
-        CONTINUE.setAttribute("onclick", "");
-        CONTINUE.setAttribute("type", "button");
-        CONTINUE.innerHTML = "CONTINUE";
-        
-
-        PREVIOUS.setAttribute("type", "button");
-        PREVIOUS.setAttribute("name", "PREVIOUS");
-        PREVIOUS.setAttribute("style", "float : left;height : 50px;width : 200px;");
-        PREVIOUS.innerHTML = "PREVIOUS";
-        PREVIOUS.setAttribute("onclick", "createTitlePage();");
-
-        input.setAttribute("type", "text");
-        input.setAttribute("placeholder", "eg. Enter your project description ");
-
-        form.append(input);
-        form.append(CONTINUE);
-        form.append(PREVIOUS);
-
-        div.appendChild(h2);
-        document.getElementById(2).appendChild(div);
-        document.getElementById(2).appendChild(form);
-    
-    }
-    
-    var titleForm  = document.createElement('form');
-    function getTitlePage(){
-        showhide(1);
-    };
-    function createTitlePage(){
-        
-        showhide(1);
-        
-        var inputTitle = document.createElement('input');
-        var form = titleForm;
-        form.setAttribute("id", "titleForm");
-        var div = document.createElement('div');
-        div.setAttribute("class", "jumbotron text-center") ;
-        div.setAttribute("style", "color: black");
-        var h2 = document.createElement('h2');
-        h2.setAttribute("color", "black");       
-        h2.innerHTML = "TITLE PAGE";
-        
-        var submit = document.createElement('button');
-        //form.setAttribute("onsubmit", "createDescriptionPage()");
-        inputTitle.setAttribute("type", "text");
-        inputTitle.setAttribute("placeholder", "e.g. Enter title for your project");
-        //input.setAttribute("style", "display: none");
-        submit.setAttribute("value", "CREATE");
-        submit.setAttribute("type", "button");
-        submit.setAttribute("onclick", "createDescriptionPage()");
-        submit.setAttribute("style", "height:50px;width:200px");
-        submit.innerHTML = "CONTINUE";
-        
-        //  submit.setAttribute("style", "float: right;");
-        
-        //document.getElementById(1).innerHTML = "";
-        //document.getElementById("titleForm").destroy();
-        form.append(inputTitle);
-        form.append(submit);
-        titleForm = form;
-        div.appendChild(h2);        
-        document.getElementById(1).appendChild(div);
-        document.getElementById(1).appendChild(form);
-        
-       
-    }
-
-    
+        })
+}
 </script>
 
-<!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
-<div id="main_div">
-    <div>
-        <div id=1 class="to_hide"></div>
-        <div id=2 class="to_hide"></div>
-        <div id=3 class="to_hide"></div>
-        <div id=4 class="to_hide"></div>
-        <div id=5 class="to_hide"></div>
+<div>
+    <div id="main_div">
+        {% csrf_token %}
+        <div id="1" class="to_hide"></div>
+        <div id="2" class="to_hide"></div>
+        <div id="3" class="to_hide"></div>
+        <div id="4" class="to_hide"></div>
+        <div id="5" class="to_hide"></div>
+        <div id="6" class="to_hide"></div>
+        <div id="7" class="to_hide"></div>
+        <div id="8" class="to_hide"></div>
+        <div id="9" class="to_hide"></div>
+        <div id="10" class="to_hide"></div>
     </div>
 </div>
-
-
-
 
 {% endblock %}

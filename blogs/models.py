@@ -21,7 +21,12 @@ class Language(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural  = "Language"
+        verbose_name_plural  = "Languages"
+
+    @classmethod
+    def getAllLanguages(cls):
+        languages = cls.objects.all()
+        return languages
 
 class Profile(models.Model):
     
@@ -82,7 +87,11 @@ class PreRequisite(models.Model):
     
     class Meta:
         verbose_name_plural = "Pre-Requisites"
-
+    
+    @classmethod
+    def getAllPreReqs(cls):
+        pre_reqs = cls.objects.all()
+        return pre_reqs
 
 class Project(models.Model):
      # topic = models.CharField(max_length=30)
@@ -101,6 +110,7 @@ class Project(models.Model):
     title = models.CharField(max_length=25)
     overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
+    isCompleted = models.BooleanField(default = False)
 
     def __str__(self):
         return self.title
@@ -137,10 +147,8 @@ class Project(models.Model):
     def get_popular_approved_projects(KClass):
         return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
 
-
-
 class Chapter(models.Model):
-    link_to = models.ForeignKey(Project,on_delete=models.CASCADE, null=True,default=None)
+    link_to = models.ForeignKey(Project,on_delete=models.CASCADE)
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
@@ -266,6 +274,9 @@ class Progress(models.Model):
     chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE)
     completed_on = models.DateTimeField(auto_now_add = True)
 
+    class Meta:
+        verbose_name_plural  = "Progress"
+
     def __str__(self):
         return str(self.package) + '_' + str(self.chapter)
         
@@ -279,7 +290,8 @@ def create_chapter(sender, instance, created,**kwargs):
 def r_pre_save_receiever(sender,instance,*args,**kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
-        instance.save()
+        print(instance.slug)
+        #instance.save()
 
 
 

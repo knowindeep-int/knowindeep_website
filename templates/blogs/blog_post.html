@@ -32,7 +32,6 @@
                 hideLoader()
             },
             error: function (error) {
-                console.log('error')
             }
         })
     }
@@ -86,7 +85,6 @@
     $("#comment-btn").click(function (e) {
         e.preventDefault()
         showLoader()
-        console.log('clicked')
         var this_ = $(this)
 
         var commentUrl = this_.attr('data-comment')
@@ -101,7 +99,6 @@
             },
             success: function (data) {
                 if (data.success) {
-                    console.log(data.comment)
                     if (data.comment != "") {
                         updateComment(data.user, data.comment)
                     } else {
@@ -334,7 +331,6 @@
     function stoppedTyping(value) {
         if (value.length > 0) {
             document.getElementById('comment-btn').disabled = false;
-            console.log('gere')
         } else {
             document.getElementById('comment-btn').disabled = true;
         }
