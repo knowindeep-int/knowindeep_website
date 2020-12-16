@@ -17,7 +17,7 @@ def add_course(request):
 
 
 def list_of_projects(request):
-    user=request.user
+    user = request.user
     if user.is_authenticated:
         profile = Profile.objects.get(user=user)
         projects = profile.project_set.all()
