@@ -139,7 +139,7 @@
                 <li><a class="searches home" href="{% url 'blogs:index' %}">Home</a></li>
                 <li><a class="searches home" href="#">About Us</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a class="searches home" href="{% url 'teach:add_course' %}">Teach with Us</a></li>
+                <li><a class="searches home" href="{% url 'teach:list_of_projects' %}">Teach with Us</a></li>
                 {% endif %}
                 <!--<li>
                     <div id="search_form" style="display: visible;">
@@ -230,7 +230,7 @@
         <li>Home</li>
         <li>About us</li>
         {% if request.user.is_authenticated %}
-        <li><a class="searches home" href="{% url 'teach:add_course' %}">Teach with Us</a></li>
+        <li><a class="searches home" href="{% url 'teach:list_of_projects' %}">Teach with Us</a></li>
         {% endif %}
         <li>Search</li>
         <li>All Blogs</li>
