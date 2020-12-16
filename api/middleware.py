@@ -9,7 +9,6 @@ class BaseMiddleware(object):
 
 class HttpPostTunnelingMiddleware(BaseMiddleware):
     def process_request(self, request):
-        print(request)
         if request.META.has_key('HTTP_X_METHODOVERRIDE'):
             http_method = request.META['HTTP_X_METHODOVERRIDE']
             if http_method.lower() == 'put':

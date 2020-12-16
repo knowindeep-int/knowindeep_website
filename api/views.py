@@ -72,7 +72,6 @@ def api_like_chapter_view(request):
             data["likes"] = chapter.like_count
             return Response(data=data)  
         except Like.DoesNotExist:
-            #print(request.user.email)
             profile = Profile.objects.get(user__email = request.user.email)
             like = Like.objects.create(profile=profile, link_to=chapter)
             data["success"] = True
@@ -111,10 +110,8 @@ def increase_post_view(request):
 @api_view(['POST',])
 def update_profile(request):
     if request.method == "POST":
-        print(request.data)
         profile_serializer = ProfileSerializer(data = request.data)
         if not profile_serializer.is_valid():
-            print(profile_serializer.errors)
             return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
         updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.data['profile_id']), validated_data=request.data)
         se = ProfileSerializer(updated_profile)
@@ -173,16 +170,12 @@ import json
 @api_view(['POST',])
 def api_save_chapter_draft(request):
     if request.method == "POST":
-        print(request.data)
         pk = request.data['pk']
         project = Project.objects.get(pk = pk)
             
         chapter_serializer = ChapterSerializer(data = json.loads(request.data['chapters']), many = True, partial=True)
-        print(repr(chapter_serializer))
         if not chapter_serializer.is_valid():
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-        print("json",json.loads(request.data['chapters']))
-        print(request.data['chapters'])
         #chapter = chapter_serializer.save_or_create(data = request.data, project_instance = project)    
         chapter_serializer.save()
         return Response(chapter_serializer.data, status = status.HTTP_200_OK)
