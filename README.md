@@ -1,3 +1,5 @@
+# Welcome to KnowInDeep!
+
 We provide a online  learning platform  with a **Project-Based** approach in which Techies can hone their existing skills or gain  a new skill. All you need is just to enroll in a project. We had used **Django**- Web Framework for development of this project. 
 
 Apps used in this project are - 
