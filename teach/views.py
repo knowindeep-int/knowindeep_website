@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from blogs.models import Language, PreRequisite, Project
+from blogs.models import Language, PreRequisite, Project, Profile
 
 def add_course(request):
     if request.user.is_authenticated:
@@ -17,11 +17,15 @@ def add_course(request):
 
 
 def list_of_projects(request):
-    ongoing_projects = Project.objects.all()[:2]
-    completed_projects = Project.objects.all()[:2]
-    context = {
-        'ongoing_projects': ongoing_projects,
-        'completed_projects': completed_projects
-    }
-
-    return render(request, 'teach/projects_list.html', context=context)
+    user = request.user
+    if user.is_authenticated:
+        profile = Profile.objects.get(user=user)
+        projects = profile.project_set.all()
+        ongoing_projects = projects.filter(isCompleted=False)
+        completed_projects = projects.filter(isCompleted=True)
+        context = {
+            'completed_projects': completed_projects,
+            'ongoing_projects': ongoing_projects,
+            }
+        return render(request, 'teach/projects_list.html',context=context)
+    return redirect("/")
