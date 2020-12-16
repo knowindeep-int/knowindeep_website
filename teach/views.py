@@ -17,10 +17,11 @@ def add_course(request):
 
 
 def list_of_projects(request):
-    ongoing_projects = Project.objects.all()[:10]
-
+    ongoing_projects = Project.objects.all()[:2]
+    completed_projects = Project.objects.all()[:2]
     context = {
-        'ongoing_projects': ongoing_projects
+        'ongoing_projects': ongoing_projects,
+        'completed_projects': completed_projects
     }
 
     return render(request, 'teach/projects_list.html', context=context)
