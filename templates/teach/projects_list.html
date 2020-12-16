@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
+    <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static  'css/style1.css' %}">
+    <script src="{% static 'js/teach/teach.js' %}"></script>
+</head>
+
+<div class="container jumbotron text-center" style="color: black;">
+    <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Ongoing Projects</h3>
+    <div class="row">
+        <button type="button" class="btn btn-primary" onclick="location.href='{% url 'teach:add_course' %}';">Create New Project</button>
+    </div>
+    {% if ongoing_projects %}
+    {% for project in ongoing_projects %}
+    <div class="col-sm-4">
+
+        <div class="card hoverable">
+
+            <div class="card-image">
+                <img class="blogImage" src="media/{{ project.image }}">
+            </div>
+            <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
+            <div class="card-content">
+                <span class="card-title">{{ project.title }}</span>
+
+                <p>{{ project.overview }}</p>
+                <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
+                <p>Hours To Complete: {{ project.no_of_hours }}</p>
+                <p>Level: {{ project.difficulty_level }}</p>
+                <p>Languages Used: {{project.languages.all|join:', '}}</p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 ml-4">
+                    <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
+                </div>
+            </div>
+        
+    </div>
+</div>
+{% endfor %}
+{% else %}
+No Projects to Show!
+{% endif %}
+
+</div>
+
+
+<div class="container text-center" style="color: black;">
+    <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Completed Projects</h3>
+    {% if completed_projects %}
+    {% for project in completed_projects %}
+    <div class="col-sm-4">
+
+        <div class="card hoverable">
+
+            <div class="card-image">
+                <img class="blogImage" src="media/{{ project.image }}">
+            </div>
+            <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
+            <div class="card-content">
+                <span class="card-title">{{ project.title }}</span>
+
+                <p>{{ project.overview }}</p>
+                <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
+                <p>Hours To Complete: {{ project.no_of_hours }}</p>
+                <p>Level: {{ project.difficulty_level }}</p>
+                <p>Languages Used: {{project.languages.all|join:', '}}</p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 ml-4">
+                    <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
+                </div>
+            </div>
+        
+    </div>
+</div>
+{% endfor %}
+{% else %}
+No Projects to Show!
+{% endif %}
+
+</div>
+
+
+{% endblock %}
