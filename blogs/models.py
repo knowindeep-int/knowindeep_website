@@ -45,7 +45,7 @@ class Profile(models.Model):
     #projects = models.ManyToManyField(to = 'Project', null = True, blank = True)
 
     def __str__(self):
-        return self.user.first_name + self.user.last_name
+        return self.user.first_name + " " + self.user.last_name
 
     def is_verified(self, user):
         if user == self.user:
