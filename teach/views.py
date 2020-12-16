@@ -12,5 +12,5 @@ def add_course(request):
             'pre_reqs' : pre_reqs
         }
         return render(request, 'teach/new_course.html', context=context)
-    
+    print("45")
     return redirect("/")
