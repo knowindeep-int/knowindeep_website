@@ -19,13 +19,11 @@ def add_course(request):
 def list_of_projects(request):
     user = request.user
     if user.is_authenticated:
-        profile = Profile.objects.get(user=user)
-        projects = profile.project_set.all()
-        ongoing_projects = projects.filter(isCompleted=False)
-        completed_projects = projects.filter(isCompleted=True)
+        profile = Profile.getProfile(user)
+        ongoing_projects, completed_projects = profile.getOngoingAndCompletedProjects
         context = {
             'completed_projects': completed_projects,
             'ongoing_projects': ongoing_projects,
-            }
+        }
         return render(request, 'teach/projects_list.html',context=context)
     return redirect("/")

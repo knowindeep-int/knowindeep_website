@@ -66,7 +66,17 @@ class Profile(models.Model):
     def getUser(cls, name):
         profile = cls(name = name)
         return profile.user
+
+    @classmethod
+    def getProfile(cls,user):
+        return cls.objects.get(user=user)
         
+    @property
+    def getOngoingAndCompletedProjects(self):
+        projects = self.project_set.all()
+        ongoing_projects = projects.filter(isCompleted=False)
+        completed_projects = projects.filter(isCompleted=True)
+        return ongoing_projects, completed_projects
 
     @property
     def skills_set(self):
