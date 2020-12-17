@@ -184,7 +184,7 @@ class Chapter(models.Model):
 
     @classmethod
     def getChapter(cls, slug):
-        chapter=cls.objects.get(slug = slug)
+        chapter = cls.objects.get(slug = slug)
         return chapter
 
     @property
