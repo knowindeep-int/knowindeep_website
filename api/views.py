@@ -85,10 +85,10 @@ def api_comment_chapter_view(request):
     data["success"] = False
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        chapter = Chapter.objects.get(slug=slug)
+        chapter = Chapter.getChapter(slug = slug)
         comment_text = request.POST.get('comment_text')
-        profile = Profile.objects.get(user = request.user)
-        comment = Comment.objects.create(link_to=chapter,user=profile,timestamp=timezone.now(),comment_text=comment_text)
+        profile = Profile.getProfile(user = request.user)
+        comment = Comment.createComment(chapter = chapter, profile = profile, comment_text = comment_text)
         data["success"] = True
         data["user"] = request.user.first_name + request.user.last_name
         data["comment"] = comment_text
