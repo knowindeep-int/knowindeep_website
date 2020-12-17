@@ -182,6 +182,11 @@ class Chapter(models.Model):
     def get_comment_url(self):
         return reverse("api:comment-post")
 
+    @classmethod
+    def getChapter(cls, slug):
+        chapter=cls.objects.get(slug = slug)
+        return chapter
+
     @property
     def get_next_chapter(self):
         chapterTopics = None
@@ -269,6 +274,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.user.user.first_name + self.comment_text
+
+    @classmethod
+    def createComment(cls, chapter, profile, comment_text):
+        Comment.objects.create(link_to = chapter, user = profile, timestamp = timezone.now(), comment_text = comment_text)
 
 class Package(models.Model):
     profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE)
