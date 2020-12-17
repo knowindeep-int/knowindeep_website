@@ -189,7 +189,9 @@ class Chapter(models.Model):
         if not self.id == maxID['id__max']:
             for i in (self.id + 1,maxID['id__max']):
                 try:
-                    chapterTopics = Chapter.objects.get(id = i, link_to=self.link_to)
+                    #chapterTopics = Chapter.objects.get(id = i, link_to=self.link_to)
+                    chapterTopics = self.chapter_set.all().get(id = i)
+
                 except Chapter.DoesNotExist:
                     pass
                 if chapterTopics:
@@ -203,7 +205,8 @@ class Chapter(models.Model):
         if not self.id == minID['id__min']:
             for i in (self.id - 1,minID['id__min'],-1):
                 try:
-                    chapterTopics = Chapter.objects.get(id = i, link_to=self.link_to)
+                    #chapterTopics = Chapter.objects.get(id = i, link_to=self.link_to)
+                    chapterTopics = self.chapter_set.all().get(id = i)
                 except Chapter.DoesNotExist:
                     pass
                 if chapterTopics:
@@ -212,10 +215,10 @@ class Chapter(models.Model):
 
     @property
     def like_count(self):
-        return Like.objects.filter(link_to=self).count()
+        return self.likes.all().count()
 
     def comments(self):
-        return Comment.objects.filter(link_to=self)
+        return self.comment_set.all()
 
     def increaseLikes(self):
         self.no_of_likes += 1
@@ -228,7 +231,8 @@ class Chapter(models.Model):
     def has_user_liked(self,user):
         if not user.is_anonymous:
             try:
-                isLiked = Like.objects.get(profile__user__email=user.email,link_to=self)
+                #isLiked = Like.objects.get(profile__user__email=user.email,link_to=self)
+                isLiked = self.likes.all().get(profile__user__email = user.email)
                 # self.likes.get(profile.email_id == user.email)
                 return True
             except Like.DoesNotExist:
