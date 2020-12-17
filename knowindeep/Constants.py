@@ -1,3 +1,5 @@
 EASY = "EASY"
 MEDIUM = "MEDIUM"
 HARD = "HARD"
+SUCCESS = "sucess"
+ERROR = "error"

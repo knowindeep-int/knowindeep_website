@@ -6,6 +6,8 @@ from django.utils import timezone
 
 from blogs.models import Project, Chapter, Like, Comment, Profile
 
+from knowindeep import Constants
+
 from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer
 
 @api_view(['GET',])
@@ -102,9 +104,9 @@ def increase_post_view(request):
         try:
             project = Project.objects.get(slug=slug)
             project.increase_view
-            return Response({"sucess":"updated","no_of_views":project.no_of_views})
+            return Response({Constants.SUCCESS:"updated","no_of_views":project.no_of_views})
         except Project.DoesNotExist:
-            return Response({"error":"Some error occured"})
+            return Response({Constants.ERROR:"Some error occured"})
 
 
 @api_view(['POST',])
