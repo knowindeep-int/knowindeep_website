@@ -54,11 +54,11 @@ class Profile(models.Model):
 
     @property
     def getPackageProgressTuple(self):
-        packages = self.package_set.all()
+        packages = self.packages.all()
         percent_progress = []
         
         for i in range(packages.count()):
-            percent_progress.append(packages[i].progress_set.all().count() / packages[i].project.chapter_set.all().count() * 100)        
+            percent_progress.append(packages[i].progress.all().count() / packages[i].project.chapters.all().count() * 100)        
         
         return tuple(zip(packages, percent_progress))
 
@@ -142,7 +142,7 @@ class Project(models.Model):
     @classmethod
     def getAllChapters(cls, slug):
         project = cls.objects.get(slug = slug)
-        return project.chapter_set.all()
+        return project.chapters.all()
 
     @property
     def increase_view(self):
@@ -158,7 +158,7 @@ class Project(models.Model):
         return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
 
 class Chapter(models.Model):
-    link_to = models.ForeignKey(Project,on_delete=models.CASCADE)
+    link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     heading = models.CharField(max_length=40,null=False,blank=False)
@@ -218,7 +218,7 @@ class Chapter(models.Model):
         return self.likes.all().count()
 
     def comments(self):
-        return self.comment_set.all()
+        return self.chapter_comments.all()
 
     def increaseLikes(self):
         self.no_of_likes += 1
@@ -244,7 +244,7 @@ class Chapter(models.Model):
     @classmethod
     def getAllComments(cls, chapter_content_slug):
         chapter = cls.objects.get(slug = chapter_content_slug)
-        return chapter.comment_set.all().order_by('-timestamp')
+        return chapter.chapter_comments.all().order_by('-timestamp')
     
     @classmethod
     def getChapterSearches(cls, search_input):
@@ -266,7 +266,7 @@ class Like(models.Model):
 
 
 class Comment(models.Model):
-    link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE)
+    link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="chapter_comments")
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     comment_text = models.CharField(max_length=200)
@@ -275,7 +275,7 @@ class Comment(models.Model):
         return self.user.user.first_name + self.comment_text
 
 class Package(models.Model):
-    profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE)
+    profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name="packages")
     project = models.ForeignKey(to = Project, on_delete = models.CASCADE)
     added_on = models.DateTimeField(auto_now_add = True)
     current_chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE, null = True)
@@ -284,7 +284,7 @@ class Package(models.Model):
         return str(self.profile) + '_' + str(self.project)
 
 class Progress(models.Model):
-    package = models.ForeignKey(to = Package, on_delete = models.CASCADE)
+    package = models.ForeignKey(to = Package, on_delete = models.CASCADE, related_name="progress")
     chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE)
     completed_on = models.DateTimeField(auto_now_add = True)
 
