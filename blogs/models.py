@@ -73,7 +73,7 @@ class Profile(models.Model):
         
     @property
     def getOngoingAndCompletedProjects(self):
-        projects = self.project_set.all()
+        projects = self.projects.all()
         ongoing_projects = projects.filter(isCompleted=False)
         completed_projects = projects.filter(isCompleted=True)
         return ongoing_projects, completed_projects
@@ -110,7 +110,7 @@ class Project(models.Model):
     slug = models.SlugField(null=True,blank=True)
     no_of_views = models.IntegerField(default=0)
     description = models.TextField(null = True, blank = True)
-    author = models.ForeignKey(to = Profile, on_delete = models.CASCADE)
+    author = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name = "projects")
     no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
     isApproved = models.BooleanField(default=False)
