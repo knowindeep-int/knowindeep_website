@@ -154,6 +154,10 @@ class Project(models.Model):
         return KClass.objects.all().order_by('-no_of_views')[:5]
 
     @classmethod
+    def get_all_projects(cls):
+        return cls.objects.all()
+
+    @classmethod
     def get_popular_approved_projects(KClass):
         return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
 

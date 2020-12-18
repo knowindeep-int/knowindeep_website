@@ -99,7 +99,7 @@
                     result.innerHTML = "";
                     result.innerHTML += '<p class="list-group-item" style="color:black;" >Projects:</p>'
                     for (var i = 0; i < data.projects.length; i++) {
-                        result.innerHTML += '<a class="list-group-item" >' + data.projects[i].title + '</a>';                       
+                        result.innerHTML += '<a class="list-group-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';                       
                     }
 
                     result.innerHTML += '<p class="list-group-item" style="color:black;" >Chapters:</p>'
