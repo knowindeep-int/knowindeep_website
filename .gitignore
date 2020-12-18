@@ -1,47 +1,32 @@
-api/__pycache__/
+.vscode/
 .env
-.vscode/.ropeproject/config.py
-.vscode/.ropeproject/objectdb
-author/__pycache__/__init__.cpython-38.pyc
-author/__pycache__/admin.cpython-38.pyc
-author/__pycache__/apps.cpython-38.pyc
-author/__pycache__/models.cpython-38.pyc
-author/__pycache__/urls.cpython-38.pyc
-author/__pycache__/views.cpython-38.pyc
-blogs/__pycache__/__init__.cpython-38.pyc
-blogs/__pycache__/admin.cpython-38.pyc
-blogs/__pycache__/apps.cpython-38.pyc
-blogs/__pycache__/models.cpython-38.pyc
-blogs/__pycache__/urls.cpython-38.pyc
-blogs/__pycache__/utils.cpython-38.pyc
-blogs/__pycache__/views.cpython-38.pyc
-blogs/migrations/0001_initial.py
-blogs/migrations/__pycache__/0001_initial.cpython-38.pyc
-blogs/migrations/__pycache__/__init__.cpython-38.pyc
-blogs/migrations/
+
+# author app
 author/__pycache__/
-.vscode
-teach/__pycache__/
-teach/migrations/
-knowindeep/__pycache__/
-knowindeep/migrations/
+author/migrations/
+
+# site_users app
 site_users/__pycache__/
 site_users/migrations/
-db.sqlite3
-knowindeep/__pycache__/Constants.cpython-38.pyc
-knowindeep/__pycache__/__init__.cpython-38.pyc
-knowindeep/__pycache__/settings.cpython-38.pyc
-knowindeep/__pycache__/urls.cpython-38.pyc
-knowindeep/__pycache__/wsgi.cpython-38.pyc
+
+# blogs app
+blogs/__pycache__/
+blogs/migrations/
+
+#teach app
+teach/__pycache__/
+teach/migrations/
+
+# api app
+api/__pycache__/
+api/migrations/
+
+# knowindeep project
+knowindeep/__pycache__/
+
+# database
+**.sqlite3
+
+# media
 media/
-site_users/__pycache__/__init__.cpython-38.pyc
-site_users/__pycache__/admin.cpython-38.pyc
-site_users/__pycache__/apps.cpython-38.pyc
-site_users/__pycache__/forms.cpython-38.pyc
-site_users/__pycache__/models.cpython-38.pyc
-site_users/__pycache__/urls.cpython-38.pyc
-site_users/__pycache__/views.cpython-38.pyc
-teach/__pycache__/__init__.cpython-38.pyc
-teach/__pycache__/urls.cpython-38.pyc
-teach/__pycache__/views.cpython-38.pyc
-templates/static/media/sample.jpeg
+static/media/
