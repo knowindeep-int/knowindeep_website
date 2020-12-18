@@ -178,6 +178,5 @@ def api_save_chapter_draft(request):
         chapter_serializer = ChapterSerializer(data = json.loads(request.data['chapters']), many = True, partial=True)
         if not chapter_serializer.is_valid():
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-        #chapter = chapter_serializer.save_or_create(data = request.data, project_instance = project)    
         chapter_serializer.save()
         return Response(chapter_serializer.data, status = status.HTTP_200_OK)

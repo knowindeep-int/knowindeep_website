@@ -86,28 +86,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
 
 class ChapterSerializer(serializers.ModelSerializer):
+    project_slug = serializers.CharField(source='link_to.slug')
     class Meta:
         model = Chapter
         fields = '__all__'
-        #extra_kwargs = { 'link_to' : {'required': False}, 'heading':{'required': False}, 'id': {'read_only':True}}
-    
-    def save_or_create(self, project_instance, data):
-        if 'pk' in data.keys():
-            for i in range(1):
-                #chapter_instance.heading =  (data['chapters[' + i + ']heading'], chapter_instance.heading)[data.get('heading') is None],
-                chapter_instance.heading = data['chapters[' + str(i) + '][heading]']
-                chapter_instance.description = data['chapters[' + str(i) + '][description]']
-                chapter_instance.content = data['chapters[' + str(i) + '][content]']
-                chapter_instance.youtube_link = data['chapters[' + str(i) + '][youtube_link]']
-                chapter_instance.save()
-                return chapter_instance
-        
-        
-
-                #chapter_instance.description =  (data['description'], chapter_instance.description)[data.get('description') is None],
-                #chapter_instance.content =  (data['content'], chapter_instance.content)[data.get('content') is None],
-                #chapter_instance.youtube_link =  (data['youtube_link'], chapter_instance.youtube_link)[data.get('youtube_link') is None],
-            
+        #extra_kwargs = { 'link_to' : {'required': False}, 'heading':{'required': False}, 'id': {'read_only':True}}            
 
     #def update(self, validated_data, chapter_instance, project_instance):
     ##    chapter_instance.heading =  (validated_data['heading'], chapter_instance.heading)[validated_data.get('heading') is None],
