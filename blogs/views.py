@@ -12,11 +12,13 @@ def topics(request):
     context = None
     if request.user.is_superuser:
         context = {
-            "projects":Project.get_popular_projects()
+            "projects":Project.get_popular_projects(),
+            "all_projects" : Project.get_all_projects()
         }
     else: 
         context = {
-            "projects":Project.get_popular_approved_projects()
+            "projects":Project.get_popular_approved_projects(),
+            "all_projects" : Project.get_all_projects()
         }
     return render(request,"blogs/index.html",context)
 
