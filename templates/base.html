@@ -41,6 +41,9 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+        html {
+        scroll-behavior: smooth;
+        }
 
         .button1 {
             background-color: white;
@@ -165,7 +168,7 @@
 
                 {% if request.user.is_superuser %}
                 <li>
-                    <a id="cate" href="#all blogs">
+                    <a id="cate" href="{% url 'blogs:index' %}#all-blogs-heading">
                         All Blogs
                     </a>
                 </li>
