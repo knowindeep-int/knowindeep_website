@@ -1,28 +1,11 @@
 .vscode/
 .env
 
-# author app
-author/__pycache__/
-author/migrations/
+# pycaches and migrations
+**/__pycache__/
+**/migrations/
 
-# site_users app
-site_users/__pycache__/
-site_users/migrations/
 
-# blogs app
-blogs/__pycache__/
-blogs/migrations/
-
-#teach app
-teach/__pycache__/
-teach/migrations/
-
-# api app
-api/__pycache__/
-api/migrations/
-
-# knowindeep project
-knowindeep/__pycache__/
 
 # database
 **.sqlite3
