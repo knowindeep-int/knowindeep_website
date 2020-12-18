@@ -6,41 +6,28 @@
     <meta charset="UTF-8">
     <title>KnowInDeep</title>
     <meta charset="UTF-8" />
+    <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="/static/images/kid-white.png" type="image/icon type">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> {% block content_head %} {% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/style1.css">
-
-    <style>
-        img {
-        width: 100px;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
     <script type="text/javascript">
-
         function implementSearch() {
 
             search_input = document.getElementById('searchInput').value;
@@ -50,12 +37,12 @@
                 data: {
                     'search_input': search_input,
                 },
-                success: function (data) {
+                success: function(data) {
                     var result = document.getElementById("result");
                     result.innerHTML = "";
                     result.innerHTML += '<p class="list-group-item" style="color:black;" >Projects:</p>'
                     for (var i = 0; i < data.projects.length; i++) {
-                        result.innerHTML += '<a class="list-group-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';                       
+                        result.innerHTML += '<a class="list-group-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
                     }
 
                     result.innerHTML += '<p class="list-group-item" style="color:black;" >Chapters:</p>'
@@ -68,12 +55,12 @@
                         result.innerHTML += '<a class="list-group-item" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
                     }
 
-                }, error: function (error) {
+                },
+                error: function(error) {
                     alert(error)
                 },
             });
         };
-
     </script>
 
 </head>
@@ -86,8 +73,7 @@
     <nav id="navbar" class="navbar-default navbar-static-top" style="overflow: visible">
         <div class="nav-wrapper container ">
             <a href="{% url 'blogs:index' %}">
-                <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" id="image" alt="brandLogo"
-                    height="100%">
+                <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" id="image" alt="brandLogo" height="100%">
             </a>
             <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
             <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i onclick="functionOne()"
@@ -111,8 +97,7 @@
                 <li>
                     <form autocomplete="off" action="">
                         <div class="autocomplete" style="width:300px;position: relative;display: inline-block;">
-                            <input id="searchInput" type="text" name="search" placeholder="Search"
-                                onkeyup="implementSearch();">
+                            <input id="searchInput" type="text" name="search" placeholder="Search" onkeyup="implementSearch();">
                         </div>
                         <div id="result"></div>
 
@@ -125,9 +110,7 @@
                         All Blogs
                     </a>
                 </li>
-                {% endif %}
-
-                {% if request.user.is_authenticated %}
+                {% endif %} {% if request.user.is_authenticated %}
                 <li>
                     <a id="cate" href="{% url 'site_users:logout' %}">
                         Log Out
@@ -136,16 +119,11 @@
                 <li>
                     <div class="dropdown">
 
-                        <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
-                            class="img-circle" height="25" width="25" type="button" id="logInBtn" type="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg" class="img-circle" height="25" width="25" type="button" id="logInBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         </img>
 
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#"><img
-                                    src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg"
-                                    class="img-circle" height="35" width="35" type="button" id="logInBtn"
-                                    data-toggle="dropdown">
+                            <a class="dropdown-item" href="#"><img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg" class="img-circle" height="35" width="35" type="button" id="logInBtn" data-toggle="dropdown">
 
                                 </img><span class="text-center align-middle">&nbspName</span></a>
                             <div class="dropdown-divider"></div>
@@ -153,8 +131,7 @@
                             <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
                             <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
                             <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
-                            <a id="cate" class="text-center" style="color:black"
-                                href="{% url 'site_users:logout' %}">Log Out</a>
+                            <a id="cate" class="text-center" style="color:black" href="{% url 'site_users:logout' %}">Log Out</a>
                         </div>
 
 
@@ -208,14 +185,12 @@
         </div>
         <div class="row" style="margin-top: 100px;">
             <div class="col-6 center">
-                <a id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
-                    class="icon-btn">
+                <a id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}" class="icon-btn">
                     <img src="/static/images/google-logo.svg" alt="googleLogo" width="200" height="200" />
                 </a>
             </div>
             <div class="col-6 center">
-                <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"
-                    class="icon-btn">
+                <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
                     <img src="/static/images/github-logo.svg" alt="githubLogo" width="200" height="200" />
                 </a>
             </div>
@@ -230,21 +205,14 @@
 
 
     <div>
-        {% block content %}
-        {% endblock %}
+        {% block content %} {% endblock %}
     </div>
 
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax /libs/materialize/1.0.0/js/materialize.min.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
         function functionOne() {
@@ -256,7 +224,7 @@
             }
         }
 
-        window.addEventListener("resize", function () {
+        window.addEventListener("resize", function() {
             var a = window.innerWidth;
             if (a > 993) {
                 var x = document.getElementById("myLinks");
@@ -266,7 +234,9 @@
     </script>
 
     <script>
-        window.onscroll = function () { myFunction() };
+        window.onscroll = function() {
+            myFunction()
+        };
 
         function myFunction() {
             var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -274,46 +244,19 @@
             var scrolled = (winScroll / height) * 100;
             // document.getElementById("myBar").style.width = scrolled + "%";
         }
-
     </script>
 
     <script type="text/JavaScript">
-    (function() {
-        var dialog = document.getElementById('loginDialog');
-        document.getElementById('loginLink').onclick = function() {
-            dialog.style.display = "block";
-        };
-
-        window.onclick = function() {
-            if (event.target == dialog) {
-                dialog.style.display = "none";
-            };
-        };
-
-        document.getElementById('googleLogin').onclick = function() {
-            var url = this.getAttribute('google-href')
-            window.open(url,"_self")
-        };
-
-        document.getElementById('closeDialog').onclick = function() {
-            dialog.style.display = "none";
-        };
-
-        document.getElementById('githubLogin').onclick = function() {
-            var url = this.getAttribute('github-href')
-            window.open(url,"_self")
-        };
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     var element = document.querySelectorAll('.sidenav');
-        //     var instances = M.Sidenav.init(element, options);
-        // });
-    })();
+        (function() { var dialog = document.getElementById('loginDialog'); document.getElementById('loginLink').onclick = function() { dialog.style.display = "block"; }; window.onclick = function() { if (event.target == dialog) { dialog.style.display = "none";
+        }; }; document.getElementById('googleLogin').onclick = function() { var url = this.getAttribute('google-href') window.open(url,"_self") }; document.getElementById('closeDialog').onclick = function() { dialog.style.display = "none"; }; document.getElementById('githubLogin').onclick
+        = function() { var url = this.getAttribute('github-href') window.open(url,"_self") }; // document.addEventListener('DOMContentLoaded', function() { // var element = document.querySelectorAll('.sidenav'); // var instances = M.Sidenav.init(element,
+        options); // }); })();
     </script>
     <script>
-        $(document).ready(function () {
-            {% block jquery %}
-            {% endblock jquery %}
+        $(document).ready(function() {
+            { % block jquery %
+            } { % endblock jquery %
+            }
         })
     </script>
 

@@ -1,10 +1,19 @@
 /* FOR BASE */
+
 * {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 18px;
     padding: 0px;
     margin: 0px;
 }
+
+img {
+    width: 100px;
+    height: 50px;
+    line-height: 300px;
+    text-align: center;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -46,13 +55,12 @@ div.card {
 }
 
 .card .card-image img {
-    object-fit: unset; 
-    width: 300px; 
+    object-fit: unset;
+    width: 300px;
     height: 300px;
 }
 
-
-button.btn{
+button.btn {
     background-color: #7E76D7;
     border-radius: 15px;
     padding-left: 20px;
@@ -72,7 +80,7 @@ button.btn:hover {
 #loginDialog {
     border: solid #51A6C5 1px;
     border-radius: 10px;
-    display: none; 
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -81,10 +89,10 @@ button.btn:hover {
     height: 60%;
     margin: 5% auto;
     padding: 60px;
-    overflow: auto; 
+    overflow: auto;
 }
 
-.icon-btn:hover{
+.icon-btn:hover {
     cursor: pointer;
 }
 
@@ -95,9 +103,9 @@ button.btn:hover {
     right: 0;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-  }
+}
 
-  .btn {
+.btn {
     background-color: #4CAF50;
     /* Green */
     border: none;
@@ -152,6 +160,7 @@ i {
     }
 }
 
+
 /* FOR LOGIN PAGE */
 
 button#submitButton {
@@ -164,4 +173,67 @@ button#submitButton {
     text-align: center;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.image {
+    background-image: url("/static/images/cover_photo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 600px;
+}
+
+.jumbotron {
+    color: white;
+    padding: 300px 30px 0 30px;
+    background-color: transparent;
+}
+
+#jumbotron1 {
+    margin: 0 auto;
+    height: 244px;
+    width: 1170px;
+}
+
+body,
+html {
+    margin-right: 0;
+}
+
+#display {
+    font-size: 35px;
+}
+
+#lead #lead1 {
+    font-size: 10px;
+}
+
+@media(max-width:768px) {
+    #jumbotron1 {
+        margin: 0 auto;
+        width: 90%;
+    }
+    .image {
+        width: 100%;
+    }
+}
+
+@media(max-width:993px) and (min-width:768px) {
+    #jumbotron1 {
+        margin: 0 auto;
+        height: 244px;
+        width: 750px;
+    }
+}
+
+@media (max-width:1200px) and (min-width:993px) {
+    #jumbotron1 {
+        margin: 0 auto;
+        height: 244px;
+        width: 970px;
+    }
+}
+
+#cate {
+    font-size: 24px;
 }

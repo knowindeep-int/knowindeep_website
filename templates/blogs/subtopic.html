@@ -1,46 +1,19 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% block content_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blog_content.css' %}"> {% endblock %} {% block content %}
 
-<script type="text/javascript">
-
-    {% block jquery %}
-    if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-
-    } else {
-        $.ajax({
-            url: '{% url "api:increase_view" %}',
-            method: "POST",
-            data: {
-                'slug': '{{chapter_heading}}',
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (data) {
-
-            }, error: function (error) {
-
-            },
-        })
-    }
-    {% endblock %}
-</script>
-
-{% block content %}
-
-<link rel="stylesheet" href="{% static 'blogs/css/blog_content.css' %}">
 <div class="center">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
-        <li class="breadcrumb-item"><a
-                href="{% url 'blogs:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
     </ol>
 </div>
 <div class="container" id="cont">
-    
+
     <h2 id="blog_heading" class="center">
         {{ project.title }}
     </h2>
     <div style="text-align: center;">
-        <img src="/media/{{ project.image }}" alt = "{{project.title}}">
+        <img src="/media/{{ project.image }}" alt="{{project.title}}">
     </div>
     <div>
         <h3>What will you do in this course:</h3>
@@ -66,37 +39,33 @@
     <div>
         <h3>Languages Used:</h3>
         <ul>
-        {% if project.languages.all %}
-        {% for language in project.languages.all %}
-        <li style="list-style-type: circle">{{language}}</li>
-        {% endfor %}
-        {% endif %}
+            {% if project.languages.all %} {% for language in project.languages.all %}
+            <li style="list-style-type: circle">{{language}}</li>
+            {% endfor %} {% endif %}
         </ul>
     </div>
     <div>
         <h3>Author Name :</h3> {{project.author.user.first_name }} {{project.author.user.last_name}}
     </div>
-    
+
     <div class="center">
         <div id="content">
             {{ project.topic_content }}
         </div>
     </div>
-    {% if chapters %}
-    {% for chapter in chapters %}
-    <div id="blog" class="card hoverable" id="hover">   
+    {% if chapters %} {% for chapter in chapters %}
+    <div id="blog" class="card hoverable" id="hover">
         <div class="card-action">
             <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
-            
-            
+
+
         </div>
-        
+
     </div>
 
-    {% endfor %}
-    {% else %}
+    {% endfor %} {% else %}
     <h1>No blogs for the particular url</h1>
     {% endif %}
 </div>

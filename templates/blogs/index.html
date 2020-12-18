@@ -1,33 +1,16 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content_head %}
 
-<head>
-    <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}">
-    <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static  'css/style1.css' %}">
-
-    <style>
-        img {
-            width: 100px;
-            height: 50px;
-            line-height: 300px;
-            text-align: center;
-        }
-    </style>
-</head>
+<link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}"> {% endblock %}
 
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
-
+{% block content %}
 <div class="image">
     <div class="jumbotron" id="jumbotron1">
 
         <h1 id="display">Hello, world!</h1>
         <p id="lead1">
-        <div>This is a simple hero unit, a simple jumbotron-style component for calling extra</div>
-        <div>attention to
-            featured content or information.</div>
+            <div>This is a simple hero unit, a simple jumbotron-style component for calling extra</div>
+            <div>attention to featured content or information.</div>
         </p>
         <h3 class="my-4">
             <button class="btn btn-primary-sucess btn-lg btn-home"><a>Learn More</a>
@@ -64,15 +47,13 @@
                 <div class="col-sm-4 ml-4">
                     <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
                 </div>
-                {% if request.user.is_superuser  %}
+                {% if request.user.is_superuser %}
 
                 <div class="col-sm-4 ">
 
                     {% if not project.isApproved %}
-                    <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a>
-                    {% else %}
-                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
-                    {% endif %}
+                    <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
+                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a> {% endif %}
                 </div>
             </div>
             {% else %}
@@ -94,7 +75,6 @@
             <div class="card-image">
                 <img class="blogImage" src="media/{{ project.image }}" alt="{{project.title}}">
             </div>
-            <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
 
@@ -111,15 +91,13 @@
                 <div class="col-sm-4 ml-4">
                     <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
                 </div>
-                {% if request.user.is_superuser  %}
+                {% if request.user.is_superuser %}
 
                 <div class="col-sm-4 ">
 
                     {% if not project.isApproved %}
-                    <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a>
-                    {% else %}
-                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
-                    {% endif %}
+                    <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
+                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a> {% endif %}
                 </div>
             </div>
             {% else %}

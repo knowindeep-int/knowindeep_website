@@ -1,0 +1,62 @@
+/* .blur {
+    position: absolute;
+    -webkit-filter: blur(10px);  
+    backdrop-filter: blur(4px);  
+    width: 20px;
+    z-index: 1;
+} */
+
+* {
+    font-family: 'Source Sans Pro', sans-serif;
+    size: 18px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.image {
+    background-image: url("/templates/static/images/cover_photo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-height: 60%;
+}
+
+.jumbo {
+    color: white;
+    padding: 15% 5% 7.5% 10%;
+}
+
+body,
+html {
+    margin-right: 0;
+}
+
+img {
+    width: 100px;
+    height: 50px;
+    line-height: 300px;
+    text-align: center;
+}
+
+.display {
+    font-size: 4vw;
+}
+
+.lead {
+    font-size: 1.5vw;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar-default {
+    transition: 500ms ease;
+    background: #fff;
+}
+
+.navbar-default.scrolled {
+    background: #fff;
+}

@@ -18,6 +18,15 @@ blogs/__pycache__/views.cpython-38.pyc
 blogs/migrations/0001_initial.py
 blogs/migrations/__pycache__/0001_initial.cpython-38.pyc
 blogs/migrations/__pycache__/__init__.cpython-38.pyc
+blogs/migrations/
+author/__pycache__/
+.vscode
+teach/__pycache__/
+teach/migrations/
+knowindeep/__pycache__/
+knowindeep/migrations/
+site_users/__pycache__/
+site_users/migrations/
 db.sqlite3
 knowindeep/__pycache__/Constants.cpython-38.pyc
 knowindeep/__pycache__/__init__.cpython-38.pyc
