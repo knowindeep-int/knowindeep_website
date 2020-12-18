@@ -1,120 +1,69 @@
-
-**/__pycache__
-**/migrations
-blogs/migrations/
-# Byte-compiled / optimized / DLL files
-__pycache__/
-__pycache__
-*.py[cod]
-*$py.class
-**/migrations/
-# C extensions
-*.so
-.idea
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# celery beat schedule file
-celerybeat-schedule
-
-# SageMath parsed files
-*.sage.py
-
-# dotenv
+api/__pycache__/
 .env
-
-# virtualenv
-.venv
-venv/
-ENV/
-.vscode
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-
-.DS_Store
-*.sqlite3
-media/
-*.pyc
-*.db
-*.pid
-# django migrations 
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
-
+.vscode/.ropeproject/config.py
+.vscode/.ropeproject/objectdb
+author/__pycache__/__init__.cpython-38.pyc
+author/__pycache__/admin.cpython-38.pyc
+author/__pycache__/apps.cpython-38.pyc
+author/__pycache__/models.cpython-38.pyc
+author/__pycache__/urls.cpython-38.pyc
+author/__pycache__/views.cpython-38.pyc
+blogs/__pycache__/__init__.cpython-38.pyc
+blogs/__pycache__/admin.cpython-38.pyc
+blogs/__pycache__/apps.cpython-38.pyc
+blogs/__pycache__/models.cpython-38.pyc
+blogs/__pycache__/urls.cpython-38.pyc
+blogs/__pycache__/utils.cpython-38.pyc
+blogs/__pycache__/views.cpython-38.pyc
+blogs/migrations/0001_initial.py
+blogs/migrations/__pycache__/0001_initial.cpython-38.pyc
+blogs/migrations/__pycache__/__init__.cpython-38.pyc
 db.sqlite3
+knowindeep/__pycache__/Constants.cpython-38.pyc
+knowindeep/__pycache__/__init__.cpython-38.pyc
+knowindeep/__pycache__/settings.cpython-38.pyc
+knowindeep/__pycache__/urls.cpython-38.pyc
+knowindeep/__pycache__/wsgi.cpython-38.pyc
+media/media/1.png
+media/media/DSC.png
+media/media/DSC_UEpMu1m.png
+media/media/TGA.png
+media/media/android.png
+media/media/android_RN7dk95.png
+media/media/android_VeG2XOp.png
+media/media/android_XWGZOhf.png
+media/media/github.jpeg
+media/media/github_AfWvRvu.jpeg
+media/media/github_bnJ4sfq.jpeg
+media/media/markus-winkler-4J2OD3njVgI-unsplash.jpg
+media/profiles/1.png
+media/profiles/1_KeRhNXm.png
+media/profiles/1_cNh4gJ2.png
+media/profiles/2.jpeg
+media/profiles/DarewinConsulting-SummerInternship2020_Priyansh-page-001.jpg
+media/profiles/DarewinConsulting-SummerInternship2020_Priyansh-page-001_Xz4KElJ.jpg
+media/profiles/WhatsApp_Image_2020-12-10_at_10.07.26_AM.jpeg
+media/profiles/android.png
+media/profiles/deets2.jpg
+media/project/DarewinConsulting-SummerInternship2020_Priyansh-page-001.jpg
+media/project/DarewinConsulting-SummerInternship2020_Priyansh-page-001_ghTr7Bf.jpg
+media/project/KEDIA_.JPG
+media/project/TGA.png
+media/uploads/2020/08/08/my-post-1.jpg
+media/uploads/2020/08/08/my-post-1_thumb.jpg
+media/uploads/2020/08/08/my-post-1_zyrSbqE.jpg
+media/uploads/2020/08/08/my-post-1_zyrSbqE_thumb.jpg
+media/uploads/2020/08/08/my-post.jpg
+media/uploads/2020/08/08/my-post_thumb.jpg
+media/uploads/2020/08/09/resume.pdf
+site_users/__pycache__/__init__.cpython-38.pyc
+site_users/__pycache__/admin.cpython-38.pyc
+site_users/__pycache__/apps.cpython-38.pyc
+site_users/__pycache__/forms.cpython-38.pyc
+site_users/__pycache__/models.cpython-38.pyc
+site_users/__pycache__/urls.cpython-38.pyc
+site_users/__pycache__/views.cpython-38.pyc
+teach/__pycache__/__init__.cpython-38.pyc
+teach/__pycache__/urls.cpython-38.pyc
+teach/__pycache__/views.cpython-38.pyc
+templates/static/media/sample.jpeg
