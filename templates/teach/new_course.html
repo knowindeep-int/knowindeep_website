@@ -55,6 +55,7 @@
             data: {},
             success: function(data){
                 languages_all = data.languages,
+                alert(JSON.stringify(data.languages))
                 prereqs_all = data.prerequisites
             }, error: function(error){
                 alert("ERROR!")

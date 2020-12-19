@@ -8,7 +8,7 @@ from blogs.models import Project, Chapter, Like, Comment, Profile, Language, Pre
 
 from knowindeep import Constants
 
-from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer
+from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, PreRequisiteSerializer
 
 @api_view(['GET',])
 def api_detail_chapter_view(request,slug):
@@ -187,8 +187,13 @@ def api_get_languages_prereqs(request):
     if request.method == "GET":
         lang = Language.getAllLanguages()
         pre = PreRequisite.getAllPreReqs()
+
+        lang_serializer = LanguageSerializer(lang, many=True)
+        pre_serializer = PreRequisiteSerializer(pre, many=True)
+    
         data = {
-                'languages': lang, 
-                'prerequisites': pre
-                }
-        return Response(data)
+                'languages': lang_serializer.data, 
+                'prerequisites': pre_serializer.data
+            }
+
+        return Response(data, status = status.HTTP_200_OK)
