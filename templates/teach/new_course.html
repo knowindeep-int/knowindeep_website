@@ -47,6 +47,21 @@
             }
         })
 }
+    var languages_all, prereqs_all 
+    function getLangPrereq(){
+        $.ajax({
+            method: 'GET',
+            url: "{% url 'api:get_lang_prereq' %}",
+            data: {},
+            success: function(data){
+                languages_all = data.languages,
+                prereqs_all = data.prerequisites
+            }, error: function(error){
+                alert("ERROR!")
+            }
+        }
+        )
+    } 
 </script>
 
 <div>

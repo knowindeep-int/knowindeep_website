@@ -4,7 +4,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 
-from blogs.models import Project, Chapter, Like, Comment, Profile
+from blogs.models import Project, Chapter, Like, Comment, Profile, Language, PreRequisite
 
 from knowindeep import Constants
 
@@ -180,3 +180,15 @@ def api_save_chapter_draft(request):
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
         chapter_serializer.save()
         return Response(chapter_serializer.data, status = status.HTTP_200_OK)
+
+
+@api_view(['GET',])
+def api_get_languages_prereqs(request):
+    if request.method == "GET":
+        lang = Language.getAllLanguages()
+        pre = PreRequisite.getAllPreReqs()
+        data = {
+                'languages': lang, 
+                'prerequisites': pre
+                }
+        return Response(data)
