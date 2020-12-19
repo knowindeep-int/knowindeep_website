@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from blogs.models import Project, Comment, Profile, Language, Chapter
+from blogs.models import Project, Comment, Profile, Language, Chapter, PreRequisite
 
 class ProjectSerializer(serializers.ModelSerializer):
     title = serializers.CharField(allow_blank=True, allow_null=True, required = False, max_length = 25)
@@ -37,6 +37,11 @@ class LanguageSerializer(serializers.ModelSerializer):
         model = Language
         fields = ['name']
         
+class PreRequisiteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PreRequisite
+        fields = '__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
     #email_id = serializers.EmailField(required = True)
