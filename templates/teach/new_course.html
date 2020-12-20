@@ -13,9 +13,8 @@
 <script>
 if('{{project.title}}' != ""){
     var title = '{{project.title}}';
-    alert('{{project.chapters.all | safe}}')
-    var chapters = '{{project.chapters.all | safe}}';
-    alert(chapters)
+    //var chapters = '{{project.chapters.all | safe}}';
+    var chapters = []
     var description = '{{project.description}}';
     var difficulty_level = null;
     var no_of_hours = null;
@@ -155,11 +154,14 @@ else{
         if('{{status}}' == 'title'){
             createTitlePage();   
         }
-        if('{{status}}' == 'description'){
-            createDescriptionPage();   
-        }
-        if('{{status}}' == 'chapter'){
-            createChapterPage();   
+        //if('{{status}}' == 'description'){
+        //    createDescriptionPage();   
+        //}
+        //if('{{status}}' == 'chapter'){
+        //    createChapterPage();
+        //}
+        else{
+            createTitlePage();
         }
         
         getLangPrereq();
