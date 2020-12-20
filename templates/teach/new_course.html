@@ -62,6 +62,21 @@
         }
         )
     } 
+    
+    var project_draft
+    function getDraft(){
+        $.ajax({
+            method: 'GET',
+            url: '{%url api:save_draft%}',
+            data: {},
+            success: function(data){
+                project_draft = data.project_draft
+            }, error: function(error){
+                alert("ERROR!")
+            }
+        }
+        )
+    }
 </script>
 
 <div>
