@@ -139,7 +139,7 @@ def search_project(request):
 
         return Response(data, status = status.HTTP_200_OK)
 
-@api_view(['POST',])
+@api_view(['POST', 'GET', ])
 def api_save_draft(request):
     if request.method == "POST":
         pk = request.POST.get('pk', None)
@@ -167,6 +167,21 @@ def api_save_draft(request):
             'pk': pk
         }
         return Response(data, status = status.HTTP_200_OK)
+    
+    if request.method == 'GET':
+        pk = request.GET['pk']
+        user = Profile.objects.get(user = request.user)
+        if pk is None:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+        else:
+            project = Project.objects.get(pk = pk)
+        
+        project_draft = ProjectSerializer(project)
+        data = {
+            'project_draft': project_draft.data,
+        }
+        return Response(data, status = status.HTTP_200_OK)
+
 
 import json
 @api_view(['POST',])

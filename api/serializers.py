@@ -7,7 +7,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
-        fields = ['image', 'title', 'description', 'slug']
+        fields = ['image', 'title', 'description', 'slug', 'languages']
         extra_kwargs = {'slug': {'required': False}, 'title': {'required': False}}
 
     def update(self, instance):
