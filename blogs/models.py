@@ -89,6 +89,13 @@ class Profile(models.Model):
         )
         return author_searches
 
+class Blog(models.Model):
+    profile = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
+    content = RichTextUploadingField(blank=True,null=True)
+    title = models.CharField(max_length = 25, null =False, blank= False)
+
+
+
 class PreRequisite(models.Model):
     name = models.CharField(max_length = 100)
 
@@ -330,7 +337,6 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
         #instance.save()
-
 
 
 pre_save.connect(r_pre_save_receiever, sender=Project)
