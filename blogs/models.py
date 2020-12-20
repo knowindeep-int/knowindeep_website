@@ -126,12 +126,15 @@ class Project(models.Model):
         return self.title
 
     @classmethod
-    def get_status(cls, slug):
-        project = cls.objects.get(slug=slug)
-        for field in cls._meta.fields:
-            if getattr(project, field) == "":
-                return field
-        
+    def get_status(cls, pk):
+        project = cls.objects.get(pk=pk)
+        print(project.description)
+        if project.title == None or project.title == "":
+            return "title"
+        if project.description == None or project.description == "":
+            return "description"
+        if project.chapters.all().count() == 0 :
+            return "chapter"
         return None
 
     @classmethod
