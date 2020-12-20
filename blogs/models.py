@@ -126,6 +126,15 @@ class Project(models.Model):
         return self.title
 
     @classmethod
+    def get_status(cls, slug):
+        project = cls.objects.get(slug=slug)
+        for field in cls._meta.fields:
+            if getattr(project, field) == "":
+                return field
+        
+        return None
+
+    @classmethod
     def getProjectSearches(cls, search_input):
         project_searches = cls.objects.filter(
             Q(slug__istartswith = search_input) |
