@@ -170,7 +170,6 @@ def api_save_draft(request):
     
     if request.method == 'GET':
         pk = request.GET['pk']
-        user = Profile.objects.get(user = request.user)
         if pk is None:
             return Response(status = status.HTTP_400_BAD_REQUEST)
         else:
