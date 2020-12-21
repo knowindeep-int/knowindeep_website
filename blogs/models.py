@@ -175,10 +175,19 @@ class Project(models.Model):
     @classmethod
     def get_all_projects(cls):
         return cls.objects.all()
+    
+    @classmethod
+    def get_project(cls, pk):
+        return cls.objects.get(pk = pk)
 
     @classmethod
     def get_popular_approved_projects(KClass):
         return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
+
+    @property
+    def complete_project(self):
+        self.isCompleted = True
+        self.save()
 
 class Chapter(models.Model):
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")

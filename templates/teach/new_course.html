@@ -712,7 +712,7 @@ function createNumberOfHours() {
         '<label for="2-4">2-4 HOURS</label><br>' +
         '<input class="time_radio_input" type="radio" id=">4" name="" value=">4">' +
         '<label for=">4">MORE THAN 4 HOURS</label>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
+    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         '</div>';
 }
 
@@ -809,6 +809,27 @@ function saveImageDraft() {
         }
         )
     }
+
+
+    function createProject(){
+        //document.location.href = "/" + "teach";
+        $.ajax({
+            method: 'POST',
+            url: "{% url 'api:create_project' %}",
+            data :{
+                'pk': pk,
+                'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+            },
+            success: function(data){
+                pk =data.pk
+            }, error: function(error){
+                alert("ERROR!")
+            }
+        }
+        )
+        document.location.href = "{% url 'teach:list_of_projects' %}"
+    }
+
 
 
 </script>
