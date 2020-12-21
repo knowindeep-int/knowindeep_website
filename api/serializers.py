@@ -10,11 +10,13 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ['image', 'title', 'description', 'slug']
         extra_kwargs = {'slug': {'required': False}, 'title': {'required': False}}
 
-    def update(self, instance):
+    def update(self, instance, data):
         instance.description = (self.data['description'], instance.description)[self.data.get('description', None) is None]        
         instance.title = (self.data['title'], instance.title)[self.data.get('title', None) is None]
         #instance.image = (self.data['image'], instance.image)[self.data.get('image', None) is None]
-        instance.image = self.data.get('image', instance.image)
+        #print(self.data.image)
+        if 'image' in data:
+            instance.image = (data['image'], instance.image)[data['image'] is None]
         instance.save()
         return instance
 
