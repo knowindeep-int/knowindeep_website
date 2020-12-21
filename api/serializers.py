@@ -13,6 +13,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     def update(self, instance):
         instance.description = (self.data['description'], instance.description)[self.data.get('description', None) is None]        
         instance.title = (self.data['title'], instance.title)[self.data.get('title', None) is None]
+        #instance.image = (self.data['image'], instance.image)[self.data.get('image', None) is None]
+        instance.image = self.data.get('image', instance.image)
         instance.save()
         return instance
 
