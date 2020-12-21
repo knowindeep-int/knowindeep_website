@@ -743,16 +743,16 @@ function saveImageDraft() {
     var file = fileInput.files[0];
     var formData = new FormData();
     formData.append('image', file);
+    formData.append('pk', pk);
+    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
     
-    alert(formData)
-    var data = {};
-    data['image'] = file;
-    data['pk'] = pk;
-    data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
-        data : data,
+        data : formData,
+        processData: false,
+        contentType: false,
+        //processData: false,
         success: function(data){
             pk = data.pk
         },error: function(error){
