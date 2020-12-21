@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="{% static  'css/style1.css' %}">
     <!-- <script type="text/javascript" src="{% static 'js/teach/teach.js' %}"></script>--> 
 </head>
+
 <script>
-
-var title = "";
-let chapters = [];
-
-    var description = "";
-    var category = "";
+if('{{project.title}}' != ""){
+    var title = '{{project.title}}';
+    //var chapters = '{{project.chapters.all | safe}}';
+    var chapters = []
+    var description = '{{project.description}}';
     var difficulty_level = null;
     var no_of_hours = null;
     var languages = [];
@@ -25,7 +25,21 @@ let chapters = [];
     var counter = 1;
     var chapter_innerHTML = "";
     var chapter_count = 2;
-
+}
+else{
+    var title = "";
+    var chapters = [];
+    var description = "";
+    var difficulty_level = null;
+    var no_of_hours = null;
+    var languages = [];
+    var overview = "";
+    var pre_reqs = [];
+    var pk = "";
+    var counter = 1;
+    var chapter_innerHTML = ""; 
+    var chapter_count = 2;
+}
     class Chapter {
         constructor(heading, description, content, youtube_link, link_to) {
         this.heading = heading;
@@ -136,8 +150,22 @@ let chapters = [];
         }
     };
     window.onload = function () {
-        createTitlePage();
+        
+        if('{{status}}' == 'title'){
+            createTitlePage();   
+        }
+        //if('{{status}}' == 'description'){
+        //    createDescriptionPage();   
+        //}
+        //if('{{status}}' == 'chapter'){
+        //    createChapterPage();
+        //}
+        else{
+            createTitlePage();
+        }
+        
         getLangPrereq();
+        
     };
 
     function createDescriptionPage() {
@@ -155,15 +183,18 @@ let chapters = [];
                 return;
             }
         }
-        for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
-            if (document.getElementsByClassName("heading")[i] != null) {
-                let chapter_add = {};
-                chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
-                chapter_add['description'] = document.getElementsByClassName("description")[i].value;
-                chapter_add['content'] = document.getElementsByClassName("content")[i].value;
-                chapter_add['youtube'] = document.getElementsByClassName("youtube")[i].value;
 
-                chapters[i] = chapter_add;
+        if (document.getElementById("chapter_div") != null) {
+            for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
+                if (document.getElementsByClassName("heading")[i] != null) {
+                    let chapter_add = {};
+                    chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
+                    chapter_add['description'] = document.getElementsByClassName("description")[i].value;
+                    chapter_add['content'] = document.getElementsByClassName("content")[i].value;
+                    chapter_add['youtube'] = document.getElementsByClassName("youtube")[i].value;
+
+                    chapters[i] = chapter_add;
+                }
             }
         }
         
@@ -496,7 +527,7 @@ function createDifficultyPage() {
     div.innerHTML += '<div style="color: black;">';
     div.innerHTML += '<input class="difficulty_radio_input" type="radio" id="easy" name="" value="EASY" checked="checked">' +
         '<label for="easy">EASY</label><br>' +
-        '<input class="difficulty_radio_input" type="radio" id="medium" name="" value="MEDIUM">' +
+        '<input class="difficulty_radio_input" type="radio" id="medium" style="color: black;" value="MEDIUM">' +
         '<label for="meduim">MEDIUM</label><br>' +
         '<input  class="difficulty_radio_input" type="radio" id="hard" name="" value="HARD">' +
         '<label for="hard">HARD</label>';
@@ -672,7 +703,7 @@ function createNumberOfHours() {
     div = document.getElementById("10");
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>";
-    div.innerHTML += '<div style="color: black;">';
+    div.innerHTML += '<div style="color: black;">'  ;
     div.innerHTML += '<input class="time_radio_input" checked="checked" type="radio" id="0-2" name="" value="0-2" disabled=false>' +
         '<label for="0-2">0-2 HOURS</label><br>' +
         '<input checked="checked" class="time_radio_input" type="radio" id="2-4" name="" value="2-4" style="display: block;visibility: visible">' +
@@ -736,6 +767,23 @@ function createNumberOfHours() {
         }
         )
     } 
+
+    var project_draft
+    function getDraft(){
+        $.ajax({
+            method: 'GET',
+            url: "{% url 'api:save_draft' %}",
+            data: {},
+            success: function(data){
+                project_draft = data.project_draft
+            }, error: function(error){
+                alert("ERROR!")
+            }
+        }
+        )
+    }
+
+
 </script>
 
 <div>

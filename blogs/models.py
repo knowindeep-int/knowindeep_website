@@ -89,6 +89,13 @@ class Profile(models.Model):
         )
         return author_searches
 
+class Blog(models.Model):
+    profile = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
+    content = RichTextUploadingField(blank=True,null=True)
+    title = models.CharField(max_length = 25, null =False, blank= False)
+
+
+
 class PreRequisite(models.Model):
     name = models.CharField(max_length = 100)
 
@@ -124,6 +131,18 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_status(cls, pk):
+        project = cls.objects.get(pk=pk)
+        print(project.description)
+        if project.title == None or project.title == "":
+            return "title"
+        if project.description == None or project.description == "":
+            return "description"
+        if project.chapters.all().count() == 0 :
+            return "chapter"
+        return None
 
     @classmethod
     def getProjectSearches(cls, search_input):
@@ -318,7 +337,6 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
         #instance.save()
-
 
 
 pre_save.connect(r_pre_save_receiever, sender=Project)
