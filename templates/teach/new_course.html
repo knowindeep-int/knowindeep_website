@@ -25,6 +25,7 @@ if('{{project.title}}' != ""){
     var counter = 1;
     var chapter_innerHTML = "";
     var chapter_count = 2;
+    var image;
 }
 else{
     var title = "";
@@ -39,6 +40,7 @@ else{
     var counter = 1;
     var chapter_innerHTML = ""; 
     var chapter_count = 2;
+    var image;
 }
     class Chapter {
         constructor(heading, description, content, youtube_link, link_to) {
@@ -661,12 +663,12 @@ function createImagePage() {
 
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
     div.innerHTML += '<div style="color: black;">';
-    div.innerHTML += '<input type="file" style="color: black;">';
+    div.innerHTML += '<input type="file" style="color: black;" id="image_input">';
     div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
 }
 
 function createNumberOfHours() {
-
+    saveImageDraft()
     showhide("10");
     div_1 = document.getElementById("1");
     div_1.setAttribute("style", "display: none;");
@@ -735,6 +737,31 @@ function createNumberOfHours() {
         
     })
 }
+
+function saveImageDraft() {
+    var fileInput = document.getElementById('image_input');
+    var file = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('image', file);
+    formData.append('pk', pk);
+    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+    
+    $.ajax({
+        method: "POST",
+        url: '{% url "api:save_draft" %}',
+        data : formData,
+        processData: false,
+        contentType: false,
+        //processData: false,
+        success: function(data){
+            pk = data.pk
+        },error: function(error){
+            alert("ERROR!")
+        },
+        
+    })
+}
+
 
     function saveChapterDraft() {
         $.ajax({
