@@ -810,9 +810,23 @@ function saveImageDraft() {
         )
     }
 
+
     function createProject(){
         //document.location.href = "/" + "teach";
-        //ajax call to update isCompleted field of the project
+        $.ajax({
+            method: 'POST',
+            url: "{% url 'api:create_project' %}",
+            data :{
+                'pk': pk,
+                'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+            },
+            success: function(data){
+                pk =data.pk
+            }, error: function(error){
+                alert("ERROR!")
+            }
+        }
+        )
         document.location.href = "{% url 'teach:list_of_projects' %}"
     }
 
