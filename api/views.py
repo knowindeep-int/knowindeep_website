@@ -209,3 +209,16 @@ def api_get_languages_prereqs(request):
             }
 
         return Response(data, status = status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_create_project(request):
+    if request.method == 'POST':
+        pk = request.POST.get("pk")
+        if pk is None:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
+        else:
+            project = Project.get_project(pk)
+        
+        project.complete_project
+        updated_project = ProjectSerializer(project)
+        return Response(updated_project.data, status = status.HTTP_200_OK)
