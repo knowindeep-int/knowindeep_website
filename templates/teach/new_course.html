@@ -336,6 +336,7 @@ function createChapterPage() {
                 languages.push(document.getElementById("selectpicker")[i].innerHTML);
             }
         }
+        saveDraft("languages",languages)
         if (languages.length == 0) {
             document.getElementById("error_language").innerHTML = "Cannot Be Empty!";
             document.getElementById("error_language").style = "color: red;";
@@ -354,6 +355,7 @@ function createChapterPage() {
                 pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
             }
         }
+        saveDraft('pre_req',pre_reqs)
         if (pre_reqs.length == 0) {
             document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
             document.getElementById("error_prereq").style = "color: red;";
@@ -649,7 +651,7 @@ function createImagePage() {
             }
         }
     }
-        saveDraft('no_of_hours',no_of_hours)
+        //saveDraft('no_of_hours',parseInt(no_of_hours))
     
     showhide("9")
     div_1 = document.getElementById("1");
@@ -738,11 +740,11 @@ function createNumberOfHours() {
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>";
     div.innerHTML += '<div style="color: black;">'  ;
-    div.innerHTML += '<input class="time_radio_input" checked="checked" type="radio" id="0-2" name="" value="0-2" disabled=false>' +
+    div.innerHTML += '<input class="time_radio_input" checked="checked" type="radio" id="0-2" name="" value="1" disabled=false>' +
         '<label for="0-2">0-2 HOURS</label><br>' +
-        '<input checked="checked" class="time_radio_input" type="radio" id="2-4" name="" value="2-4" style="display: block;visibility: visible">' +
+        '<input checked="checked" class="time_radio_input" type="radio" id="2-4" name="" value="2" style="display: block;visibility: visible">' +
         '<label for="2-4">2-4 HOURS</label><br>' +
-        '<input class="time_radio_input" type="radio" id=">4" name="" value=">4">' +
+        '<input class="time_radio_input" type="radio" id=">4" name="" value="3">' +
         '<label for=">4">MORE THAN 4 HOURS</label>';
     div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         '</div>';
@@ -752,7 +754,7 @@ function createNumberOfHours() {
     function saveDraft(key, value) {
     var key = key;
     var value = value;
-    
+            
     var data = {};
     data[key] = value;
     data['pk'] = pk;
@@ -848,6 +850,13 @@ function saveImageDraft() {
 
 
     function createProject(){
+   
+        for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
+            if (document.getElementsByClassName("time_radio_input")[i].checked) {
+                no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+            }
+        }
+        saveDraft('no_of_hours',no_of_hours)
         //document.location.href = "/" + "teach";
         $.ajax({
             method: 'POST',
