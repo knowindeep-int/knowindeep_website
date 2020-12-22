@@ -142,7 +142,6 @@ def search_project(request):
 @api_view(['POST', 'GET',])
 def api_save_draft(request):
     if request.method == "POST":
-        print(request.data)
     
         pk = request.POST.get('pk', None)
         if pk == "":
@@ -157,6 +156,7 @@ def api_save_draft(request):
             project = Project.objects.get(pk = pk)
         
         project_serializer = ProjectSerializer(data = request.data)
+        print(request.data)
         if not project_serializer.is_valid():
             return Response(project_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
         updated_project = project_serializer.update(instance = project, data = request.data)
