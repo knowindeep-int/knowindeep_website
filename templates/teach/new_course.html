@@ -578,7 +578,7 @@ function createOverviewPage() {
             }
         }
     }
-
+    saveDraft('difficulty_level', difficulty_level)
     if (document.getElementById("selectpicker_prereq") != null) {
         pre_reqs = [];
         for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
@@ -634,6 +634,7 @@ function createOverviewPage() {
 function createImagePage() {
     if (document.getElementById("overview_input") != null) {
         overview = document.getElementById("overview_input").value;
+        saveDraft('overview',overview);
         if (document.getElementById("overview_input").value == "") {
             document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
             document.getElementById("error_overview").style = "color: red;";
@@ -648,7 +649,7 @@ function createImagePage() {
             }
         }
     }
-
+        saveDraft('no_of_hours',no_of_hours)
     
     showhide("9")
     div_1 = document.getElementById("1");

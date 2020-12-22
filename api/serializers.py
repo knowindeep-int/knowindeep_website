@@ -7,7 +7,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
-        fields = ['image', 'title', 'description', 'slug']
+        fields = ['image', 'title', 'description', 'slug', 'overview', 'languages','difficulty_level','no_of_hours']
         extra_kwargs = {'slug': {'required': False}, 'title': {'required': False}}
 
     def update(self, instance, data):
@@ -17,6 +17,9 @@ class ProjectSerializer(serializers.ModelSerializer):
         #print(self.data.image)
         if 'image' in data:
             instance.image = (data['image'], instance.image)[data['image'] is None]
+        instance.overview =(self.data['overview'], instance.overview)[self.data.get('overview', None) is None]
+        instance.difficulty_level =(self.data['difficulty_level'], instance.difficulty_level)[self.data.get('difficulty_level', None) is None]
+        instance.no_of_hours =(self.data['no_of_hours'], instance.no_of_hours)[self.data.get('no_of_hours', None) is None]
         instance.save()
         return instance
 
