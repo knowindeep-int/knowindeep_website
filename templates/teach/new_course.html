@@ -21,7 +21,7 @@ if('{{project.title}}' != ""){
     var languages = [];
     var overview = "";
     var pre_reqs = [];
-    var pk = "";
+    var pk = '{{project.pk}}';
     var counter = 1;
     var chapter_innerHTML = "";
     var chapter_count = 2;
@@ -151,8 +151,81 @@ else{
             divid.style.display = "block";
         }
     };
+    
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+        }
+        return "";
+    }
+    
     window.onload = function () {
+        //var url = window.location.href;    
+        //f (url.indexOf('?') > -1){
+        //l += '&param=1'
+        //}else{
+        //url += '?param=1'
+        //}
+        //alert(pk)
+        //alert(getCookie('pk'))
+        //alert(JSON.parse(document.cookie))
+        //alert(getCookie("pk"))
+        //pk = getCookie("pk")
         
+        //alert(pk)
+        //if(getCookie('pk') != "" && pk != '{{project.pk}}'){
+        //    window.location.href = '/teach/add/' + getCookie('pk');
+            //document.cookie = "pk=";
+            //document.cookie = "pk=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+            //document.cookie = "pk=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        //}
+        //pk = sessionStorage.getItem('pk')
+        //sessionStorage.setItem('pk', sessionStorage.getItem('pk'))
+        //var no_of_count = 0
+        //if (pk != "" && sessionStorage.getItem('pk') != ""  ){
+         //   pk = sessionStorage.getItem('pk')//////
+
+//            if (pk != null){
+  //              window.location.href = '/teach/add/' + pk;
+      //          sessionStorage.removeItem('pk')
+    //        }
+           // no_of_count += 1
+            
+            //sessionStorage.setItem('pk', pk)
+        //}
+        ///alert(window.location.href)
+       //var count =0
+        if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
+            pk = sessionStorage.getItem('pk')
+            if (pk == null){
+                pk = ""
+            }
+            else{
+                window.location.href = "/teach/add/" + pk
+                sessionStorage.removeItem("pk")
+            }
+            //sessionStorage.removeItem('pk')
+            //alert(pk)
+            //count +=1;
+        }
+        else{
+            sessionStorage.removeItem('pk')
+        }
+        
+        //window.location.href = url;
+        //location.href = "/teach/add/"+ pk
+        //alert(window.name)
+        //pk = sessionStorage.getItem("pk")
+        //alert(pk)
         if('{{status}}' == 'title'){
             createTitlePage();   
         }
@@ -171,13 +244,13 @@ else{
     };
 
     function createDescriptionPage() {
-
-
-
+        
         if (document.getElementById("title_input") != null) {
 
             title = document.getElementById("title_input").value;
             saveDraft("title", title);
+            
+            
 
             if (document.getElementById("title_input").value == "") {
                 document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
@@ -199,6 +272,7 @@ else{
                 }
             }
         }
+        //window.name = pk
         
         showhide("2");
         var div_1 = document.getElementById("1");
@@ -265,6 +339,7 @@ else{
                 }
             }
         }
+        
 }
 
 function createTitlePage() {
@@ -340,7 +415,10 @@ function createChapterPage() {
     
 
     saveDraft("description", description);
-
+    alert(pk)
+    sessionStorage.setItem("pk", pk);
+    //document.cookie = "pk=" + pk;
+    
     showhide("4");
     div_1 = document.getElementById("1");
     div_1.setAttribute("style", "display: none;");
@@ -800,9 +878,12 @@ function saveImageDraft() {
         $.ajax({
             method: 'GET',
             url: "{% url 'api:save_draft' %}",
-            data: {},
+            data: {
+                'pk': pk
+            },
             success: function(data){
                 project_draft = data.project_draft
+
             }, error: function(error){
                 alert("ERROR!")
             }
