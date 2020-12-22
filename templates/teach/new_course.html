@@ -21,7 +21,7 @@ if('{{project.title}}' != ""){
     var languages = [];
     var overview = "";
     var pre_reqs = [];
-    var pk = "";
+    var pk = '{{project.pk}}';
     var counter = 1;
     var chapter_innerHTML = "";
     var chapter_count = 2;
@@ -151,33 +151,33 @@ else{
             divid.style.display = "block";
         }
     };
-    window.onload = function () {
-        
-        if('{{status}}' == 'title'){
-            createTitlePage();   
+    
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
         }
-        //if('{{status}}' == 'description'){
-        //    createDescriptionPage();   
-        //}
-        //if('{{status}}' == 'chapter'){
-        //    createChapterPage();
-        //}
-        else{
-            createTitlePage();
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
         }
-        
-        getLangPrereq();
-        
-    };
+        }
+        return "";
+    }
+    
+    
 
     function createDescriptionPage() {
-
-
-
+        
         if (document.getElementById("title_input") != null) {
 
             title = document.getElementById("title_input").value;
             saveDraft("title", title);
+            
+            
 
             if (document.getElementById("title_input").value == "") {
                 document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
@@ -199,7 +199,9 @@ else{
                 }
             }
         }
-        
+        //window.name = pk
+        setTimeout(function(){sessionStorage.setItem('pk',pk);}, 100)
+  
         showhide("2");
         var div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display:none");
@@ -265,8 +267,34 @@ else{
                 }
             }
         }
+        
 }
-
+window.onload = function () {
+        if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
+            pk = sessionStorage.getItem('pk')
+            if (pk == null){
+                pk = ""
+            }
+            else{
+                window.location.href = "/teach/add/" + pk
+                sessionStorage.removeItem("pk")
+            }
+            
+        }
+        else{
+            sessionStorage.removeItem('pk')
+        }
+        
+        if('{{status}}' == 'title'){
+            createTitlePage();   
+        }
+        else{
+            createTitlePage();
+        }
+        
+        getLangPrereq();
+        
+    };
 function createTitlePage() {
     if( document.getElementById("description_input") != null) {
         description = document.getElementById("description_input").value;
@@ -340,7 +368,10 @@ function createChapterPage() {
     
 
     saveDraft("description", description);
-
+    //alert(pk)
+    sessionStorage.setItem("pk", pk);
+    //document.cookie = "pk=" + pk;
+    
     showhide("4");
     div_1 = document.getElementById("1");
     div_1.setAttribute("style", "display: none;");
@@ -736,6 +767,7 @@ function createNumberOfHours() {
         },
         
     })
+    //alert(pk)
 }
 
 function saveImageDraft() {
@@ -800,9 +832,12 @@ function saveImageDraft() {
         $.ajax({
             method: 'GET',
             url: "{% url 'api:save_draft' %}",
-            data: {},
+            data: {
+                'pk': pk
+            },
             success: function(data){
                 project_draft = data.project_draft
+
             }, error: function(error){
                 alert("ERROR!")
             }
