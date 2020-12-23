@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% load static %} {% block content_head %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}"> {% endblock %}
-
+<!-- <meta property="og:url" content="https://www.your-domain.com/your-page.html" /> -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KnowinDeep" />
+<!-- <meta property="og:description" content="Your description" /> -->
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
 {% block content %}
 <div class="image">
@@ -18,16 +21,25 @@
     </div>
 </div>
 <script>
-    function copyProjectPageURLToClipBoard(project_slug){
-        var input = document.createElement('input')
-        var url = window.location.href
-        url += '/' + project_slug
-        input.value = url
-        document.body.appendChild(input)
-        input.select()
-        document.execCommand("copy")
-        document.body.removeChild(input)
+    function copyProjectPageURLToClipBoard() {
+        // var input = document.createElement('input');
+        // var url = window.location.href;
+        // url += '/' + project_slug;
+        // input.value = url;
+        // document.body.appendChild(input);
+        // input.select();
+        // document.execCommand("copy");
+        // document.body.removeChild(input);
+        FB.ui({
+            display: 'popup',
+            method: 'share',
+            href: 'https://developers.facebook.com/docs/',
+        }, function(response) {});
     }
+
+
+
+    // document.getElementById('shareButton').onclick = function() { // }
 </script>
 
 <div class="container">
@@ -44,7 +56,7 @@
             <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
-                <button style="float: right;" onclick="" type="button" class="btn btn-primary">Share</button>
+                <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="https://github.com/knowindeep-int/knowindeep_website/pull/97" id="shareButton">Share</button>
 
 
                 <p>{{ project.overview }}</p>
@@ -52,7 +64,7 @@
                 <p>Hours To Complete: {{ project.no_of_hours }}</p>
                 <p>Level: {{ project.difficulty_level }}</p>
                 <p>Languages Used: {{project.languages.all|join:', '}}</p>
-                
+
 
             </div>
 
@@ -60,10 +72,10 @@
                 <div class="col-sm-4 ml-4">
                     <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
                 </div>
-                
+
 
                 {% if request.user.is_superuser %}
-                
+
                 <div class="col-sm-4 ">
 
                     {% if not project.isApproved %}
@@ -90,9 +102,22 @@
             <div class="card-image">
                 <img class="blogImage" src="media/{{ project.image }}" alt="{{project.title}}">
             </div>
+            <div id="fb-root"></div>
+            <script>
+                (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+
+                    (document, 'script', 'facebook-jssdk'));
+            </script>
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
-                <button style="float: right;" onclick="" type="button" class="btn btn-primary">Share</button>
+                <button style="float: right;" onclick="" type="button" class="btn btn-primary" data-href="https://github.com/knowindeep-int/knowindeep_website/pull/97" data-layout="button_count">Share</button>
 
 
                 <p>{{ project.overview }}</p>
