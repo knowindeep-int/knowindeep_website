@@ -7,6 +7,7 @@ def add_course(request, pk = None):
     if request.user.is_authenticated:
         languages = Language.getAllLanguages()
         pre_reqs = PreRequisite.getAllPreReqs()
+        
 
         if pk is None:
             context = {

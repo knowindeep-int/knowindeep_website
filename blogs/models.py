@@ -132,6 +132,10 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    def get_project_absolute_url(slug, request):
+        abs_url = request.build_absolute_uri(reverse('blogs:sub_topic', args = [slug]))
+        return abs_url
+
     @classmethod
     def get_status(cls, pk):
         project = cls.objects.get(pk=pk)
