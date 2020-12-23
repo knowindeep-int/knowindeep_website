@@ -16,6 +16,8 @@
 
     {% block jquery %}
 
+    
+
     function fetchComments() {
         showLoader()
         $.ajax({
@@ -147,18 +149,35 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="center">
+
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
         <li class="breadcrumb-item active">{{ chapter_content.heading | title }}</li>
     </ol>
+
 </div>
+<script>
+    function copyCurrentPageURLToClipBoard(){
+        var input = document.createElement("input")
+        var url = document.location.href
+        input.value = url
+        document.body.appendChild(input)
+        input.select();
+        document.execCommand("copy")
+    }
+</script>
+
+<button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button>
+
 <div class="row">
+
     <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
     <div class="col-sm-12 col-md-12 col-lg-8 container">
         <h2>{{ chapter_content.heading }}</h2>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-2"></div>
+
 </div>
 
 
