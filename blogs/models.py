@@ -212,6 +212,10 @@ class Chapter(models.Model):
     def __str__(self):
         return self.heading
 
+    def get_chapter_absolute_url(project_slug, chapter_slug, request):
+        abs_url = request.build_absolute_uri(reverse('blogs:chapter_post', args = [project_slug, chapter_slug]))
+        return abs_url
+
     def get_like_url(self):
         return reverse("api:like-post")
 
