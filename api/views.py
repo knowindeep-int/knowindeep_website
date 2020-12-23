@@ -222,3 +222,18 @@ def api_create_project(request):
         project.complete_project
         updated_project = ProjectSerializer(project)
         return Response(updated_project.data, status = status.HTTP_200_OK)
+
+@api_view(['GET',])
+def api_get_project_absolute_url(request):
+    if request.method == "GET":
+        slug = request.GET.get('slug')
+
+        project = Project.objects.get(slug = slug)
+        url = project.get_absolute_url(slug = slug, request = request)
+        
+        data = {
+            'url': url  
+        }
+
+        return Response(data, status = status.HTTP_200_OK)
+
