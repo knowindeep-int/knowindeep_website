@@ -525,12 +525,13 @@ function createDifficultyPage() {
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD DIFFICULTY LEVEL FOR THE PROJECT</h2>";
     div.innerHTML += '<div style="color: black;">';
-    div.innerHTML += '<input class="difficulty_radio_input" type="radio" id="easy" name="" value="EASY" checked="checked">' +
-        '<label for="easy">EASY</label><br>' +
-        '<input class="difficulty_radio_input" type="radio" id="medium" style="color: black;" value="MEDIUM">' +
-        '<label for="meduim">MEDIUM</label><br>' +
-        '<input  class="difficulty_radio_input" type="radio" id="hard" name="" value="HARD">' +
-        '<label for="hard">HARD</label>';
+    div.innerHTML +=
+                    '<input class="difficulty_radio_input" type="radio" id="easy"   name="diff" value="EASY"   style="opacity: 1;">' +
+                    '<label style="font-size:18px;" for="easy">EASY</label><br>' +           
+                     '<input class="difficulty_radio_input" type="radio" id="medium" name="diff" value="MEDIUM" style="opacity: 1;">' +
+                     '<label style="font-size:18px;" for="medium">MEDIUM</label><br>' +
+                     '<input class="difficulty_radio_input" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
+                     '<label style="font-size:18px;" for="hard">HARD</label>';
     div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createChapterPage()">Previous</button>' +
         '</div>';
 
@@ -704,11 +705,11 @@ function createNumberOfHours() {
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>";
     div.innerHTML += '<div style="color: black;">'  ;
-    div.innerHTML += '<input class="time_radio_input" checked="checked" type="radio" id="0-2" name="" value="0-2" disabled=false>' +
+    div.innerHTML += '<input class="time_radio_input" type="radio" id="0-2" name="" value="0-2" style="opacity: 1;">' +
         '<label for="0-2">0-2 HOURS</label><br>' +
-        '<input checked="checked" class="time_radio_input" type="radio" id="2-4" name="" value="2-4" style="display: block;visibility: visible">' +
+        '<input class="time_radio_input" type="radio" id="2-4" name="" value="2-4"  style="opacity: 1;">' +
         '<label for="2-4">2-4 HOURS</label><br>' +
-        '<input class="time_radio_input" type="radio" id=">4" name="" value=">4">' +
+        '<input class="time_radio_input" type="radio" id=">4" name="" value=">4" style="opacity: 1;">' +
         '<label for=">4">MORE THAN 4 HOURS</label>';
     div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         '</div>';
