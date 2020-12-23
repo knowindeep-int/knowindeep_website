@@ -37,9 +37,23 @@
         }, function(response) {});
     }
 
-
-
-    // document.getElementById('shareButton').onclick = function() { // }
+    function getProjectAbsoluteUrl(project_slug){
+        alert(project_slug)
+        $.ajax({
+            method: 'GET',
+            url: '{%url "api:get_project_absolute_url"%}',
+            data : {
+                'slug': project_slug
+            },
+        success: function(data){
+            alert(data.url)
+            return data.url;
+        },error: function(error){
+            alert("ERROR!")
+        },
+        
+    })}
+    
 </script>
 
 <div class="container">
@@ -56,8 +70,8 @@
             <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
-                <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="https://github.com/knowindeep-int/knowindeep_website/pull/97" id="shareButton">Share</button>
-
+                <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="get_project_absolute_url({{project.slug}})" id="shareButton">Share</button>
+                <button style="float: right;" onclick="getProjectAbsoluteUrl('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
 
                 <p>{{ project.overview }}</p>
                 <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
@@ -117,8 +131,8 @@
             </script>
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
-                <button style="float: right;" onclick="" type="button" class="btn btn-primary" data-href="https://github.com/knowindeep-int/knowindeep_website/pull/97" data-layout="button_count">Share</button>
-
+                <button style="float: right;" onclick="getProjectAbsoluteUrl('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
+                <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="get_project_absolute_url({{project.slug}})" id="shareButton">Share</button>
 
                 <p>{{ project.overview }}</p>
                 <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
