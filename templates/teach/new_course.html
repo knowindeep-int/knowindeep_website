@@ -271,12 +271,14 @@ else{
         }
         
 }
-
+var languages_add = new Array();
 function add_language(){
     var new_lang =document.getElementById("add_language_input").value;
+    
     //console.log(new_lang)
-    languages.push(new_lang)
-    saveDraft("languages",languages)
+    languages_add.push(new_lang)
+    saveDraft("languages",languages_add, isAdded = true)
+    setTimeout(function(){location.reload();},50)
 }
 
 function add_pre_req(){
@@ -766,8 +768,8 @@ function createNumberOfHours() {
         '</div>';
 }
 
-
-    function saveDraft(key, value) {
+   
+    function saveDraft(key, value, isAdded = false) {
     var key = key;
     var value = value;
             
@@ -775,6 +777,7 @@ function createNumberOfHours() {
     data[key] = value;
     data['pk'] = pk;
     data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
+    data['isAdded'] =isAdded;
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
