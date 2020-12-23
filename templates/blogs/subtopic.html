@@ -12,6 +12,18 @@
     <h2 id="blog_heading" class="center">
         {{ project.title }}
     </h2>
+    <script>
+        function copyCurrentPageURLToClipBoard(){
+            var input = document.createElement("input")
+            var url = document.location.href
+            input.value = url
+            document.body.appendChild(input)
+            input.select();
+            document.execCommand("copy")
+            document.body.removeChild(input)
+        }
+    </script>
+    <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button>
     <div style="text-align: center;">
         <img src="/media/{{ project.image }}" alt="{{project.title}}">
     </div>
@@ -59,6 +71,8 @@
             <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
+            <button style="float: right;" onclick="" type="button" class="btn btn-primary">Share</button>
+
 
 
         </div>
