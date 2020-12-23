@@ -17,7 +17,18 @@
             </button>
     </div>
 </div>
-
+<script>
+    function copyProjectPageURLToClipBoard(project_slug){
+        var input = document.createElement('input')
+        var url = window.location.href
+        url += '/' + project_slug
+        input.value = url
+        document.body.appendChild(input)
+        input.select()
+        document.execCommand("copy")
+        document.body.removeChild(input)
+    }
+</script>
 
 <div class="container">
     <br>
@@ -33,13 +44,15 @@
             <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
+                <button style="float: right;" onclick="" type="button" class="btn btn-primary">Share</button>
+
 
                 <p>{{ project.overview }}</p>
                 <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
                 <p>Hours To Complete: {{ project.no_of_hours }}</p>
                 <p>Level: {{ project.difficulty_level }}</p>
                 <p>Languages Used: {{project.languages.all|join:', '}}</p>
-
+                
 
             </div>
 
@@ -47,8 +60,10 @@
                 <div class="col-sm-4 ml-4">
                     <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
                 </div>
-                {% if request.user.is_superuser %}
+                
 
+                {% if request.user.is_superuser %}
+                
                 <div class="col-sm-4 ">
 
                     {% if not project.isApproved %}
@@ -77,6 +92,8 @@
             </div>
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
+                <button style="float: right;" onclick="" type="button" class="btn btn-primary">Share</button>
+
 
                 <p>{{ project.overview }}</p>
                 <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
