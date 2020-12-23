@@ -22,6 +22,22 @@
             document.execCommand("copy")
             document.body.removeChild(input)
         }
+        function getChapterAbsoluteUrl(project_slug,chapter_slug){
+            $.ajax({
+                method: 'GET',
+                url: '{% url "api:get_chapter_absolute_url" %}',
+                data:{
+                    'project_slug': project_slug,
+                    'chapter_slug': chapter_slug
+                },
+                success(data){
+                    alert(data.url)
+                    return data.url;
+                },error(data){
+                    alert('ERROR!')
+                }
+            })
+        }
     </script>
     <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button>
     <div style="text-align: center;">
@@ -71,7 +87,7 @@
             <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
-            <button style="float: right;" onclick="" type="button" class="btn btn-primary">Share</button>
+            <button style="float: right;" onclick="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}')" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl({{project.slug}}, {{chapter.slug}})">Share</button>
 
 
 
