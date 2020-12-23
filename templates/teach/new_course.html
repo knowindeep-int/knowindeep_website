@@ -16,15 +16,16 @@ if('{{project.title}}' != ""){
     //var chapters = '{{project.chapters.all | safe}}';
     var chapters = []
     var description = '{{project.description}}';
-    var difficulty_level = null;
-    var no_of_hours = null;
-    var languages = [];
-    var overview = "";
-    var pre_reqs = [];
-    var pk = "";
+    var difficulty_level = '{{difficulty_level}}';
+    var no_of_hours = '{{no_of_hours}}';
+    var languages = '{{selected_languages}}';
+    var overview = "{{overview}}";
+    var pre_reqs = '{{project.pre_req.all}}';
+    var pk = '{{project.pk}}';
     var counter = 1;
     var chapter_innerHTML = "";
     var chapter_count = 2;
+    var image;
 }
 else{
     var title = "";
@@ -39,6 +40,7 @@ else{
     var counter = 1;
     var chapter_innerHTML = ""; 
     var chapter_count = 2;
+    var image;
 }
     class Chapter {
         constructor(heading, description, content, youtube_link, link_to) {
@@ -133,7 +135,7 @@ else{
         chapter_count += 1;
 
     };
-
+  
     function showhide(id) {
         if (document.getElementById) {
             var divid = document.getElementById(id);
@@ -149,33 +151,33 @@ else{
             divid.style.display = "block";
         }
     };
-    window.onload = function () {
-        
-        if('{{status}}' == 'title'){
-            createTitlePage();   
+    
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
         }
-        //if('{{status}}' == 'description'){
-        //    createDescriptionPage();   
-        //}
-        //if('{{status}}' == 'chapter'){
-        //    createChapterPage();
-        //}
-        else{
-            createTitlePage();
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
         }
-        
-        getLangPrereq();
-        
-    };
+        }
+        return "";
+    }
+    
+    
 
     function createDescriptionPage() {
-
-
-
+        
         if (document.getElementById("title_input") != null) {
 
             title = document.getElementById("title_input").value;
             saveDraft("title", title);
+            
+            
 
             if (document.getElementById("title_input").value == "") {
                 document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
@@ -197,7 +199,9 @@ else{
                 }
             }
         }
-        
+        //window.name = pk
+        setTimeout(function(){sessionStorage.setItem('pk',pk);}, 100)
+  
         showhide("2");
         var div_1 = document.getElementById("1");
         div_1.setAttribute("style", "display:none");
@@ -228,6 +232,7 @@ else{
 
 
         div.innerHTML += '</select>'
+        div.innerHTML += '<input type="text" style = "color:black;" id="add_language_input"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_language()">ADD NEW LANGUAGE</button>'
         div.innerHTML += '<span id="error_language"></span></div>';
         
         div.innerHTML += "<h2 style='color: black;'> ADD PRE-REQUISITES </h2>";
@@ -240,9 +245,10 @@ else{
         for(var i=0; i< prereqs_all.length; i++){
             document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
         }
-
+        div.innerHTML += '<input type="text" style = "color:black;" id="add_pre_req_input"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
         div.innerHTML += '<span id="error_prereq" ></span></div>'
         div.setAttribute("class", "jumbotron text-center");
+
         div.innerHTML += "<h2 style='color: black;'>DESCRIPTION </h2>";
         div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><span id="error_description"></span>';
         
@@ -263,8 +269,52 @@ else{
                 }
             }
         }
+        
+}
+var languages_add = new Array();
+function add_language(){
+    
+    var new_lang =document.getElementById("add_language_input").value;
+    languages_add.push(new_lang)
+    saveDraft("languages",languages_add, isAdded = true)
+    setTimeout(function(){location.reload();},50)
+    
 }
 
+var pre_reqs_add = new Array();
+function add_pre_req(){
+    
+    var new_pre =document.getElementById("add_pre_req_input").value;
+    pre_reqs_add.push(new_pre)
+    saveDraft("pre_req",pre_reqs_add, isAdded = true)
+    setTimeout(function(){location.reload();},50)
+}
+window.onload = function () {
+        if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
+            pk = sessionStorage.getItem('pk')
+            if (pk == null){
+                pk = ""
+            }
+            else{
+                window.location.href = "/teach/add/" + pk
+                sessionStorage.removeItem("pk")
+            }
+            
+        }
+        else{
+            sessionStorage.removeItem('pk')
+        }
+        
+        if('{{status}}' == 'title'){
+            createTitlePage();   
+        }
+        else{
+            createTitlePage();
+        }
+        
+        getLangPrereq();
+        
+    };
 function createTitlePage() {
     if( document.getElementById("description_input") != null) {
         description = document.getElementById("description_input").value;
@@ -306,6 +356,7 @@ function createChapterPage() {
                 languages.push(document.getElementById("selectpicker")[i].innerHTML);
             }
         }
+        saveDraft("languages",languages)
         if (languages.length == 0) {
             document.getElementById("error_language").innerHTML = "Cannot Be Empty!";
             document.getElementById("error_language").style = "color: red;";
@@ -324,6 +375,7 @@ function createChapterPage() {
                 pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
             }
         }
+        saveDraft('pre_req',pre_reqs)
         if (pre_reqs.length == 0) {
             document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
             document.getElementById("error_prereq").style = "color: red;";
@@ -336,9 +388,12 @@ function createChapterPage() {
     }
 
     
-
+    alert(description)
     saveDraft("description", description);
-
+    //alert(pk)
+    sessionStorage.setItem("pk", pk);
+    //document.cookie = "pk=" + pk;
+    
     showhide("4");
     div_1 = document.getElementById("1");
     div_1.setAttribute("style", "display: none;");
@@ -546,7 +601,7 @@ function createOverviewPage() {
             }
         }
     }
-
+    saveDraft('difficulty_level', difficulty_level)
     if (document.getElementById("selectpicker_prereq") != null) {
         pre_reqs = [];
         for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
@@ -602,6 +657,8 @@ function createOverviewPage() {
 function createImagePage() {
     if (document.getElementById("overview_input") != null) {
         overview = document.getElementById("overview_input").value;
+        alert(overview)
+        saveDraft('overview',overview);
         if (document.getElementById("overview_input").value == "") {
             document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
             document.getElementById("error_overview").style = "color: red;";
@@ -616,7 +673,7 @@ function createImagePage() {
             }
         }
     }
-
+        //saveDraft('no_of_hours',parseInt(no_of_hours))
     
     showhide("9")
     div_1 = document.getElementById("1");
@@ -662,12 +719,12 @@ function createImagePage() {
 
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
     div.innerHTML += '<div style="color: black;">';
-    div.innerHTML += '<input type="file" style="color: black;">';
+    div.innerHTML += '<input type="file" style="color: black;" id="image_input">';
     div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
 }
 
 function createNumberOfHours() {
-
+    saveImageDraft()
     showhide("10");
     div_1 = document.getElementById("1");
     div_1.setAttribute("style", "display: none;");
@@ -711,19 +768,20 @@ function createNumberOfHours() {
         '<label for="2-4">2-4 HOURS</label><br>' +
         '<input class="time_radio_input" type="radio" id=">4" name="" value=">4" style="opacity: 1;">' +
         '<label for=">4">MORE THAN 4 HOURS</label>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
+    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         '</div>';
 }
 
-
-    function saveDraft(key, value) {
+   
+    function saveDraft(key, value, isAdded = false) {
     var key = key;
     var value = value;
-    
+            
     var data = {};
     data[key] = value;
     data['pk'] = pk;
     data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
+    data['isAdded'] =isAdded;
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
@@ -735,7 +793,33 @@ function createNumberOfHours() {
         },
         
     })
+    //alert(pk)
 }
+
+function saveImageDraft() {
+    var fileInput = document.getElementById('image_input');
+    var file = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('image', file);
+    formData.append('pk', pk);
+    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+    
+    $.ajax({
+        method: "POST",
+        url: '{% url "api:save_draft" %}',
+        data : formData,
+        processData: false,
+        contentType: false,
+        //processData: false,
+        success: function(data){
+            pk = data.pk
+        },error: function(error){
+            alert("ERROR!")
+        },
+        
+    })
+}
+
 
     function saveChapterDraft() {
         $.ajax({
@@ -774,15 +858,46 @@ function createNumberOfHours() {
         $.ajax({
             method: 'GET',
             url: "{% url 'api:save_draft' %}",
-            data: {},
+            data: {
+                'pk': pk
+            },
             success: function(data){
                 project_draft = data.project_draft
+
             }, error: function(error){
                 alert("ERROR!")
             }
         }
         )
     }
+
+
+    function createProject(){
+   
+        for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
+            if (document.getElementsByClassName("time_radio_input")[i].checked) {
+                no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+            }
+        }
+        saveDraft('no_of_hours',no_of_hours)
+        //document.location.href = "/" + "teach";
+        $.ajax({
+            method: 'POST',
+            url: "{% url 'api:create_project' %}",
+            data :{
+                'pk': pk,
+                'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+            },
+            success: function(data){
+                pk =data.pk
+            }, error: function(error){
+                alert("ERROR!")
+            }
+        }
+        )
+        document.location.href = "{% url 'teach:list_of_projects' %}"
+    }
+
 
 
 </script>

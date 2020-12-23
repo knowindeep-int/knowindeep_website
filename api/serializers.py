@@ -7,12 +7,41 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
-        fields = ['image', 'title', 'description', 'slug']
+        fields = ['image', 'title', 'description', 'slug', 'overview', 'languages','difficulty_level','no_of_hours']
         extra_kwargs = {'slug': {'required': False}, 'title': {'required': False}}
 
-    def update(self, instance):
+    def update(self, instance, data):
         instance.description = (self.data['description'], instance.description)[self.data.get('description', None) is None]        
         instance.title = (self.data['title'], instance.title)[self.data.get('title', None) is None]
+        #instance.image = (self.data['image'], instance.image)[self.data.get('image', None) is None]
+        #print(self.data.image)
+        if 'image' in data:
+            instance.image = (data['image'], instance.image)[data['image'] is None]
+        instance.overview =(self.data['overview'], instance.overview)[self.data.get('overview', None) is None]
+        instance.difficulty_level =(self.data['difficulty_level'], instance.difficulty_level)[self.data.get('difficulty_level', None) is None]
+        instance.no_of_hours =(self.data['no_of_hours'], instance.no_of_hours)[self.data.get('no_of_hours', None) is None]
+        if dict(data).get('languages[]'):
+            if data['isAdded'] == 'false':
+                instance.languages.clear()
+            for language in dict(data).get('languages[]'):
+                
+                try:
+                    language_obj = Language.objects.get(name__iexact = language)
+                except Language.DoesNotExist:
+                    language_obj = Language.objects.create(name = language.capitalize())
+
+                instance.languages.add(language_obj)
+
+        if dict(data).get('pre_req[]'):
+            if data['isAdded'] == 'false':
+                instance.pre_req.clear()
+            for pre_req in dict(data).get('pre_req[]'):
+                try:
+                    pre_req_obj = PreRequisite.objects.get(name__iexact = pre_req)
+                except PreRequisite.DoesNotExist:
+                    pre_req_obj = PreRequisite.objects.create(name = pre_req.capitalize())
+
+                instance.pre_req.add(pre_req_obj)
         instance.save()
         return instance
 

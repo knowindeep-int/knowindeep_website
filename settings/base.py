@@ -22,7 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -222,3 +221,4 @@ CKEDITOR_CONFIGS = {
         'extraPlugins':['bootstrapTabs']
     },
 }
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
