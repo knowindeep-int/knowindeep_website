@@ -237,3 +237,18 @@ def api_get_project_absolute_url(request):
 
         return Response(data, status = status.HTTP_200_OK)
 
+@api_view(['GET',])
+def api_get_chapter_absolute_url(request):
+    if request.method == "GET":
+        project_slug = request.GET.get('project_slug')
+        chapter_slug = request.GET.get('chapter_slug')
+
+        url = Chapter.get_chapter_absolute_url(chapter_slug = chapter_slug, project_slug = project_slug, request = request)
+        
+        data = {
+            'url': url  
+        }
+
+        return Response(data, status = status.HTTP_200_OK)
+
+
