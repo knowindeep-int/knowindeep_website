@@ -16,11 +16,11 @@ if('{{project.title}}' != ""){
     //var chapters = '{{project.chapters.all | safe}}';
     var chapters = []
     var description = '{{project.description}}';
-    var difficulty_level = null;
-    var no_of_hours = null;
-    var languages = [];
-    var overview = "";
-    var pre_reqs = [];
+    var difficulty_level = '{{difficulty_level}}';
+    var no_of_hours = '{{no_of_hours}}';
+    var languages = '{{selected_languages}}';
+    var overview = "{{overview}}";
+    var pre_reqs = '{{project.pre_req.all}}';
     var pk = '{{project.pk}}';
     var counter = 1;
     var chapter_innerHTML = "";
@@ -135,7 +135,7 @@ else{
         chapter_count += 1;
 
     };
-
+  
     function showhide(id) {
         if (document.getElementById) {
             var divid = document.getElementById(id);
@@ -274,6 +274,7 @@ else{
 
 function add_language(){
     var new_lang =document.getElementById("add_language_input").value;
+    //console.log(new_lang)
     languages.push(new_lang)
     saveDraft("languages",languages)
 }
@@ -382,7 +383,7 @@ function createChapterPage() {
     }
 
     
-
+    alert(description)
     saveDraft("description", description);
     //alert(pk)
     sessionStorage.setItem("pk", pk);
@@ -650,6 +651,7 @@ function createOverviewPage() {
 function createImagePage() {
     if (document.getElementById("overview_input") != null) {
         overview = document.getElementById("overview_input").value;
+        alert(overview)
         saveDraft('overview',overview);
         if (document.getElementById("overview_input").value == "") {
             document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
