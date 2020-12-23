@@ -21,7 +21,8 @@ class ProjectSerializer(serializers.ModelSerializer):
         instance.difficulty_level =(self.data['difficulty_level'], instance.difficulty_level)[self.data.get('difficulty_level', None) is None]
         instance.no_of_hours =(self.data['no_of_hours'], instance.no_of_hours)[self.data.get('no_of_hours', None) is None]
         if dict(data).get('languages[]'):
-            instance.languages.clear()
+            if data['isAdded'] == 'false':
+                instance.languages.clear()
             for language in dict(data).get('languages[]'):
                 
                 try:
@@ -32,7 +33,8 @@ class ProjectSerializer(serializers.ModelSerializer):
                 instance.languages.add(language_obj)
 
         if dict(data).get('pre_req[]'):
-            instance.pre_req.clear()
+            if data['isAdded'] == 'false':
+                instance.pre_req.clear()
             for pre_req in dict(data).get('pre_req[]'):
                 try:
                     pre_req_obj = PreRequisite.objects.get(name__iexact = pre_req)
