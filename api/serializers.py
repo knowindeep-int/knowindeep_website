@@ -7,11 +7,13 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
-        fields = ['image', 'title', 'description', 'slug', 'overview', 'languages','difficulty_level','no_of_hours']
+        fields = ['image', 'title', 'slug', 'overview', 'languages','difficulty_level','no_of_hours']
         extra_kwargs = {'slug': {'required': False}, 'title': {'required': False}}
 
     def update(self, instance, data):
-        instance.description = (self.data['description'], instance.description)[self.data.get('description', None) is None]        
+        #instance.description = (data['description'], instance.description)[data.get('description', None) is None]        
+        if 'description' in data:
+            instance.description = (data['description'], instance.description)[data['description'] is None]
         instance.title = (self.data['title'], instance.title)[self.data.get('title', None) is None]
         #instance.image = (self.data['image'], instance.image)[self.data.get('image', None) is None]
         #print(self.data.image)
