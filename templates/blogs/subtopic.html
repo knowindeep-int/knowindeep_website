@@ -56,10 +56,94 @@
                     alert('ERROR!')
                 }
             })
-            return url
+            return url;
         }
     </script>
+    <script>
+        (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+
+            (document, 'script', 'facebook-jssdk'));
+    </script>
+    {% if project.isApproved %}
     <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button>
+    <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl('{{project.slug}}','{{chapter.slug}}')" id="shareButton">Share</button>
+   
+    <div style="text-align: center;">
+        <img src="/media/{{ project.image }}" alt="{{project.title}}">
+    </div>
+    <div>
+        <h3>What will you do in this course:</h3>
+        {{project.description}}
+    </div>
+
+    <div>
+        <h3>Pre- Requisites for this course?</h3>
+        <ul>
+            {% for pre_req in project.pre_req.all %}
+            <li style="list-style-type: circle">{{pre_req}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h3>Difficulty Level:</h3>
+        {{project.difficulty_level}}
+    </div>
+    <div>
+        <h3>Course Duration</h3>
+        {{project.no_of_hours}}
+    </div>
+    <div>
+        <h3>Languages Used:</h3>
+        <ul>
+            {% if project.languages.all %} {% for language in project.languages.all %}
+            <li style="list-style-type: circle">{{language}}</li>
+            {% endfor %} {% endif %}
+        </ul>
+    </div>
+    <div>
+        <h3>Author Name :</h3> {{project.author.user.first_name }} {{project.author.user.last_name}}
+    </div>
+
+    <div class="center">
+        <div id="content">
+            {{ project.topic_content }}
+        </div>
+    </div>
+    {% if chapters %} {% for chapter in chapters %}
+    <script>
+        document.getElementById("shareButton").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+        alert(document.getElementById("shareButton").getAttribute("data-href"))
+    </script>
+
+    <div id="blog" class="card hoverable" id="hover">
+        <div class="card-action">
+            <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
+                {{ chapter.heading }} : {{ chapter.description }}
+            </a>
+            <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button>
+            <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getChapterAbsoluteUrl('{{project.slug}}','{{chapter.slug}}')" id="shareButton">Share</button>
+            <script>
+                document.getElementById("subtopic_chapter_copy").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+                document.getElementById("shareButton").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+                alert(document.getElementById("shareButton").getAttribute("data-href"))
+            </script>
+
+
+        </div>
+
+    </div>
+
+    {% endfor %} {% else %}
+    <h1>No blogs for the particular url</h1>
+    {%endif%}
+    {% else %}
     <div style="text-align: center;">
         <img src="/media/{{ project.image }}" alt="{{project.title}}">
     </div>
@@ -107,18 +191,12 @@
             <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
-            <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button>
-            <script>
-                document.getElementById("subtopic_chapter_copy").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
-            </script>
-
 
         </div>
 
-    </div>
-
-    {% endfor %} {% else %}
+    </div> {% endfor %} {% else %}
     <h1>No blogs for the particular url</h1>
     {% endif %}
+    {% endif%}
 </div>
 {% endblock content %}
