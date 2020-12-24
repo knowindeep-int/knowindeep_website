@@ -12,6 +12,7 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
 
     {% block jquery %}
@@ -165,6 +166,10 @@
         document.body.appendChild(input)
         input.select();
         document.execCommand("copy")
+        toastr.options.timeOut = 200
+        toastr.success('Copied To ClipBoard');
+        document.body.removeChild(input)
+
     }
 </script>
 
