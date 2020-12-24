@@ -12,7 +12,9 @@
     <h2 id="blog_heading" class="center">
         {{ project.title }}
     </h2>
+
     <script>
+        
         function copyCurrentPageURLToClipBoard(){
             var input = document.createElement("input")
             var url = document.location.href
@@ -21,6 +23,9 @@
             input.select();
             document.execCommand("copy")
             document.body.removeChild(input)
+            toastr.options.timeOut = 200
+            toastr.success('Copied To ClipBoard');
+
         }
         function copyChapterPageURL() {
 
@@ -30,6 +35,9 @@
             input.select();
             document.execCommand("copy");
             document.body.removeChild(input);
+            toastr.options.timeOut = 100
+            toastr.success('Copied To ClipBoard');
+
         }
         function getChapterAbsoluteUrl(project_slug,chapter_slug){
             // alert(project_slug)
