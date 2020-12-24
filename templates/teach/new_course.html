@@ -14,7 +14,17 @@
 if('{{project.title}}' != ""){
     var title = '{{project.title}}';
     //var chapters = '{{project.chapters.all | safe}}';
+    
     var chapters = []
+    {% for chapter in project.chapters.all %}
+    var chapter_add_dict = {}
+    chapter_add_dict['heading'] = '{{chapter.heading}}'
+    chapter_add_dict['content'] = '{{chapter.content}}'
+    chapter_add_dict['description'] = '{{chapter.description}}'
+    chapter_add_dict['youtube_link'] = '{{chapter.youtube_link}}'
+    chapters.push(chapter_add_dict)
+    {% endfor %}
+    
     var description = '{{project.description}}';
     var difficulty_level = '{{difficulty_level}}';
     var no_of_hours = '{{no_of_hours}}';
@@ -55,65 +65,7 @@ else{
     function addChapter(event) {
         let error = 0;
         let focus_on = null;
-        for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
-            if (document.getElementsByClassName("heading")[i] != null) {
-
-                if (document.getElementsByClassName("heading")[i].checkValidity() == false) {
-                    document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" 
-                    document.getElementsByClassName("error_heading")[i].style = "color: red;";
-                    error = 1;
-                    if (focus_on == null) {
-                        document.getElementsByClassName("heading")[i].scrollIntoView({ block: "center" });
-                        focus_on = "heading";
-                    }
-                }
-                else {
-                    document.getElementsByClassName("error_heading")[i].innerHTML = "" 
-                }
-                if (document.getElementsByClassName("description")[i].checkValidity() == false) {
-                    document.getElementsByClassName("error_description")[i].innerHTML = "Not Valid!" 
-                    document.getElementsByClassName("error_description")[i].style = "color: red;";
-                    error = 1;
-                    if (focus_on == null) {
-                        document.getElementsByClassName("description")[i].scrollIntoView({ block: "center" });
-                        focus_on = "description";
-                    }
-                }
-                else {
-                    document.getElementsByClassName("error_description")[i].innerHTML = "" 
-                }
-                if (document.getElementsByClassName("content")[i].checkValidity() == false) {
-                    document.getElementsByClassName("error_content")[i].innerHTML = "Not Valid!" 
-                    document.getElementsByClassName("error_content")[i].style = "color: red;";
-                    error = 1;
-                    if (focus_on == null) {
-                        document.getElementsByClassName("content")[i].scrollIntoView({ block: "center" });
-                        focus_on = "content";
-                    }
-                }
-                else {
-                    document.getElementsByClassName("error_content")[i].innerHTML = "" 
-                }
-                if (document.getElementsByClassName("youtube")[i].checkValidity() == false) {
-                    document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" 
-                    document.getElementsByClassName("error_youtube")[i].style = "color: red;";
-                    error = 1;
-                    if (focus_on == null) {
-                        document.getElementsByClassName("youtube")[i].scrollIntoView({ block: "center" });
-                        focus_on = "youtube";
-                    }
-                }
-                else {
-                    document.getElementsByClassName("error_youtube")[i].innerHTML = "" 
-                }
-
-            }
-
-        }
-        if (error == "1") {
-            return;
-        }
-
+        // for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
         var elem = document.getElementById('chapter_left_button');
         elem.parentNode.removeChild(elem);
         var elem = document.getElementById('chapter_right_button');
@@ -193,7 +145,7 @@ else{
                     chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
                     chapter_add['description'] = document.getElementsByClassName("description")[i].value;
                     chapter_add['content'] = document.getElementsByClassName("content")[i].value;
-                    chapter_add['youtube'] = document.getElementsByClassName("youtube")[i].value;
+                    chapter_add['youtube_link'] = document.getElementsByClassName("youtube")[i].value;
 
                     chapters[i] = chapter_add;
                 }
@@ -319,6 +271,7 @@ function createTitlePage() {
     if( document.getElementById("description_input") != null) {
         description = document.getElementById("description_input").value;
     }
+    
 
     var div_2 = document.getElementById("2")
     div_2.innerHTML = "";
@@ -335,7 +288,10 @@ function createTitlePage() {
     document.getElementById("title_input").dataset.state = 'invalid';
 }
 
+
+var view_count =0 
 function createChapterPage() {
+    
     if (document.getElementById("description_input") != null) {
         description = document.getElementById("description_input").value;
         if (document.getElementById("description_input").value == "") {
@@ -346,7 +302,9 @@ function createChapterPage() {
         else {
             document.getElementById("error_description").innerHTML = "";
         }
+        
     }
+    
     
     
     if(document.getElementById("selectpicker") != null) {
@@ -386,10 +344,11 @@ function createChapterPage() {
         }
 
     }
-
-    
-    alert(description)
     saveDraft("description", description);
+
+    view_count += 1
+    //alert(description)
+   
     //alert(pk)
     sessionStorage.setItem("pk", pk);
     //document.cookie = "pk=" + pk;
@@ -447,14 +406,20 @@ function createChapterPage() {
     else {
         div.innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button></div></div>';
     }
-    if (document.getElementById('heading') != null) { 
-        for (var i=0; i< document.getElementsByClassName("chapter_div").length; i++) {
+
+    // if (document.getElementById('heading') != null) { 
+        
+        for (var i=0; i< chapters.length; i++) {
+            
             document.getElementsByClassName("heading")[i].value = chapters[i]['heading'];
             document.getElementsByClassName("description")[i].value = chapters[i]['description'];
             document.getElementsByClassName("content")[i].value = chapters[i]['content'];
-            document.getElementsByClassName("youtube")[i].value = chapters[i]['youtube'];
+            document.getElementsByClassName("youtube")[i].value = chapters[i]['youtube_link'];
+            if( view_count == 1){
+                if(i < chapters.length-1){addChapter()}
+            }
         }
-    }
+    // }
     
 }
 
@@ -469,9 +434,12 @@ function createDifficultyPage() {
             let chapter = new Chapter(document.getElementsByClassName("heading")[i].value, document.getElementsByClassName("description")[i].value, document.getElementsByClassName("content")[i].value, document.getElementsByClassName("youtube")[i].value, pk)
             chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
             chapter_add['description'] = document.getElementsByClassName("description")[i].value;
-            chapter_add['content'] = document.getElementsByClassName("content")[i].value;
-            chapter_add['youtube'] = document.getElementsByClassName("youtube")[i].value;
-
+            chapter_add['content'] = document.getElementsByClassName("content")[i].value; 
+            chapter_add['youtube_link'] = document.getElementsByClassName("youtube")[i].value;
+            chapter_add['author'] = '{{project.author.pk}}'
+            chapter_add['link_to'] = pk
+            
+            chapters[i] = chapter_add;
             if (document.getElementsByClassName("heading")[i].checkValidity() == false) {
                 document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" 
                 document.getElementsByClassName("error_heading")[i].style = "color: red;";
@@ -519,15 +487,17 @@ function createDifficultyPage() {
             else {
                 document.getElementsByClassName("error_youtube")[i].innerHTML = "" 
             }
-            chapters[i] = chapter_add;
+            
             //chapters.push(chapter)            
         }
     }
-    saveChapterDraft();
+
     if (error == "1") {
         return;
     }
 
+    saveChapterDraft();
+    
     if (document.getElementById("selectpicker") != null) {
         languages = [];
         for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
@@ -589,7 +559,6 @@ function createDifficultyPage() {
                      '<label style="font-size:18px;" for="hard">HARD</label>';
     div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createChapterPage()">Previous</button>' +
         '</div>';
-
 
 }
 
@@ -657,7 +626,6 @@ function createOverviewPage() {
 function createImagePage() {
     if (document.getElementById("overview_input") != null) {
         overview = document.getElementById("overview_input").value;
-        alert(overview)
         saveDraft('overview',overview);
         if (document.getElementById("overview_input").value == "") {
             document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
@@ -831,7 +799,7 @@ function saveImageDraft() {
                 'pk': pk
             },
             success: function(data){
-                chapters = data.chapters
+                // chapters = data.chapters
             }, error: function(error){
                 alert("ERROR!")
             }
