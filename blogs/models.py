@@ -132,6 +132,10 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    def get_project_absolute_url(slug, request):
+        abs_url = request.build_absolute_uri(reverse('blogs:sub_topic', args = [slug]))
+        return abs_url
+
     @classmethod
     def get_status(cls, pk):
         project = cls.objects.get(pk=pk)
@@ -207,6 +211,10 @@ class Chapter(models.Model):
 
     def __str__(self):
         return self.heading
+
+    def get_chapter_absolute_url(project_slug, chapter_slug, request):
+        abs_url = request.build_absolute_uri(reverse('blogs:chapter_post', args = [project_slug, chapter_slug]))
+        return abs_url
 
     def get_like_url(self):
         return reverse("api:like-post")

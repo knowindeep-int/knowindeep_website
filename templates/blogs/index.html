@@ -1,7 +1,12 @@
 {% extends "base.html" %} {% load static %} {% block content_head %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}"> {% endblock %}
-
+<!-- <meta property="og:url" content="https://www.your-domain.com/your-page.html" /> -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KnowinDeep" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<!-- <meta property="og:description" content="Your description" /> -->
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
 {% block content %}
 <div class="image">
@@ -17,7 +22,47 @@
             </button>
     </div>
 </div>
+<script>
+    function copyProjectPageURLToClipBoard(project_slug) {
+        
+        var input = document.createElement('input');
+        document.getElementById("index_project_copy").setAttribute("data-href",  getProjectAbsoluteUrl(project_slug) )
+        input.value = document.getElementById("index_project_copy").getAttribute('data-href');
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        toastr.options.timeOut = 200
+        toastr.success('Copied To ClipBoard');
 
+
+        // FB.ui({
+        //     display: 'popup',
+        //     method: 'share',
+        //     href: 'https://developers.facebook.com/docs/',
+        // }, function(response) {});
+    }
+
+    function getProjectAbsoluteUrl(project_slug){
+        var url = ""
+        $.ajax({
+            method: 'GET',
+            url: '{%url "api:get_project_absolute_url"%}',
+            data : {
+                'slug': project_slug
+            },
+            async: false,
+        success: function(data){
+            url = data.url;
+        },error: function(error){
+            alert("ERROR!")
+        },
+        
+    })
+    return url
+}
+    
+</script>
 
 <div class="container">
     <br>
@@ -33,7 +78,8 @@
             <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
-
+                
+                
                 <p>{{ project.overview }}</p>
                 <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
                 <p>Hours To Complete: {{ project.no_of_hours }}</p>
@@ -47,13 +93,29 @@
                 <div class="col-sm-4 ml-4">
                     <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
                 </div>
+
+
                 {% if request.user.is_superuser %}
 
                 <div class="col-sm-4 ">
 
                     {% if not project.isApproved %}
                     <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
-                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a> {% endif %}
+
+                    <!-- <script>
+                        document.getElementById("index_project_copy").setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                    </script> -->
+
+                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
+                    <button style="float: right;" id="index_project_copy" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
+                    <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button>
+                    
+                    <script>
+                            document.getElementById("shareButton").setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                            // alert(document.getElementById("shareButton").getAttribute("data-href"))
+                    </script> {% endif %}
+                    
+                    
                 </div>
             </div>
             {% else %}
@@ -75,9 +137,22 @@
             <div class="card-image">
                 <img class="blogImage" src="media/{{ project.image }}" alt="{{project.title}}">
             </div>
+            <div id="fb-root"></div>
+            <script>
+                (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+
+                    (document, 'script', 'facebook-jssdk'));
+            </script>
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
-
+                <!-- <button style="float: right;" id= "" onclick="" type="button" class="fb-share-button" data-href="get_project_absolute_url({{project.slug}})" id="shareButton">Share</button> -->
                 <p>{{ project.overview }}</p>
                 <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
                 <p>Hours To Complete: {{ project.no_of_hours }}</p>
@@ -97,7 +172,11 @@
 
                     {% if not project.isApproved %}
                     <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
-                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a> {% endif %}
+
+                    <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
+                    <button style="float: right;" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
+                    {% endif %}
+
                 </div>
             </div>
             {% else %}
