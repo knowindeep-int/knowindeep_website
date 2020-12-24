@@ -186,8 +186,11 @@ def api_save_chapter_draft(request):
     if request.method == "POST":
         pk = request.data['pk']
         project = Project.objects.get(pk = pk)
-            
+        project.chapters.all().delete()
+        print(request.data)
         chapter_serializer = ChapterSerializer(data = json.loads(request.data['chapters']), many = True, partial=True)
+        #chapter_serializer = ChapterSerializer(data = request.data['chapters'], many = True, partial=True)
+        
         if not chapter_serializer.is_valid():
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
         chapter_serializer.save()
