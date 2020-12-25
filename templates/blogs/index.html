@@ -23,11 +23,13 @@
     </div>
 </div>
 <script>
-    function copyProjectPageURLToClipBoard(project_slug) {
-        
+    function copyProjectPageURLToClipBoard(e) {
         var input = document.createElement('input');
-        document.getElementById("index_project_copy").setAttribute("data-href",  getProjectAbsoluteUrl(project_slug) )
-        input.value = document.getElementById("index_project_copy").getAttribute('data-href');
+        // document.getElementById("clipboard").setAttribute("data-href",  getProjectAbsoluteUrl(project_slug) )
+        // input.value = document.getElementById("clipboard").getAttribute('data-href');
+        // alert(e.getAttribute("class"))
+        //e.setAttribute("data-href",  getProjectAbsoluteUrl(project_slug) )
+        input.value = e.getAttribute('data-href');
         document.body.appendChild(input);
         input.select();
         document.execCommand("copy");
@@ -68,6 +70,7 @@
 </script>
 
 <div class="container">
+    
     <br>
     <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Our Popular Projects</h3>
     {% for project in projects %}
@@ -110,13 +113,25 @@
                     </script> -->
 
                     <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
-                    <button style="float: right;" id="index_project_copy" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
-                    <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button>
-                    
+                    {% include 'dropdown/dropdown.html' %}
+                    <!-- <button style="float: right;" id="index_project_copy" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
+                    <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button> -->
                     <script>
-                            document.getElementById("shareButton").setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
-                            // alert(document.getElementById("shareButton").getAttribute("data-href"))
-                    </script> {% endif %}
+                        document.getElementsByClassName('clipboard')['{{forloop.counter}}' - 1].setAttribute("onclick", "copyProjectPageURLToClipBoard(this);return false;")
+                        document.getElementsByClassName("clipboard")['{{forloop.counter}}' - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                        document.getElementsByClassName("fb-share-button")['{{forloop.counter}}' - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                        // var facebookClasses = document.querySelectorAll('.fb-share-button');
+                        // facebookClasses.forEach(element => {
+                        //     element.setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                            
+                        // });
+                    </script>
+                    <!-- <script>
+                            // document.getElementById("facebook").setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                            document.getElementsByClassName("clipboard").setAttribute("onclick", "copyProjectPageURLToClipBoard('{{project.slug}}');return false;")
+                            // alert(document.getElementById("facebook").getAttribute("data-href"))
+                    </script> -->
+                    {% endif %}
                     
                     
                 </div>
@@ -177,13 +192,14 @@
                     <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
 
                     <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
-                    <button style="float: right;" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
-                    <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button>
-                     
+                    <!-- <button style="float: right;" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
+                    <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button> -->
+                    {% include 'dropdown/dropdown.html' %}
                     <script>
-                        document.getElementById("shareButton").setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
-                        //alert(document.getElementById("shareButton").getAttribute("data-href"))
-                </script> 
+                        document.getElementsByClassName('clipboard')[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("onclick", "copyProjectPageURLToClipBoard(this);return false;")
+                        document.getElementsByClassName("clipboard")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                        document.getElementsByClassName("fb-share-button")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                    </script>
                     {% endif %}
 
                 </div>
