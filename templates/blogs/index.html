@@ -34,6 +34,9 @@
         document.body.removeChild(input);
         toastr.options.timeOut = 200
         toastr.success('Copied To ClipBoard');
+        var audio = new Audio('/media/copy.mp3');
+        audio.volume = 0.2;
+        audio.play();
 
 
         // FB.ui({
