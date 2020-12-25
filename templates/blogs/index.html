@@ -178,6 +178,12 @@
 
                     <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
                     <button style="float: right;" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
+                    <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button>
+                     
+                    <script>
+                        document.getElementById("shareButton").setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
+                        //alert(document.getElementById("shareButton").getAttribute("data-href"))
+                </script> 
                     {% endif %}
 
                 </div>
