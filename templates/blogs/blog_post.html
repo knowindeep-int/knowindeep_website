@@ -176,8 +176,11 @@
     }
 </script>
 
-<button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button>
-
+<!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
+{% include 'dropdown/dropdown.html' %}
+<script>
+    document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
+</script>
 <div class="row">
 
     <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
