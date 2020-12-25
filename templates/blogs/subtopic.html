@@ -29,10 +29,10 @@
             audio.play();
 
         }
-        function copyChapterPageURL() {
+        function copyChapterPageURL(e) {
 
             var input = document.createElement('input');
-            input.value = document.getElementById("subtopic_chapter_copy").getAttribute('data-href');
+            input.value = e.getAttribute('data-href');
             document.body.appendChild(input);
             input.select();
             document.execCommand("copy");
@@ -64,7 +64,12 @@
             return url
         }
     </script>
-    <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button>
+    
+    <!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
+    {% include 'dropdown/dropdown.html' %}
+<script>
+    document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
+</script>
     <div style="text-align: center;">
         <img src="/media/{{ project.image }}" alt="{{project.title}}">
     </div>
@@ -112,10 +117,16 @@
             <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
-            <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button>
+            <!-- <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button> -->
+            {% include 'dropdown/dropdown.html' %}
             <script>
-                document.getElementById("subtopic_chapter_copy").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+                document.getElementsByClassName('clipboard')['{{forloop.counter}}'].setAttribute("onclick", "copyChapterPageURL(this);return false;")
+                document.getElementsByClassName("clipboard")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
             </script>
+            <!-- <script>
+                document.getElementById("clipboard").setAttribute("onclick", "copyChapterPageURL();return false;")
+                document.getElementById("clipboard").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+            </script> -->
 
 
         </div>
