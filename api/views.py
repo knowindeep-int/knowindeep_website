@@ -232,7 +232,7 @@ def api_get_project_absolute_url(request):
         slug = request.GET.get('slug')
 
         project = Project.objects.get(slug = slug)
-        url = Project.get_project_absolute_url(slug = slug, request = request)
+        url = project.get_absolute_url()
         
         data = {
             'url': url  
