@@ -2,17 +2,19 @@
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="dropdown/d_style.css"> 
+	<!-- <link rel="stylesheet" type="text/css" href="dropdown/d_style.css">  -->
 	<style>
-		img{
-	height:20px;
-}
+
+/* body{
+	width: 160px;
+} */
 .name{
 	width:120px;
 	border-bottom: 3px;
 }
 .image-share{
   height: 20px;
+  width: 20px;
 }
 .dropdown {
   position: relative;
@@ -26,6 +28,7 @@
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
+  min-height: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
@@ -48,10 +51,11 @@
 <div class="dropdown">
 <button class="dropbtn"><img class="image-share" src="/media/share.png"></button>
 	<div class="dropdown-content">
-	  <a href="#" data-href="" ><img src="/media/twitter.png"><span class="name">&emsp; Twitter</span></a>
-	  <a href="" data-href="" class="fb-share-button" data-layout="button_count" ><img src="/media/facebook.png"><span class="name">&emsp; Facebook</span></a>
-	  <a href="#" data-href=""><img src="/media/linkedin.png"><span class="name">&emsp; Linkedin</span></a>
-	  <a href="#" data-href="x" class="clipboard" ><img src="/media/link.png"><span class="name">&emsp; Copy link</span></a>
+	  <a href="#" data-href="" ><img src="/media/twitter.png" class="image-share"><span class="name">&emsp; Twitter</span></a>
+	  <!-- <a href="" data-href="" class="fb-share-button" data-layout="button_count" ><img src="/media/facebook.png"><span class="name">&emsp; Facebook</span></a> -->
+	  <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="/media/facebook.png" class="image-share"><span class="name">&emsp; Facebook</span></a> 
+	  <a href="#" data-href=""><img src="/media/linkedin.png" class="image-share"><span class="name">&emsp; Linkedin</span></a>
+	  <a href="#" data-href="x" class="clipboard" ><img src="/media/link.png" class="image-share"><span class="name">&emsp; Copy link</span></a>
 	</div>
 </div>
 </body>
