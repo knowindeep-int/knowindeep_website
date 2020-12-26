@@ -59,6 +59,7 @@
             async: false,
         success: function(data){
             url = data.url;
+            // alert(data.url)
         },error: function(error){
             alert("ERROR!")
         },
@@ -77,7 +78,7 @@
     <div class="col-sm-4">
 
         <div class="card hoverable">
-
+            <!-- <script>alert('{{project.slug}}')</script> -->
             <div class="card-image">
                 <img class="blogImage" src="media/{{ project.image }}" alt="{{project.title}}">
             </div>
@@ -123,6 +124,7 @@
                         // document.getElementsByClassName("fb-share-button")['{{forloop.counter}}' - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
                         document.getElementsByClassName("share-btn")['{{forloop.counter}}' - 1].setAttribute("href", document.getElementsByClassName("share-btn")['{{forloop.counter}}' - 1].getAttribute("href") + '&u=' + getProjectAbsoluteUrl('{{project.slug}}') ) ;
                         document.getElementsByClassName("share-btn")['{{forloop.counter}}' - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}')  )
+                        document.getElementsByClassName("twitter-share")['{{forloop.counter}}' - 1].setAttribute("href", document.getElementsByClassName("twitter-share")['{{forloop.counter}}' - 1].getAttribute("href") + getProjectAbsoluteUrl('{{project.slug}}') ) ;
                         // var facebookClasses = document.querySelectorAll('.fb-share-button');
                         // facebookClasses.forEach(element => {
                         //     element.setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
@@ -204,6 +206,8 @@
                         // document.getElementsByClassName("fb-share-button")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
                         document.getElementsByClassName("share-btn")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("href", document.getElementsByClassName("share-btn")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].getAttribute("href") + '&u=' + getProjectAbsoluteUrl('{{project.slug}}') ) ;
                         document.getElementsByClassName("share-btn")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}')  )
+                        document.getElementsByClassName("twitter-share")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("href", document.getElementsByClassName("twitter-share")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].getAttribute("href") + getProjectAbsoluteUrl('{{project.slug}}') );
+                        //alert(document.getElementsByClassName('twitter-share').getAttribute("href"))
                     </script>
                     {% endif %}
 
