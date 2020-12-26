@@ -191,14 +191,18 @@
 </script>
 
 <!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
-{% include 'dropdown/dropdown.html' %}
-<script>
+{% include 'dropdown/dropdown.html' with url=chapter_content.get_absolute_url function="copyCurrentPageURLToClipBoard()" %}
+<!-- <script>
     document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
-    // alert(typeof document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href))
+    alert(typeof document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href))
     document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
     document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
+
+    document.getElementsByClassName("linkedin-share")[0].setAttribute("href", document.getElementsByClassName("linkedin-share")[0].getAttribute("href") + document.location.href);
+    document.getElementsByClassName("linkedin-share")[0].setAttribute("data-href",  document.location.href )
+
     document.getElementsByClassName("twitter-share")[0].setAttribute("href", document.getElementsByClassName("twitter-share")[0].getAttribute("href") + document.location.href) ;
-    </script>
+    </script> -->
 <div class="row">
 
     <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
