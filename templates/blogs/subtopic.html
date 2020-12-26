@@ -69,6 +69,8 @@
     {% include 'dropdown/dropdown.html' %}
 <script>
     document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
+    document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
+    document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
 </script>
     <div style="text-align: center;">
         <img src="/media/{{ project.image }}" alt="{{project.title}}">
@@ -118,18 +120,22 @@
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
             <!-- <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button> -->
-            {% include 'dropdown/dropdown.html' %}
-            <script>
-                document.getElementsByClassName('clipboard')['{{forloop.counter}}'].setAttribute("onclick", "copyChapterPageURL(this);return false;")
-                document.getElementsByClassName("clipboard")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
-            </script>
+            
             <!-- <script>
-                document.getElementById("clipboard").setAttribute("onclick", "copyChapterPageURL();return false;")
-                document.getElementById("clipboard").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
-            </script> -->
+            //     document.getElementById("clipboard").setAttribute("onclick", "copyChapterPageURL();return false;")
+            //     document.getElementById("clipboard").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+            // </script> -->
 
 
         </div>
+        {% include 'dropdown/dropdown.html' %}
+        
+            <script>
+                document.getElementsByClassName('clipboard')['{{forloop.counter}}'].setAttribute("onclick", "copyChapterPageURL(this);return false;")
+                document.getElementsByClassName("clipboard")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+                document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("href", document.getElementsByClassName("share-btn")['{{forloop.counter}}'].getAttribute("href") + '&u=' + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
+                document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}')  )
+            </script>
 
     </div>
 
