@@ -180,6 +180,7 @@
 {% include 'dropdown/dropdown.html' %}
 <script>
     document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
+    document.getElementsByClassName("fb-share-button")[0].setAttribute("data-href",  document.location.href )
 </script>
 <div class="row">
 
