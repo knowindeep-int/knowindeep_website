@@ -24,7 +24,7 @@ def topics(request):
 
 def subtopics(request,slug):
     project = Project.objects.get(slug=slug)
-    if project.isApproved is True:
+    if project.isApproved or request.user.is_superuser:
         #blog = Chapter.objects.filter(link_to__slug=slug)
         chapters = Project.getAllChapters(slug)
         context = {
@@ -37,7 +37,7 @@ def subtopics(request,slug):
 
 def chapter_post(request,slug, chapter):
     project = Project.objects.get(slug = slug)
-    if project.isApproved is True:
+    if project.isApproved or request.user.is_superuser:
         chapter_content = Chapter.objects.get(slug=chapter)
         #all_blogs = Chapter.objects.filter(link_to__slug=slug)
         chapters = Project.getAllChapters(slug)
