@@ -114,7 +114,7 @@
                     </script> -->
 
                     <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
-                    {% include 'dropdown/dropdown.html' with url=project.get_absolute_url  function="copyProjectPageURLToClipBoard(this)" %}
+                    {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl  function="copyProjectPageURLToClipBoard(this)" %}
                     <script>
                     // alert('{{ request.scheme }}://{{ request.get_host }}')
                     // alert('{{project.get_absolute_url}}')
@@ -207,7 +207,7 @@
                     <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
                     <!-- <button style="float: right;" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
                     <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button> -->
-                    {% include 'dropdown/dropdown.html' with url=project.get_absolute_url function="copyProjectPageURLToClipBoard(this)" %}
+                    {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
                     <!-- <script>
                         document.getElementsByClassName('clipboard')[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("onclick", "copyProjectPageURLToClipBoard(this);return false;")
                         document.getElementsByClassName("clipboard")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
