@@ -136,9 +136,7 @@ class Project(models.Model):
         return reverse('blogs:sub_topic', kwargs={'slug': self.slug})
 
     def canUserView(self, user):
-        if self.isApproved or user.is_superuser:
-            return True
-        return False
+        return self.isApproved or user.is_superuser
 
 
     # def get_project_absolute_url(slug, request):
