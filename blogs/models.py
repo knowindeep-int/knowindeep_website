@@ -58,10 +58,12 @@ class Profile(models.Model):
     def getProfile(cls,user):
         return cls.objects.get(user=user)
 
+    #not used
     @classmethod
     def getUser(cls, name):
         profile = cls(name = name)
         return profile.user
+
 
     @property
     def getOngoingAndCompletedProjects(self):
@@ -86,11 +88,8 @@ class Profile(models.Model):
     
 
     def is_verified(self, user):
-        if user == self.user:
-            return True
-        return False
+        return user == self.user
 
-    
 
 class Blog(models.Model):
     content = RichTextUploadingField(blank=True,null=True)
@@ -120,9 +119,9 @@ class Project(models.Model):
     author = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name = "projects")
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
-    isApproved = models.BooleanField(default=False)
-    isCompleted = models.BooleanField(default = False)
     image = models.ImageField(null=True,upload_to='project/', blank = True)
+    isApproved = models.BooleanField(default=False)
+    isCompleted = models.BooleanField(default = False) 
     languages = models.ManyToManyField(to = Language, blank = True)
     no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
     no_of_views = models.IntegerField(default=0)
@@ -155,9 +154,6 @@ class Project(models.Model):
         self.no_of_views += 1
         self.save()
 
-    # def get_project_absolute_url(slug, request):
-    #     abs_url = request.build_absolute_uri(reverse('blogs:sub_topic', args = [slug]))
-    #     return abs_url
 
     @classmethod
     def getAllChapters(cls, slug):
@@ -168,7 +164,6 @@ class Project(models.Model):
     def get_all_projects(cls):
         return cls.objects.all()
 
-    
     @classmethod
     def get_popular_approved_projects(KClass):
         return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
@@ -193,7 +188,6 @@ class Project(models.Model):
     @classmethod
     def get_status(cls, pk):
         project = cls.objects.get(pk=pk)
-        print(project.description)
         if project.title == None or project.title == "":
             return "title"
         if project.description == None or project.description == "":
@@ -230,11 +224,11 @@ class Chapter(models.Model):
 
     def __str__(self):
         return self.heading
-
+    
+    @property
     def get_absolute_url(self): 
         return reverse('blogs:chapter_post', kwargs={'slug': self.link_to.slug, 'chapter': self.slug})
 
-    
     @property
     def getCompleteUrl(self):
         if settings.DEBUG:
@@ -297,6 +291,7 @@ class Chapter(models.Model):
             Q(heading__icontains = search_input)
         )
         return author_searches
+
     
     def comments(self):
         return self.chapter_comments.all()
@@ -321,12 +316,12 @@ class Chapter(models.Model):
     def increaseLikes(self):
         self.no_of_likes += 1
         self.save()
-            
-    def get_like_url(self):
-        return reverse("api:like-post")
-
+    
     def get_comment_url(self):
         return reverse("api:comment-post")
+
+    def get_like_url(self):
+        return reverse("api:like-post")
 
 
 class Like(models.Model):
@@ -337,11 +332,11 @@ class Like(models.Model):
     #     return str(self.link_to)
 
 class Comment(models.Model):
+    comment_text = models.CharField(max_length=200)
     link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="chapter_comments")
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True,blank=True)
-    comment_text = models.CharField(max_length=200)
-
+    
     def __str__(self):
         return self.user.user.first_name + self.comment_text
 
@@ -349,32 +344,33 @@ class Comment(models.Model):
     def createComment(cls, chapter, profile, comment_text):
         Comment.objects.create(link_to = chapter, user = profile, timestamp = timezone.now(), comment_text = comment_text)
 
+
 class Package(models.Model):
-    profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name="packages")
-    project = models.ForeignKey(to = Project, on_delete = models.CASCADE)
     added_on = models.DateTimeField(auto_now_add = True)
     current_chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE, null = True)
-
+    profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name="packages")
+    project = models.ForeignKey(to = Project, on_delete = models.CASCADE)
+    
     def __str__(self):
         return str(self.profile) + '_' + str(self.project)
 
+
 class Progress(models.Model):
-    package = models.ForeignKey(to = Package, on_delete = models.CASCADE, related_name="progress")
     chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE)
     completed_on = models.DateTimeField(auto_now_add = True)
+    package = models.ForeignKey(to = Package, on_delete = models.CASCADE, related_name="progress")
+    
+    def __str__(self):
+        return str(self.package) + '_' + str(self.chapter)
 
     class Meta:
         verbose_name_plural  = "Progress"
 
-    def __str__(self):
-        return str(self.package) + '_' + str(self.chapter)
-        
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
     if instance.id is not None:
         Project.objects.create(title=str(instance))
-
 
 def r_pre_save_receiever(sender,instance,*args,**kwargs):
     if not instance.slug:
