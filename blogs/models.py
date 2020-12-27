@@ -143,7 +143,7 @@ class Project(models.Model):
     @property
     def getCompleteUrl(self):
         if settings.DEBUG:
-            return "https://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
+            return "http://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
         else:
             return "https://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
 
@@ -230,6 +230,15 @@ class Chapter(models.Model):
 
     def get_absolute_url(self): 
         return reverse('blogs:chapter_post', kwargs={'slug': self.link_to.slug, 'chapter': self.slug})
+
+    
+    @property
+    def getCompleteUrl(self):
+        if settings.DEBUG:
+            return "http://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
+        else:
+            return "https://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
+
 
     # def get_chapter_absolute_url(project_slug, chapter_slug, request):
     #     abs_url = request.build_absolute_uri(reverse('blogs:chapter_post', args = [project_slug, chapter_slug]))
