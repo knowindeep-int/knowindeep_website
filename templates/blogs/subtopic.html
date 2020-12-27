@@ -29,10 +29,10 @@
             audio.play();
 
         }
-        function copyChapterPageURL() {
+        function copyChapterPageURL(e) {
 
             var input = document.createElement('input');
-            input.value = document.getElementById("subtopic_chapter_copy").getAttribute('data-href');
+            input.value = e.getAttribute('data-href');
             document.body.appendChild(input);
             input.select();
             document.execCommand("copy");
@@ -64,7 +64,19 @@
             return url
         }
     </script>
-    <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button>
+    
+    <!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
+    {% include 'dropdown/dropdown.html' with url=project.get_absolute_url  function="copyCurrentPageURLToClipBoard()" %}
+<!-- <script>
+    document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
+    document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
+    document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
+
+    document.getElementsByClassName("linkedin-share")[0].setAttribute("href", document.getElementsByClassName("linkedin-share")[0].getAttribute("href")  + document.location.href);
+    document.getElementsByClassName("linkedin-share")[0].setAttribute("data-href",  document.location.href )
+
+    document.getElementsByClassName("twitter-share")[0].setAttribute("href", document.getElementsByClassName("twitter-share")[0].getAttribute("href") + document.location.href) ;
+</script> -->
     <div style="text-align: center;">
         <img src="/media/{{ project.image }}" alt="{{project.title}}">
     </div>
@@ -112,13 +124,28 @@
             <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
-            <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button>
-            <script>
-                document.getElementById("subtopic_chapter_copy").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
-            </script>
+            <!-- <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button> -->
+            
+            <!-- <script>
+            //     document.getElementById("clipboard").setAttribute("onclick", "copyChapterPageURL();return false;")
+            //     document.getElementById("clipboard").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+            // </script> -->
 
 
         </div>
+        {% include 'dropdown/dropdown.html' with url=chapter.get_absolute_url function="copyChapterPageURL(this)" %}
+        
+            <!-- <script>
+                document.getElementsByClassName('clipboard')['{{forloop.counter}}'].setAttribute("onclick", "copyChapterPageURL(this);return false;")
+                document.getElementsByClassName("clipboard")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
+                document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("href", document.getElementsByClassName("share-btn")['{{forloop.counter}}'].getAttribute("href") + '&u=' + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
+                document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}')  )
+
+                document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].setAttribute("href", document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].getAttribute("href") + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
+                document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}')  )
+
+                document.getElementsByClassName("twitter-share")['{{forloop.counter}}' ].setAttribute("href", document.getElementsByClassName("twitter-share")['{{forloop.counter}}'].getAttribute("href") + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
+            </script> -->
 
     </div>
 

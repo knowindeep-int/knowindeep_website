@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% load static %}
-
 <div class="row">
     <div class="col-1">
         <span class="glyphicon glyphicon-user"></span>
@@ -146,6 +145,8 @@
 </script>
 
 {% block content %}
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KnowinDeep" />
 <link rel="stylesheet" href="{% static 'blogs/css/indi_blog.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -174,10 +175,34 @@
         document.body.removeChild(input)
 
     }
+
+</script>
+<script>
+    (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+
+        (document, 'script', 'facebook-jssdk'));
 </script>
 
-<button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button>
+<!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
+{% include 'dropdown/dropdown.html' with url=chapter_content.get_absolute_url function="copyCurrentPageURLToClipBoard()" %}
+<!-- <script>
+    document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
+    alert(typeof document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href))
+    document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
+    document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
 
+    document.getElementsByClassName("linkedin-share")[0].setAttribute("href", document.getElementsByClassName("linkedin-share")[0].getAttribute("href") + document.location.href);
+    document.getElementsByClassName("linkedin-share")[0].setAttribute("data-href",  document.location.href )
+
+    document.getElementsByClassName("twitter-share")[0].setAttribute("href", document.getElementsByClassName("twitter-share")[0].getAttribute("href") + document.location.href) ;
+    </script> -->
 <div class="row">
 
     <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
