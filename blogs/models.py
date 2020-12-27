@@ -11,7 +11,6 @@ from django.db.models import Max, Min
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.conf import settings
-from django.contrib.sites.models import Site
 
 from knowindeep import Constants
 
@@ -143,9 +142,10 @@ class Project(models.Model):
 
     @property
     def getCompleteUrl(self):
-        # if settings.DEBUG:
-        #     return 'http://127.0.0.1:8000/' + self.get_absolute_url
-        return "https://%s%s" % (Site.objects.get_current().domain ,self.get_absolute_url)
+        if settings.DEBUG:
+            return "https://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
+        else:
+            return "https://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
 
 
     # def get_project_absolute_url(slug, request):

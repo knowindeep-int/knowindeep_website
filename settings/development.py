@@ -8,6 +8,8 @@ INSTALLED_APPS += [
    
 ]
 
+SITE_ID = 0
+
 MIDDLEWARE += []
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
