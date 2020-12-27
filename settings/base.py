@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
+    'django.contrib.sites',
     # 'django.contrib.sites',
   
     

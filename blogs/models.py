@@ -10,6 +10,8 @@ from django.core.validators import MinValueValidator, int_list_validator, MaxVal
 from django.db.models import Max, Min
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.conf import settings
+from django.contrib.sites.models import Site
 
 from knowindeep import Constants
 
@@ -132,11 +134,18 @@ class Project(models.Model):
     def __str__(self):
         return self.title
     
+    @property
     def get_absolute_url(self): 
         return reverse('blogs:sub_topic', kwargs={'slug': self.slug})
 
     def canUserView(self, user):
         return self.isApproved or user.is_superuser
+
+    @property
+    def getCompleteUrl(self):
+        # if settings.DEBUG:
+        #     return 'http://127.0.0.1:8000/' + self.get_absolute_url
+        return "https://%s%s" % (Site.objects.get_current().domain ,self.get_absolute_url)
 
 
     # def get_project_absolute_url(slug, request):
