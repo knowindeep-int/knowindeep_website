@@ -8,6 +8,7 @@
 /* body{
 	width: 160px;
 } */
+
 .name{
 	width:120px;
 	border-bottom: 3px;
@@ -41,18 +42,24 @@
 }
 
 .dropdown-content a:hover {background-color: #ddd;}
+.show{
+  display: block;
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+/* .dropdown:hover .dropdown-content {display: block;} */ 
 </style>
+
+
 </head>
 <body>
+ 
 <br>
 <br>
 <div class="dropdown">
-<button class="dropbtn"><img class="image-share" src="/media/share.png"></button>
-	<div class="dropdown-content">
+<button onclick="this.parentElement.children[1].classList.toggle('show');" class="dropbtn"><img class="image-share" src="/media/share.png"></button>
+	<div class="dropdown-content" id="myDropdown">
     <a data-href="" href="https:www.twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{{url}}&text=Lorem Ipsum" class="twitter-share"  data-text ="Lorem Ipsum" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=580')"><img src="/media/twitter.png" class="image-share"><span class="name">&emsp; Twitter</span></a>
-  </a>
+  
 	  <!-- <a href="" data-href="" class="fb-share-button" data-layout="button_count" ><img src="/media/facebook.png"><span class="name">&emsp; Facebook</span></a> -->
 	  <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{ request.scheme }}://{{ request.get_host }}{{url}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="/media/facebook.png" class="image-share"><span class="name">&emsp; Facebook</span></a> 
 	  <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.scheme }}://{{ request.get_host }}{{url}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><img src="/media/linkedin.png" class="image-share"><span class="name">&emsp; Linkedin</span></a> 
@@ -60,5 +67,24 @@
 	  <a href="#" onclick="{{function}};return false;" data-href="{{ request.scheme }}://{{ request.get_host }}{{url}}" class="clipboard" ><img src="/media/link.png" class="image-share"><span class="name">&emsp; Copy link</span></a>
 	</div>
 </div>
+
+<script>
+
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn') && !event.target.matches('.dropbtn img')) {     
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+      
+    }
+
+  }
+
+</script>
 </body>
 </html>
