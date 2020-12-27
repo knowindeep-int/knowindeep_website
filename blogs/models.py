@@ -135,6 +135,10 @@ class Project(models.Model):
     def get_absolute_url(self): 
         return reverse('blogs:sub_topic', kwargs={'slug': self.slug})
 
+    def canUserView(self, user):
+        return self.isApproved or user.is_superuser
+
+
     # def get_project_absolute_url(slug, request):
     #     abs_url = request.build_absolute_uri(reverse('blogs:sub_topic', args = [slug]))
     #     return abs_url
