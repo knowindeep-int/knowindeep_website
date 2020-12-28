@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 import sys
 
-from .models import Project,Chapter, Like, Comment
+from .models import Project,Chapter, Like, Comment, Blog
 
 def topics(request):
     context = None
@@ -81,7 +81,7 @@ def approve(request,slug):
     return HttpResponse("You are not Authorized to access this Page", status = 500)
 
 def list_all_blogs(request):
-    context = {'projects':Project.objects.all()}
+    context = {'blogs':Blog.objects.all()}
     return render(request,'blogs/list_all_blogs.html',context)
 
 
