@@ -49,7 +49,10 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = [ChapterTopicsInline,]
     search_fields = ['title','overview']
 
-
+class BlogAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields':['author','content','date_approved','description','title',]})
+    ]
 
 
 
