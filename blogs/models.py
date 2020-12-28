@@ -122,6 +122,7 @@ class Project(models.Model):
     author = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name = "projects")
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
+    date_approved = models.DateTimeField(default = timezone.now(), blank =True ,null=True)  
     image = models.ImageField(null=True,upload_to='project/', blank = True)
     isApproved = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default = False) 
@@ -132,7 +133,7 @@ class Project(models.Model):
     pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
     slug = models.SlugField(null=True,blank=True)
     title = models.CharField(max_length=25)  
-    date_approved = models.DateTimeField(default = timezone.now(), blank =True ,null=True)  
+    
     
     def __str__(self):
         return self.title
