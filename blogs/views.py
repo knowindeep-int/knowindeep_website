@@ -80,6 +80,10 @@ def approve(request,slug):
         return redirect('blogs:index')
     return HttpResponse("You are not Authorized to access this Page", status = 500)
 
+def list_all_blogs(request):
+    context = {'projects':Project.objects.all()}
+    return render(request,'blogs/list_all_blogs.html',context)
+
 
 def error404(request, exception):
     return HttpResponse("error404")
