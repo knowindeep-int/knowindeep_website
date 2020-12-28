@@ -94,10 +94,17 @@ class Profile(models.Model):
 class Blog(models.Model):
     author = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
     content = RichTextUploadingField(blank=True,null=True)
-    title = models.CharField(max_length = 25, null =False, blank= False)
-    date_created = models.DateField(auto_now_add= True)
+    date_approved = models.DateTimeField(default = timezone.now(), blank =True ,null=True) 
     description = models.TextField(blank=True,null=True)
     isApproved = models.BooleanField(default=False)
+    title = models.CharField(max_length = 25, null =False, blank= False)
+
+    def save(self, *args, **kwargs):
+        if self.isApproved: #and self.date_approved is None:
+            self.date_approved = timezone.now()
+        # elif not self.isApproved: #and self.date_approved is not None:
+        #     self.date_approved = None
+        super(Blog,self).save(*args,*kwargs)
     
 
 class PreRequisite(models.Model):
@@ -120,9 +127,9 @@ class Project(models.Model):
     # topic_image = models.ImageField(null=True, upload_to='media/')
     # topic_content = models.CharField(max_length=300, blank=True, null=True)
     author = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name = "projects")
+    date_approved = models.DateTimeField(default = timezone.now(), blank =True ,null=True)  
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
-    date_approved = models.DateTimeField(default = timezone.now(), blank =True ,null=True)  
     image = models.ImageField(null=True,upload_to='project/', blank = True)
     isApproved = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default = False) 
