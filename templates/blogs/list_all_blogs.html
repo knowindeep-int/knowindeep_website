@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% load static %}
+ {% block content %}
+<br>
+<br>
+<br>
+<h3>All our Projects</h3>
+{% for project in projects %}
+{% if project.isApproved %}
+<ul>
+    <li>{{ project.title }}</li>
+</ul>
+{% endif %}
+{% endfor %}
+{% if request.user.is_superuser %}
+<h3>Projects waiting approval </h3>
+{% for project in projects %}
+{% if not project.isApproved %}
+<ul>
+    <li>{{ project.title }}</li>
+</ul>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endblock content %}
