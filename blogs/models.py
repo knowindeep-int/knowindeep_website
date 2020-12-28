@@ -92,9 +92,12 @@ class Profile(models.Model):
 
 
 class Blog(models.Model):
+    author = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
     content = RichTextUploadingField(blank=True,null=True)
-    profile = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
     title = models.CharField(max_length = 25, null =False, blank= False)
+    date_created = models.DateField(auto_now_add= True)
+    description = models.TextField(blank=True,null=True)
+    isApproved = models.BooleanField(default=False)
     
 
 class PreRequisite(models.Model):
