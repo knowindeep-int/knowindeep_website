@@ -145,12 +145,12 @@ class Project(models.Model):
     def __str__(self):
         return self.title
     
-    def save(self, *args, **kwargs):
-        if self.isApproved: #and self.date_approved is None:
-            self.date_approved = timezone.now()
-        # elif not self.isApproved: #and self.date_approved is not None:
-        #     self.date_approved = None
-        super(Project,self).save(*args,*kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.isApproved: #and self.date_approved is None:
+    #         self.date_approved = timezone.now()
+    #     # elif not self.isApproved: #and self.date_approved is not None:
+    #     #     self.date_approved = None
+    #     super(Project,self).save(*args,*kwargs)
     
     @property
     def complete_project(self):
@@ -160,6 +160,12 @@ class Project(models.Model):
     @property
     def get_absolute_url(self): 
         return reverse('blogs:sub_topic', kwargs={'slug': self.slug})
+
+    @property
+    def approveProject(self):
+        self.isApproved = True
+        self.date_approved = timezone.now()
+        self.save()
 
     @property
     def getCompleteUrl(self):
