@@ -131,10 +131,18 @@ class Project(models.Model):
     overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
     slug = models.SlugField(null=True,blank=True)
-    title = models.CharField(max_length=25)    
+    title = models.CharField(max_length=25)  
+    date_approved = models.DateTimeField(default = timezone.now(), blank =True ,null=True)  
     
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if self.isApproved: #and self.date_approved is None:
+            self.date_approved = timezone.now()
+        # elif not self.isApproved: #and self.date_approved is not None:
+        #     self.date_approved = None
+        super(Project,self).save(*args,*kwargs)
     
     @property
     def complete_project(self):
