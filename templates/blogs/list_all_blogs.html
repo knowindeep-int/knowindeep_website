@@ -3,20 +3,20 @@
 <br>
 <br>
 <br>
-<h3>All our Projects</h3>
-{% for project in projects %}
-{% if project.isApproved %}
+<h3>All our Blogs</h3>
+{% for blog in blogs %}
+{% if blog.isApproved %}
 <ul>
-    <li>{{ project.title }}</li>
+    <li>{{ blog.title }}</li>
 </ul>
 {% endif %}
 {% endfor %}
 {% if request.user.is_superuser %}
-<h3>Projects waiting approval </h3>
-{% for project in projects %}
-{% if not project.isApproved %}
+<h3>Blogs waiting approval </h3>
+{% for blog in blogs %}
+{% if not blog.isApproved %}
 <ul>
-    <li>{{ project.title }}</li>
+    <li>{{ blog.title }}</li>
 </ul>
 {% endif %}
 {% endfor %}
