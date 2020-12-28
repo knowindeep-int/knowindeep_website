@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% load static %}
+ {% block content %}
+<br>
+<br>
+<br>
+<h3>All our Blogs</h3>
+{% for blog in blogs %}
+{% if blog.isApproved %}
+<ul>
+    <li>{{ blog.title }}</li>
+</ul>
+{% endif %}
+{% endfor %}
+{% if request.user.is_superuser %}
+<h3>Blogs waiting approval </h3>
+{% for blog in blogs %}
+{% if not blog.isApproved %}
+<ul>
+    <li>{{ blog.title }}</li>
+</ul>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endblock content %}
