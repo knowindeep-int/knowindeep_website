@@ -49,6 +49,15 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = [ChapterTopicsInline,]
     search_fields = ['title','overview']
 
+class BlogAdmin(admin.ModelAdmin):
+    fieldsets = [
+        'author', 'content', 'title','date_created','description','isApproved'
+    ]
+    list_display = ['title','description']
+    ordering = ['-date_created']
+    readonly_fields = ['date_created','isApproved']
+    search_fields = ['title','date_created']
+
 
 
 
