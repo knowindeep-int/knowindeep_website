@@ -94,10 +94,17 @@ class Profile(models.Model):
 class Blog(models.Model):
     author = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
     content = RichTextUploadingField(blank=True,null=True)
-    title = models.CharField(max_length = 25, null =False, blank= False)
-    date_created = models.DateField(auto_now_add= True)
+    date_approved = models.DateTimeField(default = None, blank =True ,null=True) 
     description = models.TextField(blank=True,null=True)
     isApproved = models.BooleanField(default=False)
+    title = models.CharField(max_length = 25, null =False, blank= False)
+
+    def save(self, *args, **kwargs):
+        if self.isApproved and self.date_approved is None:
+            self.date_approved = timezone.now()
+        elif not self.isApprove and self.date_approved is not None:
+            self.date_approved = None
+        super(Blog,self).save(*args,*kwargs)
     
 
 class PreRequisite(models.Model):
@@ -120,6 +127,7 @@ class Project(models.Model):
     # topic_image = models.ImageField(null=True, upload_to='media/')
     # topic_content = models.CharField(max_length=300, blank=True, null=True)
     author = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name = "projects")
+    date_approved = models.DateTimeField(default = None, blank =True ,null=True)  
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
     image = models.ImageField(null=True,upload_to='project/', blank = True)
@@ -131,10 +139,18 @@ class Project(models.Model):
     overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
     slug = models.SlugField(null=True,blank=True)
-    title = models.CharField(max_length=25)    
+    title = models.CharField(max_length=25)  
+    
     
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if self.isApproved and self.date_approved is None:
+            self.date_approved = timezone.now()
+        elif not self.isApproved and self.date_approved is not None:
+            self.date_approved = None
+        super(Project,self).save(*args,*kwargs)
     
     @property
     def complete_project(self):
@@ -144,6 +160,12 @@ class Project(models.Model):
     @property
     def get_absolute_url(self): 
         return reverse('blogs:sub_topic', kwargs={'slug': self.slug})
+
+    @property
+    def approveProject(self):
+        self.isApproved = True
+        # self.date_approved = timezone.now()
+        self.save()
 
     @property
     def getCompleteUrl(self):
