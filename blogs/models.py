@@ -94,16 +94,16 @@ class Profile(models.Model):
 class Blog(models.Model):
     author = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
     content = RichTextUploadingField(blank=True,null=True)
-    date_approved = models.DateTimeField(default = timezone.now(), blank =True ,null=True) 
+    date_approved = models.DateTimeField(default = None, blank =True ,null=True) 
     description = models.TextField(blank=True,null=True)
     isApproved = models.BooleanField(default=False)
     title = models.CharField(max_length = 25, null =False, blank= False)
 
     def save(self, *args, **kwargs):
-        if self.isApproved: #and self.date_approved is None:
+        if self.isApproved and self.date_approved is None:
             self.date_approved = timezone.now()
-        # elif not self.isApproved: #and self.date_approved is not None:
-        #     self.date_approved = None
+        elif not self.isApprove and self.date_approved is not None:
+            self.date_approved = None
         super(Blog,self).save(*args,*kwargs)
     
 
@@ -127,7 +127,7 @@ class Project(models.Model):
     # topic_image = models.ImageField(null=True, upload_to='media/')
     # topic_content = models.CharField(max_length=300, blank=True, null=True)
     author = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name = "projects")
-    date_approved = models.DateTimeField(default = timezone.now(), blank =True ,null=True)  
+    date_approved = models.DateTimeField(default = None, blank =True ,null=True)  
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
     image = models.ImageField(null=True,upload_to='project/', blank = True)
@@ -145,12 +145,12 @@ class Project(models.Model):
     def __str__(self):
         return self.title
     
-    # def save(self, *args, **kwargs):
-    #     if self.isApproved: #and self.date_approved is None:
-    #         self.date_approved = timezone.now()
-    #     # elif not self.isApproved: #and self.date_approved is not None:
-    #     #     self.date_approved = None
-    #     super(Project,self).save(*args,*kwargs)
+    def save(self, *args, **kwargs):
+        if self.isApproved and self.date_approved is None:
+            self.date_approved = timezone.now()
+        elif not self.isApproved and self.date_approved is not None:
+            self.date_approved = None
+        super(Project,self).save(*args,*kwargs)
     
     @property
     def complete_project(self):
@@ -164,7 +164,7 @@ class Project(models.Model):
     @property
     def approveProject(self):
         self.isApproved = True
-        self.date_approved = timezone.now()
+        # self.date_approved = timezone.now()
         self.save()
 
     @property
