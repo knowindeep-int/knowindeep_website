@@ -45,14 +45,20 @@ class ProjectAdmin(admin.ModelAdmin):
     ]
     list_display = ['title','overview','no_of_views']
     ordering = ['-no_of_views']
-    readonly_fields = ['no_of_views']
+    readonly_fields = ['no_of_views','isApproved']
     inlines = [ChapterTopicsInline,]
     search_fields = ['title','overview']
 
 class BlogAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author','content','date_approved','description','title',]})
+        'author', 'content', 'title','date_created','description','isApproved'
     ]
+    list_display = ['title','description']
+    ordering = ['-date_created']
+    readonly_fields = ['date_created','isApproved']
+    search_fields = ['title','date_created']
+
+
 
 
 
