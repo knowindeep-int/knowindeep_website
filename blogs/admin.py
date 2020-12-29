@@ -45,7 +45,7 @@ class ProjectAdmin(admin.ModelAdmin):
     ]
     list_display = ['title','overview','no_of_views']
     ordering = ['-no_of_views']
-    readonly_fields = ['no_of_views']
+    readonly_fields = ['no_of_views','isApproved']
     inlines = [ChapterTopicsInline,]
     search_fields = ['title','overview']
 
