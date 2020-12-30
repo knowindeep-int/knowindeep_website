@@ -17,6 +17,7 @@ from knowindeep import Constants
 class Language(models.Model):
     is_available = models.BooleanField(null = True, blank = True)
     name = models.CharField(max_length = 100,unique = True, primary_key = True)
+    image = models.ImageField(blank = True,null= True, upload_to = 'languages/')
     
     def __str__(self):
         return self.name
