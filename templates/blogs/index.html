@@ -9,15 +9,11 @@
 <!-- <meta property="og:description" content="Your description" /> -->
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
 {% block content %}
-<div class="image">
-    <div class="jumbotron" id="jumbotron1">
-
-        <div class="contain">
-            <img src="media/images/cover.png">
-            <div class="centered"><span class="cap"><span class="know">Know</span> in Deep</span>
-                <div>We use modern approaches to let out users grip the<br> technical knowledge to its best</div>
-            </div>
-        </div>
+<div class="contain">
+    <img src="media/images/cover.png">
+    <div class="centered"><span class="cap"><span class="know">Know</span> in Deep</span>
+        <div>We use modern approaches to let out users grip the<br> technical knowledge to its best</div>
+    </div>
 </div>
 <script>
     function copyProjectPageURLToClipBoard(e) {
@@ -69,7 +65,7 @@
 <div class="projects">
 	<div class="title"><img src="media/images/star.png" class="star"><span class="pro">OUR POPULAR PROJECTS</span></div>
 	<div class="card-group">
-    {%for project in projects%}
+    {% for project in projects %}
   <div class="card">
     <img class="card-img-top" src="media/images/blog-pic.png" alt="Card image cap">
     <div class="card-body">
@@ -79,7 +75,7 @@
       <span class="bold">Hours To Complete :</span><span>{{project.no_of_hours}}</span><br>
       <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
       <span class="bold">Languages Used :</span>
-      <div >
+      <div>
       	<img src="media/images/java.png" class="lang">
       	<img src="media/images/kotlin.png" class="lang">
       	<img src="media/images/c.png" class="lang">
@@ -88,7 +84,7 @@
       </div><!-- 
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
       <hr>
-      <button class="but1 but2" onclick= "location.href = '{% url 'blogs:sub_topic' project.slug %}'>&emsp; GO TO BLOG &emsp;</button>
+      <button class="but1 but2" onclick= "location.href = '{% url 'blogs:sub_topic' project.slug %}'"> &emsp; GO TO BLOG &emsp;</button>
       <div class="dropdown left">
 	<button class="dropbtn"><img class="image1" src="media/images/share.png"></button>
 		<div class="dropdown-content">
@@ -96,11 +92,16 @@
 		  <a href="#"><img src="media/images/facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
 		  <a href="#"><img src="media/images/linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
 		  <a href="#"><img src="media/images/link.png" class="image"><span class="name">&emsp; Copy link</span></a>
-		</div>
+        </div>
 	</div>
     </div>
-  </div>
-  {%endfor%}
+    
+    </div>
+    {%endfor%}
+    </div>
+</div>
+  
+  
  
 
 <div class="projects">
@@ -133,11 +134,15 @@
 		  <a href="#"><img src="media/images/facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
 		  <a href="#"><img src="media/images/linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
 		  <a href="#"><img src="media/images/link.png" class="image"><span class="name">&emsp; Copy link</span></a>
-		</div>
+        </div>
 	</div>
     </div>
-  </div>
-  {%endfor%}
+    
+    </div>
+    {%endfor%}
+    </div>
+</div>
+  
   
 
 <!-- <div class="container">
