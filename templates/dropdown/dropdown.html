@@ -3,7 +3,7 @@
 <head>
 	<title></title>
 	<!-- <link rel="stylesheet" type="text/css" href="dropdown/d_style.css">  -->
-	<style>
+	<!-- <style>
 
 /* body{
 	width: 160px;
@@ -13,13 +13,13 @@
 	width:120px;
 	border-bottom: 3px;
 }
-.image-share{
-  height: 20px;
-  width: 20px;
-}
+
 .dropdown {
   position: relative;
   display: inline-block;
+}
+.left{
+	float: right;
 }
 
 .dropdown-content {
@@ -44,9 +44,10 @@
 .dropdown-content a:hover {background-color: #ddd;}
 .show{
   display: block;
-}
+} -->
 
-/* .dropdown:hover .dropdown-content {display: block;} */ 
+<!-- /* .dropdown:hover .dropdown-content {display: block;} */  -->
+
 </style>
 
 
@@ -55,8 +56,8 @@
  
 <br>
 <br>
-<div class="dropdown">
-<button onclick="this.parentElement.children[1].classList.toggle('show');" class="dropbtn"><img class="image-share" src="/media/share.png"></button>
+<div class="dropdown left">
+<button onclick="this.parentElement.children[1].classList.toggle('show');" class="dropbtn"><img class="image-share" src="/media/images/share.png"></button>
 	<div class="dropdown-content" id="myDropdown">
     <a data-href="" href="https:www.twitter.com/share?url={{url}}&text=Lorem Ipsum" class="twitter-share"  data-text ="Lorem Ipsum" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=580')"><img src="/media/twitter.png" class="image-share"><span class="name">&emsp; Twitter</span></a>
   
