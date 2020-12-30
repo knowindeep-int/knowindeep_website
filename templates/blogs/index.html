@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block content_head %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blogs.css' %}"> {% endblock %}
+    {% endblock %}
 <!-- <meta property="og:url" content="https://www.your-domain.com/your-page.html" /> -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="KnowinDeep" />
@@ -12,15 +12,12 @@
 <div class="image">
     <div class="jumbotron" id="jumbotron1">
 
-        <h1 id="display">Hello, world!</h1>
-        <p id="lead1">
-            <div>This is a simple hero unit, a simple jumbotron-style component for calling extra</div>
-            <div>attention to featured content or information.</div>
-        </p>
-        <h3 class="my-4">
-            <button class="btn btn-primary-sucess btn-lg btn-home"><a>Learn More</a>
-            </button>
-    </div>
+        <div class="contain">
+            <img src="media/images/cover.png">
+            <div class="centered"><span class="cap"><span class="know">Know</span> in Deep</span>
+                <div>We use modern approaches to let out users grip the<br> technical knowledge to its best</div>
+            </div>
+        </div>
 </div>
 <script>
     function copyProjectPageURLToClipBoard(e) {
@@ -48,29 +45,102 @@
         // }, function(response) {});
     }
 
-    function getProjectAbsoluteUrl(project_slug){
-        var url = ""
-        $.ajax({
-            method: 'GET',
-            url: '{%url "api:get_project_absolute_url"%}',
-            data : {
-                'slug': project_slug
-            },
-            async: false,
-        success: function(data){
-            url = data.url;
-            // alert(data.url)
-        },error: function(error){
-            alert("ERROR!")
-        },
+//     function getProjectAbsoluteUrl(project_slug){
+//         var url = ""
+//         $.ajax({
+//             method: 'GET',
+//             url: '{%url "api:get_project_absolute_url"%}',
+//             data : {
+//                 'slug': project_slug
+//             },
+//             async: false,
+//         success: function(data){
+//             url = data.url;
+//             // alert(data.url)
+//         },error: function(error){
+//             alert("ERROR!")
+//         },
         
-    })
-    return url
-}
+//     })
+//     return url
+// }
     
 </script>
+<div class="projects">
+	<div class="title"><img src="media/images/star.png" class="star"><span class="pro">OUR POPULAR PROJECTS</span></div>
+	<div class="card-group">
+    {%for project in projects%}
+  <div class="card">
+    <img class="card-img-top" src="media/images/blog-pic.png" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{project.title}}</h5>
+      <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+      <span class="bold">Author Name :</span><span>{{project.author}}</span><br>
+      <span class="bold">Hours To Complete :</span><span>{{project.no_of_hours}}</span><br>
+      <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
+      <span class="bold">Languages Used :</span>
+      <div >
+      	<img src="media/images/java.png" class="lang">
+      	<img src="media/images/kotlin.png" class="lang">
+      	<img src="media/images/c.png" class="lang">
+      	<img src="media/images/php.png" class="lang">
+      	<img src="media/images/python.png" class="lang">
+      </div><!-- 
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+      <hr>
+      <button class="but1 but2" onclick= "location.href = '{% url 'blogs:sub_topic' project.slug %}'>&emsp; GO TO BLOG &emsp;</button>
+      <div class="dropdown left">
+	<button class="dropbtn"><img class="image1" src="media/images/share.png"></button>
+		<div class="dropdown-content">
+		  <a href="#"><img src="media/images/twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+		  <a href="#"><img src="media/images/facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+		  <a href="#"><img src="media/images/linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+		  <a href="#"><img src="media/images/link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+		</div>
+	</div>
+    </div>
+  </div>
+  {%endfor%}
+ 
 
-<div class="container">
+<div class="projects">
+<div class="title"><img src="media/images/grp.png" class="star"><span class="pro">ALL OUR PROJECTS</span></div>
+<div class="card-group">
+    {%for project in all_projects%}
+  <div class="card">
+    <img class="card-img-top" src="media/images/blog-pic.png" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{project.title}}</h5>
+      <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+      <span class="bold">Author Name :</span><span>{{project.author}}</span><br>
+      <span class="bold">Hours To Complete :</span><span>{{project.no_of_hours}}</span><br>
+      <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
+      <span class="bold">Languages Used :</span>
+      <div >
+      	<img src="media/images/java.png" class="lang">
+      	<img src="media/images/kotlin.png" class="lang">
+      	<img src="media/images/c.png" class="lang">
+      	<img src="media/images/php.png" class="lang">
+      	<img src="media/images/python.png" class="lang">
+      </div><!-- 
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+      <hr>
+      <button class="but1 but2">&emsp; GO TO BLOG &emsp;</button>
+      <div class="dropdown left">
+	<button class="dropbtn"><img class="image1" src="media/images/share.png"></button>
+		<div class="dropdown-content">
+		  <a href="#"><img src="media/images/twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+		  <a href="#"><img src="media/images/facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+		  <a href="#"><img src="media/images/linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+		  <a href="#"><img src="media/images/link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+		</div>
+	</div>
+    </div>
+  </div>
+  {%endfor%}
+  
+
+<!-- <div class="container">
     
     <br>
     <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Our Popular Projects</h3>
@@ -78,11 +148,11 @@
     <div class="col-sm-4">
 
         <div class="card hoverable">
-            <!-- <script>alert('{{project.slug}}')</script> -->
+             <script>alert('{{project.slug}}')</script>
             <div class="card-image">
                 <img class="blogImage" src="media/{{ project.image }}" alt="{{project.title}}">
             </div>
-            <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
+             <img class="image" src="media/{{ blog.topic_image }}"> 
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
                 
@@ -109,9 +179,9 @@
                     {% if not project.isApproved %}
                     <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
 
-                    <!-- <script>
+                     <script>
                         document.getElementById("index_project_copy").setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
-                    </script> -->
+                    </script> 
 
                     <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
                     {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl  function="copyProjectPageURLToClipBoard(this)" %}
@@ -119,7 +189,7 @@
                     // alert('{{ request.scheme }}://{{ request.get_host }}')
                     // alert('{{project.get_absolute_url}}')
                     </script>
-                    <!-- <button style="float: right;" id="index_project_copy" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
+                     <button style="float: right;" id="index_project_copy" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
                     <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button> -->
                     <!-- <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u=" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="/media/facebook.png"><span class="name">&emsp; Facebook</span></a> -->
                     <script>
@@ -139,12 +209,12 @@
                             
                         // });
                     </script>
-                    <!-- <script>
+                    <!--]]] <script>
                             // document.getElementById("facebook").setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
                             document.getElementsByClassName("clipboard").setAttribute("onclick", "copyProjectPageURLToClipBoard('{{project.slug}}');return false;")
                             // alert(document.getElementById("facebook").getAttribute("data-href"))
                     </script> -->
-                    {% endif %}
+                    <!-- {% endif %}
                     
                     
                 </div>
@@ -183,8 +253,8 @@
             </script>
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
-                <!-- <button style="float: right;" id= "" onclick="" type="button" class="fb-share-button" data-href="get_project_absolute_url({{project.slug}})" id="shareButton">Share</button> -->
-                <p>{{ project.overview }}</p>
+                 <button style="float: right;" id= "" onclick="" type="button" class="fb-share-button" data-href="get_project_absolute_url({{project.slug}})" id="shareButton">Share</button> -->
+                <!-- <p>{{ project.overview }}</p>
                 <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
                 <p>Hours To Complete: {{ project.no_of_hours }}</p>
                 <p>Level: {{ project.difficulty_level }}</p>
@@ -205,9 +275,9 @@
                     <a href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
 
                     <a href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
-                    <!-- <button style="float: right;" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
+                     <button style="float: right;" onclick="copyProjectPageURLToClipBoard('{{project.slug}}')" type="button" class="btn btn-primary" data-href="getProjectAbsoluteUrl({{project.slug}})" data-layout="button_count">Share</button>
                     <button style="float: right;" onclick="" type="button" class="fb-share-button" data-href="getProjectAbsoluteUrl({{project.slug}})" id="shareButton">Share</button> -->
-                    {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
+                    <!-- {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %} -->
                     <!-- <script>
                         document.getElementsByClassName('clipboard')[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("onclick", "copyProjectPageURLToClipBoard(this);return false;")
                         document.getElementsByClassName("clipboard")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("data-href",  getProjectAbsoluteUrl('{{project.slug}}') )
@@ -217,7 +287,7 @@
                         document.getElementsByClassName("twitter-share")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].setAttribute("href", document.getElementsByClassName("twitter-share")[parseInt('{{projects.count}}') + parseInt('{{forloop.counter}}') - 1].getAttribute("href") + getProjectAbsoluteUrl('{{project.slug}}') );
                         alert(document.getElementsByClassName('twitter-share').getAttribute("href"))
                     </script> -->
-                    {% endif %}
+                    <!-- {% endif %}
 
                 </div>
             </div>
@@ -227,5 +297,5 @@
     </div>
 </div>
 {% endfor %}
-</div>
+</div> -->
 {% endblock content %}
