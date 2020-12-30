@@ -63,7 +63,7 @@
     
 </script>
 <div class="projects">
-	<div class="title"><img src="media/images/star.png" class="star"><span class="pro">OUR POPULAR PROJECTS</span></div>
+	<div class="title"><img src="media/images/star.svg" class="star"><span class="pro">OUR POPULAR PROJECTS</span></div>
 	<div class="card-group">
     {% for project in projects %}
   <div class="card">
@@ -120,7 +120,7 @@
  
 
 <div class="projects">
-<div class="title"><img src="media/images/grp.png" class="star"><span class="pro">ALL OUR PROJECTS</span></div>
+<div class="title"><img src="media/images/grp.svg" class="star"><span class="pro">ALL OUR PROJECTS</span></div>
 <div class="card-group">
     {%for project in all_projects%}
   <div class="card">
@@ -132,25 +132,26 @@
       <span class="bold">Hours To Complete :</span><span>{{project.no_of_hours}}</span><br>
       <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
       <span class="bold">Languages Used :</span>
-      <div >
-      	<img src="media/images/java.png" class="lang">
-      	<img src="media/images/kotlin.png" class="lang">
-      	<img src="media/images/c.png" class="lang">
-      	<img src="media/images/php.png" class="lang">
-      	<img src="media/images/python.png" class="lang">
-      </div><!-- 
+      <div>
+        {% for language in project.languages.all %}
+        {% if language.image.url %}
+        <img src="{{language.image.url}}" class="lang">
+        {% endif %}
+        {% endfor %}
+    </div><!-- 
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
       <hr>
-      <button class="but1 but2">&emsp; GO TO BLOG &emsp;</button>
-      <div class="dropdown left">
-	<button class="dropbtn"><img class="image1" src="media/images/share.png"></button>
-		<div class="dropdown-content">
-		  <a href="#"><img src="media/images/twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
-		  <a href="#"><img src="media/images/facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
-		  <a href="#"><img src="media/images/linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
-		  <a href="#"><img src="media/images/link.png" class="image"><span class="name">&emsp; Copy link</span></a>
-        </div>
-	</div>
+      <button class="but1 but2" onclick= "location.href = '{% url 'blogs:sub_topic' project.slug %}';"> &emsp; GO TO BLOG &emsp;</button>
+      {% if request.user.is_superuser %}
+                    {% if not project.isApproved %}
+                    <button class="but1 but2" href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</button> 
+                    {% else %}
+                    <button class='but1 but2' href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</button>
+                    {% endif %}
+                    {% endif %}
+     {%if project.isApproved%}
+     {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl  function="copyProjectPageURLToClipBoard(this)" %}
+    {% endif %}
     </div>
     
     </div>
