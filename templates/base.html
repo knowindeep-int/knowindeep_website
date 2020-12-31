@@ -154,10 +154,55 @@
                         <input type="search" id="search_input" onkeyup="implementSearch();" placeholder="Search">
                       <i class="fa fa-search" href="#" id="navbarDropdown"></i>
                   </form>
-                    <div class="dropdown-menu menu" id="srch">
+                    <div class="dropdown-menu menu" id="srch" style="display: block;">
                     </div>
             </a>
           </li>
+          <script>
+          function implementSearch() {
+    
+    search_input = document.getElementById('search_input').value;
+    $.ajax({
+        url: '{% url "api:search" %}',
+        method: "GET",
+        data: {
+            'search_input': search_input,
+        },
+        success: function(data) {
+            var result = document.getElementById("srch");
+            result.innerHTML = "";
+            result.innerHTML += '<p class="dropdown-item" style="color:black;" >Projects:</p>'
+            for (var i = 0; i < data.projects.length; i++) {
+                result.innerHTML += '<a class="dropdown-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
+            }
+
+            result.innerHTML += '<p class="dropdown-item" style="color:black;" >Chapters:</p>'
+            for (var i = 0; i < data.chapters.length; i++) {
+                result.innerHTML += '<a class="dropdown-item" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
+            }
+
+            result.innerHTML += '<p class="dropdown-item" style="color:black;" >Authors:</p>'
+            for (var i = 0; i < data.authors.length; i++) {
+                result.innerHTML += '<a class="dropdown-item" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
+            }
+
+        },
+        error: function(error) {
+            alert(error)
+        },
+    });
+};
+          let test = document.getElementById("navbarDropdown");
+
+            test.addEventListener("mouseover", function( event ) {
+                var a = document.getElementById("srch");
+                a.classList.toggle("mystyle");
+            
+            }, false);
+            
+            function mouseOut() {	var a = document.getElementById("srch");
+            a.classList.remove("mystyle");
+            }</script>
           <!-- <li class="nav-item">
               <button class="nav-link but1" data-href="{% url 'site_users:login' %}" target="#loginDialog" onclick="{% url 'site_users:login' %}">&emsp; LOGIN &emsp;</button>
         </li> -->
