@@ -1,38 +1,32 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content_head %}
+{% extends "base.html" %} {% load static %} {% block content_head %}
 <script src="{% static 'js/author/author_page.js'%}"></script>
-{% endblock %}
-
-
-
-
-{% block content %}
+{% endblock %} {% block content %}
 
 
 <script type="text/javascript">
-    {% block jquery %}
+    { % block jquery %
+    }
 
-    
+
     function makeEditable() {
         var is_verified = '{{is_verified}}'
         alert(is_verified);
         $(this).attr('disabled', false);
-    } 
+    }
 
-    function disableEdit(){
+    function disableEdit() {
         //event.preventDefault();
         edit_buttons = document.getElementsByClassName("can_hide")
         alert('{{is_verified}}')
-        //alert('HELLO WORLD!')
+            //alert('HELLO WORLD!')
         var is_verified = '{{is_verified}}'
-        if(is_verified == "False"){
-            for(var i=0; i<edit_buttons.length; i++){
+        if (is_verified == "False") {
+            for (var i = 0; i < edit_buttons.length; i++) {
                 edit_buttons[i].style.display = "none";
             }
         }
     }
-           
+
 
     function updateProfile(field, value) {
         event.preventDefault();
@@ -72,19 +66,21 @@
             method: "POST",
             data: data,
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 alert("SUCCESS")
-            }, error: function (error) {
+            },
+            error: function(error) {
                 alert(error)
             },
         })
     }
 
-   
-    {% endblock jquery %}
+
+    { % endblock jquery %
+    }
 </script>
 
-   
+
 <div class="container">
     <div class="row" style="margin-top: 150px;">
         <div class="col-sm-12 col-md-6 col-lg-8 center-div">
@@ -93,13 +89,13 @@
                 <div class="col-sm-2">
                     <!--<img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                         alt="" class="circle responsive-img">-->
-                        <img src="{{ profile.dp.url }}" height="60" width="60" style="float: left;" alt="image" id=FIELDS.DP >        
+                    <img src="{{ profile.dp.url }}" height="60" width="60" style="float: left;" alt="image" id=FIELDS.DP>
                 </div>
-                
+
                 <div class="col-sm-10">
-                    
+
                     <div>
-                       
+
                     </div>
                     <div>
                         <span class="black-text">
@@ -109,16 +105,14 @@
                     <div>
                         <h2>About You</h2>
                     </div>
-                    <div >
+                    <div>
                         <span>
                             <h3>Name</h3>
                         </span>
                         <span>
-                            <input type="text" id="name" value="{{profile.user.first_name}}"  disabled> 
-                            <button onclick="editProfile(FIELDS.FIRSTNAME)" id="editName"  class="can_hide">EDIT</button>
-                        </span><br>
-                        Your name appears on your <a href=""> Profile page</a>, as your byline, and in your responses.
-                        It is a required field.
+                            <input type="text" id="name" value="{{profile.user.first_name}}" disabled>
+                            <button onclick="editProfile(FIELDS.FIRSTNAME)" id="editName" class="can_hide">EDIT</button>
+                        </span><br> Your name appears on your <a href=""> Profile page</a>, as your byline, and in your responses. It is a required field.
                     </div>
                     <br>
                     <div>
@@ -149,7 +143,7 @@
                             </span>
                         </span>
                         <span>
-    
+
                             <!--<img src="{{ profile.dp.url }}" height="60" width="60" style="float: left;" alt="image" id=FIELDS.DP >-->
                         </span>
 
@@ -160,26 +154,16 @@
                             <h2>Your Progress</h2>
                         </div>
                         <div>
-                            {% if profile.package_set.all %} 
+                            {% if profile.package_set.all %}
                             <h3>Ongoing Courses - </h3>
-                            {% for package, percent_progress in progresses %}
-                                {% if percent_progress != 100 %}
-                                <a href="{% url 'blogs:chapter_post' slug=package.project.slug chapter=package.current_chapter.slug %}">{{package.project}}</a>-
-                                {{percent_progress}}%<br>
-                                {% endif %}
-                            {% endfor %}
+                            {% for package, percent_progress in progresses %} {% if percent_progress != 100 %}
+                            <a href="{% url 'blogs:chapter_post' slug=package.project.slug chapter=package.current_chapter.slug %}">{{package.project}}</a>- {{percent_progress}}%
+                            <br> {% endif %} {% endfor %}
 
                             <h3>Completed Courses - </h3>
-                            {% for package, percent_progress in progresses %}
-                                {% if percent_progress == 100 %}
-                                <a href="{% url 'blogs:sub_topic' slug=package.project.slug %}">{{package.project}}</a>-
-                                {{percent_progress}}%<br>
-                                {% endif %}
-                            {% endfor %}
-
-                            {% else %}
-                                No Courses Available!
-                            {% endif %}
+                            {% for package, percent_progress in progresses %} {% if percent_progress == 100 %}
+                            <a href="{% url 'blogs:sub_topic' slug=package.project.slug %}">{{package.project}}</a>- {{percent_progress}}%
+                            <br> {% endif %} {% endfor %} {% else %} No Courses Available! {% endif %}
                         </div>
                         {% endif %}
                     </div>
@@ -200,13 +184,11 @@
                                     Edit PhoneNumber
                                 </button>
                             </span>
-                            </input>
+                        </input>
                         </span>
 
                     </div>
-                    {% endif %}
-
-                    {% if request.user == profile.user %}
+                    {% endif %} {% if request.user == profile.user %}
                     <div>
                         <span>
                             <h2>Security</h2>
@@ -215,17 +197,17 @@
                         <span>
                             <h3>Delete account</h3>
                         </span>
-                            <span>
-                                Permanently delete your account and all of your content.
-                            </span><br>
+                        <span>
+                            Permanently delete your account and all of your content.
+                        </span><br>
                         <span><a href="">Delete</a></span>
                     </div>
                     {% endif %}
 
 
                 </div>
-               
-            
+
+
             </div>
             <hr>
         </div>
