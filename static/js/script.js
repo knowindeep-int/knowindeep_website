@@ -80,3 +80,19 @@ function myFunction() {
         }; }; document.getElementById('googleLogin').onclick = function() { var url = this.getAttribute('google-href') window.open(url,"_self") }; document.getElementById('closeDialog').onclick = function() { dialog.style.display = "none"; }; document.getElementById('githubLogin').onclick
         = function() { var url = this.getAttribute('github-href') window.open(url,"_self") }; // document.addEventListener('DOMContentLoaded', function() { // var element = document.querySelectorAll('.sidenav'); // var instances = M.Sidenav.init(element,
         options);
+
+        /* FOR DROPDOWN */ 
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn') && !event.target.matches('.dropbtn img')) {     
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              var i;
+              for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                }
+              }
+              
+            }
+        
+          }
