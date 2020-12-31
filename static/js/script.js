@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function implementSearch() {
     
-
-    search_input = document.getElementById('searchInput').value;
+    alert('fuck js');
+    search_input = document.getElementById('search_input').value;
     $.ajax({
         url: '{% url "api:search" %}',
         method: "GET",
@@ -25,7 +25,7 @@ function implementSearch() {
             'search_input': search_input,
         },
         success: function(data) {
-            var result = document.getElementById("result");
+            var result = document.getElementById("srch");
             result.innerHTML = "";
             result.innerHTML += '<p class="list-group-item" style="color:black;" >Projects:</p>'
             for (var i = 0; i < data.projects.length; i++) {
@@ -96,4 +96,17 @@ function myFunction() {
               
             }
         
+          }
+
+          let test = document.getElementById("navbarDropdown");
+
+          test.addEventListener("mouseover", function( event ) {
+              var a = document.getElementById("srch");
+              a.classList.toggle("mystyle");
+              alert('fuck js');
+          }, false);
+          
+          function mouseOut() {	var a = document.getElementById("srch");
+          a.classList.remove("mystyle");
+          alert('fuck js');
           }
