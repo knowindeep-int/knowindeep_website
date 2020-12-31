@@ -103,10 +103,11 @@ function myFunction() {
           test.addEventListener("mouseover", function( event ) {
               var a = document.getElementById("srch");
               a.classList.toggle("mystyle");
-              alert('fuck js');
+          
           }, false);
           
           function mouseOut() {	var a = document.getElementById("srch");
           a.classList.remove("mystyle");
-          alert('fuck js');
           }
+
+          
