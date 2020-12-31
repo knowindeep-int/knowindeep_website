@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% block content_head %}
+<script src="{% static 'js/author/author_page.js'%}"></script>
+{% endblock %}
+
 
 
 
@@ -9,16 +13,6 @@
 <script type="text/javascript">
     {% block jquery %}
 
-    window.onload = function(){
-        disableEdit();
-    };
-    
-    const FIELDS = {
-        FIRSTNAME: "first_name",
-        DESCRIPTION: "description",
-        DP: "dp",
-        PHONENUMBER: "phone_number"
-    }
     
     function makeEditable() {
         var is_verified = '{{is_verified}}'
@@ -86,12 +80,7 @@
         })
     }
 
-    function editProfile(field) {
-        let value = document.getElementById(field).value
-
-        updateProfile(field, value)
-    }
-
+   
     {% endblock jquery %}
 </script>
 
