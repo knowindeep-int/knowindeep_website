@@ -65,10 +65,10 @@
             return url
         }
     </script> -->
-    
+
     <!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
     {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
-<!-- <script>
+    <!-- <script>
     document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
     document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
     document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
@@ -83,7 +83,7 @@
     </div>
     <div>
         <h3>What will you do in this course:</h3>
-        {{project.description}}
+        {{ project.description }}
     </div>
 
     <div>
@@ -96,11 +96,11 @@
     </div>
     <div>
         <h3>Difficulty Level:</h3>
-        {{project.difficulty_level}}
+        {{ project.difficulty_level }}
     </div>
     <div>
         <h3>Course Duration</h3>
-        {{project.no_of_hours}}
+        {{ project.no_of_hours }}
     </div>
     <div>
         <h3>Languages Used:</h3>
@@ -111,7 +111,7 @@
         </ul>
     </div>
     <div>
-        <h3>Author Name :</h3> {{project.author.user.first_name }} {{project.author.user.last_name}}
+        <h3>Author Name :</h3> {{ project.author.user.first_name }} {{ project.author.user.last_name }}
     </div>
 
     <div class="center">
@@ -126,7 +126,7 @@
                 {{ chapter.heading }} : {{ chapter.description }}
             </a>
             <!-- <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button> -->
-            
+
             <!-- <script>
             //     document.getElementById("clipboard").setAttribute("onclick", "copyChapterPageURL();return false;")
             //     document.getElementById("clipboard").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
@@ -135,8 +135,8 @@
 
         </div>
         {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
-        
-            <!-- <script>
+
+        <!-- <script>
                 document.getElementsByClassName('clipboard')['{{forloop.counter}}'].setAttribute("onclick", "copyChapterPageURL(this);return false;")
                 document.getElementsByClassName("clipboard")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
                 document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("href", document.getElementsByClassName("share-btn")['{{forloop.counter}}'].getAttribute("href") + '&u=' + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
