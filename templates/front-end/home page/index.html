@@ -3,6 +3,7 @@
 <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -16,27 +17,29 @@
     <li class="nav-item">
       <a class="nav-link">ABOUT US</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link">SEARCH</a>
+    <li class="nav-item n dropdown" id="drop">
+      <a class="nav-link"> 
+	      	<form class="form" action="" onmouseout="mouseOut()">
+	  			<input type="search">
+			    <i class="fa fa-search" href="#" id="navbarDropdown"></i>
+			</form>
+			  <div class="dropdown-menu menu" id="srch">
+			      <a class="dropdown-item">first</a>
+			      <a class="dropdown-item">second</a>
+			      <a class="dropdown-item">third</a>
+		      </div>
+	  </a>
     </li>
 
     <li class="nav-item">
     	<button class="nav-link but1">&emsp; LOGIN &emsp;</button>
-</li>
-   <!-- <li class="nav-item dropdown" id="drop">
-      <button class="nav-link dropdown-toggle" href="#" id="navbarDropdown" onclick="myfunction()">Dropdown</button>
-      <div class="dropdown-menu menu">
-      <a class="dropdown-item">HOME</a>
-      <a class="dropdown-item">ABOUT US</a>
-      <a class="dropdown-item">SEARCH</a>
-      </div>
-    </li> -->
+	</li>
   </ul>
 </nav>
 
 <div class="contain">
 	<img src="cover.png">
-	<div class="centered"><span class="cap"><span class="know">Know</span> in Deep</span>
+	<div class="centered"><span class="cap"><span class="know">Know</span>inDeep</span>
 		<div>We use modern approaches to let out users grip the<br> technical knowledge to its best</div>
 	</div>
 </div>
@@ -269,12 +272,13 @@
 	<img  class="foot-logo stack" src="kid-black.png"><br>
 	<br>
 	<br>
-	<span>Contact Us :knowindeep.tech@gmail.com<br>All Rigths reserved.Know In Deep 2020</span>
+	<span>Contact Us :knowindeep.tech@gmail.com<br>All Rigths reserved.KnowInDeep 2020</span>
 	<br>
 		<span>
 			<img src="google.png" class="lang1">
 			<img src="linkd.png" class="lang1">
 			<img src="github.png" class="lang1">
+			<img src="youtube.png" class="lang1">
 		</span>
 	</span>
     <ul class="stack">

@@ -19,3 +19,14 @@
 //           x.style.display = "none";
 //       }
 // });
+let test = document.getElementById("navbarDropdown");
+
+test.addEventListener("mouseover", function( event ) {
+	var a = document.getElementById("srch");
+    a.classList.toggle("mystyle");
+
+}, false);
+
+function mouseOut() {	var a = document.getElementById("srch");
+a.classList.remove("mystyle");
+}
