@@ -148,10 +148,16 @@
           <li class="nav-item">
             <a class="nav-link" href="#">ABOUT US</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link">SEARCH</a>
+          <li class="nav-item n dropdown" id="drop">
+            <a class="nav-link"> 
+                    <form class="form" action="" onmouseout="mouseOut()">
+                        <input type="search" id="search_input" onkeyup="implementSearch();" placeholder="Search">
+                      <i class="fa fa-search" href="#" id="navbarDropdown"></i>
+                  </form>
+                    <div class="dropdown-menu menu" id="srch">
+                    </div>
+            </a>
           </li>
-      
           <!-- <li class="nav-item">
               <button class="nav-link but1" data-href="{% url 'site_users:login' %}" target="#loginDialog" onclick="{% url 'site_users:login' %}">&emsp; LOGIN &emsp;</button>
         </li> -->
