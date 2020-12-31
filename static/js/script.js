@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 /* FOR BASE */ 
 
 function implementSearch() {
+    
 
     search_input = document.getElementById('searchInput').value;
     $.ajax({
