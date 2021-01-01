@@ -143,16 +143,16 @@
         <a class="navbar-brand" href="{% url 'blogs:index' %}"><img src="/media/images/kid-white.png" class="kid"></a>
         
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item hid">
             <a class="nav-link" href="{% url 'blogs:index' %}">HOME</a>
           </li>    
-          <li class="nav-item">
+          <li class="nav-item hid">
             <a class="nav-link" href="#">ABOUT US</a>
           </li>
-          <li class="nav-item n dropdown" id="drop">
+          <li class="nav-item n dropdown hid" id="drop">
             <a class="nav-link"> 
-                    <form class="form" action="" onmouseout="mouseOut()">
-                        <input type="search" id="search_input" onkeyup="implementSearch();" placeholder="Search">
+                    <form class="form" action="" >
+                        <input type="search" id="search_input" onmouseout="mouseOut()" onmouseover="mousein()" onkeyup="implementSearch();" placeholder="Search">
                       <i class="fa fa-search" href="#" id="navbarDropdown"></i>
                   </form>
                     <div class="dropdown-menu menu" id="srch" style="display: block;">
@@ -208,8 +208,8 @@
               <button class="nav-link but1" data-href="{% url 'site_users:login' %}" target="#loginDialog" onclick="{% url 'site_users:login' %}">&emsp; LOGIN &emsp;</button>
         </li> -->
       {% if request.user.is_authenticated %}
-      <li class="nav-item"><a class="nav-link" href="{% url 'teach:list_of_projects' %}">TEACH WITH US</a></li>
-                <li class="nav-item">
+      <li class="nav-item hid"><a class="nav-link" href="{% url 'teach:list_of_projects' %}">TEACH WITH US</a></li>
+                <li class="nav-item hid">
                     <a  class="nav-link but1" id="cate" href="{% url 'site_users:logout' %}">
                         Log Out
                     </a>
@@ -241,7 +241,7 @@
                     <a href="#">Link 3</a>
                 </div>-->
                 {% else %}
-                <li class="nav-item">
+                <li class="nav-item hid">
                         <a class="nav-link but1" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog"
                             href="{% url 'site_users:login' %}">
 
@@ -258,6 +258,21 @@
             <a class="dropdown-item">SEARCH</a>
             </div>
           </li> -->
+          <li class="nav-item dropdown ham">
+            <div class="dropdown">
+              <i class="dropbtn fas fa-bars"></i>
+              <div class="dropdown-content">
+                <a href="{% url 'blogs:index' %}">HOME</a>
+                <a href="#">ABOUT US</a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
+                <a href="{% url 'site_users:logout' %}">LogOut</a>
+                {% else %}
+                <a href="{% url 'site_users:login' %}" data-href="{% url 'site_users:login' %}" target="#loginDialog">LogIn</a>
+                {% endif %}
+              </div>
+            </div>
+            </li>
         </ul>
       </nav>
 
@@ -318,25 +333,25 @@
         <span>Contact Us :knowindeep.tech@gmail.com<br>All Rights reserved. KnowInDeep 2020</span>
         <br>
             <span>
-                <a href="mailto:knowindeep.tech@gmail.com" target="_blank">
+                <a href="mailto:knowindeep.tech@gmail.com" target="_blank" class="lang1">
                     <!-- <img src="/media/images/google.svg" class="lang1" > -->
-                    <svg class="lang1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+                    <svg class="lang2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
                         <image width="36" height="36" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAD0ElEQVRYhb2YaYiOURTHf94ZJTGYIlmzla0s+TDGvg8NIUuSsiQ+YMpaopRQ5IPtA7KUsibJNgaNrMkHyi47JUOWsWSno/+j653nmee+02tOvXWf95577v8+zzn/c86t8mV3TVKUZsAgoDvQBmgKBEbeA4+BW8A54DjwMBXzCU+9DGAccB64COQAJ4HpQGsBqqnxdM3lSPe81mb4bOTzhvoD64DXwErgKPDN8yBVgSHAfCAbmCmwFQJUDVgDDARmAYc8QUTJUGAtUAQUAJ/D9KI+WV3gDFAH6JAGMMhGB9k8oz28AJniWZ1kLFCaBjCBlMpmkfYoAyoz6bm6TnIAWJRGIK78ku0M7dUX+BTMJ/vQZkXLOC38n1IF2Al8AKaGvSGLpn5Ax0oAg/aYBlzV3n+iL/ChhCKgIM0+EyeliuB1AU8FgMaKZ1KJpvrAHDnoXTHyZWADkJuCncPAK2AMjg8Zza8CDnoamQgsAxpEzNvn2AosBp572BsGLAC6JZSbWgJHPMEsBLaVAwY57BSlDx8x9m8BNDenzgMKge8eC0frzQRia/YDxQrddsB4oBEwW/ThI2bnmCVtA9QtLr9IsoDVzvML0UNxkt56oCuwzxNMIKeBAQmd6obHAnO6xhrbiSaEgDF5VgEwCEPbTG3iU7OMcMbm/CeS5usou4eJVQdvYuwbhqaZYub3HoBaO+PDIfN7gS4Rax8BnWLsG4YaAVP7MHMNZ/wyZN7eUO2ItY0j/i8jCSHzqWM/OuPskPmf5az96mHfMHwwQE/FRXFyz5kfGKI7RQydK/5x6eGVh33D8MQA3QTaeyxwWXxUCOldUw1tv0uK3kCueNj/E+0JpY1eHgt2ASUaV1Pp0DlCdwkw3Hne4WG/tzUElsuaAxfErnFsPRnY4jxbLbMdOCUfayW+cg94Qm1TeYGTKf7KrUhyNb25HnomD1QRPo7R+ye5opJhnucm8wToXYzeWeXJODCBTUs5f8sPK46uayKM9MLEPs8koA/QUCxtIO+IJPd69m/5eusWWD/cmtrKyE0qYSurasxSCTstSEVuG3RSGXdjJYFBexW7eTG5L5shglpRCWCWa6+Z7p/JfdkntbzmkD9Ugqa7A7FqcikwEujh9mREdK6WOHsqQnbrO6dLsmQzT3uUSdJRvX2J0L+V0+WnAVC+bL3V3VJJmJLPdcwA9U0lCs/CFK9j8kQn9eQvyYVdyoBMjKcsJZhBSzVWkFtEGncZ8QUkWUs3asYplpvsbui+SG+P/LJcqeiV3mC9dqsimzh+Zvz1BLitdGTA/a/0gN8cxOVwtgglBAAAAABJRU5ErkJggg=="/>
                     </svg>    
                 </a>
-                <a href="https://www.linkedin.com/company/knowindeep" target="_blank">
-                    <img src="/media/images/linkd.png" class="lang1">
+                <a href="https://www.linkedin.com/company/knowindeep" target="_blank" class="lang1">
+                    <img src="/media/images/linkd.png" class="lang2">
                 </a>
-                <a href="https://github.com/knowindeep-int" target="_blank">
+                <a href="https://github.com/knowindeep-int" target="_blank" class="lang1">
                     <!-- <img src="/media/images/github.png" class="lang1" > -->
-                    <svg class="lang1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+                    <svg class="lang2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
                         <image id="Ellipse_2_copy_2" data-name="Ellipse 2 copy 2" width="36" height="36" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAEEUlEQVRYhb2YbWhWZRjHf8+zdJabYSiVLwyXgVo4rT4spzNWaK1NqQ++BOULRII0iSgR+hgjdAi+wopAP9QmCBJLzSlq2koExUpLSedLRbKlDjdXm87FNf4Hzo7n3M95tpMXPLDd93Vf1//c1/ud6qrPJ0uaAMwFZgKTgQLAE9IOXAZ+Bb4D9gEXsxGfjsmXAywGmoAfgGLgALACmCRA+fp7hfaKxdukszlxFMW5oZeATcB1YC2wB7gd80OGAOXAh8AjwLsCOyBAw4ANwBygCmiICSKKKoGNQCOwCvg3jC/KZKOBI8BIoCgBMEhGkWQekY5YgIzxqL5kIXAzATAe3ZTMRum4B9QDgf8f0pfsAj5KEIifeiU7R7rKgE5vP+hDnylaFuvg/0kp4EugA3g77IYsml4Ept0HMAjQO8Ap6e6LPs+H0oqAVQ6feRNYBuRlqdjcYAnwVmC9V7qqlFb68pRnMjPRSmXfMHrQZ+dWgf9YNzwVeAwYLp6rwM9AN7AaeA94VGcfjvhgc/CtQJ0HyNL8OuCrCEDTgZOBtQsCOiaE/y/5xpOB9RnK3kGaJ/AladWmicDuCDBGd0PWnogAY/R4CBijngj+PZJXaIBeBr4B7jgA/Qhcc+zHITPV8Qg+073XirYBKgEOZxA4Xz4yGMoFFjnOH/ZM9hRwxsFoPNtV2wYLaBswNGLfMEwxZeMz9Cxlio4kKFcuEkaGoSCtzNzuUPZMQmA8mh6xbhjyvMToysy5CQNyyksLmatLa0sY0I2IdcPQYYB+Vy6KonMJA/otYt0wXDFAvwBPOwQ0JVxsv41Y74v2tMrGbIeAW8DnCYGpc5jsBft4q2WFwPfAOEe2tqR4CRg1CDBtMkuYT1qR/sNqnd1QM3AeeNUhzG7p2ZACG5d+Ap5zBEi5inWzF/ZbgA9CGKuBL9SrXBGoJSqGLQ4FN9SGGN9SNfcXHOBN92Z8/ZApPK2Nr32Mz8sJ7QanBISk1OWVhSg4Kr+MEwwVan0ssHq8G+rREGeN1wgfs/UupRqZPw0ISssRw2hWhlTi0QjprPJaE/8YdEAVtzZw6Jic3hrxncAbMtuhDKP4/BiAaiVnv7cQnDqs/z0opjW+9Ul6QMiG3gfWO/irZe5+Y1DwCzs18r6mnjml9bOKkgY1an8Df2YAF5VCUpL9unR1+jfDrrxVfmNtQr3sbHwn1PuO1W8gg6TJqpfsUunqR1E+0CLHbNPcVO57TunSRNGdQXlwv0Ky2jTdtIQdcjnlPxrk7Fcjv6rUpJGJemUye45ZrseFGp+80JcPYr4PGdntLFBqsFJjucnmMett/Ddm04mBsfcjKzc2SdiL2ifADsfUkTUgP1l+eUWJz6LPaqD/Sc8yukWkdQmWqeM/6QH/Affr8ENhndq0AAAAAElFTkSuQmCC"/>
                       </svg>
                     
                       
                 </a>
-                <a href="https://www.youtube.com/channel/UC_XUtq81h3hW2VSNtX_aWpA" target="_blank">
-                    <svg class="lang1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+                <a href="https://www.youtube.com/channel/UC_XUtq81h3hW2VSNtX_aWpA" target="_blank" class="lang1">
+                    <svg class="lang2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
                         <image width="36" height="36" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAFa0lEQVRYha2Ya4hVVRTHf3ufe++Mo46j+SixLB0kexlpIZnYu0wjCnLyQ/SlxChHEbI+BEKEgUKk5YcSyi9lWlCRVuqApUlgGhFZBPkoxUdm6sx1nPs4Z8c6riN3zj3nekdnXS7ce9Zea/332mutvdYxhY8H00e6DngIuAuYCIwFIiVdwF/A78D3wGbgQF/U2zrXecBcYCfwAzAV6ADmA9croMH6e77ypuranSrr1WOoHg/dD7wN/AcsB74CSnVuJAs8AiwBhgELFOwlAWoEVgIPAu3Al3WCSKNHgVXAFmAh0JO0Lu3IRgDbgaHApH4Ag+qYpDq3q426AMnCHbqTNqCzH8BE1Kk6t6iNKlCZ2P8m3clnwKv1Wsm1JWMurm9OeuxUt6e27gW6I2Y8htZotsxVwT4BSKMUYAb4CMgDzyUBkmx6D7g17Zj6CiROMWASLoOAn4F5UfbZCuYqjf4qqwLkcsFQvSGnttq1rIR1KoqhNq0zvbIp81Se4vDc6K5Phz2THW9uNkMZyWCaybkmcAPMADyHazCyIePAGYIAZ3xTpORKlMw542zenTGdwcngmPvD7c58V1qbKec6y2tdFBIbgZeBOcC6CNALwIr4joLh3hi7tGFb47hyqys5CAC/IrqcBILptenQ5QLOmGgBZjR4npGgeJo7cnPc8vJM8LoqBFcoqHVW76ZWYFMckH9P7lnG0epEtMdA0YBvINCvM+fBxb/CE+Cytqxy5/SAJjMtuM09FjMl1X88ME4APQx8A5Tj523GZ6dQSk02Pdfa7CoKHMGE3JTYY7H9tVzaAmga8G2i8Ch7FX4NQD5ld8QcpKEPwAKHG+GNSUgSwTBNAN0I7K3kXFg8xLWEbk+i8LGx3luFtvLqYJ47aQ6HZfVi/YPE4dDMqASOYLhBxK9O61lc1g1ML49holqv5Bfp6Fnjv1KY4j5jpSubnvBaTqMS2Cv9YQlcwTDWamXuShI3WefVBHQelNeIj3fKP84HhUVmSXlysINPqCHpbDAk4bFgGBQ5+GJma5INT9BSxuF6gjyF8G6qpTP1YDOKTLx0sopbxg9brFqqHUEJixtoW+wsbxGzvIW2xbWEaZ5EUimKNulEBENeAB3SWlQNqGjPkvPTAQUEZSylO3NPenMzy7yxrpWCIxWMkHVw1juacOEKhr/Fdb8BN/XCoYtdpz0TKkj1jguC9oYPM4szG8xo1xoelF8DDOcPy3bybwInzHar08GMROET7lhqfXFhQGfMtUwMa1W9XbZnMUfLRxI4d8tAYHVUmRkvbeKl4KDbQzalDkVU6mNKZAzsLf4Uf6oYNgug/cCfwKwq2Y7u990he8hI19LgIOuQ+13TqjYZzSVP5RodZjAEv7DH7S58HpOVyWSfYIm8shp4CfiiF6Dj/oGepaUZpdm55zPX2FtMsxtOkxtExjXRSAZLzpigCppz1lEKPwXKtpsuuoJT9kRpv9tlN+VXZ/P+6ZiQ2H6Hio5RmqNflbExWtUfTVmcErJrtrYfklh+VKB8HeKka7wgkdIL9yeYZrXZHuVnZcXs0Bv33Yso6U8SW9uArZHOeAl/UQvUG/1tOWFjy9TWgsqHcUDdOvI+Drwe5dLleikmb1T3E2qruxczZbYfqW3lPp2Z8trJ9CnQEzYyUGe/CZrq/8QXpN26snA6cFrnpvuiMUWMXKLHpquuLn23VAWGOl/HPKBz00HgNWCX9sAC0OXaOoPKxcX1zUYrr/AL2iIvlm5Q42Vruqn6AAmJcpmbROEVwAY9e7mYD+s8IcCku5ZuUN6q3a5v2s4CbwLr67h66wZUSZIZcu+I2+W3dH+ht8RB2sbIa70fNQ7rf6UH/A84ON9qpMqP/QAAAABJRU5ErkJggg=="/>
                       </svg>
                       
