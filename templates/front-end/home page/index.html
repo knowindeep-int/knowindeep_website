@@ -11,17 +11,17 @@
   <a class="navbar-brand" href="#"><img src="kid-white.png" class="kid"></a>
   
   <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
+    <li class="nav-item hid">
       <a class="nav-link">HOME</a>
     </li>    
-    <li class="nav-item">
+    <li class="nav-item hid">
       <a class="nav-link">ABOUT US</a>
     </li>
-    <li class="nav-item n dropdown" id="drop">
+    <li class="nav-item n dropdown hid" id="drop">
       <a class="nav-link"> 
-	      	<form class="form" action="" onmouseout="mouseOut()">
-	  			<input type="search">
-			    <i class="fa fa-search" href="#" id="navbarDropdown"></i>
+	      	<form class="form" action="">
+	  			<input type="search" onmouseout="mouseOut()" onmouseover="mousein()" id="navbarDropdown">
+			    <i class="fa fa-search" href="#"></i>
 			</form>
 			  <div class="dropdown-menu menu" id="srch">
 			      <a class="dropdown-item">first</a>
@@ -31,9 +31,19 @@
 	  </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item hid">
     	<button class="nav-link but1">&emsp; LOGIN &emsp;</button>
 	</li>
+      <li class="nav-item dropdown ham">
+<div class="dropdown">
+  <i class="dropbtn fas fa-bars"></i>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+</div>
+      </li>
   </ul>
 </nav>
 
@@ -275,10 +285,18 @@
 	<span>Contact Us :knowindeep.tech@gmail.com<br>All Rigths reserved.KnowInDeep 2020</span>
 	<br>
 		<span>
-			<img src="google.png" class="lang1">
-			<img src="linkd.png" class="lang1">
-			<img src="github.png" class="lang1">
-			<img src="youtube.png" class="lang1">
+      <a href="#" class="lang1">
+			<img src="google.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+			<img src="linkd.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+			<img src="github.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+			<img src="youtube.png" class="lang2">
+      </a>
 		</span>
 	</span>
     <ul class="stack">

@@ -12,8 +12,11 @@
   
 .ml-auto .dropdown-menu {
     right: 0px;
+    z-index: 3;
 }
-
+.h{
+  z-index: 2;
+}
 .navbar-brand{
 	padding-left: 15%;
 }
@@ -24,6 +27,7 @@
 
 nav{
 	background-color: #1c1c1c;
+  max-height: 76px !important
 }
 .bold{
 	font-weight: bold;
@@ -108,8 +112,13 @@ img{
 	margin: 10px 5px 0 0;
 }
 .lang1{
-	width: 36px;
+	width: 32px;
 	margin:  20px 20px 0 0;
+  text-decoration: none !important;
+}
+.lang2{
+  width: 36px;
+  margin-top: 20px;
 }
 .left{
 	float: right;
@@ -136,6 +145,8 @@ img{
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  top: 20px;
+  right: 0; 
 }
 
 .dropdown-content a {
@@ -151,7 +162,9 @@ img{
 
 .dropbtn{
 	border-width: 0;
-	background-color: white;
+}
+.fa-bars{
+  color:white;
 }
 footer{
 	font-weight: 550;
@@ -259,4 +272,53 @@ form:hover .fa{
 
 .mystyle{
 	display: block;
+}
+
+.ham{
+  display: none;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .stacks{
+    padding: 2% 2%;
+  }
+  .hid{
+    display: none;
+  }
+  .ham{
+    display: inline-block;
+  }
+  .projects{
+    padding: 2% 2%;
+  }
+.navbar-nav{
+    padding: 5px 2%;
+  }
+  .navbar-brand{
+    padding: 5px 2%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+}
+
+/*For the landscape orientation in mobile devices */
+@media only screen and (orientation: landscape) {
+}
+
+.dropdown-toggle::after{
+  display: none;
 }
