@@ -7,25 +7,10 @@
     { % block jquery %
     }
 
+    var is_verified = '{{is_verified}}'
+    makeEditable(is_verified); 
 
-    function makeEditable() {
-        var is_verified = '{{is_verified}}'
-        alert(is_verified);
-        $(this).attr('disabled', false);
-    }
-
-    function disableEdit() {
-        //event.preventDefault();
-        edit_buttons = document.getElementsByClassName("can_hide")
-        alert('{{is_verified}}')
-            //alert('HELLO WORLD!')
-        var is_verified = '{{is_verified}}'
-        if (is_verified == "False") {
-            for (var i = 0; i < edit_buttons.length; i++) {
-                edit_buttons[i].style.display = "none";
-            }
-        }
-    }
+    function disableEdit(is_verified) ;
 
 
     function updateProfile(field, value) {
