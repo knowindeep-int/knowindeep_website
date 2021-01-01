@@ -1,6 +1,9 @@
 {% extends "base.html" %} {% load static %} {% block content_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blog_content.css' %}">
 <script src="{% static 'js/blogs/subtopic.js' %}"></script> {% endblock %} {% block content %}
+{% block title %}
+<title>{{ project.title |title}}</title>
+{% endblock %}
 
 <div class="center">
     <ol class="breadcrumb">

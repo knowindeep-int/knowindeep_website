@@ -3,7 +3,9 @@
 {% block content_head %}
 <script src="{% static 'js/blogs/blog_post.js' %}"></script>
 {% endblock %}
-
+{% block title %}
+<title>{{ chapter_content.link_to.title |title }} | {{ chapter_content.heading |title }}</title>
+{% endblock %}
 
 <div class="row">
     <div class="col-1">
