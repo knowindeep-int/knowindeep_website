@@ -674,6 +674,37 @@ function createDifficultyPage() {
 
 }
 
+function assignParam(
+    title = null,
+    description = null,
+    difficulty_level = null,
+    no_of_hours = null,
+    languages = null,
+    overview = null,
+    pre_reqs = null,
+    pk = null,
+    counter = null,
+    chapter_innerHTML = null,
+    chapter_count = null,
+    image = null,
+    author = null
+
+    ){
+        var title = title;
+        var description = description;
+        var difficulty_level = difficulty_level;
+        var no_of_hours = no_of_hours;
+        var languages = languages;
+        var overview = overview;
+        var pre_reqs = pre_reqs;
+        var pk = pk;
+        var counter = counter;
+        var chapter_innerHTML = chapter_innerHTML;
+        var chapter_count = chapter_count;
+        var image = image;
+        var author = author
+    };
+
 
 
 
