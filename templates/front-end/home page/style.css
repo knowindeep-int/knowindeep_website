@@ -32,6 +32,7 @@ nav{
 .bold{
 	font-weight: bold;
 }
+
 img{
 	width: 100%;
 	height: auto;
@@ -90,8 +91,9 @@ img{
 
 .card{
 	margin: 0 1.5%;
-	width: 25%;
+	width: 100%;
 	margin-bottom: 10%;
+  float:  none;
 }
 .blog-pic{
 }
@@ -161,7 +163,9 @@ img{
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropbtn{
-	border-width: 0;
+  padding: 0;
+  border-width: 0;
+  background-color: white;
 }
 .fa-bars{
   color:white;
@@ -277,14 +281,26 @@ form:hover .fa{
 .ham{
   display: none;
 }
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+.but3{
+  padding: 4px 14px;
 }
-
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 660px) {
+.card-group {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
 }
-
+.card-deck {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+}
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 768px) {
 }
@@ -309,6 +325,9 @@ form:hover .fa{
   .navbar-brand{
     padding: 5px 2%;
   }
+  .cover{
+    min-height: 200px;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -322,3 +341,4 @@ form:hover .fa{
 .dropdown-toggle::after{
   display: none;
 }
+
