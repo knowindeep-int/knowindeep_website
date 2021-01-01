@@ -98,16 +98,17 @@ function myFunction() {
         
           }
 
-          let test = document.getElementById("navbarDropdown");
+        //   let test = document.getElementById("navbarDropdown");
 
-          test.addEventListener("mouseover", function( event ) {
-              var a = document.getElementById("srch");
-              a.classList.toggle("mystyle");
+        //   test.addEventListener("mouseover", function( event ) {
+        //       var a = document.getElementById("srch");
+        //       a.classList.toggle("mystyle");
           
-          }, false);
+        //   }, false);
           
-          function mouseOut() {	var a = document.getElementById("srch");
-          a.classList.remove("mystyle");
-          }
-
-          
+function mouseOut() {	var a = document.getElementById("srch");
+a.classList.remove("mystyle");
+}
+function mousein() {	var a = document.getElementById("srch");
+a.classList.add("mystyle");
+}   
