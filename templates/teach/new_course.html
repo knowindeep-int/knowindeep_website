@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block content_head %}
+<script src="{% static 'js/blogs/new_course.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
+    <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static  'css/style.css' %}">
+{% endblock %}
 {% block content %}
 
 <head>
@@ -7,14 +15,26 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
     <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static  'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static  'css/style.css' %}">
     <!-- <script type="text/javascript" src="{% static 'js/teach/teach.js' %}"></script>--> 
 </head>
 
 <script>
-if('{{project.title}}' != ""){
-    var title = '{{project.title}}';
-    //var chapters = '{{project.chapters.all | safe}}';
+if('{{project.title}}'){
+   assignParam(
+    title = '{{project.title}}',
+    description = '{{project.description}}',
+    difficulty_level = '{{difficulty_level}}',
+    no_of_hours = '{{no_of_hours}}',
+    languages = '{{selected_languages}}',
+    overview = "{{overview}}",
+    pre_reqs = '{{project.pre_req.all}}',
+    pk = '{{project.pk}}',
+    counter = 1,
+    chapter_innerHTML = "",
+    chapter_count = 2,
+    author = '{{project.author.pk}}'
+   )
     
     var chapters = []
     {% for chapter in project.chapters.all %}
@@ -25,55 +45,23 @@ if('{{project.title}}' != ""){
     chapter_add_dict['youtube_link'] = '{{chapter.youtube_link}}'
     chapters.push(chapter_add_dict)
     {% endfor %}
-    
-    var description = '{{project.description}}';
-    var difficulty_level = '{{difficulty_level}}';
-    var no_of_hours = '{{no_of_hours}}';
-    var languages = '{{selected_languages}}';
-    var overview = "{{overview}}";
-    var pre_reqs = '{{project.pre_req.all}}';
-    var pk = '{{project.pk}}';
-    var counter = 1;
-    var chapter_innerHTML = "";
-    var chapter_count = 2;
-    var image;
-    var author = '{{project.author.pk}}'
+
 }
 else{
-    var title = "";
-    var chapters = [];
-    var description = "";
-    var difficulty_level = null;
-    var no_of_hours = null;
-    var languages = [];
-    var overview = "";
-    var pre_reqs = [];
-    var pk = "";
-    var counter = 1;
-    var chapter_innerHTML = ""; 
-    var chapter_count = 2;
-    var image;
+    assignParam(
+        counter = 1,
+        chapter_count = 2,
+    )
+
+    // class Chapter {
+    //     constructor(heading, description, content, youtube_link, link_to) {
+    //     this.heading = heading;
+    //     this.description = description;
+    //     this.content = content;
+    //     this.youtube_link = youtube_link;
+    //     this.link_to = link_to;
+    //     }
 }
-    class Chapter {
-        constructor(heading, description, content, youtube_link, link_to) {
-        this.heading = heading;
-        this.description = description;
-        this.content = content;
-        this.youtube_link = youtube_link;
-        this.link_to = link_to;
-        }
-    }
-
-
-    
-    
-
- 
-
-
-
-
-
    
     function saveDraft(key, value, isAdded = false) {
     var key = key;
@@ -95,7 +83,6 @@ else{
         },
         
     })
-    //alert(pk)
 }
 
 function saveImageDraft() {
@@ -199,7 +186,6 @@ function saveImageDraft() {
         )
         document.location.href = "{% url 'teach:list_of_projects' %}"
     }
-
 
 
 </script>
