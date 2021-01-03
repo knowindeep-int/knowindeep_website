@@ -3,9 +3,14 @@ img{
 }
 .name{
 	width:120px;
-	border-bottom: 3px;
+  border-bottom: 3px;
+  vertical-align: top;
 }
 .image{
+  height: 20px;
+  width: 20px;
+}
+.svg{
   height: 20px;
 }
 .dropdown {
@@ -14,6 +19,7 @@ img{
 }
 
 .dropdown-content {
+  text-decoration: none !important;
   color: black;
   display: none;
   position: absolute;

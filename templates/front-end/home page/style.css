@@ -253,19 +253,21 @@ input{
     transition: all 1s;
 }
 
-form:hover{
-    width: 200px;
-    cursor: pointer;
+/* toggel it in form when srch is clicked */
+.form1{
+  width: 200px;
+  cursor: pointer;
 }
 
 form:hover input{
-    display: block;
+  display: block;
 }
 
-form:hover .fa{
-    background: #07051a;
-    color: white;
+.fa1{
+  background: #07051a;
+  color: white;
 }
+
 .n{
 	max-height: 40px;
 }

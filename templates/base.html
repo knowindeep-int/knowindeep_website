@@ -153,9 +153,9 @@
           </li>
           <li class="nav-item n dropdown hid" id="drop">
             <a class="nav-link"> 
-                    <form class="form" action="" autocomplete="off">
-                        <input type="search" id="search_input" onmouseout="mouseOut()" onmouseover="mousein()" onkeyup="implementSearch();" placeholder="Search">
-                      <i class="fa fa-search" href="#" id="navbarDropdown"></i>
+                    <form class="form" id="form" action="" autocomplete="off">
+                        <input type="search" id="search_input" onmouseover="mousein()" onkeyup="implementSearch();" placeholder="Search" id="navbarDropdown">
+                      <i class="fa fa-search" onmouseover="myFunc()" href="#" ></i>
                   </form>
                     <div class="dropdown-menu menu" id="srch" >
                     </div>
@@ -440,6 +440,35 @@
             } { % endblock jquery % 
             }
         })
+
+        
+function mousein() {	var a = document.getElementById("srch");
+a.classList.add("mystyle");
+}
+
+
+function myFunc(){
+    document.getElementById("form").classList.add("form1");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('#navbarDropdown')) {
+    var dropdowns = document.getElementsByClassName("dropdown-menu");
+    var myDropdown = document.getElementById("form");
+    if (myDropdown.classList.contains('form1')) {
+      myDropdown.classList.remove('form1');
+    }
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('mystyle')) {
+        openDropdown.classList.remove('mystyle');
+      }
+    }
+  }
+}
+
+
     </script>
 
 
