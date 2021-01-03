@@ -195,17 +195,34 @@
         },
     });
 };
-          let test = document.getElementById("navbarDropdown");
+          
+        
+function mousein() {	var a = document.getElementById("srch");
+a.classList.add("mystyle");
+}
 
-            test.addEventListener("mouseover", function( event ) {
-                var a = document.getElementById("srch");
-                a.classList.toggle("mystyle");
-            
-            }, false);
-            
-            function mouseOut() {	var a = document.getElementById("srch");
-            a.classList.remove("mystyle");
-            }</script>
+
+function myFunc(){
+    document.getElementById("form").classList.add("form1");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('#navbarDropdown')) {
+    var dropdowns = document.getElementsByClassName("dropdown-menu");
+    var myDropdown = document.getElementById("form");
+    if (myDropdown.classList.contains('form1')) {
+      myDropdown.classList.remove('form1');
+    }
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('mystyle')) {
+        openDropdown.classList.remove('mystyle');
+      }
+    }
+  }
+}
+</script>
           <!-- <li class="nav-item">
               <button class="nav-link but1" data-href="{% url 'site_users:login' %}" target="#loginDialog" onclick="{% url 'site_users:login' %}">&emsp; LOGIN &emsp;</button>
         </li> -->
@@ -440,34 +457,6 @@
             } { % endblock jquery % 
             }
         })
-
-        
-function mousein() {	var a = document.getElementById("srch");
-a.classList.add("mystyle");
-}
-
-
-function myFunc(){
-    document.getElementById("form").classList.add("form1");
-}
-
-window.onclick = function(event) {
-  if (!event.target.matches('#navbarDropdown')) {
-    var dropdowns = document.getElementsByClassName("dropdown-menu");
-    var myDropdown = document.getElementById("form");
-    if (myDropdown.classList.contains('form1')) {
-      myDropdown.classList.remove('form1');
-    }
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('mystyle')) {
-        openDropdown.classList.remove('mystyle');
-      }
-    }
-  }
-}
-
 
     </script>
 
