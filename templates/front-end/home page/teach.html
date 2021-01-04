@@ -12,6 +12,7 @@
                         var targetDiv=document.getElementsByClassName("editor")[0];
                         var file = $(this).prop('files')[0];
                         var img=document.createElement("img");
+                        img.className="image"
                         var reader  = new FileReader();
                         targetDiv.append(img);
                         reader.addEventListener("load", function () {
