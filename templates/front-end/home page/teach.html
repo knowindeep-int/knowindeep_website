@@ -34,6 +34,9 @@
             .image{
                 display: block;
             }
+            .grid{
+                display:grid;
+            }
         </style>
     </head>
     <body>
@@ -52,13 +55,26 @@
                   if (file)
                      reader.readAsDataURL(file);
                  });
-            })
+                });
+                 function implementUnsplashSearch(query){
+                    $.getJSON('https://api.unsplash.com/search/photos?client_id=Kv-1wOUDvrJ_bXQDpcsMivN-gcEpVRHOM5BwqRUEiMc&query=kanpur',function(data){
+                        var imageList = data.results;
+                        document.getElementsByClassName('editor')[0].append('<div class="grid"></div>')
+                        $.each(imageList,function(i, val){
+                            var imageUrl = val.urls.regular;
+                            alert(imageUrl)
+                            document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
+                        });
+                        });
+                    };
          </script>
         <button id="bold" onclick="format('bold')">B</button>
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
         <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
+        <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search</button>
+        <input type="text" id="inptext">
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
     </body>
