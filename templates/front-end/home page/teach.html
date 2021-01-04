@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script>
+            function format(cmd){
+                document.execCommand(cmd)
+            };
+        </script>
+        <style>
+            .editor{
+                border-style: solid;
+                height: 500px;
+                width: 1000px;
+                overflow-y: scroll;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="bold" onclick="format('bold')">B</button>
+        <button id="underline" onclick="format('underline')">U</button>
+        <button id="italic" onclick="format('italic')">I</button>
+        <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
+        <div class="editor" contenteditable="true" spellcheck="false" >
+        </div>
+</html>
