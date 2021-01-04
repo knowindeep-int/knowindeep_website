@@ -6,6 +6,22 @@
             function format(cmd){
                 document.execCommand(cmd)
             };
+
+            $( document ).ready(function(){
+                $('#inpfile').on('change', function(){
+                        var targetDiv=document.getElementsByClassName("editor")[0];
+                        var file = $(this).prop('files')[0];
+                        var img=document.createElement("img");
+                        var reader  = new FileReader();
+                        targetDiv.append(img);
+                        reader.addEventListener("load", function () {
+                            img.src=reader.result;
+                        }); 
+                        if (file)
+                            reader.readAsDataURL(file);
+                        document.getElementById('inpfile').value = "";
+                });
+            });
         </script>
         <style>
             .editor{
@@ -41,8 +57,8 @@
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
-        <!-- <span><button id="image" onclick="document.execCommand('insertImage', false)">Insert Image</button> -->
-        <input id="inputfile" type="file" accept="image/jpeg,image/png">
+        <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
+    </body>
 </html>
