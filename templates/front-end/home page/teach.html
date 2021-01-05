@@ -22,6 +22,7 @@
                         // var span = document.createElement('span')
                         // span.innerHTML = "h"
                         // fig_caption.appendChild(span)
+                        fig.className = "fig-caption"
                         fig_caption.setAttribute("onclick",'this.innerHTML=""')
                         fig.appendChild(img);
                         fig.appendChild(fig_caption)
@@ -81,6 +82,13 @@
             }
         </script>
         <style>
+            body{
+                font-size: x-large;
+            }
+            .fig-caption{
+                font-size: medium;
+                color: grey;
+            }
             .container :hover{
                 color: aliceblue;
             }
