@@ -22,7 +22,7 @@
                         // var span = document.createElement('span')
                         // span.innerHTML = "h"
                         // fig_caption.appendChild(span)
-                        
+                        fig_caption.setAttribute("onclick",'this.innerHTML=""')
                         fig.appendChild(img);
                         fig.appendChild(fig_caption)
                         targetDiv.append(fig);
@@ -44,7 +44,7 @@
             function addImage(e, url, name){
                 // alert(name)
                 // console.log("click")
-                alert(url)
+                // (url)alert
                 var fig = document.createElement('figure')
                 var image = document.createElement('img')
                 var fig_caption = document.createElement('figcaption')
@@ -70,6 +70,7 @@
                 image.className = "image"
                 fig.appendChild(image)
                 fig.appendChild(fig_caption)
+                
                 document.getElementsByClassName('editor')[0].appendChild(fig)
 
                 document.getElementsByClassName('grid')[0].remove()
