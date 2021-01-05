@@ -80,6 +80,20 @@
             }
         </script>
         <style>
+            .container :hover{
+                color: aliceblue;
+            }
+            .container{
+                position: relative;
+                text-align: center;
+                
+            }
+            .author{
+                color:transparent;
+                position: absolute;
+                bottom: 8px;
+                left: 16px;
+            }
             .editor{
                 border-style: solid;
                 height: 500px;
@@ -159,28 +173,35 @@
                         // document.getElementsByClassName('editor')[0].append('<div class="grid"></div>')
                         $.each(imageList,function(i, val){
                             var imageUrl = val.urls.regular;
-                            var i = document.createElement('img')
+                            var img = document.createElement('img')
+                            var container = document.createElement('div')
+                            container.className = "container"
+                            document.getElementsByClassName('grid')[0].appendChild(container)
                             a_name = val.user.name
                             url =  val.user.links.html
                             console.log("name")
                             // alert(val.user.links.html)
                             // i.onclick =  'addImage(this, val.user.name, val.user.name)'
                             
-                            i.setAttribute("onclick", 'addImage(this, url, a_name )')
+                            img.setAttribute("onclick", 'addImage(this, url, a_name )')
                             
                             // i.addEventListener ("click", 'addImage(this, val.user.links.html, val.user.name)');
                             // i.role = "button"
-                            i.className = "unsplash-image"
-                            i.style.height = '100px';
-                            i.style.height = '100px';
-                            i.style.display = 'inline';
-
-                            i.src = imageUrl
+                            img.className = "unsplash-image"
+                            img.style.height = '100px';
+                            img.style.height = '100px';
+                            img.style.display = 'inline';
+                            img.src = imageUrl;
+                            var author = document.createElement('p')
+                            author.innerHTML = val.user.name;
+                            author.className = 'author'
+                            // document.getElementsByClassName("container")[i].appendChild(img)
+                            
                             var unsplash_div = document.createElement('div')
                             unsplash_div.className = "unsplashImage"
-                            unsplash_div.appendChild(i)
-                            document.getElementsByClassName("grid")[0].appendChild(unsplash_div)
-                            
+                            unsplash_div.appendChild(img)
+                            document.getElementsByClassName("container")[i].appendChild(unsplash_div)
+                            document.getElementsByClassName('container')[i].appendChild(author)
                             
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
