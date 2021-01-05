@@ -1,30 +1,21 @@
-// function myfunction(){
-// 	var x=document.getElementById("navbarDropdown")
-	
-// }
+// this is for the change in the navbar on scroll
 
-// function functionOne() {
-//      var x = document.getElementById("myLinks");
-//      if (x.style.display === "block") {
-//          x.style.display = "none";
-//      } else {
-//          x.style.display = "block";
-//      }
-//  }
+// $(window).scroll(function () {
+//     var scroll = $(window).scrollTop();
+//     var box = $('.header-text').height();
+//     var header = $('header').height();
 
-//   window.addEventListener("resize", function() {
-//       var a = window.innerWidth;
-//       if (a > 993) {
-//           var x = document.getElementById("myLinks");
-//           x.style.display = "none";
-//       }
+//     if (scroll >= box - header) {
+//         $("header").addClass("background-header");
+//     } else {
+//         $("header").removeClass("background-header");
+//     }
 // });
 
-
-function mousein() {	var a = document.getElementById("srch");
-a.classList.add("mystyle");
+function mousein() {	
+    var a = document.getElementById("srch");
+    a.classList.add("mystyle");
 }
-
 
 function myFunc(){
     document.getElementById("form").classList.add("form1");
