@@ -6,7 +6,8 @@
             function format(cmd){
                 document.execCommand(cmd)
             };
-
+            
+            document.execCommand('defaultParagraphSeparator', false, 'p');
             $( document ).ready(function(){
                 $('#inpfile').on('change', function(){
                         var targetDiv=document.getElementsByClassName("editor")[0];
@@ -14,20 +15,30 @@
                         var img=document.createElement("img");
                         img.className="image"
                         var reader  = new FileReader();
-
                         var fig = document.createElement('figure')
-                        var fig_caption = document.createElement('figcaption')
+                        var fig_caption = document.createElement('p')
+                        fig_caption.className = "fig-caption"
                         // fig_caption.setAttribute("contenteditable", "true")
                         fig_caption.innerHTML =  "Write your caption here!"
                         // var span = document.createElement('span')
                         // span.innerHTML = "h"
                         // fig_caption.appendChild(span)
-                        fig.className = "fig-caption"
-                        fig_caption.setAttribute("onclick",'this.innerHTML=""')
+                        fig.className = "fig"
+                        fig.setAttribute('contenteditable','true')
+                        // fig_caption.setAttribute("onclick",'this.innerHTML=""')
                         fig.appendChild(img);
                         fig.appendChild(fig_caption)
                         targetDiv.append(fig);
-
+                        var p =document.createElement('p')
+                        // p.setAttribute("onclick",'this.style.display = "none"')
+                        p.innerHTML = "continue writing..."
+                        targetDiv.append(p)
+            //             fig_captio.addEventListener('keydown', event => {
+            // if (event.key === 'Enter') {
+            // document.execCommand('insertLineBreak')
+            // event.preventDefault()
+            // }
+            // })
                         reader.addEventListener("load", function () {
                             img.src=reader.result;
                            
@@ -82,10 +93,16 @@
             }
         </script>
         <style>
+            .fig-caption{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+            }
             body{
                 font-size: x-large;
             }
-            .fig-caption{
+            .fig{
                 font-size: medium;
                 color: grey;
             }
