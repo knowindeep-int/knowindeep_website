@@ -14,9 +14,26 @@
                         var img=document.createElement("img");
                         img.className="image"
                         var reader  = new FileReader();
-                        targetDiv.append(img);
+
+                        var fig = document.createElement('figure')
+                        var fig_caption = document.createElement('figcaption')
+                        // fig_caption.setAttribute("contenteditable", "true")
+                        fig_caption.innerHTML =  "Write your caption here!"
+                        // var span = document.createElement('span')
+                        // span.innerHTML = "h"
+                        // fig_caption.appendChild(span)
+                        
+                        fig.appendChild(img);
+                        fig.appendChild(fig_caption)
+                        targetDiv.append(fig);
+
                         reader.addEventListener("load", function () {
                             img.src=reader.result;
+                           
+                            // var image = document.createElement('img')
+                            
+                            // fig_caption.appendChild(a)
+                            // fig_caption.innerHTML += "on Unsplash"
                         }); 
                         if (file)
                             reader.readAsDataURL(file);
@@ -24,12 +41,37 @@
                 });
             });
 
-            function addImage(e){
-                
+            function addImage(e, url, name){
+                // alert(name)
+                // console.log("click")
+                alert(url)
+                var fig = document.createElement('figure')
                 var image = document.createElement('img')
+                var fig_caption = document.createElement('figcaption')
+                fig_caption.innerHTML = "Photo by " 
+                var a = document.createElement('a')
+                a.setAttribute("contenteditable", "false")
+                a.setAttribute("target", "_blank")
+                a.href = url    
+                a.innerHTML = name
+                fig_caption.appendChild(a)
+                fig_caption.innerHTML += " on " 
+
+                var unsplash_a = document.createElement('a')
+                unsplash_a.setAttribute("contenteditable", "false")
+                unsplash_a.setAttribute("target", "_blank")
+                unsplash_a.href = "https://unsplash.com/"
+                unsplash_a.innerHTML = "Unsplash"
+                fig_caption.appendChild(unsplash_a)
+
+
+ 
                 image.src = e.src
                 image.className = "image"
-                document.getElementsByClassName('editor')[0].appendChild(image)
+                fig.appendChild(image)
+                fig.appendChild(fig_caption)
+                document.getElementsByClassName('editor')[0].appendChild(fig)
+
                 document.getElementsByClassName('grid')[0].remove()
                 document.getElementsByClassName('buttons')[0].remove()
                 // document.execCommand('insertImage', false, e.src)
@@ -76,11 +118,13 @@
                   targetDiv.append(img);
                   reader.addEventListener("load", function () {
                      img.src=reader.result;
-                  }); 
+                  });
                   if (file)
                      reader.readAsDataURL(file);
                  });
                 });
+                var url = ""
+                var a_name = ""
                  function implementUnsplashSearch(query, page_number = 1){
                      if(document.getElementsByClassName("grid")[0] != null){
                         document.getElementsByClassName("grid")[0].remove();
@@ -110,13 +154,21 @@
                         var div = document.createElement('div')
                         div.className = "grid"
                         document.getElementsByClassName("editor")[0].appendChild(div)
-
+                        
                         
                         // document.getElementsByClassName('editor')[0].append('<div class="grid"></div>')
                         $.each(imageList,function(i, val){
                             var imageUrl = val.urls.regular;
                             var i = document.createElement('img')
-                            i.setAttribute("onclick", 'addImage(this)')
+                            a_name = val.user.name
+                            url =  val.user.links.html
+                            console.log("name")
+                            // alert(val.user.links.html)
+                            // i.onclick =  'addImage(this, val.user.name, val.user.name)'
+                            
+                            i.setAttribute("onclick", 'addImage(this, url, a_name )')
+                            
+                            // i.addEventListener ("click", 'addImage(this, val.user.links.html, val.user.name)');
                             // i.role = "button"
                             i.className = "unsplash-image"
                             i.style.height = '100px';
@@ -124,7 +176,10 @@
                             i.style.display = 'inline';
 
                             i.src = imageUrl
-                            document.getElementsByClassName("grid")[0].appendChild(i)
+                            var unsplash_div = document.createElement('div')
+                            unsplash_div.className = "unsplashImage"
+                            unsplash_div.appendChild(i)
+                            document.getElementsByClassName("grid")[0].appendChild(unsplash_div)
                             
                             
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
