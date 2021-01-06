@@ -599,7 +599,7 @@ form:hover input{
 }
 
 .mystyle{
-	display: block;
+	display: block !important;
 }
 
 .ham{
