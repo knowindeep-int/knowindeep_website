@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function implementSearch() {
     
-    alert('fuck js');
+
     search_input = document.getElementById('search_input').value;
     $.ajax({
         url: '{% url "api:search" %}',
@@ -112,3 +112,15 @@ a.classList.remove("mystyle");
 function mousein() {	var a = document.getElementById("srch");
 a.classList.add("mystyle");
 }   
+
+$(window).scroll(function () {
+    var scroll = $(window).scrollTop();
+    var box = $('.header-text').height();
+    var header = $('header').height();
+
+    if (scroll >= box - header) {
+        $("header").addClass("background-header");
+    } else {
+        $("header").removeClass("background-header");
+    }
+});

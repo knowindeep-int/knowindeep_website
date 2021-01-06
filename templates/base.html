@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <!-- <title>KnowInDeep</title> -->
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/script.js' %}"></script>
     {% block content_head %} {% endblock %}
@@ -23,6 +24,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+    <link rel="stylesheet" href="assets/css/templatemo-host-cloud.css">
+    <link href="css/templatemo-style.css" rel="stylesheet" />
     <link rel="icon" href="/static/images/kid-white.png" type="image/icon type">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -140,8 +143,130 @@
             </ul>
         </div>
     </nav> -->
+    <script>
+        function implementSearch() {
+  
+  search_input = document.getElementById('navbarDropdown').value;
+  $.ajax({
+      url: '{% url "api:search" %}',
+      method: "GET",
+      data: {
+          'search_input': search_input,
+      },
+      success: function(data) {
+          var result = document.getElementById("srch");
+          result.innerHTML = "";
+          result.innerHTML += '<p class="dropdown-item" style="color:black;" >Projects:</p>'
+          for (var i = 0; i < data.projects.length; i++) {
+              result.innerHTML += '<a class="dropdown-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
+          }
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1c1c1c;">
+          result.innerHTML += '<p class="dropdown-item" style="color:black;" >Chapters:</p>'
+          for (var i = 0; i < data.chapters.length; i++) {
+              result.innerHTML += '<a class="dropdown-item" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
+          }
+
+          result.innerHTML += '<p class="dropdown-item" style="color:black;" >Authors:</p>'
+          for (var i = 0; i < data.authors.length; i++) {
+              result.innerHTML += '<a class="dropdown-item" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
+          }
+
+      },
+      error: function(error) {
+          alert(error)
+      },
+  });
+};
+function mousein() {	var a = document.getElementById("srch");
+a.classList.add("mystyle");
+}
+
+
+function myFunc(){
+    document.getElementById("form").classList.add("form1");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('#navbarDropdown')) {
+    var dropdowns = document.getElementsByClassName("dropdown-menu");
+    var myDropdown = document.getElementById("form");
+    if (myDropdown.classList.contains('form1')) {
+      myDropdown.classList.remove('form1');
+    }
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('mystyle')) {
+        openDropdown.classList.remove('mystyle');
+      }
+    }
+  }
+}
+</script>
+
+    <header class="background-header">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container">
+            <a class="navbar-brand" href="{% url 'blogs:index' %}"><img class="img1" src="/media/images/kid-white.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'blogs:index' %}">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item n dropdown hid" id="drop">
+                <form class="form" id="form" action="">
+                    <input type="search"  onmouseover="mousein()" id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
+                  <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
+              </form>
+                <div class="dropdown-menu menu" id="srch">
+                </div>
+      </li>
+      {% if request.user.is_authenticated %}
+      <li class="nav-item login">
+        <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
+      </li>
+      <li class="nav-item login">
+        <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
+      </li>
+      {% else %}
+                <li class="nav-item login">
+                  <a class="nav-link" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog"
+                  href="{% url 'site_users:login' %}">Login</a>
+                </li>
+              </ul>
+              {%endif%}
+            </div>
+            <div class="functional-buttons">
+              <ul>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item login">
+                  <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
+                </li>
+                <li class="nav-item login">
+                  <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
+                </li>
+                {% else %}
+                <li><a href="{% url 'site_users:login' %}" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog">Log in</a></li>
+            {%endif%}  
+            </ul>
+            </div>
+          </div>
+        </nav>
+    </header>
+    <br>
+    <br>
+    <br>
+
+
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1c1c1c;">
         <a class="navbar-brand" href="{% url 'blogs:index' %}"><img src="/media/images/kid-white.png" class="kid"></a>
         
         <ul class="navbar-nav ml-auto">
@@ -223,9 +348,9 @@ window.onclick = function(event) {
   }
 }
 </script>
-          <!-- <li class="nav-item">
+           <li class="nav-item">
               <button class="nav-link but1" data-href="{% url 'site_users:login' %}" target="#loginDialog" onclick="{% url 'site_users:login' %}">&emsp; LOGIN &emsp;</button>
-        </li> -->
+        </li> 
       {% if request.user.is_authenticated %}
       <li class="nav-item hid"><a class="nav-link" href="{% url 'teach:list_of_projects' %}">TEACH WITH US</a></li>
                 <li class="nav-item hid">
@@ -234,7 +359,7 @@ window.onclick = function(event) {
                     </a>
                 </li>
                     
-                    <!--<div class="dropdown">
+                    <div class="dropdown">
 
                         <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg" class="img-circle" height="25" width="25" type="button" id="logInBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         </img>
@@ -258,7 +383,7 @@ window.onclick = function(event) {
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
-                </div>-->
+                </div>
                 {% else %}
                 <li class="nav-item hid">
                         <a class="nav-link but1" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog"
@@ -269,14 +394,14 @@ window.onclick = function(event) {
                         </a>
                 </li>
                 {% endif %}
-         <!-- <li class="nav-item dropdown" id="drop">
+         <li class="nav-item dropdown" id="drop">
             <button class="nav-link dropdown-toggle" href="#" id="navbarDropdown" onclick="myfunction()">Dropdown</button>
             <div class="dropdown-menu menu">
             <a class="dropdown-item">HOME</a>
             <a class="dropdown-item">ABOUT US</a>
             <a class="dropdown-item">SEARCH</a>
             </div>
-          </li> -->
+          </li> 
           <li class="nav-item dropdown ham">
             <div class="dropdown">
               <i class="fas fa-bars"></i>
@@ -293,7 +418,7 @@ window.onclick = function(event) {
             </div>
             </li>
         </ul>
-      </nav>
+      </nav> -->
 
 
     <!-- <ul class="displaya" id="myLinks">
@@ -344,10 +469,10 @@ window.onclick = function(event) {
     </div>
 
     <footer class="footer">
-        <div class="stacks">
-        <span class="stack" style="width: 30%;">
+        <div class="row stacks" id="stacks">
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12 stack1">
+        <span class="stack" >
         <img  class="foot-logo stack" src="/media/images/kid-black.png"><br>
-        <br>
         <br>
         <span>Contact Us :knowindeep.tech@gmail.com<br>All Rights reserved. KnowInDeep 2020</span>
         <br>
@@ -377,12 +502,16 @@ window.onclick = function(event) {
                 </a>
             </span>
         </span>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-12">
         <ul class="stack">
             <li class="heads">COMPANY</li>
             <li>About us</li>
             <li>Privacy Policy</li>
             <li>Contact us</li>
         </ul>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-6 col-12">
         <ul class="stack">
             <li class="heads">LEARN</li>
             <li>Algorithms</li>
@@ -391,6 +520,8 @@ window.onclick = function(event) {
             <li>CS Subjects</li>
             <li>Video Tutorials</li>
         </ul>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-6 col-12">
         <ul class="stack">
             <li class="heads">PRACTICE</li>
             <li>Courses</li>
@@ -398,6 +529,8 @@ window.onclick = function(event) {
             <li>Topic-wise</li>
             <li>How To Begin?</li>
         </ul>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-6 col-12">
         <ul class="stack">
             <li class="heads">CONTRIBUTE</li>
             <li>Write an Article</li>
@@ -405,6 +538,8 @@ window.onclick = function(event) {
             <li>Internships</li>
             <li>Videos</li>
         </ul>
+    </div>
+        </div>
       </footer>
 
 
