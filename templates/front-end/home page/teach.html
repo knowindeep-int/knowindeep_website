@@ -29,17 +29,32 @@
 var x, y
             document.addEventListener("keypress", function(e){
 
-                x = getCaretCoordinates()[0]
-                y = getCaretCoordinates()[1]
+                // x = getCaretCoordinates()[0]
+                // y = getCaretCoordinates()[1]
                 // alert(fx().className)
                 // alert(getCaretCoordinates()[1])
-                
                 if(e.keyCode == '13'){
                 // alert($(e.target).hasClass("editor"))
                     // alert("true")
                 if(fx().className == 'fig-caption' && document.getElementsByClassName('fig-caption') != null && document.getElementsByClassName('fig-caption').length >= document.getElementsByClassName('fig').length){
                     // alert("k")
-                    e.preventDefault()
+                    // e.preventDefault()
+                    var p =document.createElement('p')
+                    p.innerHTML = "&nbsp;"
+                    // p.style.display = "none"
+                    fx().parentNode.parentNode.append(p)
+                    var el = document.getElementById("editable")
+                    var range = document.createRange()
+                    var sel = window.getSelection()
+                    // alert(fx().parentNode.nextSibling.innerHTML)
+                    e.preventDefault();
+                    range.setStart(fx().parentNode.nextSibling, 0)
+                    range.collapse(true)
+                    
+                    sel.removeAllRanges()
+                    sel.addRange(range)
+                    // alert(fx().innerHTML)
+                    //
                     
                 }
             }
@@ -87,10 +102,10 @@ function fx(){
                         // $(fig).insertAfter(fx());
                         targetDiv.insertBefore(fig, fig.nextSibling);
                         
-                        var p =document.createElement('p')
-                        // p.setAttribute("onclick",'this.style.display = "none"')
-                        p.innerHTML = "&nbsp;"
-                        targetDiv.append(p)
+                        // var p =document.createElement('p')
+                        // // p.setAttribute("onclick",'this.style.display = "none"')
+                        // p.innerHTML = "&nbsp;"
+                        // targetDiv.append(p)
             //             fig_captio.addEventListener('keydown', event => {
             // if (event.key === 'Enter') {
             // document.execCommand('insertLineBreak')
