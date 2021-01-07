@@ -293,14 +293,100 @@ function fx(){
                         });
                         });
                     };
+                    // xhr = new XMLHttpRequest();
+                    function setHeader(xhr) {   
+                    xhr.setRequestHeader('Authorization', '563492ad6f917000010000016d97988424384f01ad97a3dd4d257b6b');
+                    }
+
+                    function implementPexelSearch(query, page_number = 1){
+                        $.ajax({
+                            url: 'https://api.pexels.com/v1/search?query=people',
+                            type: 'GET',
+                            datatype: 'json',
+                            success: function(data) { 
+                                alert("7")
+                             },
+                            error: function() { alert('Failed!'); },
+                            beforeSend: setHeader       
+                        });   
+                    
+                    };
+                    // $.getJSON('https://api.pexels.com/v1/search?query=people', function(data){
+                    //     beforeSend: setHeader
+                        // var div_btn = document.createElement('div')
+                        // div_btn.className = "buttons"
+
+                        // if(page_number > 1){
+                        //     var prev = document.createElement('button')
+                        //     prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
+                        //     prev.innerHTML = "PREV"
+                        //     prev.style.float = "left"
+                        //     div_btn.appendChild(prev)
+                        // }
+                        // var next = document.createElement('button')
+                        // next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
+                        // next.innerHTML = "NEXT"
+                        // next.style.float = "right"
+
+                        // div_btn.appendChild(next)
+                        // document.getElementsByClassName("editor")[0].appendChild(div_btn)
+
+                        // var imageList = data.photos;
+                        // alert(data.photos)
+                        // var div = document.createElement('div')
+                        // div.className = "grid"
+                        // document.getElementsByClassName("editor")[0].appendChild(div)
+                        // // alert(imageList.length)
+                        
+                        // document.getElementsByClassName('editor')[0].append('<div class="grid"></div>')
+                        // $.each(imageList,function(i, val){
+                        //     var imageUrl = val.urls.regular;
+                        //     var img = document.createElement('img')
+                        //     var container = document.createElement('div')
+                        //     container.className = "container"
+                        //     document.getElementsByClassName('grid')[0].appendChild(container)
+                        //     a_name = val.user.name
+                        //     url =  val.user.links.html
+                        //     // console.log("name")
+                        //     // alert(val.user.links.html)
+                        //     // i.onclick =  'addImage(this, val.user.name, val.user.name)'
+                            
+                        //     img.setAttribute("onclick", 'addImage(this, url, a_name )')
+                            
+                        //     // i.addEventListener ("click", 'addImage(this, val.user.links.html, val.user.name)');
+                        //     // i.role = "button"
+                        //     img.className = "unsplash-image"
+                        //     img.style.height = '100px';
+                        //     img.style.height = '100px';
+                        //     img.style.display = 'inline';
+                        //     img.src = imageUrl;
+                        //     var author = document.createElement('p')
+                        //     author.innerHTML = val.user.name;
+                        //     author.readonly = "true"
+                        //     author.className = 'author'
+                        //     // document.getElementsByClassName("container")[i].appendChild(img)
+                        //     author.setAttribute("contenteditable","false")
+                        //     var unsplash_div = document.createElement('div')
+                        //     unsplash_div.className = "unsplashImage"
+                        //     unsplash_div.appendChild(img)
+                        //     document.getElementsByClassName("container")[i].appendChild(unsplash_div)
+                        //     document.getElementsByClassName('container')[i].appendChild(author)
+                            
+                        //     // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
+                        // });
+                        // });
+                    
+                    
          </script>
         <button id="bold" onclick="format('bold')">B</button>
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
         <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
-        <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search</button>
+        <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
         <input type="text" id="inptext">
+        <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
+        <input type="text" id="inptext_pexels">
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
     </body>
