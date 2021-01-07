@@ -130,8 +130,18 @@ function fx(){
                 var unsplash_a = document.createElement('a')
                 unsplash_a.setAttribute("contenteditable", "false")
                 unsplash_a.setAttribute("target", "_blank")
-                unsplash_a.href = "https://unsplash.com/"
-                unsplash_a.innerHTML = "Unsplash"
+                // alert(e.target.className)
+                if(url.indexOf('pexels.com') !=-1){
+                    // alert('3')
+                    unsplash_a.href = "https://www.pexels.com/"
+                    unsplash_a.innerHTML = "Pexels"
+                }
+                else{
+                    // alert('4')
+                    unsplash_a.href = "https://unsplash.com/"
+                    unsplash_a.innerHTML = "Unsplash"
+                }
+                
                 fig_caption.appendChild(unsplash_a)
 
 
@@ -192,6 +202,11 @@ function fx(){
                 
             }
             .unsplash-image{
+                cursor: pointer;
+                height: 200px;
+                width: 200px;
+            }
+            .pexels-image{
                 cursor: pointer;
                 height: 200px;
                 width: 200px;
@@ -300,11 +315,71 @@ function fx(){
 
                     function implementPexelSearch(query, page_number = 1){
                         $.ajax({
-                            url: 'https://api.pexels.com/v1/search?query=people',
+                            url: 'https://api.pexels.com/v1/search?per_page=10&query=' + query + "&page=" + page_number,
                             type: 'GET',
                             datatype: 'json',
                             success: function(data) { 
-                                alert("7")
+                                var div_btn = document.createElement('div')
+                        div_btn.className = "buttons"
+
+                        if(page_number > 1){
+                            var prev = document.createElement('button')
+                            prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
+                            prev.innerHTML = "PREV"
+                            prev.style.float = "left"
+                            div_btn.appendChild(prev)
+                        }
+                        var next = document.createElement('button')
+                        next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
+                        next.innerHTML = "NEXT"
+                        next.style.float = "right"
+
+                        div_btn.appendChild(next)
+                        document.getElementsByClassName("editor")[0].appendChild(div_btn)
+
+                        var imageList = data.photos;
+                        // alert(data.photos)
+                        var div = document.createElement('div')
+                        div.className = "grid"
+                        document.getElementsByClassName("editor")[0].appendChild(div)
+                        // alert(imageList.length)
+                        
+                        // document.getElementsByClassName('editor')[0].appendChild(gri)
+                        $.each(imageList,function(i, val){
+                            var imageUrl = val.src.original;
+                            var img = document.createElement('img')
+                            var container = document.createElement('div')
+                            container.className = "container"
+                            document.getElementsByClassName('grid')[0].appendChild(container)
+                            a_name = val.photographer
+                            url =  val.photographer_url
+                            // console.log("name")
+                            // alert(val.user.links.html)
+                            // i.onclick =  'addImage(this, val.user.name, val.user.name)'
+                            
+                            img.setAttribute("onclick", 'addImage(this, url, a_name )')
+                            
+                            // i.addEventListener ("click", 'addImage(this, val.user.links.html, val.user.name)');
+                            // i.role = "button"
+                            img.className = "pexels-image"
+                            img.style.height = '100px';
+                            img.style.height = '100px';
+                            img.style.display = 'inline';
+                            img.src = imageUrl;
+                            var author = document.createElement('p')
+                            author.innerHTML = val.photographer;
+                            author.readonly = "true"
+                            author.className = 'author'
+                            // document.getElementsByClassName("container")[i].appendChild(img)
+                            author.setAttribute("contenteditable","false")
+                            var unsplash_div = document.createElement('div')
+                            unsplash_div.className = "unsplashImage"
+                            unsplash_div.appendChild(img)
+                            document.getElementsByClassName("container")[i].appendChild(unsplash_div)
+                            document.getElementsByClassName('container')[i].appendChild(author)
+                            
+                            // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
+                        });
                              },
                             error: function() { alert('Failed!'); },
                             beforeSend: setHeader       
@@ -313,68 +388,7 @@ function fx(){
                     };
                     // $.getJSON('https://api.pexels.com/v1/search?query=people', function(data){
                     //     beforeSend: setHeader
-                        // var div_btn = document.createElement('div')
-                        // div_btn.className = "buttons"
-
-                        // if(page_number > 1){
-                        //     var prev = document.createElement('button')
-                        //     prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
-                        //     prev.innerHTML = "PREV"
-                        //     prev.style.float = "left"
-                        //     div_btn.appendChild(prev)
-                        // }
-                        // var next = document.createElement('button')
-                        // next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
-                        // next.innerHTML = "NEXT"
-                        // next.style.float = "right"
-
-                        // div_btn.appendChild(next)
-                        // document.getElementsByClassName("editor")[0].appendChild(div_btn)
-
-                        // var imageList = data.photos;
-                        // alert(data.photos)
-                        // var div = document.createElement('div')
-                        // div.className = "grid"
-                        // document.getElementsByClassName("editor")[0].appendChild(div)
-                        // // alert(imageList.length)
-                        
-                        // document.getElementsByClassName('editor')[0].append('<div class="grid"></div>')
-                        // $.each(imageList,function(i, val){
-                        //     var imageUrl = val.urls.regular;
-                        //     var img = document.createElement('img')
-                        //     var container = document.createElement('div')
-                        //     container.className = "container"
-                        //     document.getElementsByClassName('grid')[0].appendChild(container)
-                        //     a_name = val.user.name
-                        //     url =  val.user.links.html
-                        //     // console.log("name")
-                        //     // alert(val.user.links.html)
-                        //     // i.onclick =  'addImage(this, val.user.name, val.user.name)'
-                            
-                        //     img.setAttribute("onclick", 'addImage(this, url, a_name )')
-                            
-                        //     // i.addEventListener ("click", 'addImage(this, val.user.links.html, val.user.name)');
-                        //     // i.role = "button"
-                        //     img.className = "unsplash-image"
-                        //     img.style.height = '100px';
-                        //     img.style.height = '100px';
-                        //     img.style.display = 'inline';
-                        //     img.src = imageUrl;
-                        //     var author = document.createElement('p')
-                        //     author.innerHTML = val.user.name;
-                        //     author.readonly = "true"
-                        //     author.className = 'author'
-                        //     // document.getElementsByClassName("container")[i].appendChild(img)
-                        //     author.setAttribute("contenteditable","false")
-                        //     var unsplash_div = document.createElement('div')
-                        //     unsplash_div.className = "unsplashImage"
-                        //     unsplash_div.appendChild(img)
-                        //     document.getElementsByClassName("container")[i].appendChild(unsplash_div)
-                        //     document.getElementsByClassName('container')[i].appendChild(author)
-                            
-                        //     // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
-                        // });
-                        // });
+                       
                     
                     
          </script>
