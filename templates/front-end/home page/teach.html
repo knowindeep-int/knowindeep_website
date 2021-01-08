@@ -267,6 +267,7 @@ document.addEventListener("keyup", function(e){
     }
 // }
 )
+var span_text
             document.addEventListener("keypress", function(e){
 
                 // x = getCaretCoordinates()[0]
@@ -285,7 +286,8 @@ document.addEventListener("keyup", function(e){
                 if(fx().className == "input" && document.getElementsByClassName('input') != null){
             // alert('i')
             // e.preventDefault();
-            implementUnsplashSearch(query = fx().innerHTML)
+            span_text = fx().innerHTML
+            implementUnsplashSearch(query = span_text)
             // implementPexelSearch(query=fx().innerHTML)
             //
             document.getElementsByClassName('input')[0].remove();
@@ -295,7 +297,8 @@ document.addEventListener("keyup", function(e){
             // alert('i')
             // e.preventDefault();
             // implementUnsplashSearch(query = fx().innerHTML)
-            implementPexelSearch(query=fx().innerHTML)
+            span_text = fx().innerHTML
+            implementPexelSearch(query=span_text)
             //
             document.getElementsByClassName('input_pexels')[0].remove();
             return; 
@@ -629,13 +632,13 @@ function fx(){
 
                         if(page_number > 1){
                             var prev = document.createElement('button')
-                            prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
+                            prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(span_text, page_number)')
                             prev.innerHTML = "PREV"
                             prev.style.float = "left"
                             div_btn.appendChild(prev)
                         }
                         var next = document.createElement('button')
-                        next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
+                        next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(span_text, page_number)')
                         next.innerHTML = "NEXT"
                         next.style.float = "right"
 
@@ -707,6 +710,12 @@ function fx(){
                     var p_name = []
                     var p_url = []
                     function implementPexelSearch(query, page_number = 1){
+
+                        if(document.getElementsByClassName("grid")[0] != null){
+                        document.getElementsByClassName("grid")[0].remove();
+                        document.getElementsByClassName('buttons')[0].remove()
+
+                    }
                         $.ajax({
                             url: 'https://api.pexels.com/v1/search?per_page=10&query=' + query + "&page=" + page_number,
                             type: 'GET',
@@ -717,13 +726,13 @@ function fx(){
 
                         if(page_number > 1){
                             var prev = document.createElement('button')
-                            prev.setAttribute("onclick", 'page_number-=1;implementPexelSearch(document.getElementById("inptext_pexels").value, page_number)')
+                            prev.setAttribute("onclick", 'page_number-=1;implementPexelSearch(span_text, page_number)')
                             prev.innerHTML = "PREV"
                             prev.style.float = "left"
                             div_btn.appendChild(prev)
                         }
                         var next = document.createElement('button')
-                        next.setAttribute("onclick", 'page_number+=1;implementPexelSearch(document.getElementById("inptext_pexels").value, page_number)')
+                        next.setAttribute("onclick", 'page_number+=1;implementPexelSearch(span_text, page_number)')
                         next.innerHTML = "NEXT"
                         next.style.float = "right"
 
