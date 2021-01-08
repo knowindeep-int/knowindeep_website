@@ -32,10 +32,21 @@
 }
 var x, y
 document.addEventListener("keyup", function(e){
+    // if(e.keyCode != "13"){
+        if( document.getElementById('menu_div') != null){
+            document.getElementById('menu_div').remove();
+            // for(var i=0; i< document.getElementsByClassName('menu').length; i++){
+            //     document.getElementsByClassName('menu')[i].remove();
+            // }
+
+        }
+    // }
+    // alert(e.target.className)
     // alert(e.keyCode)
     if(e.keyCode == '13'){
-        var menu_div = document.createElement("div")
+        var menu_div = document.createElement("span")
         menu_div.setAttribute("contenteditable",'false')
+        menu_div.id = "menu_div"
         var plus = document.createElement('button')
         plus.className = "btn"
         plus.id = "plus_btn"
@@ -68,11 +79,28 @@ document.addEventListener("keyup", function(e){
         menu_div.appendChild(image)
         menu_div.appendChild(un)
         menu_div.appendChild(pe)
-        if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;"){
+        //alert('<br>' + menu_div.innerHTML)
+        
+    //    / alert(fx().innerHTML)
+        if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;" || fx().innerHTML == '<br>' +  menu_div.innerHTML){
+        if( document.getElementById('plus_btn') != null){
+            document.getElementById('plus_btn').remove();
+        }
         fx().innerHTML = ""
+       
         fx().appendChild(menu_div)
+        fx().innerHTML += "&nbsp;"
+        var el = document.getElementById("editable")
+        var range = document.createRange()
+        var sel = window.getSelection()
+        range.setStart(fx(), 2)
+        range.collapse(true)
+        
+        sel.removeAllRanges()
+        sel.addRange(range)
+        
         document.getElementById('plus_btn').addEventListener('click', function(){
-                alert("clicked")
+                // alert("clicked")
                 this.style.display = 'none'
                 var menu = document.getElementsByClassName('menu')
                 for(var i=0; i< menu.length; i++){
