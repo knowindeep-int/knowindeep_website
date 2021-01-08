@@ -189,7 +189,8 @@ document.addEventListener("keyup", function(e){
         image_i.classList = "fa fa-camera"
         var input = document.createElement('input')
         input.setAttribute('type', 'file')
-        input.setAttribute('id','inpfile')
+        input.setAttribute('id','inpfile_input')
+        input.setAttribute('onchange', 'addLocalImage(this)')
         image_i.appendChild(input)
         // <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
         // image_i.appendChild()
@@ -341,6 +342,39 @@ function fx(){
 }
            
             document.execCommand('defaultParagraphSeparator', false, 'p');
+
+            function addLocalImage(e){
+                // alert(0);
+                var targetDiv=document.getElementsByClassName("editor")[0];
+                        var file = $(e).prop('files')[0];
+                        var img=document.createElement("img");
+                        img.className="image"
+                        var reader  = new FileReader();
+                        var fig = document.createElement('figure')
+                        var fig_caption = document.createElement('figcaption')
+                        fig_caption.className = "fig-caption"
+                        fig_caption.innerHTML =  "Write your caption here!"
+                        fig.className = "fig"
+                        fig.setAttribute('contenteditable','true')
+                        fig.appendChild(img);
+                        fig.appendChild(fig_caption)
+                        if(fx().className == 'editor' ||  document.body === fx()){
+                            fx().insertBefore(fig, fx().childNodes[1]);
+                        }
+                        else{
+                            console.log('1')
+                            fx().parentNode.insertBefore(fig, fx().nextSibling);
+                        }
+
+                        reader.addEventListener("load", function () {
+                            img.src=reader.result;
+                           
+                        }); 
+                        if (file){
+                            reader.readAsDataURL(file);
+                        document.getElementById('inpfile').value = "";
+                    }
+                }
             $( document ).ready(function(){
                 $('#inpfile').on('change', function(){
                         var targetDiv=document.getElementsByClassName("editor")[0];
@@ -556,29 +590,29 @@ function fx(){
                 background-color: RoyalBlue;
         }
 
-        #inpfile {
+        /* #inpfile {
   display: none;
-}
+} */
         </style>
     </head>
     <body>
         <script>
             var page_number = 1
-            $( document ).ready(function(){
-               $('#inputfile').on('change', function(){
-                  var targetDiv=document.getElementsByClassName("editor")[0];
-                  var file = $(this).prop('files')[0];
-                  var img=document.createElement("img");
-                  img.className ="image"
-                  var reader  = new FileReader();
-                  targetDiv.append(img);
-                  reader.addEventListener("load", function () {
-                     img.src=reader.result;
-                  });
-                  if (file)
-                     reader.readAsDataURL(file);
-                 });
-                });
+            // $( document ).ready(function(){
+            //    $('#inputfile').on('change', function(){
+            //       var targetDiv=document.getElementsByClassName("editor")[0];
+            //       var file = $(this).prop('files')[0];
+            //       var img=document.createElement("img");
+            //       img.className ="image"
+            //       var reader  = new FileReader();
+            //       targetDiv.append(img);
+            //       reader.addEventListener("load", function () {
+            //          img.src=reader.result;
+            //       });
+            //       if (file)
+            //          reader.readAsDataURL(file);
+            //      });
+            //     });
                 var url = []
                 var a_name = []
                  function implementUnsplashSearch(query, page_number = 1){
@@ -759,7 +793,7 @@ function fx(){
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
         <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
         <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
-        <input type="text" id="inptext">
+        <!-- <input type="text" id="inptext"> -->
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
         <input type="text" id="inptext_pexels">
         <div class="editor" contenteditable="true" spellcheck="false" >
