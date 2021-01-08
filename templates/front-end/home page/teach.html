@@ -27,6 +27,27 @@
    return [ x, y ];
 }
 var x, y
+document.addEventListener("keyup", function(e){
+    // alert(e.keyCode)
+    if(e.keyCode == '13'){
+        alert(fx().innerHTML)
+        if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;"){
+        fx().innerHTML = ""
+        var btn = document.createElement('button')
+        btn.setAttribute('contenteditable', 'false')
+        btn.innerHTML = "FUE"
+        fx().appendChild(btn)
+    }
+//         <div id="menu_div">
+//     <button class="btn" id="plus_btn" title="Add menu"><i class="fa fa-plus"></i></button>
+//     <button class="btn menu" id="close_btn" title="Close menu"><i class="fa fa-close"></i></button>
+//     <button class="btn menu" title="Add a image"><i class="fa fa-camera"></i></button>
+//     <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
+//     <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
+// </div>
+        // alert(fx().innerHTML)
+    }
+})
             document.addEventListener("keypress", function(e){
 
                 // x = getCaretCoordinates()[0]
@@ -34,12 +55,14 @@ var x, y
                 // alert(fx().className)
                 // alert(getCaretCoordinates()[1])
                 if(e.keyCode == '13'){
+                    // alert(fx().nextSibling.innerHTML)
                     // alert(e.target.className)
                 // alert($(e.target).hasClass("editor"))
                     // alert("true")
                 if(fx().className == 'fig-caption' && document.getElementsByClassName('fig-caption') != null && document.getElementsByClassName('fig-caption').length >= document.getElementsByClassName('fig').length){
                     // alert("k")
                     // e.preventDefault()
+                    
                     var p =document.createElement('p')
                     p.innerHTML = "&nbsp;"
                     // p.style.display = "none"
@@ -261,6 +284,22 @@ function fx(){
                 gap: 10px;
                 grid-auto-rows: minmax(100px, auto);
             }
+            .btn {
+        background-color: DodgerBlue; /* Blue background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 12px 16px; /* Some padding */
+        font-size: 16px; /* Set a font size */
+        cursor: pointer; /* Mouse pointer on hover */
+        }    
+        .menu{
+            display: none;
+    }
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+                background-color: RoyalBlue;
+        }
         </style>
     </head>
     <body>
@@ -463,5 +502,33 @@ function fx(){
         <input type="text" id="inptext_pexels">
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
+        <script>
+            var btns = document.getElementsByClassName('btn')
+            // for(i=0; i< btns.length; i++){
+            //     document.getElementsByClassName('btn')[i].addEventListener('onclick', function(){
+        
+            //     })
+            // }
+            document.getElementById('plus_btn').addEventListener('click', function(){
+                // alert("clicked")
+                this.style.display = 'none'
+                var menu = document.getElementsByClassName('menu')
+                for(var i=0; i< menu.length; i++){
+                    menu[i].style.display = 'inline'
+                }
+                
+            })
+        
+            document.getElementById('close_btn').addEventListener('click', function(){
+                // alert("clicked")
+                document.getElementById('plus_btn').style.display = 'inline'
+                var menu = document.getElementsByClassName('menu')
+                for(var i=0; i< menu.length; i++){
+                    menu[i].style.display = 'none'
+                }
+                
+            })
+        
+        </script>
     </body>
 </html>
