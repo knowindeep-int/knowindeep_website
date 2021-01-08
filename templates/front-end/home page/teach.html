@@ -34,11 +34,43 @@ var x, y
 document.addEventListener("keyup", function(e){
     // alert(e.keyCode)
     if(e.keyCode == '13'){
-        var div = document.createElement("div")
+        var menu_div = document.createElement("div")
+        menu_div.setAttribute("contenteditable",'false')
+        var plus = document.createElement('button')
+        plus.className = "btn"
+        plus.id = "plus_btn"
+        var plus_i = document.createElement("i")
+        plus_i.classList = "fa fa-plus"
+        plus.appendChild(plus_i)
+        var close = document.createElement('button')
+        close.classList = "btn menu"
+        close.id = "close_btn"
+        var close_i = document.createElement("i")
+        close_i.classList = "fa fa-close"
+        close.appendChild(close_i)
+        var image = document.createElement('button')
+        image.classList = "btn menu"
+        var image_i = document.createElement("i")
+        image_i.classList = "fa fa-camera"
+        image.appendChild(image_i)
+        var un = document.createElement('button')
+        un.classList = "btn menu"
+        var un_i = document.createElement("i")
+        un_i.classList = "fa fa-search"
+        un.appendChild(un_i)
+        var pe = document.createElement('button')
+        pe.classList = "btn menu"
+        var pe_i = document.createElement("i")
+        pe_i.classList = "fa fa-search"
+        pe.appendChild(pe_i)
+        menu_div.appendChild(plus)
+        menu_div.appendChild(close)
+        menu_div.appendChild(image)
+        menu_div.appendChild(un)
+        menu_div.appendChild(pe)
         if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;"){
         fx().innerHTML = ""
-       div.innerHTML = document.getElementById('menu_div').innerHTML
-        fx().appendChild(div)
+        fx().appendChild(menu_div)
         document.getElementById('plus_btn').addEventListener('click', function(){
                 alert("clicked")
                 this.style.display = 'none'
@@ -59,7 +91,13 @@ document.addEventListener("keyup", function(e){
                 
             })
     }
-
+    // <div id="menu_div" style="display: none;">
+    //         <button class="btn" id="plus_btn" title="Add menu"><i class="fa fa-plus"></i></button>
+    //         <button class="btn menu" id="close_btn" title="Close menu"><i class="fa fa-close"></i></button>
+    //         <button class="btn menu" title="Add a image"><i class="fa fa-camera"></i></button>
+    //         <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
+    //         <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
+    //     </div>
         // alert(fx().innerHTML)
     }
 })
@@ -515,13 +553,6 @@ function fx(){
         <input type="text" id="inptext">
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
         <input type="text" id="inptext_pexels">
-        <div id="menu_div" style="display: none;">
-            <button class="btn" id="plus_btn" title="Add menu"><i class="fa fa-plus"></i></button>
-            <button class="btn menu" id="close_btn" title="Close menu"><i class="fa fa-close"></i></button>
-            <button class="btn menu" title="Add a image"><i class="fa fa-camera"></i></button>
-            <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
-            <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
-        </div>
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
         <script>
