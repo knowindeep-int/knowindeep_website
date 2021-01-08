@@ -32,8 +32,12 @@
 }
 var x, y
 function inputvar(){
-    var inp = document.createElement('input');
-    inp.type = "text"
+    // alert(e.value)
+    var inp = document.createElement('span');
+    // inp.setAttribute('contenteditable', 'false')
+    inp.className = 'input'
+    // inp.id = "unsplash_input"
+    // inp.type = "text"
     inp.id = "inptext_pexels"
     fx().appendChild(inp)
    
@@ -133,6 +137,10 @@ function inputvar(){
 // })
 
 document.addEventListener("keyup", function(e){
+    // if(document.getElementById('menu_div') != null){
+    //     // document.getElementById('menu_div').remove();
+    //     return;
+    // }
     // if(e.keyCode != "13"){
         if( document.getElementById('menu_div') != null){
             // alert(0)
@@ -142,6 +150,10 @@ document.addEventListener("keyup", function(e){
             // }
 
         }
+
+        
+        // alert(fx())
+        
     // }
     // alert(e.target.className)
     // alert(e.keyCode)
@@ -165,10 +177,16 @@ document.addEventListener("keyup", function(e){
         image.classList = "btn menu"
         var image_i = document.createElement("i")
         image_i.classList = "fa fa-camera"
+        var input = document.createElement('input')
+        input.setAttribute('type', 'file')
+        input.setAttribute('id','inpfile')
+        image_i.appendChild(input)
+        // <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
+        // image_i.appendChild()
         image.appendChild(image_i)
         var un = document.createElement('button')
         un.classList = "btn menu"
-        un.setAttribute("onclick","inputvar(); if(document.getElementById('inptext_pexels').innerHTML != ''){implementPexelSearch(document.getElementById('inptext_pexels').value)}")
+        un.setAttribute("onclick","inputvar()")
         var un_i = document.createElement("i")
         un_i.classList = "fa fa-search"
         un.appendChild(un_i)
@@ -192,6 +210,7 @@ document.addEventListener("keyup", function(e){
         }
         fx().innerHTML = ""
     //    alert(7)
+    
         fx().appendChild(menu_div)
         fx().innerHTML += "&nbsp;"
         var el = document.getElementById("editable")
@@ -241,10 +260,24 @@ document.addEventListener("keyup", function(e){
                 // alert(fx().className)
                 // alert(getCaretCoordinates()[1])
                 if(e.keyCode == '13'){
-                    // alert(fx().nextSibling.innerHTML)
-                    // alert(e.target.className)
-                // alert($(e.target).hasClass("editor"))
-                    // alert("true")
+                //     if(fx().className == "input" && document.getElementsByClassName('input') != null){
+                //     alert('i')
+                //     implementUnsplashSearch(query = fx().innerHTML)
+                //     return; 
+                    
+                // }
+                
+
+                if(fx().className == "input" && document.getElementsByClassName('input') != null){
+            // alert('i')
+            // e.preventDefault();
+            implementUnsplashSearch(query = fx().innerHTML)
+            
+            //
+            document.getElementsByClassName('input')[0].remove();
+            return; 
+        }
+
                 if(fx().className == 'fig-caption' && document.getElementsByClassName('fig-caption') != null && document.getElementsByClassName('fig-caption').length >= document.getElementsByClassName('fig').length){
                     // alert("k")
                     // e.preventDefault()
@@ -318,6 +351,8 @@ function fx(){
                             console.log('1')
                             fx().parentNode.insertBefore(fig, fx().nextSibling);
                         }
+
+                        
                         // targetDiv.append(fig);
                         // alert(fx().className)
                         // $(fig).insertAfter(fx());
@@ -389,14 +424,14 @@ function fx(){
                 fig.appendChild(image)
                 fig.appendChild(fig_caption)
                 if(fx().className == 'editor' ||  document.body === fx()){
-                            alert(fx().className)
+                            // alert(fx().className)
                             console.log('2')
                             fx().insertBefore(fig, fx().childNodes[0]);
                             // targetDiv.appendChild(fig)
                             // fx().insertBefore(fig, fx().nextSibling);
                         }
                         else{
-                            alert(fx().className)
+                            // alert(fx().className)
                             console.log('1')
                             fx().parentNode.insertBefore(fig, fx().nextSibling);
                         }
@@ -411,6 +446,12 @@ function fx(){
             }
         </script>
         <style>
+            .input{
+                display: inline-block;
+                width: 100px;
+                height: 30px;
+                border: 1px solid orange;
+            }
             .fig-caption{
                 /* white-space: nowrap;
                 overflow: hidden; */
@@ -486,6 +527,10 @@ function fx(){
         .btn:hover {
                 background-color: RoyalBlue;
         }
+
+        #inpfile {
+  display: none;
+}
         </style>
     </head>
     <body>
@@ -514,6 +559,8 @@ function fx(){
                         document.getElementsByClassName('buttons')[0].remove()
 
                     }
+                    console.log('hi')
+                    
                     $.getJSON('https://api.unsplash.com/search/photos?client_id=Kv-1wOUDvrJ_bXQDpcsMivN-gcEpVRHOM5BwqRUEiMc&query=' + query + '&page=' + page_number, function(data){
                         var div_btn = document.createElement('div')
                         div_btn.className = "buttons"
@@ -537,14 +584,14 @@ function fx(){
                         var div = document.createElement('div')
                         div.className = "grid"
                         if(fx().className == 'editor' ||  document.body === fx()){
-                            alert(fx().className)
+                            // alert(fx().className)
                             console.log('2')
                             fx().insertBefore(div, fx().childNodes[1]);
                             // targetDiv.appendChild(fig)
                             // fx().insertBefore(fig, fx().nextSibling);
                         }
                         else{
-                            alert(fx().className)
+                            // alert(fx().className)
                             console.log('1')
                             fx().parentNode.insertBefore(div, fx().nextSibling);
                         }
@@ -589,6 +636,7 @@ function fx(){
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
                         });
+                        
                     };
                     // xhr = new XMLHttpRequest();
                     function setHeader(xhr) {   
@@ -681,7 +729,7 @@ function fx(){
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
-        <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
+        <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
         <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
         <input type="text" id="inptext">
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
