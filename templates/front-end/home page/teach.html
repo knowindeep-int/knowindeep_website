@@ -31,15 +31,25 @@
    return [ x, y ];
 }
 var x, y
-function inputvar(){
+function inputvar(e){
     // alert(e.value)
     var inp = document.createElement('span');
     // inp.setAttribute('contenteditable', 'false')
-    inp.className = 'input'
+    // inp.className = 'input'
     // inp.id = "unsplash_input"
     // inp.type = "text"
-    inp.id = "inptext_pexels"
+    if(e.id == "pe"){
+        // alert(e.classList)
+        inp.className = 'input_pexels'
+        inp.id = "inptext_pexels"
     fx().appendChild(inp)
+    }
+    else{
+        // alert(e.classList)
+        inp.className = 'input'
+        inp.id = "inptext"
+    fx().appendChild(inp)
+    }
    
 }
 // document.addEventListener("click", function(e){
@@ -185,13 +195,16 @@ document.addEventListener("keyup", function(e){
         // image_i.appendChild()
         image.appendChild(image_i)
         var un = document.createElement('button')
-        un.classList = "btn menu"
-        un.setAttribute("onclick","inputvar()")
+        un.classList = "btn menu "
+        un.id = "un"
+        un.setAttribute("onclick","inputvar(this)")
         var un_i = document.createElement("i")
         un_i.classList = "fa fa-search"
         un.appendChild(un_i)
         var pe = document.createElement('button')
-        pe.classList = "btn menu"
+        pe.classList = "btn menu "
+        pe.id = "pe"
+        pe.setAttribute("onclick","inputvar(this)")
         var pe_i = document.createElement("i")
         pe_i.classList = "fa fa-search"
         pe.appendChild(pe_i)
@@ -272,9 +285,18 @@ document.addEventListener("keyup", function(e){
             // alert('i')
             // e.preventDefault();
             implementUnsplashSearch(query = fx().innerHTML)
-            
+            // implementPexelSearch(query=fx().innerHTML)
             //
             document.getElementsByClassName('input')[0].remove();
+            return; 
+        }
+         if(fx().className == "input_pexels" && document.getElementsByClassName('input_pexels') != null){
+            // alert('i')
+            // e.preventDefault();
+            // implementUnsplashSearch(query = fx().innerHTML)
+            implementPexelSearch(query=fx().innerHTML)
+            //
+            document.getElementsByClassName('input_pexels')[0].remove();
             return; 
         }
 
@@ -447,6 +469,12 @@ function fx(){
         </script>
         <style>
             .input{
+                display: inline-block;
+                width: 100px;
+                height: 30px;
+                border: 1px solid orange;
+            }
+            .input_pexels{
                 display: inline-block;
                 width: 100px;
                 height: 30px;
@@ -655,13 +683,13 @@ function fx(){
 
                         if(page_number > 1){
                             var prev = document.createElement('button')
-                            prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
+                            prev.setAttribute("onclick", 'page_number-=1;implementPexelSearch(document.getElementById("inptext_pexels").value, page_number)')
                             prev.innerHTML = "PREV"
                             prev.style.float = "left"
                             div_btn.appendChild(prev)
                         }
                         var next = document.createElement('button')
-                        next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
+                        next.setAttribute("onclick", 'page_number+=1;implementPexelSearch(document.getElementById("inptext_pexels").value, page_number)')
                         next.innerHTML = "NEXT"
                         next.style.float = "right"
 
