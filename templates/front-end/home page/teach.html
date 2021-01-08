@@ -2,6 +2,10 @@
 <html lang="en">
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.0.13/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
+
         <script>
             function format(cmd){
                 document.execCommand(cmd)
@@ -30,21 +34,32 @@ var x, y
 document.addEventListener("keyup", function(e){
     // alert(e.keyCode)
     if(e.keyCode == '13'){
-        alert(fx().innerHTML)
+        var div = document.createElement("div")
         if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;"){
         fx().innerHTML = ""
-        var btn = document.createElement('button')
-        btn.setAttribute('contenteditable', 'false')
-        btn.innerHTML = "FUE"
-        fx().appendChild(btn)
+       div.innerHTML = document.getElementById('menu_div').innerHTML
+        fx().appendChild(div)
+        document.getElementById('plus_btn').addEventListener('click', function(){
+                alert("clicked")
+                this.style.display = 'none'
+                var menu = document.getElementsByClassName('menu')
+                for(var i=0; i< menu.length; i++){
+                    menu[i].style.display = 'inline'
+                }
+                
+            })
+        
+            document.getElementById('close_btn').addEventListener('click', function(){
+                // alert("clicked")
+                document.getElementById('plus_btn').style.display = 'inline'
+                var menu = document.getElementsByClassName('menu')
+                for(var i=0; i< menu.length; i++){
+                    menu[i].style.display = 'none'
+                }
+                
+            })
     }
-//         <div id="menu_div">
-//     <button class="btn" id="plus_btn" title="Add menu"><i class="fa fa-plus"></i></button>
-//     <button class="btn menu" id="close_btn" title="Close menu"><i class="fa fa-close"></i></button>
-//     <button class="btn menu" title="Add a image"><i class="fa fa-camera"></i></button>
-//     <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
-//     <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
-// </div>
+
         // alert(fx().innerHTML)
     }
 })
@@ -500,6 +515,13 @@ function fx(){
         <input type="text" id="inptext">
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
         <input type="text" id="inptext_pexels">
+        <div id="menu_div" style="display: none;">
+            <button class="btn" id="plus_btn" title="Add menu"><i class="fa fa-plus"></i></button>
+            <button class="btn menu" id="close_btn" title="Close menu"><i class="fa fa-close"></i></button>
+            <button class="btn menu" title="Add a image"><i class="fa fa-camera"></i></button>
+            <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
+            <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
+        </div>
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
         <script>
@@ -509,25 +531,7 @@ function fx(){
         
             //     })
             // }
-            document.getElementById('plus_btn').addEventListener('click', function(){
-                // alert("clicked")
-                this.style.display = 'none'
-                var menu = document.getElementsByClassName('menu')
-                for(var i=0; i< menu.length; i++){
-                    menu[i].style.display = 'inline'
-                }
-                
-            })
-        
-            document.getElementById('close_btn').addEventListener('click', function(){
-                // alert("clicked")
-                document.getElementById('plus_btn').style.display = 'inline'
-                var menu = document.getElementsByClassName('menu')
-                for(var i=0; i< menu.length; i++){
-                    menu[i].style.display = 'none'
-                }
-                
-            })
+           
         
         </script>
     </body>
