@@ -52,7 +52,6 @@
 
 <body>
 
-
     <!-- <nav id="navbar" class="navbar-default navbar-static-top" style="overflow: visible">
         <div class="nav-wrapper container ">
             <a href="{% url 'blogs:index' %}">
@@ -188,8 +187,12 @@ window.onclick = function(event) {
   if (!event.target.matches('#navbarDropdown')) {
     var dropdowns = document.getElementsByClassName("dropdown-menu");
     var myDropdown = document.getElementById("form");
+    var z=document.getElementById("i");
     if (myDropdown.classList.contains('form1')) {
       myDropdown.classList.remove('form1');
+    }
+    if (z.classList.contains('hidden')) {
+      z.classList.remove('hidden');
     }
     var i;
     for (i = 0; i < dropdowns.length; i++) {
@@ -199,6 +202,10 @@ window.onclick = function(event) {
       }
     }
   }
+}
+function hide(){
+    var c=document.getElementById("i");
+    c.classList.add("hidden");
 }
 </script>
 
@@ -220,11 +227,11 @@ window.onclick = function(event) {
                   <a class="nav-link" href="#">About Us</a>
                 </li>
                 <li class="nav-item n dropdown hid" id="drop">
-                <form class="form" id="form" action="">
-                    <input type="search"  onmouseover="mousein()" id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
-                  <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
+                <form class="form" id="form" action="" onclick="hide()">
+                    <input type="search"  onmouseover="mousein()"  id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
+                  <i class="fa fa-search" id="i" onmouseover="myFunc()" href="#"></i>
               </form>
-                <div class="dropdown-menu menu" id="srch">
+                <div class="dropdown-menu menu" id="srch" style="padding:0; margin:0; border:0;">
                 </div>
       </li>
       {% if request.user.is_authenticated %}

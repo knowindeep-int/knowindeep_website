@@ -112,15 +112,7 @@ a.classList.remove("mystyle");
 function mousein() {	var a = document.getElementById("srch");
 a.classList.add("mystyle");
 }   
-
-$(window).scroll(function () {
-    var scroll = $(window).scrollTop();
-    var box = $('.header-text').height();
-    var header = $('header').height();
-
-    if (scroll >= box - header) {
-        $("header").addClass("background-header");
-    } else {
-        $("header").removeClass("background-header");
-    }
-});
+function hide(){
+    var c=document.getElementById("i");
+    c.classList.add("hidden");
+}
