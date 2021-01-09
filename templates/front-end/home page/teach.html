@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
 
         <script>
+            
             function format(cmd){
                 document.execCommand(cmd)
             };
@@ -592,7 +593,18 @@ function fx(){
         .btn:hover {
                 background-color: RoyalBlue;
         }
-
+        p{
+            counter-increment: line;
+        }
+        p::before{
+            content: counter(line);
+        }
+        .editor{
+            counter-increment: line;
+        }
+        .editor::before{
+            content: counter(line);
+        }
         /* #inpfile {
   display: none;
 } */
@@ -600,6 +612,10 @@ function fx(){
     </head>
     <body>
         <script>
+        //    $('editor').on('change',function(){
+        //        alert('8')
+        //     $("p").attr("id", "contents"); 
+        //     });
             var page_number = 1
             // $( document ).ready(function(){
             //    $('#inputfile').on('change', function(){
@@ -686,7 +702,7 @@ function fx(){
                             img.style.height = '100px';
                             img.style.display = 'inline';
                             img.src = imageUrl;
-                            var author = document.createElement('p')
+                            var author = document.createElement('span')
                             author.innerHTML = val.user.name;
                             author.readonly = "true"
                             author.className = 'author'
