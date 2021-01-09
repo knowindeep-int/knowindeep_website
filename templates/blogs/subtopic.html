@@ -11,150 +11,139 @@
         <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
     </ol>
 </div>
-<div class="container" id="cont">
+<div class="img2 row img3">
+    <img src="/media/images/layer.png" class="col-md-12 layer1">
+    </div> 
+<div class="team-section">
+	<div class="container">
+	  <div class="row row1">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 white">
+			<br>
+			<br>
+		  <div class="section-heading">
+			<h1>Meet the greatest people</h1>
+			<p>BY {{project.author}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved}}</p>
+			<br>
+			<div class="dow">Share on	</div>
+			<div class="sh">
+			<span class="shares"><div class="number">1</div><br><div class="number2">shares</div></span>
+			<img src="/media/images/google+share.png" class="shareon">
+			<img src="/media/images/mail-share.png" class="shareon">
+			<img src="/media/images/linkdin-share.png" class="shareon">
+			<img src="/media/images/whatsapp-share.png" class="shareon">
+			<img src="/media/images/twitter-share.png" class="shareon">
+			<img src="/media/images/facebook-share.png" class="shareon">
+			
+			</div>
+		  </div>
+		  <br>
+		  <br>
 
-    <h2 id="blog_heading" class="center">
-        {{ project.title }}
-    </h2>
-
-    <!-- <script>
-        
-        function copyCurrentPageURLToClipBoard(){
-            var input = document.createElement("input")
-            var url = document.location.href
-            input.value = url
-            document.body.appendChild(input)
-            input.select();
-            document.execCommand("copy")
-            document.body.removeChild(input)
-            toastr.options.timeOut = 200
-            toastr.success('Copied To ClipBoard');
-            var audio = new Audio('/media/copy.mp3');
-            audio.play();
-
-        }
-        function copyChapterPageURL(e) {
-
-            var input = document.createElement('input');
-            input.value = e.getAttribute('data-href');
-            document.body.appendChild(input);
-            input.select();
-            document.execCommand("copy");
-            document.body.removeChild(input);
-            toastr.options.timeOut = 100
-            toastr.success('Copied To ClipBoard');
-            var audio = new Audio('/media/copy.mp3');
-            audio.volume = 0.2;
-            audio.play();
-
-        }
-        function getChapterAbsoluteUrl(project_slug,chapter_slug){
-            // alert(project_slug)
-            var url = ""
-            $.ajax({
-                method: 'GET',
-                url: '{% url "api:get_chapter_absolute_url" %}',
-                data:{
-                    'project_slug': project_slug,
-                    'chapter_slug': chapter_slug
-                },
-                async: false,
-                success(data){
-                    url = data.url
-                },error(data){
-                    alert('ERROR!')
-                }
-            })
-            return url
-        }
-    </script> -->
-
-    <!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
-    {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
-    <!-- <script>
-    document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
-    document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
-    document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
-
-    document.getElementsByClassName("linkedin-share")[0].setAttribute("href", document.getElementsByClassName("linkedin-share")[0].getAttribute("href")  + document.location.href);
-    document.getElementsByClassName("linkedin-share")[0].setAttribute("data-href",  document.location.href )
-
-    document.getElementsByClassName("twitter-share")[0].setAttribute("href", document.getElementsByClassName("twitter-share")[0].getAttribute("href") + document.location.href) ;
-</script> -->
-    <div style="text-align: center;">
-        <img src="/media/{{ project.image }}" alt="{{project.title}}">
-    </div>
-    <div>
-        <h3>What will you do in this course:</h3>
-        {{ project.description }}
-    </div>
-
-    <div>
-        <h3>Pre- Requisites for this course?</h3>
-        <ul>
+		  <div class="top-1">
+			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint repellendus itaque hic eum cupiditate, rem eaque incidunt molestiae quaerat veniam tempore quasi consequatur ipsa eveniet modi debitis rerum illum maxime.</p>
+			<br><h5>What will you do in this course:</h5>
+			<p>{{ project.description }}</p>
+            <br><h5>Pre-Requisities for this course?</h5>
             {% for pre_req in project.pre_req.all %}
-            <li style="list-style-type: circle">{{pre_req}}</li>
+            <p>{{pre_req}}</p>
             {% endfor %}
-        </ul>
-    </div>
-    <div>
-        <h3>Difficulty Level:</h3>
-        {{ project.difficulty_level }}
-    </div>
-    <div>
-        <h3>Course Duration</h3>
-        {{ project.no_of_hours }}
-    </div>
-    <div>
-        <h3>Languages Used:</h3>
-        <ul>
-            {% if project.languages.all %} {% for language in project.languages.all %}
-            <li style="list-style-type: circle">{{language}}</li>
-            {% endfor %} {% endif %}
-        </ul>
-    </div>
-    <div>
-        <h3>Author Name :</h3> {{ project.author.user.first_name }} {{ project.author.user.last_name }}
-    </div>
-
-    <div class="center">
-        <div id="content">
-            {{ project.topic_content }}
+			<br><div class="spans">
+			<span><h5>Hours To Complete:</h5></span><div  class="field">{{ project.no_of_hours }}</div><br>
+			<span><h5>Level:</h5></span><div  class="field">{{ project.difficulty_level}}</div><br>
+			<span><h5>Languages Used:</h5></span>
+			<div  class="field">
+                {% for language in project.languages.all %} {% if language.image.url %}
+                    <img src="{{language.image.url}}" class="la"> {% endif %} {% endfor %}
+			   <!-- <img src="/media/images/java.png" class="la">
+			   <img src="/media/images/kotlin.png" class="la">
+			   <img src="/media/images/c.png" class="la">
+			   <img src="/media/images/php.png" class="la">
+			   <img src="/media/images/python.png" class="la"> -->
+			</div>
+			<br>
+			<span><h5>Author Name:</h5></span><div  class="field">{{project.author}}</span><br>
+		  </div>
+          </div>
+          {% if chapters %} {% for chapter in chapters %}
+<div class="boxes">
+<div class="box">
+	<div class="right-num">{{ forloop.counter }}</div>	<div class="mid">
+		<a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
+            {{ chapter.heading }} 
+        </a><br>
+        <span class="clk">{{ chapter.description }}</span>
         </div>
+        {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
     </div>
-    {% if chapters %} {% for chapter in chapters %}
-    <div id="blog" class="card hoverable" id="hover">
-        <div class="card-action">
-            <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
-                {{ chapter.heading }} : {{ chapter.description }}
-            </a>
-            <!-- <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button> -->
-
-            <!-- <script>
-            //     document.getElementById("clipboard").setAttribute("onclick", "copyChapterPageURL();return false;")
-            //     document.getElementById("clipboard").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
-            // </script> -->
-
-
-        </div>
-        {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
-
-        <!-- <script>
-                document.getElementsByClassName('clipboard')['{{forloop.counter}}'].setAttribute("onclick", "copyChapterPageURL(this);return false;")
-                document.getElementsByClassName("clipboard")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
-                document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("href", document.getElementsByClassName("share-btn")['{{forloop.counter}}'].getAttribute("href") + '&u=' + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
-                document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}')  )
-
-                document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].setAttribute("href", document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].getAttribute("href") + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
-                document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}')  )
-
-                document.getElementsByClassName("twitter-share")['{{forloop.counter}}' ].setAttribute("href", document.getElementsByClassName("twitter-share")['{{forloop.counter}}'].getAttribute("href") + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
-            </script> -->
-
-    </div>
-
-    {% endfor %} {% else %}
+        {% endfor %}
+   
+         {% else %}
     <h1>No blogs for the particular url</h1>
     {% endif %}
+	<!-- <img src="/media/images/share1.png" class="left-share"> -->
+
+<!-- <div class="box">
+	<div class="right-num">02</div>	<div class="mid">
+		<span class="add">Adding images to your site</span><br>
+		 <span class="clk">There are ways by which your image can be made clickable...</span>
+		</div>
+	<img src="share1.png" class="left-share">
 </div>
-{% endblock content %}
+<div class="box">
+	<div class="right-num">03</div>	<div class="mid">
+		<span class="add">Adding images to your site</span><br>
+		 <span class="clk">There are ways by which your image can be made clickable...</span>
+		</div>
+	<img src="share1.png" class="left-share">
+</div>
+<div class="box">
+	<div class="right-num">04</div>	
+	<div class="mid">
+		<span class="add">Adding images to your site</span><br>
+		 <span class="clk">There are ways by which your image can be made clickable...</span>
+	</div>
+	<img src="share1.png" class="left-share">
+</div>
+<div class="box">
+	<div class="right-num">05</div>
+	<div class="mid">
+		<span class="add">Adding images to your site</span><br>
+		 <span class="clk">There are ways by which your image can be made clickable...</span>
+	</div>
+	<img src="share1.png" class="left-share">
+</div>
+<div class="box">
+	<div class="right-num">06</div>
+	<div class="mid">
+	<span class="add">Adding images to your site</span><br>
+	 <span class="clk">There are ways by which your image can be made clickable...</span>
+	</div>
+	<img src="share1.png" class="left-share">
+</div>
+</div> -->
+</div> 
+<div class="section-heading">
+<h4>About the Author</h4>
+<br>
+<img src="{{project.author.dp.url}}" class="author">
+<div class="box box55">
+	<br>
+	<br>
+	<h3>{{project.author}}</h3>
+	<div>{{project.author.description}}</div>
+</div> 
+
+</div>
+
+</div>
+<div class="col-md-2"></div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
