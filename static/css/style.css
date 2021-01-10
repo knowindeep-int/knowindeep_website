@@ -579,12 +579,10 @@ input{
 .form1{
   width: 200px;
   cursor: pointer;
-  padding-right: 40px;
 }
 
 form:hover input{
   display: block;
-  padding-right: 10px;
 }
 
 .fa1{
@@ -601,9 +599,7 @@ form:hover input{
 }
 
 .mystyle{
-	display: block !important;
-	padding: 0 !important;
-	margin: 0 !important;
+	display: block;
 }
 
 .ham{
@@ -651,7 +647,7 @@ form:hover input{
   .projects{
     padding: 2% 2%;
   }
- .navbar-nav{
+.navbar-nav{
     padding: 5px 2%;
   }
   .navbar-brand{
@@ -681,16 +677,91 @@ form:hover input{
 #row{
 	margin: 0 !important;
 }
-
-.stack1{
+ .stack1{
   	margin-bottom: 20px;
+  }
+
+  .team-section {
+	margin-top: 140px;
+}
+.section-heading {
+	text-align: center;
+}
+.team-section .section-heading h2 {
+	color: #1e1e1e;
+}
+.img2{
+width: 800px;
+}
+.img2{
+margin: 50px auto;
+}
+.bold{
+	font-weight: bold;
+}
+.right-num{
+	float: left;
+}
+.left-share{
+	float: right;
+	margin-top: -45px;
+}
+.box{
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+padding: 20px;
+margin: 20px 0;
+}
+.team-section{
+	margin-top: -17%;
+}
+.white{
+	background-color: white !important;
+	padding: 0 20px;
+}
+.row1{
+	padding-top: 60px;
+}
+.img3{
+	width: 65%;
+}
+.right-num{
+	font-size: 40px;
+	color: #f9a80d;
+}
+.mid{
+	margin-left: 60px;
+}
+.add{
+	font-weight: 525;
+	font-size: 24px;
+}
+.field{
+	font-size: 14px;
+}
+.box55{
+	margin-top: -20px;
+}
+.author{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+h5{
+	margin: 0;
+}
+.la{
+	margin: 5px 5px 0 0;
+}
+.vertical{
+	color:#f9a80d;
+	font-weight: 900;
+	font-size: 20px;
+}
+h1{
+	font-size: 3.5rem;
 }
 
-#i{
-	  padding-top: 12px;
-	  padding-left: 12px;
-}
-
+<<<<<<< HEAD
 #srch{
 	  width: 200px;
 }
@@ -774,6 +845,8 @@ h1{
 	font-size: 3.5rem;
 }
 
+=======
+>>>>>>> 5c8eaac3b17529f431ce48253c98ae8bee1be3ba
 .boxes{
 	margin-top: 40px;
 }
@@ -806,6 +879,7 @@ div.spans h5{
 .img3{
 	width:100%;
 }
+<<<<<<< HEAD
 }
 
 @font-face {
@@ -853,3 +927,6 @@ h6{
 	font-size: 24px;
 }
 
+=======
+}
+>>>>>>> 5c8eaac3b17529f431ce48253c98ae8bee1be3ba
