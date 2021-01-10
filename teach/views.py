@@ -48,3 +48,6 @@ def list_of_projects(request):
         }
         return render(request, 'teach/projects_list.html',context=context)
     return redirect("/")
+
+def text_editor(request):
+    return render(request, 'front-end/home page/teach.html')
