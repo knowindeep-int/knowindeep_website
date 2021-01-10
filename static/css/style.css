@@ -694,3 +694,162 @@ form:hover input{
 #srch{
 	  width: 200px;
 }
+
+.team-section {
+	margin-top: 140px;
+}
+.section-heading {
+	text-align: center;
+}
+.team-section .section-heading h2 {
+	color: #1e1e1e;
+}
+.img2{
+width: 800px;
+}
+.img2{
+margin: 50px auto;
+}
+.bold{
+	font-weight: bold;
+}
+.right-num{
+	float: left;
+}
+.left-share{
+	float: right;
+	margin-top: -45px;
+}
+.box{
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+padding: 20px;
+margin: 20px 0;
+}
+.team-section{
+	margin-top: -17%;
+}
+.white{
+	background-color: white !important;
+	padding: 0 20px;
+}
+.row1{
+	padding-top: 60px;
+}
+.img3{
+	width: 65%;
+}
+.right-num{
+	font-size: 40px;
+	color: #f9a80d;
+}
+.mid{
+	margin-left: 60px;
+}
+.add{
+	font-family: 'georgia';
+	font-weight: 525;
+	font-size: 24px;
+}
+s
+.box55{
+	margin-top: -20px;
+}
+.author{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+h5{
+	margin: 0;
+}
+.la{
+	margin: 5px 5px 0 0;
+}
+.vertical{
+	color:#f9a80d;
+	font-weight: 900;
+	font-size: 20px;
+}
+h1{
+	font-size: 3.5rem;
+}
+
+.boxes{
+	margin-top: 40px;
+}
+div.spans h5{
+	margin-top: -5px !important;
+}
+.shareon{
+	float: right;
+	margin-top: -27px;
+}
+.sh{ 
+	height: 55px !important;
+	width:360px !important;
+	margin: 0 auto;
+}
+.number{
+	margin-left: -310px;
+	margin-bottom: -30px;
+	font-size: 12px;
+}
+.dow{
+	margin-bottom: 15px;
+}
+.number2	{
+	margin-left: -310px;
+	margin-bottom: -15px;
+	font-size: 12px;
+}
+@media (max-width: 666px){
+.img3{
+	width:100%;
+}
+}
+
+@font-face {
+	font-family:"gilroy";
+	src: url("Gilroy-Light.otf") format("opentype");
+  }
+@font-face {
+	font-family:"georgia";
+	src: url("Georgia-Regular-font.ttf") format("truetype");
+}
+
+body{
+	font-family: 'Georgia-Regular-font';
+	font-size: 18px;
+	line-height: 30px;
+}
+
+h1, h2, h3{
+	font-family: 'gilroy';
+	font-weight: bold;
+}
+h4{
+	font-family: 'gilroy';
+}
+h5,h6{
+	font-family: 'georgia';
+}
+
+h1{
+	font-size: 60px;
+}
+h2{
+	font-size: 52px;
+}
+h3{
+	font-size: 45px;
+}
+h4{
+	font-size: 34px;
+}
+h5{
+	font-size: 30px;
+}
+h6{
+	font-size: 24px;
+}
+

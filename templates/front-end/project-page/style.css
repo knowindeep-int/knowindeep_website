@@ -4,7 +4,6 @@ body {
 }
 p {
 	margin-bottom: 0px;
-	font-size: 14px;
 	color: #6a6a6a;
 	line-height: 25px;
 }
@@ -127,7 +126,7 @@ header {
 	background-color: transparent;
 	border: 2px solid #f9a80d;
 	text-transform: uppercase;
-	font-size: 13px;
+	font-size: 15px;
 	color: #f9a80d;
 	padding: 6px 20px;
 	letter-spacing: 0.5px;
@@ -162,7 +161,6 @@ header {
 }
 .navbar .navbar-nav a.nav-link {
 	text-transform: capitalize;
-	font-size: 15px;
 	font-weight: 300;
 	letter-spacing: 0.5px;
 	color: #fff;
@@ -732,12 +730,11 @@ margin: 20px 0;
 	margin-left: 60px;
 }
 .add{
+	font-family: 'georgia';
 	font-weight: 525;
 	font-size: 24px;
 }
-.field{
-	font-size: 14px;
-}
+s
 .box55{
 	margin-top: -20px;
 }
@@ -793,4 +790,48 @@ div.spans h5{
 .img3{
 	width:100%;
 }
+}
+
+@font-face {
+	font-family:"gilroy";
+	src: url("Gilroy-Light.otf") format("opentype");
+  }
+@font-face {
+	font-family:"georgia";
+	src: url("Georgia-Regular-font.ttf") format("truetype");
+}
+
+body{
+	font-family: 'Georgia-Regular-font';
+	font-size: 18px;
+}
+
+h1, h2, h3{
+	font-family: 'gilroy';
+	font-weight: bold;
+}
+h4{
+	font-family: 'gilroy';
+}
+h5,h6{
+	font-family: 'georgia';
+}
+
+h1{
+	font-size: 60px;
+}
+h2{
+	font-size: 52px;
+}
+h3{
+	font-size: 45px;
+}
+h4{
+	font-size: 34px;
+}
+h5{
+	font-size: 30px;
+}
+h6{
+	font-size: 24px;
 }
