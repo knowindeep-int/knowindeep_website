@@ -160,32 +160,42 @@ function saveImageDraft() {
         )
     }
 
-
-    function createProject(){
-   
+    function createChapterPage(){
         for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
-            if (document.getElementsByClassName("time_radio_input")[i].checked) {
-                no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
-            }
-        }
-        saveDraft('no_of_hours',no_of_hours)
-        //document.location.href = "/" + "teach";
-        $.ajax({
-            method: 'POST',
-            url: "{% url 'api:create_project' %}",
-            data :{
-                'pk': pk,
-                'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
-            },
-            success: function(data){
-                pk =data.pk
-            }, error: function(error){
-                alert("ERROR!")
-            }
-        }
-        )
-        document.location.href = "{% url 'teach:list_of_projects' %}"
+       if (document.getElementsByClassName("time_radio_input")[i].checked) {
+           no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+       }
+   }
+    saveDraft('no_of_hours',no_of_hours)
+        document.location.href = "{% url 'teach:chapter'%}"
+        // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
+        // '</div>';
     }
+    // function createProject(){
+   
+    //     for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
+    //         if (document.getElementsByClassName("time_radio_input")[i].checked) {
+    //             no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+    //         }
+    //     }
+    //     saveDraft('no_of_hours',no_of_hours)
+    //     //document.location.href = "/" + "teach";
+    //     $.ajax({
+    //         method: 'POST',
+    //         url: "{% url 'api:create_project' %}",
+    //         data :{
+    //             'pk': pk,
+    //             'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+    //         },
+    //         success: function(data){
+    //             pk =data.pk
+    //         }, error: function(error){
+    //             alert("ERROR!")
+    //         }
+    //     }
+    //     )
+    //     document.location.href = "{% url 'teach:list_of_projects' %}"
+    // }
 
 
 </script>
