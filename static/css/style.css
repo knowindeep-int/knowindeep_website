@@ -537,7 +537,7 @@ form{
 	margin-top: 10px;
 }
 input{
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     width: 100%;;
@@ -545,7 +545,7 @@ input{
     line-height: 30px;
     outline: 0;
     border: 0;
-    display: none;
+    /* display: none; */
     font-size: 1em;
     border-radius: 20px;
     padding: 0 20px;
@@ -845,8 +845,6 @@ h1{
 	font-size: 3.5rem;
 }
 
-=======
->>>>>>> 5c8eaac3b17529f431ce48253c98ae8bee1be3ba
 .boxes{
 	margin-top: 40px;
 }
@@ -926,7 +924,5 @@ h5{
 h6{
 	font-size: 24px;
 }
-
-=======
 }
->>>>>>> 5c8eaac3b17529f431ce48253c98ae8bee1be3ba
+
