@@ -122,7 +122,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
 
 class ChapterSerializer(serializers.ModelSerializer):
-    project_slug = serializers.CharField(source='link_to.slug')
+    project_slug = serializers.CharField(source='link_to.slug', required = False)
     class Meta:
         model = Chapter
         fields = '__all__'
