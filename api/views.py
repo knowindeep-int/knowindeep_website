@@ -272,16 +272,22 @@ def api_create_chapter(request):
         #     'pk': pk
         # }
         # return Response(chapter_serializer.data, status = status.HTTP_200_OK)
-
+        chapter_pk = request.POST.get('chapter_pk', None)
         pk = request.POST.get('pk', None)
+
         chapter_serializer = ChapterSerializer(data = request.data)
-        
+
         if not chapter_serializer.is_valid():
             print(chapter_serializer.data)
             print(chapter_serializer.errors)
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-        
-        chapter_serializer.save()
+
+        if not chapter_pk:
+            print('create')
+            chapter_serializer.save()
+        else:
+            print('update')
+            chapter_serializer.update(chapter_instance = Chapter.objects.get(pk = chapter_pk))
 
         data = {
             'success': 'Chapter saved successfully!',
