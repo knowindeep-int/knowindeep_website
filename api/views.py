@@ -297,3 +297,12 @@ def api_create_chapter(request):
 
         return Response(data, status = status.HTTP_200_OK)
 
+@api_view(['POST',])
+def api_update_status(request):
+    if request.method == "POST":
+        pk = request.POST.get('pk')
+        project = Project.objects.get(pk= pk)
+        project.status = 'teach'
+        project.save()
+        print(project.status)
+        return Response(pk,status=status.HTTP_200_OK)
