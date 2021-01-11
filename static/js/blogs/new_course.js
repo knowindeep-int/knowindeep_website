@@ -525,11 +525,11 @@ function createNumberOfHours() {
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>";
     div.innerHTML += '<div style="color: black;">'  ;
-    div.innerHTML += '<input class="time_radio_input" type="radio" id="0-2" name="" value="0-2" style="opacity: 1;">' +
-        '<label for="0-2">0-2 HOURS</label><br>' +
-        '<input class="time_radio_input" type="radio" id="2-4" name="" value="2-4"  style="opacity: 1;">' +
+    div.innerHTML += '<input class="time_radio_input" type="radio" id="0--2" name="" value="0.2" style="opacity: 1;">' +
+        '<label for="0--2">0--2 HOURS</label><br>' +
+        '<input class="time_radio_input" type="radio" id="2-4" name="" value="2.4"  style="opacity: 1;">' +
         '<label for="2-4">2-4 HOURS</label><br>' +
-        '<input class="time_radio_input" type="radio" id=">4" name="" value=">4" style="opacity: 1;">' +
+        '<input class="time_radio_input" type="radio" id=">4" name="" value=".4" style="opacity: 1;">' +
         '<label for=">4">MORE THAN 4 HOURS</label>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
