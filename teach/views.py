@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
-from blogs.models import Language, PreRequisite, Project, Profile
+from blogs.models import Language, PreRequisite, Project, Profile,Chapter
 
 def add_course(request, pk = None):
     if request.user.is_authenticated:
@@ -49,5 +49,9 @@ def list_of_projects(request):
         return render(request, 'teach/projects_list.html',context=context)
     return redirect("/")
 
-def text_editor(request):
-    return render(request, 'front-end/home page/teach.html')
+def text_editor(request,pk = None):
+    print(pk)
+    project = Project.objects.get(pk = pk)
+    chapters = project.chapters.all()
+    context = {'chapters':chapters}
+    return render(request, 'front-end/home page/teach.html',context=context)

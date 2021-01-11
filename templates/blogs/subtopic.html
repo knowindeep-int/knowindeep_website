@@ -53,8 +53,8 @@
 			<span><h5>Level:</h5></span><div  class="field">{{ project.difficulty_level}}</div><br>
 			<span><h5>Languages Used:</h5></span>
 			<div  class="field">
-                {% for language in project.languages.all %} {% if language.image.url %}
-                    <img src="{{language.image.url}}" class="la"> {% endif %} {% endfor %}
+				{% if language.image.url %}   {% for language in project.languages.all %} 
+                    <img src="{{language.image.url}}" class="la"> {% endfor %} {% endif %} 
 			   <!-- <img src="/media/images/java.png" class="la">
 			   <img src="/media/images/kotlin.png" class="la">
 			   <img src="/media/images/c.png" class="la">

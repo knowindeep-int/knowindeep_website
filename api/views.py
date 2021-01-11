@@ -254,4 +254,20 @@ def api_get_chapter_absolute_url(request):
 
         return Response(data, status = status.HTTP_200_OK)
 
+@api_view(['POST',])
+def api_create_chapter(request):
+    if request.method == "POST":
+        pk = request.POST.get('pk',None)
 
+        if pk == "":
+            pk = None
+        chapter = Chapter.objects.get(pk=pk)
+        chapter.description = request.POST['description']
+        chapter.save()
+        chapter_serializer = ChapterSerializer(chapter)
+        print(request.data)
+        data = {
+            'success': "Project updated successfully!", 
+            'pk': pk
+        }
+        return Response(chapter_serializer.data, status = status.HTTP_200_OK)

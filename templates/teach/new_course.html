@@ -166,8 +166,9 @@ function saveImageDraft() {
            no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
        }
    }
+   alert(pk);
     saveDraft('no_of_hours',no_of_hours)
-        document.location.href = "{% url 'teach:chapter'%}"
+        document.location.href = "{% url 'teach:chapter' pk%}"
         // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         // '</div>';
     }
