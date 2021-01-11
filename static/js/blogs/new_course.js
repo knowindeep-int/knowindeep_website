@@ -89,14 +89,16 @@ window.onload = function () {
     else{
         sessionStorage.removeItem('pk')
     }
-    
+    alert('{{status}}')
     if('{{status}}' == 'title'){
         createTitlePage();   
     }
     else{
         createTitlePage();
     }
-    
+    if('{{status}}' == 'teach'){
+        createNumberOfHours();   
+    }
     getLangPrereq();
     
 };
