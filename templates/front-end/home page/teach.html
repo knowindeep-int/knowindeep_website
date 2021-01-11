@@ -863,6 +863,12 @@ function fx(){
                     };
                     // $.getJSON('https://api.pexels.com/v1/search?query=people', function(data){
                     //     beforeSend: setHeader
+                    if('{{chapter.pk}}'){
+                        var chapter_pk = '{{chapter.pk}}'
+                    }
+                    else{
+                        var chapter_pk = ""
+                    }
                     function addChapter(){
                         content = document.getElementsByClassName('editor')[0].innerHTML
 
@@ -870,6 +876,7 @@ function fx(){
                             method: 'POST',
                             url: "{% url 'api:create_chapter' %}",
                             data :{
+                                'chapter_pk': chapter_pk,
                                 'link_to': '{{project.pk}}',
                                 'description': content,
                                 'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
@@ -877,16 +884,38 @@ function fx(){
                             },
                             success: function(data){
                                 alert('SUCCESS!')
-                                
-                                alert('SUCCESS!')
                             }, error: function(error){
                                 alert('ERROR!')
                             }
 
                         })
-                        document.location.href = '/teach/chapter/' + '{{project.pk}}'
+                        if('{{chapter.pk}}'){
+                        document.location.href = '/teach/chapter/' + '{{project.pk}}/' + '{{chapter.pk}}'
+                        }
+                        else{
+                            document.location.href = '/teach/chapter/' + '{{project.pk}}'
+                        }
                     }
+                function createNumberofHours(){
+                    var pk = {{project.pk}}
+                    document.location.href = "/teach/add/"+pk;
+                    $.ajax({
+                        method:'POST',
+                        url: '{% url "api:update_status" %}',
+                        data:{
+                            'link_to': '{{project.pk}}',
+                            'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
+                            
+                        },
+                        success: function(data){
+                                alert('SUCCESS!')
+                            }, error: function(error){
+                                alert('ERROR!')
+                            }
                     
+                    })
+
+                }    
                     
          </script>
         <button id="bold" onclick="format('bold')">B</button>
@@ -903,7 +932,7 @@ function fx(){
         {%endfor%}
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->
-        <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="">Previous</button>
+        <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createNumberofHours()">Previous</button>
         <button  type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();">Add</button>
 
         <div class="editor" contenteditable="true" spellcheck="false" >
