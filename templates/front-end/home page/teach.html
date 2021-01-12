@@ -401,6 +401,18 @@ function fx(){
            
             document.execCommand('defaultParagraphSeparator', false, 'p');
 
+            function setImgurHeader(xhr) {  
+                        // xhr.setRequestHeader('Cache-Control', null) 
+                        // xhr.setRequestHeader("Origin, X-Requested-With, Content-Type, Accept, Authorization, Token");
+                        // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+                        // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+                        // xhr.setRequestHeader('Origin, X-Requested-With, Content-Type, Accept, Authorization, Authentication');
+                        // xhr.setRequestAhorization
+                        xhr.setRequestHeader('Authorization', ['Client-ID d93a844da20ebb5', 'Bearer 7cd876bf6ab3405bad138d3a1886a3048fe9a0f0']);
+                        // xhr.setRequestHeader('Authorization')
+                        // xhr.setRequestHeader('Authorization', 'Bearer 7cd876bf6ab3405bad138d3a1886a3048fe9a0f0')
+                        }
+
             function addLocalImage(e){
                 // alert(0);
                 var targetDiv=document.getElementsByClassName("editor")[0];
@@ -430,8 +442,36 @@ function fx(){
                         }); 
                         if (file){
                             reader.readAsDataURL(file);
-                        document.getElementById('inpfile').value = "";
+                        // document.getElementById('inpfile').value = "";
+                        
+                        
+
                     }
+                    alert("AJAX")
+                    var formData = new FormData();
+                    formData.append('image',file);
+                    // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+
+                    $.ajax({
+
+                            method: 'POST',
+                            url: 'https://api.imgur.com/3/image',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(data){
+                                alert('success!')
+                                image.src = data.data.link
+                            },
+                            error: function(error){
+                                alert(error)
+                            },
+                            beforeSend: setImgurHeader,
+
+                            
+
+                        })
+
                 }
             $( document ).ready(function(){
                 $('#inpfile').on('change', function(){
