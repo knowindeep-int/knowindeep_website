@@ -20,6 +20,37 @@
 </head>
 
 <script>
+    window.onload = function () {
+    alert('{{status}}')
+    if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
+        pk = sessionStorage.getItem('pk')
+        // alert(pk)
+        if (pk == null){
+            pk = ""
+        }
+        else{
+            window.location.href = "/teach/add/" + pk
+            sessionStorage.removeItem("pk")
+        }
+        
+    }
+    else{
+        sessionStorage.removeItem('pk')
+    }
+    // alert('{{status}}')
+    if('{{status}}' == 'title'){
+        createTitlePage();   
+    }
+    else{
+        createTitlePage();
+    }
+    
+    if('{{status}}' == 'teach'){
+        createNumberOfHours();   
+    }
+    getLangPrereq();
+    
+};
 if('{{project.title}}'){
    assignParam(
     title = '{{project.title}}',

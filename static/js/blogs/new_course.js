@@ -76,35 +76,7 @@ function add_pre_req(){
     setTimeout(function(){location.reload();},50)
 }
 
-window.onload = function () {
-    if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
-        pk = sessionStorage.getItem('pk')
-        // alert(pk)
-        if (pk == null){
-            pk = ""
-        }
-        else{
-            window.location.href = "/teach/add/" + pk
-            sessionStorage.removeItem("pk")
-        }
-        
-    }
-    else{
-        sessionStorage.removeItem('pk')
-    }
-    // alert('{{status}}')
-    if('{{status}}' == 'title'){
-        createTitlePage();   
-    }
-    else{
-        createTitlePage();
-    }
-    // if('{{status}}' == 'teach'){
-    //     createNumberOfHours();   
-    // }
-    getLangPrereq();
-    
-};
+
 
 function createDescriptionPage() {
 

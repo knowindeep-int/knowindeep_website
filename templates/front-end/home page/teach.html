@@ -898,7 +898,7 @@ function fx(){
                     }
                 function createNumberofHours(){
                     var pk = '{{project.pk}}'
-                    document.location.href = "/teach/add/"+pk;
+                    
                     $.ajax({
                         method:'POST',
                         url: '{% url "api:update_status" %}',
@@ -915,7 +915,7 @@ function fx(){
                             }
                     
                     })
-
+                    document.location.href = "/teach/add/"+pk;
                 }    
                     
          </script>
