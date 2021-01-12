@@ -923,29 +923,22 @@ h6{
 	position: sticky;
 	background-color: #ebebeb;
 	top: 50px;
-	list-style-type: none;
+	width: 100%;
 }
 .list a{
 	color: #000000;
-	line-height: 30px;
+	display: block;
+	padding:15px 30px;
 }
-.list a:active{
-	background-color: #f9a80d;
-	color: #fff;
+
+.list{
+	padding-left: 0;
 }
 .list a:hover{
 	background-color: #f9a80d;
 	color: #fff;
-}
-.list{
-	padding-left: 0;
-}
-.list li{
-	padding-left: 40px;
-}
-.list li:hover{
-	background-color: #f9a80d;
-	color: #fff;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3s;
 }
 .head1{
 	width: 100%;
