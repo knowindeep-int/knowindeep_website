@@ -6,6 +6,28 @@
 {% block title %}
 <title>{{ chapter_content.link_to.title |title }} | {{ chapter_content.heading |title }}</title>
 {% endblock %}
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KnowinDeep" />
+<link rel="stylesheet" href="{% static 'blogs/css/indi_blog.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+    function copyCurrentPageURLToClipBoard(){
+        var input = document.createElement("input")
+        var url = document.location.href
+        input.value = url
+        document.body.appendChild(input)
+        input.select();
+        document.execCommand("copy")
+        toastr.options.timeOut = 200
+        toastr.success('Copied To ClipBoard');
+        var audio = new Audio('/media/copy.mp3');
+        audio.volume = 0.2;
+        audio.play();
+        document.body.removeChild(input)
+
+    }
+
+</script>
 
 <div class="row">
     <div class="col-1">
@@ -124,10 +146,9 @@
 </script>
 
 {% block content %}
-<meta property="og:type" content="website" />
-<meta property="og:title" content="KnowinDeep" />
-<link rel="stylesheet" href="{% static 'blogs/css/indi_blog.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+    var ch_list = new Array;
+</script>
 
 <div class="center">
 
@@ -138,24 +159,86 @@
     </ol>
 
 </div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
+			<ul class="list">
+				{% for chapter in chapters %}
+            {% if chapter.slug == chapter_content.slug %}
+            <li><a class="" id="selected"
+                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.heading }}</a></li>
+                <script>ch_list.push('{{chapter.slug}}')</script>
+            {% else %}
+           <li> <a class="" id="listItem"
+            href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.heading }}</a></li>
+            <script>ch_list.push('{{chapter.slug}}')</script>
+            {% endif %}
+            {% endfor %}
+			</ul>
+		</div>
+	<div class="col-lg-9 chapter">
+		<h1>{{chapter_content.heading}}</h1>
+		<p>BY {{chapter_content.author}} &emsp;<span class="vertical">|</span>&emsp; {{chapter_content.date_posted}}</p>
+		<br>
+		<img src="/media/images/blog-pic.png" class="head1">
+		<p>{{chapter_content.description}}</p>
+		<h5 id="heading1">heading1</h5>
+		<p>{{chapter_content.content}}</p>
+		<div class="code">
+			&lt;body&gt;<br>
+			&emsp;&lt;img src="*your_source*" alt="Here is an image!" width="100px"&gt;<br>
+			&lt;/body&gt;
+		</div>
+		<!-- <h5 id="heading2">heading2</h5>
+		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias officiis, tempora excepturi voluptatem impedit repellendus dolorum velit quasi explicabo aut quisquam numquam sed eius, vero praesentium nihil animi et temporibus.</p>
+		<h5 id="heading3">heading3</h5>
+		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias officiis, tempora excepturi voluptatem impedit repellendus dolorum velit quasi explicabo aut quisquam numquam sed eius, vero praesentium nihil animi et temporibus.</p>
+		<h5 id="heading4">heading4</h5>
+		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias officiis, tempora excepturi voluptatem impedit repellendus dolorum velit quasi explicabo aut quisquam numquam sed eius, vero praesentium nihil animi et temporibus.</p>
+		<div class="code">
+			&lt;body&gt;<br>
+			&emsp;&lt;img src="*your_source*" alt="Here is an image!" width="100px"&gt;<br>
+			&lt;/body&gt;
+		</div>
+		<h5 id="heading5">heading5</h5>
+		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias officiis, tempora excepturi voluptatem impedit repellendus dolorum velit quasi explicabo aut quisquam numquam sed eius, vero praesentium nihil animi et temporibus.</p> -->
+		<hr class="last-line">
+		<button class="prev but1 but3" onclick="previous()">Previous</button>
+		<button class="nxt but1 but3"  onclick="next()">Next</button>
+	</div>
+	</div>
+</div>  
 <script>
-    function copyCurrentPageURLToClipBoard(){
-        var input = document.createElement("input")
-        var url = document.location.href
-        input.value = url
-        document.body.appendChild(input)
-        input.select();
-        document.execCommand("copy")
-        toastr.options.timeOut = 200
-        toastr.success('Copied To ClipBoard');
-        var audio = new Audio('/media/copy.mp3');
-        audio.volume = 0.2;
-        audio.play();
-        document.body.removeChild(input)
-
+    function previous(){
+        for(var i = 0;i<ch_list.length;i++)
+        {
+            if (ch_list[i] == '{{chapter_content.heading}}'&& i >0)
+            {
+                document.location.href = '/'+ '{{slug}}/' + ch_list[i-1] ;
+            }
+        }
     }
-
+    function next(){
+        for(var i = 0;i<ch_list.length;i++)
+        {
+            if (ch_list[i] == '{{chapter_content.heading}}'&& i<ch_list.length-1)
+            {
+                document.location.href = '/'+ '{{slug}}/' + ch_list[i+1] ;
+            }
+        }
+    }
 </script>
+
+<!-- <div class="center">
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
+        <li class="breadcrumb-item active">{{ chapter_content.heading | title }}</li>
+    </ol>
+
+</div>
+
 <script>
     // (function(d, s, id) {
     //         var js, fjs = d.getElementsByTagName(s)[0];
@@ -167,22 +250,9 @@
     //     }
 
     //     (document, 'script', 'facebook-jssdk'));
-</script>
+</script> -->
 
-<!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
-<!-- {% include 'dropdown/dropdown.html' with url=chapter_content.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %} -->
-<!-- <script>
-    document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
-    alert(typeof document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href))
-    document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
-    document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
-
-    document.getElementsByClassName("linkedin-share")[0].setAttribute("href", document.getElementsByClassName("linkedin-share")[0].getAttribute("href") + document.location.href);
-    document.getElementsByClassName("linkedin-share")[0].setAttribute("data-href",  document.location.href )
-
-    document.getElementsByClassName("twitter-share")[0].setAttribute("href", document.getElementsByClassName("twitter-share")[0].getAttribute("href") + document.location.href) ;
-    </script> -->
-<div class="row">
+<!-- <div class="row">
 
     <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
     <div class="col-sm-12 col-md-12 col-lg-8 container">
@@ -206,7 +276,7 @@
             {% endif %}
             {% endfor %}
         </ul>
-    </div>
+    </div> -->
 
 
     <!-- 
@@ -286,7 +356,7 @@
     <div class="col-sm-12 col-md-6 col-lg-8 container center">
        
     </div> -->
-</div>
+<!-- </div> -->
 
 
 <div class="row" id="commentsContainer" style="margin-top: 150px;">
