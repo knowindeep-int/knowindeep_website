@@ -7,6 +7,48 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
 
         <script>
+            var pk = sessionStorage.getItem('pk')
+            function newChapter(){
+                $.ajax({
+                    method:'POST',
+                    url:'{% url "api:create_chapter" %}'
+                    data :{
+                        'pk': sessionStorage.getItem('pk'),
+                        'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
+                        'description':document.getElementsByClassName('editor')[0].innerHTML             
+                    },
+                    success:function(data){
+                        pk = data.pk
+                    },
+                    error: function(error){
+                        alert('ERROR!')
+                    },
+                })
+
+            }
+           
+
+            function createProject(){
+   
+  
+   //document.location.href = "/" + "teach";
+   $.ajax({
+       method: 'POST',
+       url: "{% url 'api:create_project' %}",
+       data :{
+           'pk': sessionStorage.getItem('pk'),
+           'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+       },
+       success: function(data){
+           pk =data.pk
+       }, error: function(error){
+           alert("ERROR!")
+       }
+   }
+   )
+   document.location.href = "{% url 'teach:list_of_projects' %}"
+}
+
             
             function format(cmd){
                 document.execCommand(cmd)
@@ -611,6 +653,7 @@ function fx(){
         </style>
     </head>
     <body>
+        {% csrf_token %}
         <script>
         //    $('editor').on('change',function(){
         //        alert('8')
@@ -821,6 +864,11 @@ function fx(){
         <!-- <input type="text" id="inptext"> -->
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
         <input type="text" id="inptext_pexels">
+        {% for chapter in chapters%}
+        <p><a href="#">{{chapter.heading}}</a></p>
+        {%endfor%}
+        <button type="button" onclick="createChapter();">cREATE chAPTER</button>
+        <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="">Previous</button>
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
         <script>

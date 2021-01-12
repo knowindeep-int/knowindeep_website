@@ -58,8 +58,8 @@
                         <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
                         <span class="bold">Languages Used :</span>
                         <div>
-                            {% for language in project.languages.all %} {% if language.image.url %}
-                            <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
+                            {% if language.image.url %} {% for language in project.languages.all %}
+                            <img src="{{language.image.url}}" class="lang"> {% endfor %}  {% endif %}
                             
                         </div>
         

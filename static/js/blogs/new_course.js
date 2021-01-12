@@ -1,28 +1,28 @@
-function addChapter(event) {
-    let error = 0;
-    let focus_on = null;
-    // for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
-    var elem = document.getElementById('chapter_left_button');
-    elem.parentNode.removeChild(elem);
-    var elem = document.getElementById('chapter_right_button');
-    elem.parentNode.removeChild(elem);
-    var elem = document.getElementById('chapter_add_button');
-    elem.parentNode.removeChild(elem);
+// function addChapter(event) {
+//     let error = 0;
+//     let focus_on = null;
+//     // for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
+//     var elem = document.getElementById('chapter_left_button');
+//     elem.parentNode.removeChild(elem);
+//     var elem = document.getElementById('chapter_right_button');
+//     elem.parentNode.removeChild(elem);
+//     var elem = document.getElementById('chapter_add_button');
+//     elem.parentNode.removeChild(elem);
 
-    div = document.getElementById("chapter_main_div");
-    new_div = document.createElement('div');
-    new_div.setAttribute("style", "color: black;");
-    new_div.setAttribute("class", "chapter_div");
-    new_div.setAttribute("id", "chapter_div_" + counter)
-    new_div.innerHTML += '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>';
+//     div = document.getElementById("chapter_main_div");
+//     new_div = document.createElement('div');
+//     new_div.setAttribute("style", "color: black;");
+//     new_div.setAttribute("class", "chapter_div");
+//     new_div.setAttribute("id", "chapter_div_" + counter)
+//     new_div.innerHTML += '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>';
 
-    div.appendChild(new_div);
-    document.getElementsByClassName("chapter_h2_heading")[chapter_count - 1].innerHTML = "Chapter " + chapter_count;
-    chapter_innerHTML = div.innerHTML;
-    counter += 1;
-    chapter_count += 1;
+//     div.appendChild(new_div);
+//     document.getElementsByClassName("chapter_h2_heading")[chapter_count - 1].innerHTML = "Chapter " + chapter_count;
+//     chapter_innerHTML = div.innerHTML;
+//     counter += 1;
+//     chapter_count += 1;
 
-};
+// };
 function showhide(id) {
     if (document.getElementById) {
         var divid = document.getElementById(id);
@@ -181,7 +181,7 @@ function createDescriptionPage() {
     div.setAttribute("class", "jumbotron text-center");
 
     div.innerHTML += "<h2 style='color: black;'>DESCRIPTION </h2>";
-    div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><span id="error_description"></span>';
+    div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><span id="error_description"></span>';
     
     if (document.getElementById("selectpicker") != null) {
         for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
@@ -227,138 +227,138 @@ function createTitlePage() {
 
 
 var view_count =0 
-function createChapterPage() {
+// function createChapterPage() {
     
-    if (document.getElementById("description_input") != null) {
-        description = document.getElementById("description_input").value;
-        if (document.getElementById("description_input").value == "") {
-            document.getElementById("error_description").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_description").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_description").innerHTML = "";
-        }
+    // if (document.getElementById("description_input") != null) {
+    //     description = document.getElementById("description_input").value;
+    //     if (document.getElementById("description_input").value == "") {
+    //         document.getElementById("error_description").innerHTML = "Cannot Be Empty!";
+    //         document.getElementById("error_description").style = "color: red;";
+    //         return;
+    //     }
+    //     else {
+    //         document.getElementById("error_description").innerHTML = "";
+    //     }
         
-    }
-    
-    
-    
-    if(document.getElementById("selectpicker") != null) {
-        languages = [];
-        for (var i=0; i < document.getElementById("selectpicker").length; i++ ) {
-            if (document.getElementById("selectpicker")[i].selected) {
-                languages.push(document.getElementById("selectpicker")[i].innerHTML);
-            }
-        }
-        saveDraft("languages",languages)
-        if (languages.length == 0) {
-            document.getElementById("error_language").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_language").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_language").innerHTML = "";
-        }
-        
-    }
-
-    if (document.getElementById("selectpicker_prereq") != null) {
-        pre_reqs = [];
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            if (document.getElementById("selectpicker_prereq")[i].selected) {
-                pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
-            }
-        }
-        saveDraft('pre_req',pre_reqs)
-        if (pre_reqs.length == 0) {
-            document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_prereq").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_prereq").innerHTML = "";
-        }
-
-    }
-    saveDraft("description", description);
-
-    view_count += 1
-    //alert(description)
-   
-    //alert(pk)
-    sessionStorage.setItem("pk", pk);
-    //document.cookie = "pk=" + pk;
-    
-    showhide("4");
-    div_1 = document.getElementById("1");
-    div_1.setAttribute("style", "display: none;");
-    div_1.innerHTML = "";
-
-    div_2 = document.getElementById("2");
-    div_2.setAttribute("style", "display: none;");
-    div_2.innerHTML = "";
-
-    div_3 = document.getElementById("3");
-    div_3.setAttribute("style", "display: none;");
-    div_3.innerHTML = "";
-
-    div_5 = document.getElementById("5");
-    div_5.setAttribute("style", "display: none;");
-    div_5.innerHTML = "";
-
-    div_6 = document.getElementById("6");
-    div_6.setAttribute("style", "display: none;");
-    div_6.innerHTML = "";
-
-
-
-    var div = document.getElementById("4");
-    div.setAttribute("class", "jumbotron text-center") ;
-    div.innerHTML +="<h2 style='color: black;'> CHAPTER PAGE</h2>" ;
-    div.innerHTML += '<div id="chapter_main_div" ><div style="color: black;" class="chapter_div" class="current_chapter" id="chapter_div_0">' + 
-            '<h2 class="chapter_h2_heading">Chapter 1</h2><div>' +
-                '<span>Heading</span>' +
-                '<input class="heading chapter" id="heading" type="text" required>' +
-                '<span class="error_heading"></span>' + 
-            '</div>' +
-            '<div>' +
-                '<span>Description</span>' +
-                '<input class="description chapter" id="description" type="text" required>' +
-                '<span class="error_description"></span>' + 
-            '</div>' +
-            '<div>' +
-                '<span>content</span>' +
-                '<input class="content chapter" id="content" type="text" required>' +
-                '<span class="error_content"></span>' + 
-            '</div>' +
-            '<div>' +
-                '<span>Youtube Link</span>' +
-                '<input type="url"  id="youtube" class="youtube chapter" required >' + 
-                '<span class="error_youtube"></span>' +
-            '</div>' ;
-    if (chapter_innerHTML != "") {
-        document.getElementById("chapter_main_div").innerHTML = '<br><br>' + chapter_innerHTML ;   
-    }    
-    else {
-        div.innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button></div></div>';
-    }
-
-    // if (document.getElementById('heading') != null) { 
-        
-        for (var i=0; i< chapters.length; i++) {
-            
-            document.getElementsByClassName("heading")[i].value = chapters[i]['heading'];
-            document.getElementsByClassName("description")[i].value = chapters[i]['description'];
-            document.getElementsByClassName("content")[i].value = chapters[i]['content'];
-            document.getElementsByClassName("youtube")[i].value = chapters[i]['youtube_link'];
-            if( view_count == 1){
-                if(i < chapters.length-1){addChapter()}
-            }
-        }
     // }
     
-}
+    
+    
+    // if(document.getElementById("selectpicker") != null) {
+    //     languages = [];
+    //     for (var i=0; i < document.getElementById("selectpicker").length; i++ ) {
+    //         if (document.getElementById("selectpicker")[i].selected) {
+    //             languages.push(document.getElementById("selectpicker")[i].innerHTML);
+    //         }
+    //     }
+    //     saveDraft("languages",languages)
+    //     if (languages.length == 0) {
+    //         document.getElementById("error_language").innerHTML = "Cannot Be Empty!";
+    //         document.getElementById("error_language").style = "color: red;";
+    //         return;
+    //     }
+    //     else {
+    //         document.getElementById("error_language").innerHTML = "";
+    //     }
+        
+    // }
+
+    // if (document.getElementById("selectpicker_prereq") != null) {
+    //     pre_reqs = [];
+    //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+    //         if (document.getElementById("selectpicker_prereq")[i].selected) {
+    //             pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
+    //         }
+    //     }
+    //     saveDraft('pre_req',pre_reqs)
+    //     if (pre_reqs.length == 0) {
+    //         document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+    //         document.getElementById("error_prereq").style = "color: red;";
+    //         return;
+    //     }
+    //     else {
+    //         document.getElementById("error_prereq").innerHTML = "";
+    //     }
+
+    // }
+    // saveDraft("description", description);
+
+//     view_count += 1
+//     //alert(description)
+   
+//     //alert(pk)
+//     sessionStorage.setItem("pk", pk);
+//     //document.cookie = "pk=" + pk;
+    
+//     showhide("4");
+//     div_1 = document.getElementById("1");
+//     div_1.setAttribute("style", "display: none;");
+//     div_1.innerHTML = "";
+
+//     div_2 = document.getElementById("2");
+//     div_2.setAttribute("style", "display: none;");
+//     div_2.innerHTML = "";
+
+//     div_3 = document.getElementById("3");
+//     div_3.setAttribute("style", "display: none;");
+//     div_3.innerHTML = "";
+
+//     div_5 = document.getElementById("5");
+//     div_5.setAttribute("style", "display: none;");
+//     div_5.innerHTML = "";
+
+//     div_6 = document.getElementById("6");
+//     div_6.setAttribute("style", "display: none;");
+//     div_6.innerHTML = "";
+
+
+
+//     var div = document.getElementById("4");
+//     div.setAttribute("class", "jumbotron text-center") ;
+//     div.innerHTML +="<h2 style='color: black;'> CHAPTER PAGE</h2>" ;
+//     div.innerHTML += '<div id="chapter_main_div" ><div style="color: black;" class="chapter_div" class="current_chapter" id="chapter_div_0">' + 
+//             '<h2 class="chapter_h2_heading">Chapter 1</h2><div>' +
+//                 '<span>Heading</span>' +
+//                 '<input class="heading chapter" id="heading" type="text" required>' +
+//                 '<span class="error_heading"></span>' + 
+//             '</div>' +
+//             '<div>' +
+//                 '<span>Description</span>' +
+//                 '<input class="description chapter" id="description" type="text" required>' +
+//                 '<span class="error_description"></span>' + 
+//             '</div>' +
+//             '<div>' +
+//                 '<span>content</span>' +
+//                 '<input class="content chapter" id="content" type="text" required>' +
+//                 '<span class="error_content"></span>' + 
+//             '</div>' +
+//             '<div>' +
+//                 '<span>Youtube Link</span>' +
+//                 '<input type="url"  id="youtube" class="youtube chapter" required >' + 
+//                 '<span class="error_youtube"></span>' +
+//             '</div>' ;
+//     if (chapter_innerHTML != "") {
+//         document.getElementById("chapter_main_div").innerHTML = '<br><br>' + chapter_innerHTML ;   
+//     }    
+//     else {
+//         div.innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button></div></div>';
+//     }
+
+//     // if (document.getElementById('heading') != null) { 
+        
+//         for (var i=0; i< chapters.length; i++) {
+            
+//             document.getElementsByClassName("heading")[i].value = chapters[i]['heading'];
+//             document.getElementsByClassName("description")[i].value = chapters[i]['description'];
+//             document.getElementsByClassName("content")[i].value = chapters[i]['content'];
+//             document.getElementsByClassName("youtube")[i].value = chapters[i]['youtube_link'];
+//             if( view_count == 1){
+//                 if(i < chapters.length-1){addChapter()}
+//             }
+//         }
+//     // }
+    
+// }
 
 function createOverviewPage() {
     if (document.getElementsByClassName("difficulty_radio_input") != null) {
@@ -531,84 +531,138 @@ function createNumberOfHours() {
         '<label for="2-4">2-4 HOURS</label><br>' +
         '<input class="time_radio_input" type="radio" id=">4" name="" value=">4" style="opacity: 1;">' +
         '<label for=">4">MORE THAN 4 HOURS</label>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
+    // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
+    //     '</div>';
+    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         '</div>';
 }
 
 
 function createDifficultyPage() {
 
-    let error = 0;
-    let focus_on = null;
-    for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
-        if (document.getElementById('heading') != null) {
-            var chapter_add = {};
-            let chapter = new Chapter(document.getElementsByClassName("heading")[i].value, document.getElementsByClassName("description")[i].value, document.getElementsByClassName("content")[i].value, document.getElementsByClassName("youtube")[i].value, pk)
-            chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
-            chapter_add['description'] = document.getElementsByClassName("description")[i].value;
-            chapter_add['content'] = document.getElementsByClassName("content")[i].value; 
-            chapter_add['youtube_link'] = document.getElementsByClassName("youtube")[i].value;
-            chapter_add['author'] = author
-            chapter_add['link_to'] = pk
-            
-            chapters[i] = chapter_add;
-            if (document.getElementsByClassName("heading")[i].checkValidity() == false) {
-                document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" 
-                document.getElementsByClassName("error_heading")[i].style = "color: red;";
-                error = 1;
-                if (focus_on == null) {
-                    document.getElementsByClassName("heading")[i].scrollIntoView({ block: "center" });
-                    focus_on = "heading";
-                }
-            }
-            else {
-                document.getElementsByClassName("error_heading")[i].innerHTML = "" 
-            }
-            if (document.getElementsByClassName("description")[i].checkValidity() == false) {
-                document.getElementsByClassName("error_description")[i].innerHTML = "Not Valid!" 
-                document.getElementsByClassName("error_description")[i].style = "color: red;";
-                if (focus_on == null) {
-                    document.getElementsByClassName("description")[i].scrollIntoView({ block: "center" });
-                    focus_on = "description";
-                }
-            }
-            else {
-                document.getElementsByClassName("error_description")[i].innerHTML = ""
-            }
-            if (document.getElementsByClassName("content")[i].checkValidity() == false) {
-                document.getElementsByClassName("error_content")[i].innerHTML = "Not Valid!" 
-                document.getElementsByClassName("error_content")[i].style = "color: red;";
-                error = 1;
-                if (focus_on == null) {
-                    document.getElementsByClassName("content")[i].scrollIntoView({ block: "center" });
-                    focus_on = "content";
-                }
-            }
-            else {
-                document.getElementsByClassName("error_content")[i].innerHTML = ""
-            }
-            if (document.getElementsByClassName("youtube")[i].checkValidity() == false) {
-                document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" 
-                document.getElementsByClassName("error_youtube")[i].style = "color: red;";
-                error = 1;
-                if (focus_on == null) {
-                    document.getElementsByClassName("youtube")[i].scrollIntoView({ block: "center" });
-                    focus_on = "youtube";
-                }
-            }
-            else {
-                document.getElementsByClassName("error_youtube")[i].innerHTML = "" 
-            }
-            
-            //chapters.push(chapter)            
+        if (document.getElementById("description_input") != null) {
+        description = document.getElementById("description_input").value;
+        if (document.getElementById("description_input").value == "") {
+            document.getElementById("error_description").innerHTML = "Cannot Be Empty!";
+            document.getElementById("error_description").style = "color: red;";
+            return;
         }
+        else {
+            document.getElementById("error_description").innerHTML = "";
+        }
+        
+    }
+    saveDraft("description", description);
+    if(document.getElementById("selectpicker") != null) {
+        languages = [];
+        for (var i=0; i < document.getElementById("selectpicker").length; i++ ) {
+            if (document.getElementById("selectpicker")[i].selected) {
+                languages.push(document.getElementById("selectpicker")[i].innerHTML);
+            }
+        }
+        saveDraft("languages",languages)
+        if (languages.length == 0) {
+            document.getElementById("error_language").innerHTML = "Cannot Be Empty!";
+            document.getElementById("error_language").style = "color: red;";
+            return;
+        }
+        else {
+            document.getElementById("error_language").innerHTML = "";
+        }
+        
     }
 
-    if (error == "1") {
-        return;
-    }
+    if (document.getElementById("selectpicker_prereq") != null) {
+        pre_reqs = [];
+        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+            if (document.getElementById("selectpicker_prereq")[i].selected) {
+                pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
+            }
+        }
+        saveDraft('pre_req',pre_reqs)
+        if (pre_reqs.length == 0) {
+            document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+            document.getElementById("error_prereq").style = "color: red;";
+            return;
+        }
+        else {
+            document.getElementById("error_prereq").innerHTML = "";
+        }
 
-    saveChapterDraft();
+    }
+    saveDraft("description", description);
+
+    // let error = 0;
+    // let focus_on = null;
+    // for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
+    //     if (document.getElementById('heading') != null) {
+    //         var chapter_add = {};
+    //         let chapter = new Chapter(document.getElementsByClassName("heading")[i].value, document.getElementsByClassName("description")[i].value, document.getElementsByClassName("content")[i].value, document.getElementsByClassName("youtube")[i].value, pk)
+    //         chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
+    //         chapter_add['description'] = document.getElementsByClassName("description")[i].value;
+    //         chapter_add['content'] = document.getElementsByClassName("content")[i].value; 
+    //         chapter_add['youtube_link'] = document.getElementsByClassName("youtube")[i].value;
+    //         chapter_add['author'] = author
+    //         chapter_add['link_to'] = pk
+            
+    //         chapters[i] = chapter_add;
+    //         if (document.getElementsByClassName("heading")[i].checkValidity() == false) {
+    //             document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" 
+    //             document.getElementsByClassName("error_heading")[i].style = "color: red;";
+    //             error = 1;
+    //             if (focus_on == null) {
+    //                 document.getElementsByClassName("heading")[i].scrollIntoView({ block: "center" });
+    //                 focus_on = "heading";
+    //             }
+    //         }
+    //         else {
+    //             document.getElementsByClassName("error_heading")[i].innerHTML = "" 
+    //         }
+    //         if (document.getElementsByClassName("description")[i].checkValidity() == false) {
+    //             document.getElementsByClassName("error_description")[i].innerHTML = "Not Valid!" 
+    //             document.getElementsByClassName("error_description")[i].style = "color: red;";
+    //             if (focus_on == null) {
+    //                 document.getElementsByClassName("description")[i].scrollIntoView({ block: "center" });
+    //                 focus_on = "description";
+    //             }
+    //         }
+    //         else {
+    //             document.getElementsByClassName("error_description")[i].innerHTML = ""
+    //         }
+    //         if (document.getElementsByClassName("content")[i].checkValidity() == false) {
+    //             document.getElementsByClassName("error_content")[i].innerHTML = "Not Valid!" 
+    //             document.getElementsByClassName("error_content")[i].style = "color: red;";
+    //             error = 1;
+    //             if (focus_on == null) {
+    //                 document.getElementsByClassName("content")[i].scrollIntoView({ block: "center" });
+    //                 focus_on = "content";
+    //             }
+    //         }
+    //         else {
+    //             document.getElementsByClassName("error_content")[i].innerHTML = ""
+    //         }
+    //         if (document.getElementsByClassName("youtube")[i].checkValidity() == false) {
+    //             document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" 
+    //             document.getElementsByClassName("error_youtube")[i].style = "color: red;";
+    //             error = 1;
+    //             if (focus_on == null) {
+    //                 document.getElementsByClassName("youtube")[i].scrollIntoView({ block: "center" });
+    //                 focus_on = "youtube";
+    //             }
+    //         }
+    //         else {
+    //             document.getElementsByClassName("error_youtube")[i].innerHTML = "" 
+    //         }
+            
+    //         //chapters.push(chapter)            
+    //     }
+    // }
+
+    // if (error == "1") {
+    //     return;
+    // }
+
+    // saveChapterDraft();
     
     if (document.getElementById("selectpicker") != null) {
         languages = [];
@@ -669,7 +723,7 @@ function createDifficultyPage() {
                      '<label style="font-size:18px;" for="medium">MEDIUM</label><br>' +
                      '<input class="difficulty_radio_input" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
                      '<label style="font-size:18px;" for="hard">HARD</label>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createChapterPage()">Previous</button>' +
+    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
         '</div>';
 
 }
