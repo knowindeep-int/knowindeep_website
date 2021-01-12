@@ -4,7 +4,6 @@ body {
 }
 p {
 	margin-bottom: 0px;
-	font-size: 14px;
 	color: #6a6a6a;
 	line-height: 25px;
 }
@@ -761,6 +760,7 @@ h1{
 	font-size: 3.5rem;
 }
 
+<<<<<<< HEAD
 #srch{
 	  width: 200px;
 }
@@ -844,6 +844,8 @@ h1{
 	font-size: 3.5rem;
 }
 
+=======
+>>>>>>> 5c8eaac3b17529f431ce48253c98ae8bee1be3ba
 .boxes{
 	margin-top: 40px;
 }
@@ -923,4 +925,49 @@ h6{
 	font-size: 24px;
 }
 
+.list{
+	position: sticky;
+	background-color: #ebebeb;
+	top: 50px;
+	list-style-type: none;
+}
+.list a{
+	color: #000000;
+	line-height: 30px;
+}
+.list a:active{
+	background-color: #f9a80d;
+	color: #fff;
+}
+.list a:hover{
+	background-color: #f9a80d;
+	color: #fff;
+}
+.list{
+	padding-left: 0;
+}
+.list li{
+	padding-left: 40px;
+}
+.list li:hover{
+	background-color: #f9a80d;
+	color: #fff;
+}
+.head1{
+	width: 100%;
+	max-height: auto;
+	margin-bottom: 30px;
+}
+.chapter h5{
+	margin-top: 25px;
+	margin-bottom: 10px;
+}
+.code{
+	background-color: #ebebeb;
+	color: #0029f7;
+	border-radius: 10px;
+	padding: 5px 5px 20px 20px;
+	margin-top: 10px;
+}
+.nxt{float: right;
 }
