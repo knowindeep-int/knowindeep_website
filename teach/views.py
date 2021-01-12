@@ -49,9 +49,26 @@ def list_of_projects(request):
         return render(request, 'teach/projects_list.html',context=context)
     return redirect("/")
 
-def text_editor(request,pk = None):
-    print(pk)
+def text_editor(request,pk = None, chapter_pk = None):
+    if not chapter_pk:
+        project = Project.objects.get(pk = pk)
+        chapters = project.chapters.all()
+        print(project.slug)
+        context = {
+            'chapters':chapters,
+            'project': project
+            }
+
+        return render(request, 'front-end/home page/teach.html',context=context)
+
+    chapter = Chapter.objects.get(pk = chapter_pk)
     project = Project.objects.get(pk = pk)
     chapters = project.chapters.all()
-    context = {'chapters':chapters}
-    return render(request, 'front-end/home page/teach.html',context=context)
+
+    context = {
+        'chapters': chapters,
+        'chapter': chapter,
+        'project': project,
+    }
+
+    return render(request, 'front-end/home page/teach.html', context = context)

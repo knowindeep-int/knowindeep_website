@@ -51,6 +51,16 @@ else{
     assignParam(
         counter = 1,
         chapter_count = 2,
+        title = "",
+        description = "",
+        counter = 1,
+        chapter_count = 2,
+        difficulty_level = '',
+        no_of_hours = '',
+        languages = [],
+        overview = "",
+        pre_reqs = [],
+        pk = ""
     )
 
     // class Chapter {
@@ -66,6 +76,7 @@ else{
     function saveDraft(key, value, isAdded = false) {
     var key = key;
     var value = value;
+    // alert(key.length)
             
     var data = {};
     data[key] = value;
@@ -75,6 +86,7 @@ else{
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
+        async: false,
         data : data,
         success: function(data){
             pk = data.pk
@@ -164,11 +176,12 @@ function saveImageDraft() {
         for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
        if (document.getElementsByClassName("time_radio_input")[i].checked) {
            no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+        //    alert(no_of_hours)
        }
    }
    alert(pk);
     saveDraft('no_of_hours',no_of_hours)
-        document.location.href = "{% url 'teach:chapter' pk%}"
+    document.location.href = '/teach/chapter/' + pk
         // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         // '</div>';
     }
