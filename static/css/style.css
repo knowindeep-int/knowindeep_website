@@ -775,7 +775,7 @@ h1{
 width: 800px;
 }
 .img2{
-margin: 50px auto;
+margin: 50px auto !important;
 }
 .bold{
 	font-weight: bold;
