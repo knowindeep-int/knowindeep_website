@@ -282,12 +282,11 @@ def api_create_chapter(request):
             print(chapter_serializer.errors)
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-        if not chapter_pk:
-            print('create')
-            chapter_serializer.save()
-        else:
-            print('update')
-            chapter_serializer.update(chapter_instance = Chapter.objects.get(pk = chapter_pk))
+        # if not chapter_pk:
+            
+        # else:
+        #     print('update')
+        #     chapter_serializer.update(chapter_instance = Chapter.objects.get(pk = chapter_pk))
 
         data = {
             'success': 'Chapter saved successfully!',

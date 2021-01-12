@@ -897,11 +897,12 @@ function fx(){
                         }
                     }
                 function createNumberofHours(){
-                    var pk = {{project.pk}}
+                    var pk = '{{project.pk}}'
                     document.location.href = "/teach/add/"+pk;
                     $.ajax({
                         method:'POST',
                         url: '{% url "api:update_status" %}',
+                        async: false,
                         data:{
                             'link_to': '{{project.pk}}',
                             'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),

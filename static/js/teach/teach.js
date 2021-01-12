@@ -127,9 +127,11 @@ let chapters = [];
     };
 
     function createDescriptionPage() {
+        alert(title)
         if (document.getElementById("title_input") != null) {
 
             title = document.getElementById("title_input").value;
+           
             saveDraft("title", title);
 
             if (document.getElementById("title_input").value == "") {

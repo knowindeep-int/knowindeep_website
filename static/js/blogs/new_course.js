@@ -23,6 +23,8 @@
 //     chapter_count += 1;
 
 // };
+// var title = ""
+// var description = 
 function showhide(id) {
     if (document.getElementById) {
         var divid = document.getElementById(id);
@@ -77,6 +79,7 @@ function add_pre_req(){
 window.onload = function () {
     if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
         pk = sessionStorage.getItem('pk')
+        // alert(pk)
         if (pk == null){
             pk = ""
         }
@@ -89,21 +92,23 @@ window.onload = function () {
     else{
         sessionStorage.removeItem('pk')
     }
-    alert('{{status}}')
+    // alert('{{status}}')
     if('{{status}}' == 'title'){
         createTitlePage();   
     }
     else{
         createTitlePage();
     }
-    if('{{status}}' == 'teach'){
-        createNumberOfHours();   
-    }
+    // if('{{status}}' == 'teach'){
+    //     createNumberOfHours();   
+    // }
     getLangPrereq();
     
 };
 
 function createDescriptionPage() {
+
+    // alert("798")
         
     if (document.getElementById("title_input") != null) {
 
@@ -118,7 +123,7 @@ function createDescriptionPage() {
             return;
         }
     }
-
+    sessionStorage.setItem("pk", pk);
     if (document.getElementById("chapter_div") != null) {
         for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
             if (document.getElementsByClassName("heading")[i] != null) {
@@ -133,6 +138,7 @@ function createDescriptionPage() {
         }
     }
     //window.name = pk
+    alert(pk)
     setTimeout(function(){sessionStorage.setItem('pk',pk);}, 100)
 
     showhide("2");
@@ -554,6 +560,7 @@ function createDifficultyPage() {
         }
         
     }
+    // alert(description)
     saveDraft("description", description);
     if(document.getElementById("selectpicker") != null) {
         languages = [];
@@ -592,7 +599,7 @@ function createDifficultyPage() {
         }
 
     }
-    saveDraft("description", description);
+    // saveDraft("description", description);
 
     // let error = 0;
     // let focus_on = null;
