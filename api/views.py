@@ -281,7 +281,7 @@ def api_create_chapter(request):
             print(chapter_serializer.data)
             print(chapter_serializer.errors)
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-
+        chapter_serializer.save()
         # if not chapter_pk:
             
         # else:
@@ -299,7 +299,8 @@ def api_create_chapter(request):
 @api_view(['POST',])
 def api_update_status(request):
     if request.method == "POST":
-        pk = request.POST.get('pk')
+        pk = request.POST.get('link_to')
+        print(pk)
         project = Project.objects.get(pk= pk)
         project.status = 'teach'
         project.save()
