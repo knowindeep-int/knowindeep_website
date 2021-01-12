@@ -165,12 +165,12 @@
 			<ul class="list">
 				{% for chapter in chapters %}
             {% if chapter.slug == chapter_content.slug %}
-            <li><a class="" id="selected"
-                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.heading }}</a></li>
+            <a class="" id="selected"
+                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.heading }}</a>
                 <script>ch_list.push('{{chapter.slug}}')</script>
             {% else %}
-           <li> <a class="" id="listItem"
-            href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.heading }}</a></li>
+           <a class="" id="listItem"
+            href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.heading }}</a>
             <script>ch_list.push('{{chapter.slug}}')</script>
             {% endif %}
             {% endfor %}
