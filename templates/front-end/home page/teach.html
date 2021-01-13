@@ -401,6 +401,19 @@ function fx(){
            
             document.execCommand('defaultParagraphSeparator', false, 'p');
 
+            function setImgurHeader(xhr) {  
+                        // xhr.setRequestHeader('Cache-Control', null) 
+                        // xhr.setRequestHeader("Origin, X-Requested-With, Content-Type, Accept, Authorization, Token");
+                        // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+                        // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+                        // xhr.setRequestHeader('Origin, X-Requested-With, Content-Type, Accept, Authorization, Authentication');
+                        // xhr.setRequestAhorization
+                        xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID}}') 
+                        xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER}}');
+                        // xhr.setRequestHeader('Authorization')
+                        // xhr.setRequestHeader('Authorization', 'Bearer 7cd876bf6ab3405bad138d3a1886a3048fe9a0f0')
+                        }
+
             function addLocalImage(e){
                 // alert(0);
                 var targetDiv=document.getElementsByClassName("editor")[0];
@@ -430,8 +443,36 @@ function fx(){
                         }); 
                         if (file){
                             reader.readAsDataURL(file);
-                        document.getElementById('inpfile').value = "";
+                        // document.getElementById('inpfile').value = "";
+                        
+                        
+
                     }
+                    alert("AJAX")
+                    var formData = new FormData();
+                    formData.append('image',file);
+                    // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+
+                    $.ajax({
+
+                            method: 'POST',
+                            url: 'https://api.imgur.com/3/image',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(data){
+                                alert('success!')
+                                img.src = data.data.link
+                            },
+                            error: function(error){
+                                alert(error)
+                            },
+                            beforeSend: setImgurHeader,
+
+                            
+
+                        })
+
                 }
             $( document ).ready(function(){
                 $('#inpfile').on('change', function(){
@@ -697,7 +738,7 @@ function fx(){
                     }
                     console.log('hi')
                     
-                    $.getJSON('https://api.unsplash.com/search/photos?client_id=Kv-1wOUDvrJ_bXQDpcsMivN-gcEpVRHOM5BwqRUEiMc&query=' + query + '&page=' + page_number, function(data){
+                    $.getJSON('https://api.unsplash.com/search/photos?client_id={{UNSPLASH_API_KEY}}&query=' + query + '&page=' + page_number, function(data){
                         var div_btn = document.createElement('div')
                         div_btn.className = "buttons"
 
@@ -776,7 +817,7 @@ function fx(){
                     };
                     // xhr = new XMLHttpRequest();
                     function setHeader(xhr) {   
-                    xhr.setRequestHeader('Authorization', '563492ad6f917000010000016d97988424384f01ad97a3dd4d257b6b');
+                    xhr.setRequestHeader('Authorization', '{{PEXELS_API_KEY}}');
                     }
                     var p_name = []
                     var p_url = []
@@ -925,7 +966,7 @@ function fx(){
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
         <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
         <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
-        <!-- <input type="text" id="inptext"> -->
+        <input type="text" id="inptext">
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
         <input type="text" id="inptext_pexels">
         {% for chapter in chapters%}
