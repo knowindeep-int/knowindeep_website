@@ -396,6 +396,14 @@ class Progress(models.Model):
     class Meta:
         verbose_name_plural  = "Progress"
 
+class Suggestion(models.Model):
+    content = models.TextField()
+    title = models.CharField(max_length=30,null=True)
+    project = models.ForeignKey(to=Project,on_delete=models.CASCADE,null=True)
+    chapter = models.ForeignKey(to=Chapter,on_delete=models.CASCADE,null = True,blank=True)
+
+    def __str__(self):
+        return self.title
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
