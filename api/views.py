@@ -314,8 +314,8 @@ def api_update_status(request):
 def api_create_suggestion(request):
     if request.method == "POST":
         pk = request.POST['project']
-        title =request.POST['title']
-        content = request.POST['title']
+        # title =request.POST['title']
+        # content = request.POST['content']
         project = Project.objects.get(pk = pk)
         email_id = project.author.user.email
         # print(email_id)
@@ -324,8 +324,8 @@ def api_create_suggestion(request):
         if not suggestion.is_valid():
             return Response(suggestion.errors,status=status.HTTP_400_BAD_REQUEST)
         suggestion.save()
-        send_mail(title,
-        content,
+        send_mail('Suggestions - Suggested from KnowInDeep',
+        suggestion.data['content'],
         os.getenv('EMAIL_HOST_USER'),
         [email_id],
         fail_silently=False,    
