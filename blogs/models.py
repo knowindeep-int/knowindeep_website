@@ -398,9 +398,10 @@ class Progress(models.Model):
 
 class Suggestion(models.Model):
     content = models.TextField()
-    title = models.CharField(max_length=30,null=True)
+    # title = models.CharField(max_length=30,null=True)
     project = models.ForeignKey(to=Project,on_delete=models.CASCADE,null=True)
     chapter = models.ForeignKey(to=Chapter,on_delete=models.CASCADE,null = True,blank=True)
+    craeted_on = models.DateTimeField(auto_now_add = True, null = True)
 
     def __str__(self):
         return self.title
