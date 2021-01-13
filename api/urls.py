@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_chapter_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status
+from .views import api_create_suggestion, api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_chapter_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status,api_create_suggestion, api_resolve_suggestion
 
 
 app_name = "api"
@@ -22,6 +22,7 @@ urlpatterns = [
     path('getProjectAbsoluteURL', api_get_project_absolute_url, name = "get_project_absolute_url"),
     path('getChapterAbsoluteURL', api_get_chapter_absolute_url, name = "get_chapter_absolute_url"),
     path('createChapter', api_create_chapter, name = "create_chapter"),
-    path('updateStatus', api_update_status, name = "update_status")
-
+    path('updateStatus', api_update_status, name = "update_status"),
+    path('createSuggestion', api_create_suggestion, name = "create_suggestion"),
+    path('resolveSuggestion', api_resolve_suggestion, name = "resolve_suggestion")
 ]
