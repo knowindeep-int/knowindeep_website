@@ -3,12 +3,15 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
-
-from blogs.models import Project, Chapter, Like, Comment, Profile, Language, PreRequisite
-
+from django.core.mail import send_mail
+from blogs.models import Project, Chapter, Like, Comment, Profile, Language, PreRequisite,Suggestion
+from django.contrib.auth.models import User
 from knowindeep import Constants
+import os
+from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, PreRequisiteSerializer, SuggestionSerializer
+from dotenv import load_dotenv
+load_dotenv()
 
-from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, PreRequisiteSerializer
 
 @api_view(['GET',])
 def api_detail_chapter_view(request,slug):
@@ -306,3 +309,37 @@ def api_update_status(request):
         project.save()
         print(project.status)
         return Response(pk,status=status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_create_suggestion(request):
+    if request.method == "POST":
+        pk = request.POST['project']
+        title =request.POST['title']
+        content = request.POST['title']
+        project = Project.objects.get(pk = pk)
+        email_id = project.author.user.email
+        # print(email_id)
+        # print(request.data)
+        suggestion = SuggestionSerializer(data = request.data)
+        if not suggestion.is_valid():
+            return Response(suggestion.errors,status=status.HTTP_400_BAD_REQUEST)
+        suggestion.save()
+        send_mail(title,
+        content,
+        os.getenv('EMAIL_HOST_USER'),
+        [email_id],
+        fail_silently=False,    
+        )
+        data = {'success':'suggestion made successfully','pk':request.POST['project']}
+        return Response(data,status=status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_resolve_suggestion(request):
+    if request.method == "POST":
+        pk = request.POST['pk']
+        project = Project.objects.get(pk = pk)
+        suggestions = Suggestion.objects.filter(project = project)
+        suggestions.delete()
+        data = {'success':'suggestion resolved successfully','pk':request.POST['pk']}
+        return Response(data,status=status.HTTP_200_OK)
+
