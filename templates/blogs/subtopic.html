@@ -9,17 +9,24 @@
 	input{
                 position: relative !important;
                 display: inline !important;
+                border: 3px solid orange;
             }
+    p:hover, .field:hover, h1:hover{
+        color: orange;
+    }
+    .sugg_btn{
+        display: inline !important;
+    }
 </style>
 <script>
+    
 	function addSuggestion(){
 		$.ajax({
 			method:'POST',
 			url:  "{% url 'api:create_suggestion'%}",
 			data:{
 				'project':'{{project.pk}}',
-				'title':document.getElementById('title_input').value,
-				'content':document.getElementById('content_input').value,
+				'content':document.getElementById('sugg_inp').value,
 				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
 			},
 			success:function(data){
@@ -28,7 +35,7 @@
 				alert('error')
 			},
 		})
-		location.reload()
+		// location.reload()
 	}
 	function resolveSuggestion(){
 		$.ajax({
@@ -193,6 +200,107 @@
 </div>
 </div>
 </div>
+<script>
+    var fields = document.getElementsByClassName('field')
+    
+    for(var i = 0; i< fields.length; i++ ){
+        fields[i].addEventListener('mouseover', function(e){
+            
+            // alert(e.target.getAttribute('class'))
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+
+    p_tags = document.getElementsByTagName('p')
+    for(var i = 0; i< p_tags.length; i++ ){
+        p_tags[i].addEventListener('mouseover', function(e){
+            
+            // alert(e.target.getAttribute('class'))
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+    var title = document.getElementsByTagName('h1')
+    for(var i = 0; i< title.length; i++ ){
+        title[i].addEventListener('mouseover', function(e){
+            
+            // alert(e.target.getAttribute('class'))
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+
+
+    
+    // for(var i = 0; i< fields.length; i++ ){
+    //     fields[i].addEventListener('mouseout', function(e){
+    //         // alert(e.target.getAttribute('class'))
+    //         if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'field' && e.target.getAttribute('class') != 'sugg_btn'){
+    //             document.getElementById('sugg_btn').remove()
+    //         }
+    //     })
+    // }
+
+    function createInputBox(e){
+        if(document.getElementById('sugg_inp') == null){
+        var inp = document.createElement('input')
+        inp.id = "sugg_inp"
+        alert(e.parentNode)
+        // document.getElementById('sugg_btn').remove()
+        e.parentNode.appendChild(inp)
+        
+        }
+
+        // alert('y')
+        
+    }
+    document.addEventListener('keyup', function(e){
+        // alert(e.keyCode)
+        if (e.keyCode == "13"){
+            // alert("6")
+            if(document.getElementById('sugg_inp') != null){
+                var value = document.getElementById('sugg_inp').value
+                addSuggestion();
+                // alert(value)   
+            }
+            document.getElementById('sugg_inp').remove()
+        }
+    })
+</script>
 
 {% endblock %}
 
