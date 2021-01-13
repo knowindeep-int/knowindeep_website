@@ -4,7 +4,48 @@
 {% block title %}
 <title>{{ project.title |title}}</title>
 {% endblock %}
-
+{%csrf_token%}
+<style>
+	input{
+                position: relative !important;
+                display: inline !important;
+            }
+</style>
+<script>
+	function addSuggestion(){
+		$.ajax({
+			method:'POST',
+			url:  "{% url 'api:create_suggestion'%}",
+			data:{
+				'project':'{{project.pk}}',
+				'title':document.getElementById('title_input').value,
+				'content':document.getElementById('content_input').value,
+				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+				alert('success')
+			},error:function(error){
+				alert('error')
+			},
+		})
+		location.reload()
+	}
+	function resolveSuggestion(){
+		$.ajax({
+			method:'POST',
+			url:  "{% url 'api:resolve_suggestion'%}",
+			data:{
+				'pk':'{{project.pk}}',
+				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+				alert('success')
+			},error:function(error){
+				alert('error')
+			},
+		})
+	}
+</script>
 <div class="center">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
@@ -138,7 +179,15 @@
 
 </div>
 <div class="col-md-2"></div>
-
+{% if request.user.is_superuser and  not project.isApproved%}
+<span><button type="button" onclick="addSuggestion()">Add suggestion</button>
+	<label for="title_input">title</label>
+<input type="text" id="title_input" style="color: aqua;">
+<input type="text" id="content_input">
+<br>
+<button type="button" onclick="resolveSuggestion()">Resolve</button>
+</span>
+{%endif%}
 </div>
 </div>
 </div>
