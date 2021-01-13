@@ -19,7 +19,27 @@
     }
 </style>
 <script>
-    
+    var suggestions
+    function getSuggestion(){
+		$.ajax({
+			method:'GET',
+			url:  "{% url 'api:get_suggestion'%}",
+			data:{
+				'project':'{{project.pk}}',
+				// 'content':document.getElementById('sugg_inp').value,
+				// 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+                sug = document.getElementById('suggestions-list')
+                for (var i = 0; i < data.suggestions.length; i++) {
+                    sug.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data.suggestions[i].content  +'-'+data.suggestions[i].created_on +'</h5></div></div>'
+                }
+			},error:function(error){
+				alert('error')
+			},
+        })
+    }
+        getSuggestion()
 	function addSuggestion(){
 		$.ajax({
 			method:'POST',
@@ -186,7 +206,7 @@
 
 </div>
 <div class="col-md-2"></div>
-{% if request.user.is_superuser and  not project.isApproved%}
+<!-- {% if request.user.is_superuser and  not project.isApproved%}
 <span><button type="button" onclick="addSuggestion()">Add suggestion</button>
 	<label for="title_input">title</label>
 <input type="text" id="title_input" style="color: aqua;">
@@ -194,12 +214,13 @@
 <br>
 <button type="button" onclick="resolveSuggestion()">Resolve</button>
 </span>
-{%endif%}
+{%endif%} -->
 </div>
 </div>
 </div>
 </div>
 </div>
+<div id="suggestions-list"></div>
 <script>
     var fields = document.getElementsByClassName('field')
     
