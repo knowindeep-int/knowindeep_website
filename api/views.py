@@ -343,3 +343,11 @@ def api_resolve_suggestion(request):
         data = {'success':'suggestion resolved successfully','pk':request.POST['pk']}
         return Response(data,status=status.HTTP_200_OK)
 
+@api_view(['GET',])
+def api_get_suggestion(request):
+    if request.method == "GET":
+        pk = request.GET['project']
+        suggestions = Suggestion.objects.filter(project = pk)
+        sug = SuggestionSerializer(suggestions,many = True)
+        data = {'suggestions':sug.data,'pk':pk}
+        return Response(data,status= status.HTTP_200_OK)
