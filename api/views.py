@@ -337,8 +337,8 @@ def api_create_suggestion(request):
 def api_resolve_suggestion(request):
     if request.method == "POST":
         pk = request.POST['pk']
-        project = Project.objects.get(pk = pk)
-        suggestions = Suggestion.objects.filter(project = project)
+        # project = Project.objects.get(pk = pk)
+        suggestions = Suggestion.objects.get(pk = pk)
         suggestions.delete()
         data = {'success':'suggestion resolved successfully','pk':request.POST['pk']}
         return Response(data,status=status.HTTP_200_OK)
