@@ -42,6 +42,36 @@
     <span class="name">&emsp; Copy link</span></a>
 	</div>
 </div>
+<script>
+  window.onclick = function(event) {
+    contents = document.getElementsByClassName('dropdown-content')
+  
+    
+    // if(event.target.matches('.dropbtn') || event.target.matches('.dropbtn svg image')){
+    //   // alert('jio')
+    //   for(var i=0; i< contents.length; i++){
+    //     if(contents[i].style.display == 'inline'){
+    //       contents[i].style.display = 'none';
+    //     }
+    //   }
+    // }
 
+  
+    if (!event.target.matches('.dropbtn') && !event.target.matches('.dropbtn svg image')) {     
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+      
+    }
+   
+  
+  }
+  </script>
+  
 </body>
 </html>
