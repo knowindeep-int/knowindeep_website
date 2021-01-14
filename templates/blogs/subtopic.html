@@ -31,8 +31,10 @@
 			},
 			success:function(data){
                 sug = document.getElementById('suggestions-list')
+                sug.innerHTML = ""
                 for (var i = 0; i < data.suggestions.length; i++) {
                     sug.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data.suggestions[i].content  +'-'+data.suggestions[i].created_on +'</h5></div></div>'
+                    sug.innerHTML +='<button type="button" onclick="resolveSuggestion(this)" data-pk = "' + data.suggestions[i].id +'">Resolve</button>'
                 }
 			},error:function(error){
 				alert('error')
@@ -50,27 +52,29 @@
 				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
 			},
 			success:function(data){
-				alert('success')
+				getSuggestion()
 			},error:function(error){
 				alert('error')
 			},
 		})
-		// location.reload()
+        // location.reload()
 	}
-	function resolveSuggestion(){
+	function resolveSuggestion(e){
+        // alert(e.getAttribute('data-pk'))
+        var pk = e.getAttribute('data-pk')
 		$.ajax({
 			method:'POST',
 			url:  "{% url 'api:resolve_suggestion'%}",
 			data:{
-				'pk':'{{project.pk}}',
+				'pk': pk,
 				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
 			},
 			success:function(data){
-				alert('success')
+                getSuggestion()
 			},error:function(error){
 				alert('error')
 			},
-		})
+        })
 	}
 </script>
 <div class="center">
@@ -206,15 +210,14 @@
 
 </div>
 <div class="col-md-2"></div>
-<!-- {% if request.user.is_superuser and  not project.isApproved%}
-<span><button type="button" onclick="addSuggestion()">Add suggestion</button>
+{% if request.user.is_superuser and  not project.isApproved%}
+<!-- <span><button type="button" onclick="addSuggestion()">Add suggestion</button>
 	<label for="title_input">title</label>
 <input type="text" id="title_input" style="color: aqua;">
 <input type="text" id="content_input">
-<br>
-<button type="button" onclick="resolveSuggestion()">Resolve</button>
-</span>
-{%endif%} -->
+<br> -->
+<!-- <button type="button" onclick="resolveSuggestion()">Resolve</button> -->
+{%endif%}
 </div>
 </div>
 </div>
@@ -300,7 +303,7 @@
         if(document.getElementById('sugg_inp') == null){
         var inp = document.createElement('input')
         inp.id = "sugg_inp"
-        alert(e.parentNode)
+        // alert(e.parentNode)
         // document.getElementById('sugg_btn').remove()
         e.parentNode.appendChild(inp)
         
