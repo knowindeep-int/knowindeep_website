@@ -4,7 +4,81 @@
 {% block title %}
 <title>{{ project.title |title}}</title>
 {% endblock %}
-
+{%csrf_token%}
+<style>
+	input{
+                position: relative !important;
+                display: inline !important;
+                border: 3px solid orange;
+            }
+    p:hover, .field:hover, h1:hover{
+        color: orange;
+    }
+    .sugg_btn{
+        display: inline !important;
+    }
+</style>
+<script>
+    var suggestions
+    function getSuggestion(){
+		$.ajax({
+			method:'GET',
+			url:  "{% url 'api:get_suggestion'%}",
+			data:{
+				'project':'{{project.pk}}',
+				// 'content':document.getElementById('sugg_inp').value,
+				// 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+                sug = document.getElementById('suggestions-list')
+                sug.innerHTML = ""
+                if( '{{request.user.is_superuser}}' == 'True' || '{{request.user}}' == '{{project.author.user}}'){
+                for (var i = 0; i < data.suggestions.length; i++) {
+                    sug.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data.suggestions[i].content  +'-'+data.suggestions[i].created_on +'</h5></div></div>'
+                    sug.innerHTML +='<button type="button" onclick="resolveSuggestion(this)" data-pk = "' + data.suggestions[i].id +'">Resolve</button>'
+                }
+            }
+			},error:function(error){
+				alert('error')
+			},
+        })
+    }
+        getSuggestion()
+	function addSuggestion(){
+		$.ajax({
+			method:'POST',
+			url:  "{% url 'api:create_suggestion'%}",
+			data:{
+				'project':'{{project.pk}}',
+				'content':document.getElementById('sugg_inp').value,
+				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+				getSuggestion()
+			},error:function(error){
+				alert('error')
+			},
+		})
+        // location.reload()
+	}
+	function resolveSuggestion(e){
+        // alert(e.getAttribute('data-pk'))
+        var pk = e.getAttribute('data-pk')
+		$.ajax({
+			method:'POST',
+			url:  "{% url 'api:resolve_suggestion'%}",
+			data:{
+				'pk': pk,
+				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+                getSuggestion()
+			},error:function(error){
+				alert('error')
+			},
+        })
+	}
+</script>
 <div class="center">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
@@ -138,12 +212,126 @@
 
 </div>
 <div class="col-md-2"></div>
+{% if request.user.is_superuser and  not project.isApproved%}
+<!-- <span><button type="button" onclick="addSuggestion()">Add suggestion</button>
+	<label for="title_input">title</label>
+<input type="text" id="title_input" style="color: aqua;">
+<input type="text" id="content_input">
+<br> -->
+<!-- <button type="button" onclick="resolveSuggestion()">Resolve</button> -->
+{%endif%}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="suggestions-list"></div>
+<script>
+    var fields = document.getElementsByClassName('field')
+    if( '{{request.user.is_superuser}}' == 'True'){
+    for(var i = 0; i< fields.length; i++ ){
+        fields[i].addEventListener('mouseover', function(e){
+            
+            // alert(e.target.getAttribute('class'))
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
 
-</div>
-</div>
-</div>
-</div>
-</div>
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+
+    p_tags = document.getElementsByTagName('p')
+    if( '{{request.user.is_superuser}}' == 'True'){
+    for(var i = 0; i< p_tags.length; i++ ){
+        p_tags[i].addEventListener('mouseover', function(e){
+            
+            // alert(e.target.getAttribute('class'))
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+    var title = document.getElementsByTagName('h1')
+    if( '{{request.user.is_superuser}}' == 'True'){
+    for(var i = 0; i< title.length; i++ ){
+        title[i].addEventListener('mouseover', function(e){
+            
+            // alert(e.target.getAttribute('class'))
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+
+
+    
+    // for(var i = 0; i< fields.length; i++ ){
+    //     fields[i].addEventListener('mouseout', function(e){
+    //         // alert(e.target.getAttribute('class'))
+    //         if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'field' && e.target.getAttribute('class') != 'sugg_btn'){
+    //             document.getElementById('sugg_btn').remove()
+    //         }
+    //     })
+    // }
+
+    function createInputBox(e){
+        if(document.getElementById('sugg_inp') == null){
+        var inp = document.createElement('input')
+        inp.id = "sugg_inp"
+        // alert(e.parentNode)
+        // document.getElementById('sugg_btn').remove()
+        e.parentNode.appendChild(inp)
+        
+        }
+
+        // alert('y')
+        
+    }
+    document.addEventListener('keyup', function(e){
+        // alert(e.keyCode)
+        if (e.keyCode == "13"){
+            // alert("6")
+            if(document.getElementById('sugg_inp') != null){
+                var value = document.getElementById('sugg_inp').value
+                addSuggestion();
+                // alert(value)   
+            }
+            document.getElementById('sugg_inp').remove()
+        }
+    })
+</script>
 
 {% endblock %}
 
