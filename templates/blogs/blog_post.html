@@ -385,9 +385,11 @@
 			success:function(data){
                 sug = document.getElementById('suggestions-list')
                 sug.innerHTML = ""
-                for (var i = 0; i < data.suggestions.length; i++) {
+                if('{{request.user.is_superuser}}' == 'True' || '{{request.user}}' == '{{chapter_content.link_to.author.user}}' ){
+                for (var i = 0; i < data.suggestions.length; i++){
                     sug.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data.suggestions[i].content  +'-'+data.suggestions[i].created_on +'</h5></div></div>'
                     sug.innerHTML +='<button type="button" onclick="resolveSuggestion(this)" data-pk = "' + data.suggestions[i].id +'">Resolve</button>'
+                    }
                 }
 			},error:function(error){
 				alert('error')
@@ -498,29 +500,32 @@
 
 <script>
     var codes = document.getElementsByClassName('code')
-    alert(codes.length)
-    
-    for(var i = 0; i< codes.length; i++ ){
-        codes[i].addEventListener('mouseover', function(e){
-            
-            // alert(e.target.getAttribute('class'))
-            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
-                document.getElementById('sugg_btn').remove()
-            }
+    // alert(codes.length)
 
-            if(e.target.getAttribute('class') != 'sugg_btn' ){
-                var btn = document.createElement('button')
-                btn.setAttribute('class', 'sugg_btn')
-                btn.innerHTML = 'ADD SUGGESTION'
-                btn.setAttribute('id', 'sugg_btn')
-                btn.setAttribute('onclick', 'createInputBox(this);')
-                // e.target.appendChild(btn)
-                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
-            }
-        })
+    if( '{{request.user.is_superuser}}' == 'True'){
+        for(var i = 0; i< codes.length; i++ ){
+            codes[i].addEventListener('mouseover', function(e){
+                
+                // alert(e.target.getAttribute('class'))
+                if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                    document.getElementById('sugg_btn').remove()
+                }
+
+                if(e.target.getAttribute('class') != 'sugg_btn' ){
+                    var btn = document.createElement('button')
+                    btn.setAttribute('class', 'sugg_btn')
+                    btn.innerHTML = 'ADD SUGGESTION'
+                    btn.setAttribute('id', 'sugg_btn')
+                    btn.setAttribute('onclick', 'createInputBox(this);')
+                    // e.target.appendChild(btn)
+                    e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+                }
+            })
+        }
     }
 
     p_tags = document.getElementsByTagName('p')
+    if( '{{request.user.is_superuser}}' == 'True'){
     for(var i = 0; i< p_tags.length; i++ ){
         p_tags[i].addEventListener('mouseover', function(e){
             
@@ -540,7 +545,10 @@
             }
         })
     }
+}
+
     var title = document.getElementsByTagName('h1')
+    if( '{{request.user.is_superuser}}' == 'True'){
     for(var i = 0; i< title.length; i++ ){
         title[i].addEventListener('mouseover', function(e){
             
@@ -560,12 +568,13 @@
             }
         })
     }
+}
 
 
 
 
     function createInputBox(e){
-        alert('8')
+        // alert('8')
         if(document.getElementById('sugg_inp') == null){
         var inp = document.createElement('input')
         inp.id = "sugg_inp"

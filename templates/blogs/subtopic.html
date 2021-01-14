@@ -32,10 +32,12 @@
 			success:function(data){
                 sug = document.getElementById('suggestions-list')
                 sug.innerHTML = ""
+                if( '{{request.user.is_superuser}}' == 'True' || '{{request.user}}' == '{{project.author.user}}'){
                 for (var i = 0; i < data.suggestions.length; i++) {
                     sug.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data.suggestions[i].content  +'-'+data.suggestions[i].created_on +'</h5></div></div>'
                     sug.innerHTML +='<button type="button" onclick="resolveSuggestion(this)" data-pk = "' + data.suggestions[i].id +'">Resolve</button>'
                 }
+            }
 			},error:function(error){
 				alert('error')
 			},
@@ -226,7 +228,7 @@
 <div id="suggestions-list"></div>
 <script>
     var fields = document.getElementsByClassName('field')
-    
+    if( '{{request.user.is_superuser}}' == 'True'){
     for(var i = 0; i< fields.length; i++ ){
         fields[i].addEventListener('mouseover', function(e){
             
@@ -246,8 +248,10 @@
             }
         })
     }
+}
 
     p_tags = document.getElementsByTagName('p')
+    if( '{{request.user.is_superuser}}' == 'True'){
     for(var i = 0; i< p_tags.length; i++ ){
         p_tags[i].addEventListener('mouseover', function(e){
             
@@ -267,7 +271,9 @@
             }
         })
     }
+}
     var title = document.getElementsByTagName('h1')
+    if( '{{request.user.is_superuser}}' == 'True'){
     for(var i = 0; i< title.length; i++ ){
         title[i].addEventListener('mouseover', function(e){
             
@@ -287,6 +293,7 @@
             }
         })
     }
+}
 
 
     
