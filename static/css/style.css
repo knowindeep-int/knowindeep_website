@@ -482,8 +482,10 @@ header {
 
 .dropdown-content a:hover {background-color: #ddd;}
 
-.dropdown:hover .dropdown-content {display: block;}
-
+/* .dropdown:hover .dropdown-content {display: block;} */
+.show{
+	display: block;
+}
 .dropbtn{
   padding: 0;
   border-width: 0;
