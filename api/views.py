@@ -313,17 +313,18 @@ def api_update_status(request):
 @api_view(['POST',])
 def api_create_suggestion(request):
     if request.method == "POST":
+
         pk = request.POST['project']
-        # title =request.POST['title']
-        # content = request.POST['content']
         project = Project.objects.get(pk = pk)
         email_id = project.author.user.email
-        # print(email_id)
-        # print(request.data)
         suggestion = SuggestionSerializer(data = request.data)
+        
         if not suggestion.is_valid():
+            print(suggestion.errors)
             return Response(suggestion.errors,status=status.HTTP_400_BAD_REQUEST)
+        
         suggestion.save()
+        
         send_mail('Suggestions - Suggested from KnowInDeep',
         suggestion.data['content'],
         os.getenv('EMAIL_HOST_USER'),
@@ -346,8 +347,14 @@ def api_resolve_suggestion(request):
 @api_view(['GET',])
 def api_get_suggestion(request):
     if request.method == "GET":
-        pk = request.GET['project']
-        suggestions = Suggestion.objects.filter(project = pk)
+        pk = request.GET.get('project', None)
+        chapter_pk = request.GET.get('chapter', None)
+
+        if pk is not None :
+            suggestions = Suggestion.objects.filter(project = pk)
+        else:
+            suggestions = Suggestion.objects.filter(chapter = chapter_pk)
+        
         sug = SuggestionSerializer(suggestions,many = True)
         data = {'suggestions':sug.data,'pk':pk}
         return Response(data,status= status.HTTP_200_OK)
