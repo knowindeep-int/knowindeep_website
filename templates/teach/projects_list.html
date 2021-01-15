@@ -34,11 +34,47 @@
     <!-- <img src="star.png" class="star"><br> -->
     <span class="pro"><h4>YOUR ONGOING PROJECTS</h4></span>
     <form class="example" >
-  <input type="text" name="search">
-  <button type="submit">Search</button>
+  <input type="text" name="search" id="search_projects">
+  <br>
+  <button type="submit" onclick="implementSearchProjects()">Search</button>
+  <div class= "results"></div>
 </form>
 </div>
+<script>
+     function implementSearchProjects() {
+  
+  search_input = document.getElementById('search_projects').value;
+  $.ajax({
+      url: '{% url "api:search" %}',
+      method: "GET",
+      data: {
+          'search_input': search_input,
+      },
+      success: function(data) {
+          var result = document.getElementById("results");
+          result.innerHTML = "";
+          result.innerHTML += '<p class="results" style="color:black;" >Projects:</p>'
+          for (var i = 0; i < data.projects.length; i++) {
+              result.innerHTML += '<a class="results" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
+          }
 
+          result.innerHTML += '<p class="results" style="color:black;" >Chapters:</p>'
+          for (var i = 0; i < data.chapters.length; i++) {
+              result.innerHTML += '<a class="results" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
+          }
+
+          result.innerHTML += '<p class="results" style="color:black;" >Authors:</p>'
+          for (var i = 0; i < data.authors.length; i++) {
+              result.innerHTML += '<a class="results" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
+          }
+
+      },
+      error: function(error) {
+          alert(error)
+      },
+  });
+};
+</script>
 <div class="container text-center my-3">
     <div class="row mx-auto my-auto">
         <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
@@ -46,15 +82,13 @@
                 {% if ongoing_projects %}
                 {% for project in ongoing_projects %}
                 <!-- <script>{{project.0.title}}</script> -->
-                {% if forloop.counter == 1 %}
+                {% if forloop.first %}
                 <div class="carousel-item active">
                 {% else %}
                 <div class="carousel-item">
                 {% endif %}
 
-                {% with index=forloop.counter %} 
-                {% for project in ongoing_projects %}
-                {% if forloop.counter == index or forloop.counter == index|add:"1" or forloop.counter == index|add:"2"  %}
+                
                     
                                     <div class="col-md-4">
                                         <div class="card">
@@ -78,9 +112,7 @@
                     </div>
                     </div>
                         </div>
-                {% endif %}
-                {% endfor %}   
-                {% endwith %}
+               
                 
                
                 
