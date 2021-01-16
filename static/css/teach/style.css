@@ -482,10 +482,8 @@ header {
 
 .dropdown-content a:hover {background-color: #ddd;}
 
-/* .dropdown:hover .dropdown-content {display: block;} */
-.show{
-	display: block;
-}
+.dropdown:hover .dropdown-content {display: block;}
+
 .dropbtn{
   padding: 0;
   border-width: 0;
@@ -519,7 +517,7 @@ margin: 2% auto;
 	width:100px;
 }
 
-form{
+.form{
     position: relative;
     top: 50%;
     left: 50%;
@@ -535,7 +533,7 @@ form{
 .form{
 	margin-top: 10px;
 }
-input{
+.input{
     position: absolute;
     top: 0;
     left: 0;
@@ -777,7 +775,7 @@ h1{
 width: 800px;
 }
 .img2{
-margin: 50px auto !important;
+margin: 50px auto;
 }
 .bold{
 	font-weight: bold;
@@ -966,4 +964,79 @@ h6{
 	margin-top: 10px;
 }
 .nxt{float: right;
+}
+.center1{
+	text-align: center;
+	margin-top: 100px;
+}
+
+.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid #dcdcdc;
+  box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.07);
+  float: left;
+  width: 60%;
+  background: #fff;
+  margin-left: 15%;
+  border-right: none;
+  border-radius: 7.5px 0 0 7.5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.example button {
+  float: left;
+  border-radius: 0 7.5px 7.5px 0;
+  box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.07);
+  width: 10%;
+  padding: 10px;
+  background: #fff;
+  color:#f9a80d;
+  font-size: 17px;
+  border: 1px solid #dcdcdc;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.example button:hover {
+}
+
+.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.new-project{
+	width: 200px;
+	margin: 0 auto;
+}
+
+.new-project button{
+	background-color: #004a80;
+	color: white;
+	border: none;
+	padding: 5px 20px;
+}
+.new-project button:focus{
+	outline: none;
+}
+.carousel-control-prev-icon{
+	width: 30px !important;
+	height: 30px !important;
+	margin-left: -30px !important;
+	background-image: url('/media/images/prev.png') !important;
+}
+.carousel-control-next-icon{
+	width: 30px !important;
+	height: 30px !important;
+	margin-right: -50px !important;
+	background-image: url('/media/images/next.png') !important;
+}
+.carousel{
+	overflow-y: visible;
+}
+.card-body{
+	text-align: left;
 }

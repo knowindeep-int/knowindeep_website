@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <!--local -->
+  <link href="style.css" rel="stylesheet">
+  <link href="style1.css" rel="stylesheet">
+</head>
+<body>
+<header class="background-header">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><img class="img1" src="kid-white.png"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About Us</a>
+              </li>
+              <li class="nav-item n dropdown hid" id="drop">
+          <form class="form" id="form" action="">
+          <input type="search" class="input" onmouseover="mousein()" id="navbarDropdown">
+          <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
+      </form>
+        <div class="dropdown-menu menu" id="srch">
+            <a class="dropdown-item">first</a>
+            <a class="dropdown-item">second</a>
+            <a class="dropdown-item">third</a>
+          </div>
+    </li>
+              <li class="nav-item login">
+                <a class="nav-link" href="#">Login</a>
+              </li>
+            </ul>
+          </div>
+          <div class="functional-buttons">
+            <ul>
+              <li><a href="#">Log in</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+  </header>
+  <br>
+  <br>
+  <br>
+  <div class="container center1">
+    <img src="star.png" class="star"><br>
+    <span class="pro"><h4>OUR POPULAR PROJECTS</h4></span>
+    <form class="example" >
+  <input type="text" name="search">
+  <button type="submit">Search</button>
+</form>
+</div>
+<div class="container text-center my-3">
+    <div class="row mx-auto my-auto">
+        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+                <div class="carousel-item active">
+                    <div class="col-md-4">
+                        <div class="card">
+        <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title1</h5>
+          <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+          <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+          <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+          <span class="bold">Level :</span><span>Difficult</span><br>
+          <span class="bold">Languages Used :</span>
+          <div>
+             <img src="java.png" class="lang">
+             <img src="kotlin.png" class="lang">
+             <img src="c.png" class="lang">
+             <img src="php.png" class="lang">
+             <img src="python.png" class="lang">
+          </div>
+          <hr>
+            <button class="but1 but2 but3"> GO TO BLOG </button>
+            <div class="dropdown left">
+          <button class="dropbtn"><img class="image1" src="share.png"></button>
+            <div class="dropdown-content">
+            <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+            <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+            <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+            <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+          </div>
+        </div>
+      </div> </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-md-4">
+                        <div class="card">
+        <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title2</h5>
+          <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+          <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+          <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+          <span class="bold">Level :</span><span>Difficult</span><br>
+          <span class="bold">Languages Used :</span>
+          <div>
+             <img src="java.png" class="lang">
+             <img src="kotlin.png" class="lang">
+             <img src="c.png" class="lang">
+             <img src="php.png" class="lang">
+             <img src="python.png" class="lang">
+          </div>
+          <hr>
+            <button class="but1 but2 but3"> GO TO BLOG </button>
+            <div class="dropdown left">
+          <button class="dropbtn"><img class="image1" src="share.png"></button>
+            <div class="dropdown-content">
+            <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+            <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+            <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+            <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+          </div>
+        </div>
+      </div> </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-md-4">
+                        <div class="card">
+        <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title3</h5>
+          <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+          <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+          <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+          <span class="bold">Level :</span><span>Difficult</span><br>
+          <span class="bold">Languages Used :</span>
+          <div>
+             <img src="java.png" class="lang">
+             <img src="kotlin.png" class="lang">
+             <img src="c.png" class="lang">
+             <img src="php.png" class="lang">
+             <img src="python.png" class="lang">
+          </div>
+          <hr>
+            <button class="but1 but2 but3"> GO TO BLOG </button>
+            <div class="dropdown left">
+          <button class="dropbtn"><img class="image1" src="share.png"></button>
+            <div class="dropdown-content">
+            <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+            <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+            <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+            <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+          </div>
+        </div>
+      </div></div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-md-4">
+                        <div class="card">
+        <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title4</h5>
+          <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+          <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+          <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+          <span class="bold">Level :</span><span>Difficult</span><br>
+          <span class="bold">Languages Used :</span>
+          <div>
+             <img src="java.png" class="lang">
+             <img src="kotlin.png" class="lang">
+             <img src="c.png" class="lang">
+             <img src="php.png" class="lang">
+             <img src="python.png" class="lang">
+          </div>
+          <hr>
+            <button class="but1 but2 but3"> GO TO BLOG </button>
+            <div class="dropdown left">
+          <button class="dropbtn"><img class="image1" src="share.png"></button>
+            <div class="dropdown-content">
+            <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+            <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+            <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+            <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+          </div>
+        </div>
+      </div> </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-md-4">
+                        <div class="card">
+        <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title5</h5>
+          <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+          <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+          <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+          <span class="bold">Level :</span><span>Difficult</span><br>
+          <span class="bold">Languages Used :</span>
+          <div>
+             <img src="java.png" class="lang">
+             <img src="kotlin.png" class="lang">
+             <img src="c.png" class="lang">
+             <img src="php.png" class="lang">
+             <img src="python.png" class="lang">
+          </div>
+          <hr>
+            <button class="but1 but2 but3"> GO TO BLOG </button>
+            <div class="dropdown left">
+          <button class="dropbtn"><img class="image1" src="share.png"></button>
+            <div class="dropdown-content">
+            <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+            <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+            <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+            <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+          </div>
+        </div>
+      </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="col-md-4">
+                        <div class="card">
+        <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title6</h5>
+          <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+          <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+          <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+          <span class="bold">Level :</span><span>Difficult</span><br>
+          <span class="bold">Languages Used :</span>
+          <div>
+             <img src="java.png" class="lang">
+             <img src="kotlin.png" class="lang">
+             <img src="c.png" class="lang">
+             <img src="php.png" class="lang">
+             <img src="python.png" class="lang">
+          </div>
+          <hr>
+            <button class="but1 but2 but3"> GO TO BLOG </button>
+            <div class="dropdown left">
+          <button class="dropbtn"><img class="image1" src="share.png"></button>
+            <div class="dropdown-content">
+            <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+            <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+            <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+            <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    
+</div>
+<div  class="new-project">
+<button>Create a New Project</button>
+</div>
+  <div class="container center1">
+    <img src="grp.png" class="star"><br>
+    <span class="pro"><h4>ALL PROJECTS</h4></span>
+    <form class="example" >
+  <input type="text" name="search">
+  <button type="submit">Search</button>
+</form>
+</div>
+
+<div class="container text-center my-3">
+  <div class="row mx-auto my-auto">
+      <div id="recipeCarousel1" class="carousel slide w-100" data-ride="carousel">
+          <div class="carousel-inner w-100" role="listbox">
+              <div class="carousel-item active">
+                  <div class="col-md-4">
+                      <div class="card">
+      <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+        <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+        <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+        <span class="bold">Level :</span><span>Difficult</span><br>
+        <span class="bold">Languages Used :</span>
+        <div>
+           <img src="java.png" class="lang">
+           <img src="kotlin.png" class="lang">
+           <img src="c.png" class="lang">
+           <img src="php.png" class="lang">
+           <img src="python.png" class="lang">
+        </div>
+        <hr>
+          <button class="but1 but2 but3"> GO TO BLOG </button>
+          <div class="dropdown left">
+        <button class="dropbtn"><img class="image1" src="share.png"></button>
+          <div class="dropdown-content">
+          <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+          <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+          <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+          <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+        </div>
+      </div>
+    </div> </div>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <div class="col-md-4">
+                      <div class="card">
+      <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+        <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+        <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+        <span class="bold">Level :</span><span>Difficult</span><br>
+        <span class="bold">Languages Used :</span>
+        <div>
+           <img src="java.png" class="lang">
+           <img src="kotlin.png" class="lang">
+           <img src="c.png" class="lang">
+           <img src="php.png" class="lang">
+           <img src="python.png" class="lang">
+        </div>
+        <hr>
+          <button class="but1 but2 but3"> GO TO BLOG </button>
+          <div class="dropdown left">
+        <button class="dropbtn"><img class="image1" src="share.png"></button>
+          <div class="dropdown-content">
+          <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+          <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+          <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+          <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+        </div>
+      </div>
+    </div> </div>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <div class="col-md-4">
+                      <div class="card">
+      <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+        <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+        <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+        <span class="bold">Level :</span><span>Difficult</span><br>
+        <span class="bold">Languages Used :</span>
+        <div>
+           <img src="java.png" class="lang">
+           <img src="kotlin.png" class="lang">
+           <img src="c.png" class="lang">
+           <img src="php.png" class="lang">
+           <img src="python.png" class="lang">
+        </div>
+        <hr>
+          <button class="but1 but2 but3"> GO TO BLOG </button>
+          <div class="dropdown left">
+        <button class="dropbtn"><img class="image1" src="share.png"></button>
+          <div class="dropdown-content">
+          <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+          <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+          <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+          <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+        </div>
+      </div>
+    </div></div>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <div class="col-md-4">
+                      <div class="card">
+      <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+        <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+        <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+        <span class="bold">Level :</span><span>Difficult</span><br>
+        <span class="bold">Languages Used :</span>
+        <div>
+           <img src="java.png" class="lang">
+           <img src="kotlin.png" class="lang">
+           <img src="c.png" class="lang">
+           <img src="php.png" class="lang">
+           <img src="python.png" class="lang">
+        </div>
+        <hr>
+          <button class="but1 but2 but3"> GO TO BLOG </button>
+          <div class="dropdown left">
+        <button class="dropbtn"><img class="image1" src="share.png"></button>
+          <div class="dropdown-content">
+          <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+          <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+          <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+          <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+        </div>
+      </div>
+    </div> </div>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <div class="col-md-4">
+                      <div class="card">
+      <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+        <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+        <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+        <span class="bold">Level :</span><span>Difficult</span><br>
+        <span class="bold">Languages Used :</span>
+        <div>
+           <img src="java.png" class="lang">
+           <img src="kotlin.png" class="lang">
+           <img src="c.png" class="lang">
+           <img src="php.png" class="lang">
+           <img src="python.png" class="lang">
+        </div>
+        <hr>
+          <button class="but1 but2 but3"> GO TO BLOG </button>
+          <div class="dropdown left">
+        <button class="dropbtn"><img class="image1" src="share.png"></button>
+          <div class="dropdown-content">
+          <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+          <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+          <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+          <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+        </div>
+      </div>
+    </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <div class="col-md-4">
+                      <div class="card">
+      <img class="card-img-top img-fluid tm-gallery-img" src="blog-pic.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">There are ways by which your image can be made clickable. On clicking at different positions on an image....</p>
+        <span class="bold">Author Name :</span><span>Priyansh Kedia</span><br>
+        <span class="bold">Hours To Complete :</span><span>5 Hours</span><br>
+        <span class="bold">Level :</span><span>Difficult</span><br>
+        <span class="bold">Languages Used :</span>
+        <div>
+           <img src="java.png" class="lang">
+           <img src="kotlin.png" class="lang">
+           <img src="c.png" class="lang">
+           <img src="php.png" class="lang">
+           <img src="python.png" class="lang">
+        </div>
+        <hr>
+          <button class="but1 but2 but3"> GO TO BLOG </button>
+          <div class="dropdown left">
+        <button class="dropbtn"><img class="image1" src="share.png"></button>
+          <div class="dropdown-content">
+          <a href="#"><img src="twitter.png" class="image"><span class="name">&emsp; Twitter</span></a>
+          <a href="#"><img src="facebook.png" class="image"><span class="name">&emsp; Facebook</span></a>
+          <a href="#"><img src="linkedin.png" class="image"><span class="name">&emsp; Linkedin</span></a>
+          <a href="#"><img src="link.png" class="image"><span class="name">&emsp; Copy link</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+                  </div>
+              </div>
+          </div>
+          <a class="carousel-control-prev w-auto" href="#recipeCarousel1" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next w-auto" href="#recipeCarousel1" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+  </div>
+  
+</div>
+<div  class="new-project">
+  <button>Create a New Project</button>
+  </div>
+<footer class="footer">
+  <div class="row stacks" id="stacks">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12 stack1">
+  <span class="stack">
+  <img  class="foot-logo stack" src="kid-black.png"><br>
+  <br>
+  <span>Contact Us: knowindeep.tech@gmail.com<br>All Rigths reserved.KnowInDeep 2020</span>
+  <br>
+    <span>
+      <a href="#" class="lang1">
+      <img src="google.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+      <img src="linkd.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+      <img src="github.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+      <img src="youtube.png" class="lang2">
+      </a>
+    </span>
+  </span>
+</div>
+<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+    <ul class="stack">
+      <li class="heads">COMPANY</li>
+      <li>About us</li>
+      <li>Privacy Policy</li>
+      <li>Contact us</li>
+    </ul>
+</div>
+<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+    <ul class="stack">
+      <li class="heads">LEARN</li>
+      <li>Algorithms</li>
+      <li>Data Structures</li>
+      <li>Languages</li>
+      <li>CS Subjects</li>
+      <li>Video Tutorials</li>
+    </ul>
+</div>
+<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+    <ul class="stack">
+      <li class="heads">PRACTICE</li>
+      <li>Courses</li>
+      <li>Company-wise</li>
+      <li>Topic-wise</li>
+      <li>How To Begin?</li>
+    </ul>
+</div>
+<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+    <ul class="stack">
+      <li class="heads">CONTRIBUTE</li>
+      <li>Write an Article</li>
+      <li>Experience</li>
+      <li>Internships</li>
+      <li>Videos</li>
+    </ul>
+</div>
+</div>
+  </footer>
+<!--for the nav bar and underlying image-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>

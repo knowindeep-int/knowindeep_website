@@ -3,15 +3,273 @@
 {% block content %}
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
-    <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static  'css/style1.css' %}">
-    <script src="{% static 'js/teach/teach.js' %}"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}"> -->
+    <!-- <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+   
+    <link rel="stylesheet" href="{% static  'css/teach/style1.css' %}">
+    <link rel="stylesheet" href="{% static  'css/teach/style.css' %}">
+    <script type="text/javascript" src="{% static 'js/teach/app.js' %}"></script>
+    <!-- <script src="{% static 'js/teach/teach.js' %}"></script> -->
     <script>sessionStorage.removeItem('pk')</script>
+    <!-- <title></title> -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!--local -->
+    <!-- <link href="style.css" rel="stylesheet"> -->
+    <!-- <link href="style1.css" rel="stylesheet"> -->
+    
 </head>
 
-<div class="container jumbotron text-center" style="color: black;">
+<div class="container center1">
+    <svg class="star" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39" height="39" viewBox="0 0 39 39">
+        <image id="_1710223" data-name="1710223" width="39" height="39" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAnCAYAAACMo1E1AAAFr0lEQVRYhbWYeWxVRRTGf+/xbF1ARRHRCFHrHygUsSAoohFFIS5RtFZc4o5xCSYGFBeCuCBxI2o0KkoMbsGtEY0JMRFcglUBwQVQXCioIQVbohWwoK059ZvkdLz3vvdIOMnLm5k7yzdnzpzzncm1zevBTkhvoAY4ETgG6AfsC+wO/AX8DvwCrAA+BpYBG8pdplxwI4AJwJnAAWWMawEWALOBD8sFl1O9I6Xf8cAdwFlR+zpgJbAeaAb+BgpAT6AvcBRQFY15D5gBfJSGKeDw4JKAVQBTgduA3dT2K/AWUA8sAVozNr8HMAQYp99ham8HHgGmA1sjYMTgkuQg4AVgtL41a8I5wMYMQGmnYDZ5OTBFc5ssBi4FGpPGpYE7HHgbGKC6lW8B1jgASZouZh7o8jwAjFf9R+AcmUcXyScM7gO844Ddq8FrtPjOAMu572afFwGTVa/SeocWA1cJvCJDNpkETCtx8Y4ytWkmco3azRZfBfbKAncnMEpl09isMoDZDb0EOLAEYEHmSAEmw4D7u0zsbO5YGajdyned2ygFmMnLwMXyZ2eoPcsEfPuLuhgduoALcZqzzvcI2GZgYonAggx1Bj4WOLXEDQWZpIiS04kVPLhhmtTkQWBticDCt8mRiUxJGBNvyIu5pvtUHxFMK0x4g/43KMQESbMVb/zVQK3K6/Q/WnE3a1wsdrTfq+2mAM5i5NlqrFccpIivysuRjtKl6QZsAs6V3zJ5CBgDHOKiS5IEbVqkmKeymUW/gsJLTzW+kTGJsY9TZAL9HRMJ8rxYyGw52eG6HK3ybeYnPwcWAZ9pTGx/rwO3K+ydYOBO0of1Gpwk1fpWSPhm9rIceFj1p0QUjpND7yGHPkDxFdGt5QmnY1FiFTDITqWgjiZfR0HYS6s42v5qmy+tfAl850wB9R2n0zgCOFo2WCdNbQH+TFmnXTgM3MCCqA3OmL0Ee7DAfJXYiLVtA55OWSDIZrGWJVJAmOtGZ/jxWqbJn1XvlXd205LQGad6C/4zVR4vfpckuchlXAtcr/IzwNwMJeAYT/e84ikiimnAgkx3TNac5elFNmSX4jGVv3ChKknCmDb9V+RdpVsRYCY7gCt1zHkx2lzGuBnKK5qAK2RvscQ3tiKslZehm+znOmRFBYsey1Te5vomOdgAZqUMvRgwXG6yJS/ajfxWMWBhZ9Uqp7meIJ/o3yjYPiUA8zia8/I3yA9VJnSOj8tIYcgFFuq/SnmG1e8GjlT7B/rvI8ddDJjhGajy6rzySkT4aqLOSXY0WOFoh4C+JH83U+Fsmjb8pvoG31nj5kwLjf0dA19U0NH8AeytAN6QAQyFOxQtnnTtbbqRduTdgfP0C+MHp8zn5XxtfLspLa+btEAdagWSjInM43vwPyiWDhXdqRE3XBVtclAKoPC9UrkFOs2fAmV6Qv/95CqydmiabZFTrhMhMHv7Rt/N+98lDVti9JrSyoaEufxFu9DZ6uM4mm4g3wdOliaHuFvsJwqAe0e5a5YdIfewKQVYh9zYUtn9Cjnv7UFz7crs25WgPJoBzKRUYAFAFjDEvoMHmCqb65JDLHagaqNQk7V4ud9iYJYeXq3yXCVX/3WMMv495auGq24vSs/tQmB1ytrs5q8GRnoCEuetW8U4GlV/Frh5FwGb4IBt1LpdmFHSc0Sjcoq1qs+Sug92fbKeHIolRb1E5WcLWJNu9VfxgCRwObmF01zsvAz4VLysy5NBAoA0qRQzaZDWECEYo7n/DySyuVj1PUR7Jro+3yoRqtdu/8kAlFOstKzsAkcYUEJ0K/Bb6mAHLovHjdU7ykjX1i4Nh5fNJrmACvm1voqT1VFitFQJ9PyMDXXiKOdNOK8juE55ZdbxxmKP2PbManmHuYpOP5YFrLOyk6/p5jAt/bOIYtoxTVmwN7uyhS27spBl8dVovfG6pKQmXYB/AUqaf3mFBM7xAAAAAElFTkSuQmCC"/>
+      </svg>
+      
+    <!-- <img src="star.png" class="star"><br> -->
+    <span class="pro"><h4>YOUR ONGOING PROJECTS</h4></span>
+    <form class="example" >
+  <input type="text" name="search" id="search_projects">
+  <br>
+  <button type="submit" onclick="">Search</button>
+  
+</form>
+</div>
+<script>
+    var project_titles = []
+    {% if ongoing_projects %}
+        {% for project in ongoing_projects %}
+        var project_titles_add = {}    
+            project_titles_add['title'] ="{{project.title}}";
+            project_titles_add['slug'] ="{{project.slug}}";
+            project_titles_add['pk'] ="{{project.pk}}";
+            project_titles.push(project_titles_add)
+            // alert(project_titles)
+        {%endfor%}
+        {%endif%}
+        function filterTitle(project){
+           
+            var filter = document.getElementById('search_projects').value
+            if (filter){
+                if(project['title'].indexOf(filter)!=-1){
+                // alert(project['title'])
+                return project; 
+            }
+            else{
+                // alert(title)
+                return "";
+            }
+            } 
+        }
+    document.addEventListener('keyup', function(){
+        // alert('5')
+        document.getElementById('results').innerHTML = "results are " 
+       var projects= project_titles.filter(filterTitle)
+       alert(projects)
+       for(var i=0;i<projects.length;i++){
+        document.getElementById('results').innerHTML += "<a href='/teahc/add/"+ projects[i]['pk'] +"'>"+ projects[i]['title'] +"</a>,"
+       }
+    })
+</script>
+<div class="container text-center my-3">
+    <div class="row mx-auto my-auto">
+        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+                {% if ongoing_projects %}
+                {% for project in ongoing_projects %}
+                <!-- <script>{{project.0.title}}</script> -->
+                {% if forloop.first %}
+                <div class="carousel-item active">
+                {% else %}
+                <div class="carousel-item">
+                {% endif %}
+
+                
+                    
+                                    <div class="col-md-4">
+                                        <div class="card">
+                        <img class="card-img-top img-fluid tm-gallery-img" src="/media/images/blog-pic.png" alt="Card image cap">
+                        <div class="card-body">
+                        <h5 class="card-title">{{project | title}}</h5>
+                        <p class="card-text">{{project.overview}}</p>
+                        <span class="bold">Author Name : </span><span> {{ project.author.user.first_name }}{{project.author.user.last_name}}</span><br>
+                        <span class="bold">Hours To Complete :</span><span>{{ project.no_of_hours }}</span><br>
+                        <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
+                        <span class="bold">Languages Used :</span>
+                        <div>
+                            {% for language in project.languages.all %} {% if language.image.url %}
+                            <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
+                            
+                        </div>
+                        <hr>
+                            <button class="but1 but2 but3" onclick="location.href = '{% url 'teach:add_course' project.pk %}';"> GO TO BLOG </button>
+                        
+                        {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
+                    </div>
+                    </div>
+                        </div>
+               
+                
+               
+                
+                   
+        
+       
+            </div>
+            
+                {% endfor %}
+                
+                
+
+           
+            {% else %}
+            No Projects to Show!
+            {% endif %}
+
+        </div>
+        <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+</div>
+<div  class="new-project">
+    <button onclick="location.href='{% url 'teach:add_course' %}';">Create a New Project</button>
+    </div>
+
+    <div class="container center1">
+    <span class="pro"><h4>YOUR COMPLETED PROJECTS</h4></span>
+    <form class="example" >
+  <input type="text" name="search" id="search_projects">
+  <br>
+  <button type="submit" onclick="">Search</button>
+  
+</form>
+</div>
+<script>
+    var project_titles = []
+    {% if completed_projects %}
+        {% for project in completed_projects %}
+        var project_titles_add = {}    
+            project_titles_add['title'] ="{{project.title}}";
+            project_titles_add['slug'] ="{{project.slug}}";
+            project_titles.push(project_titles_add)
+            // alert(project_titles)
+        {%endfor%}
+        {%endif%}
+        function filterTitle(project){
+           
+            var filter = document.getElementById('search_projects').value
+            if (filter){
+                if(project['title'].indexOf(filter)!=-1){
+                // alert(project['title'])
+                return project; 
+            }
+            else{
+                // alert(title)
+                return "";
+            }
+            } 
+        }
+    document.addEventListener('keyup', function(){
+        // alert('5')
+        document.getElementById('results').innerHTML = "results are " 
+       var projects= project_titles.filter(filterTitle)
+       alert(projects)
+       for(var i=0;i<projects.length;i++){
+        document.getElementById('results').innerHTML += "<a href='/"+ projects[i]['slug'] +"'>"+ projects[i]['title'] +"</a>,"
+       }
+    })
+</script>
+<div class="container text-center my-3">
+    <div class="row mx-auto my-auto">
+        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+                {% if completed_projects %}
+                {% for project in completed_projects %}
+                <!-- <script>{{project.0.title}}</script> -->
+                {% if forloop.first %}
+                <div class="carousel-item active">
+                {% else %}
+                <div class="carousel-item">
+                {% endif %}
+
+                
+                    
+                                    <div class="col-md-4">
+                                        <div class="card">
+                        <img class="card-img-top img-fluid tm-gallery-img" src="/media/images/blog-pic.png" alt="Card image cap">
+                        <div class="card-body">
+                        <h5 class="card-title">{{project | title}}</h5>
+                        <p class="card-text">{{project.overview}}</p>
+                        <span class="bold">Author Name : </span><span> {{ project.author.user.first_name }}{{project.author.user.last_name}}</span><br>
+                        <span class="bold">Hours To Complete :</span><span>{{ project.no_of_hours }}</span><br>
+                        <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
+                        <span class="bold">Languages Used :</span>
+                        <div>
+                            {% for language in project.languages.all %} {% if language.image.url %}
+                            <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
+                            
+                        </div>
+                        <hr>
+                            <button class="but1 but2 but3" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> GO TO BLOG </button>
+                        
+                        {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
+                    </div>
+                    </div>
+                        </div>
+               
+                
+               
+                
+                   
+        
+       
+            </div>
+            
+                {% endfor %}
+                
+                
+
+           
+            {% else %}
+            No Projects to Show!
+            {% endif %}
+
+        </div>
+        <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+</div>
+<div id= "results">
+    results are
+</div>
+<!-- <div class="container jumbotron text-center" style="color: black;">
     <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Ongoing Projects</h3>
     <div class="row">
         <button type="button" class="btn btn-primary" onclick="location.href='{% url 'teach:add_course' %}';">Create New Project</button>
@@ -25,7 +283,7 @@
             <div class="card-image">
                 <img class="blogImage" src="media/{{ project.image }}">
             </div>
-            <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
+            <img class="image" src="media/{{ blog.topic_image }}">
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
 
@@ -34,6 +292,11 @@
                 <p>Hours To Complete: {{ project.no_of_hours }}</p>
                 <p>Level: {{ project.difficulty_level }}</p>
                 <p>Languages Used: {{project.languages.all|join:', '}}</p>
+                <div>
+                    {% for language in project.languages.all %} {% if language.image.url %}
+                    <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
+                    
+                </div>
             </div>
 
             <div class="row">
@@ -49,10 +312,10 @@
 No Projects to Show!
 {% endif %}
 
-</div>
+</div> -->
 
 
-<div class="container text-center" style="color: black;">
+<!-- <div class="container text-center" style="color: black;">
     <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Completed Projects</h3>
     {% if completed_projects %}
     {% for project in completed_projects %}
@@ -63,7 +326,7 @@ No Projects to Show!
             <div class="card-image">
                 <img class="blogImage" src="media/{{ project.image }}">
             </div>
-            <!-- <img class="image" src="media/{{ blog.topic_image }}"> -->
+            <img class="image" src="media/{{ blog.topic_image }}">
             <div class="card-content">
                 <span class="card-title">{{ project.title }}</span>
 
@@ -85,9 +348,39 @@ No Projects to Show!
 {% endfor %}
 {% else %}
 No Projects to Show!
-{% endif %}
+{% endif %} -->
 
-</div>
-
+<!-- </div>
+ -->
+ <script>
+    //  window.onload = function(){
+    //      alert('8')
+    //  }
+     $('#recipeCarousel').carousel({
+    interval: 10000
+  })
+  $('#recipeCarousel1').carousel({
+    interval: 10000
+  })
+  
+  $('.carousel .carousel-item').each(function(){
+      var minPerSlide = 3;
+      var next = $(this).next();
+      if (!next.length) {
+      next = $(this).siblings(':first');
+      }
+      next.children(':first-child').clone().appendTo($(this));
+      
+      for (var i=0;i<minPerSlide;i++) {
+          next=next.next();
+          if (!next.length) {
+            next = $(this).siblings(':first');
+          }
+          
+          next.children(':first-child').clone().appendTo($(this));
+        }
+  });
+  
+ </script>
 
 {% endblock %}
