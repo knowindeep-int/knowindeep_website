@@ -34,47 +34,53 @@
     <!-- <img src="star.png" class="star"><br> -->
     <span class="pro"><h4>YOUR ONGOING PROJECTS</h4></span>
     <form class="example" >
-  <input type="text" name="search" id="search_projects">
+  <input type="text" name="search" id="search_projects_ongoing">
   <br>
   <button type="submit" onclick="">Search</button>
   
 </form>
+<div id="dropdown_ongoing">
+
+</div>
 </div>
 <script>
-    var project_titles = []
+    var project_titles_ongoing = []
     {% if ongoing_projects %}
         {% for project in ongoing_projects %}
         var project_titles_add = {}    
             project_titles_add['title'] ="{{project.title}}";
             project_titles_add['slug'] ="{{project.slug}}";
             project_titles_add['pk'] ="{{project.pk}}";
-            project_titles.push(project_titles_add)
+            project_titles_ongoing.push(project_titles_add)
             // alert(project_titles)
         {%endfor%}
         {%endif%}
-        function filterTitle(project){
+        function filterCompletedProjects(project){
            
-            var filter = document.getElementById('search_projects').value
+            var filter = document.getElementById('search_projects_ongoing').value
             if (filter){
                 if(project['title'].indexOf(filter)!=-1){
-                // alert(project['title'])
                 return project; 
             }
             else{
-                // alert(title)
                 return "";
             }
             } 
         }
-    document.addEventListener('keyup', function(){
-        // alert('5')
-        document.getElementById('results').innerHTML = "results are " 
-       var projects= project_titles.filter(filterTitle)
-       alert(projects)
+    document.getElementById('search_projects_ongoing').addEventListener('keyup', function(){
+        if(document.getElementById('search_projects_ongoing').value == ""){
+            document.getElementById('dropdown_ongoing').innerHTML = ""
+        }
+        // document.getElementById('results').innerHTML = "results are " 
+       var projects= project_titles_ongoing.filter(filterCompletedProjects)
+       var dropdown_div = document.getElementById('dropdown_ongoing')
+    //    document.getElementById('search_projects_ongoing').parentElement.parentElement.appendChild(dropdown_div)
        for(var i=0;i<projects.length;i++){
-        document.getElementById('results').innerHTML += "<a href='/teahc/add/"+ projects[i]['pk'] +"'>"+ projects[i]['title'] +"</a>,"
-       }
+        // document.getElementById('results').innerHTML += "<a href='/teach/add/"+ projects[i]['pk'] +"'>"+ projects[i]['title'] +"</a>,"
+        dropdown_div.innerHTML +=  "<a href='/teach/add/"+ projects[i]['pk'] +"'>"+ projects[i]['title'] +"</a><br>"
+    }
     })
+
 </script>
 <div class="container text-center my-3">
     <div class="row mx-auto my-auto">
@@ -154,11 +160,14 @@
     <div class="container center1">
     <span class="pro"><h4>YOUR COMPLETED PROJECTS</h4></span>
     <form class="example" >
-  <input type="text" name="search" id="search_projects">
+  <input type="text" name="search" id="search_projects_completed">
   <br>
   <button type="submit" onclick="">Search</button>
   
 </form>
+<div id="dropdown_completed">
+
+</div>
 </div>
 <script>
     var project_titles = []
@@ -171,33 +180,35 @@
             // alert(project_titles)
         {%endfor%}
         {%endif%}
-        function filterTitle(project){
+        function filterOngoingProjects(project){
            
-            var filter = document.getElementById('search_projects').value
+            var filter = document.getElementById('search_projects_completed').value
             if (filter){
                 if(project['title'].indexOf(filter)!=-1){
-                // alert(project['title'])
                 return project; 
             }
             else{
-                // alert(title)
                 return "";
             }
             } 
         }
-    document.addEventListener('keyup', function(){
-        // alert('5')
-        document.getElementById('results').innerHTML = "results are " 
-       var projects= project_titles.filter(filterTitle)
-       alert(projects)
-       for(var i=0;i<projects.length;i++){
-        document.getElementById('results').innerHTML += "<a href='/"+ projects[i]['slug'] +"'>"+ projects[i]['title'] +"</a>,"
-       }
+    document.getElementById('search_projects_completed').addEventListener('keyup', function(){
+        if(document.getElementById('search_projects_completed').value == ""){
+            document.getElementById('dropdown_completed').innerHTML  = ""
+        }
+        // document.getElementById('results').innerHTML = "results are " 
+       var projects= project_titles.filter(filterOngoingProjects)
+       var dropdown_div = document.getElementById('dropdown_completed')
+       for(var i=0; i<projects.length; i++){
+           dropdown_div.innerHTML += "<a href='/"+ projects[i]['slug'] +"'>"+ projects[i]['title'] +"</a><br>"
+        // document.getElementById('results').innerHTML += "<a href='/"+ projects[i]['slug'] +"'>"+ projects[i]['title'] +"</a>,"
+        
+    }
     })
 </script>
 <div class="container text-center my-3">
     <div class="row mx-auto my-auto">
-        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+        <div id="recipeCarousel1" class="carousel slide w-100" data-ride="carousel">
             <div class="carousel-inner w-100" role="listbox">
                 {% if completed_projects %}
                 {% for project in completed_projects %}
@@ -229,33 +240,21 @@
                             <button class="but1 but2 but3" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> GO TO BLOG </button>
                         
                         {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
-                    </div>
-                    </div>
                         </div>
-               
-                
-               
-                
-                   
-        
-       
+                    </div>
+                </div>
             </div>
             
                 {% endfor %}
-                
-                
-
-           
             {% else %}
             No Projects to Show!
             {% endif %}
-
         </div>
-        <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+        <a class="carousel-control-prev w-auto" href="#recipeCarousel1" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+        <a class="carousel-control-next w-auto" href="#recipeCarousel1" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
@@ -266,9 +265,9 @@
 
 </div>
 </div>
-<div id= "results">
+<!-- <div id= "results">
     results are
-</div>
+</div> -->
 <!-- <div class="container jumbotron text-center" style="color: black;">
     <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Ongoing Projects</h3>
     <div class="row">
