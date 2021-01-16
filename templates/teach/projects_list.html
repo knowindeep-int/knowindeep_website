@@ -36,44 +36,45 @@
     <form class="example" >
   <input type="text" name="search" id="search_projects">
   <br>
-  <button type="submit" onclick="implementSearchProjects()">Search</button>
-  <div class= "results"></div>
+  <button type="submit" onclick="">Search</button>
+  
 </form>
 </div>
 <script>
-     function implementSearchProjects() {
-  
-  search_input = document.getElementById('search_projects').value;
-  $.ajax({
-      url: '{% url "api:search" %}',
-      method: "GET",
-      data: {
-          'search_input': search_input,
-      },
-      success: function(data) {
-          var result = document.getElementById("results");
-          result.innerHTML = "";
-          result.innerHTML += '<p class="results" style="color:black;" >Projects:</p>'
-          for (var i = 0; i < data.projects.length; i++) {
-              result.innerHTML += '<a class="results" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
-          }
-
-          result.innerHTML += '<p class="results" style="color:black;" >Chapters:</p>'
-          for (var i = 0; i < data.chapters.length; i++) {
-              result.innerHTML += '<a class="results" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
-          }
-
-          result.innerHTML += '<p class="results" style="color:black;" >Authors:</p>'
-          for (var i = 0; i < data.authors.length; i++) {
-              result.innerHTML += '<a class="results" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
-          }
-
-      },
-      error: function(error) {
-          alert(error)
-      },
-  });
-};
+    var project_titles = []
+    {% if ongoing_projects %}
+        {% for project in ongoing_projects %}
+        var project_titles_add = {}    
+            project_titles_add['title'] ="{{project.title}}";
+            project_titles_add['slug'] ="{{project.slug}}";
+            project_titles_add['pk'] ="{{project.pk}}";
+            project_titles.push(project_titles_add)
+            // alert(project_titles)
+        {%endfor%}
+        {%endif%}
+        function filterTitle(project){
+           
+            var filter = document.getElementById('search_projects').value
+            if (filter){
+                if(project['title'].indexOf(filter)!=-1){
+                // alert(project['title'])
+                return project; 
+            }
+            else{
+                // alert(title)
+                return "";
+            }
+            } 
+        }
+    document.addEventListener('keyup', function(){
+        // alert('5')
+        document.getElementById('results').innerHTML = "results are " 
+       var projects= project_titles.filter(filterTitle)
+       alert(projects)
+       for(var i=0;i<projects.length;i++){
+        document.getElementById('results').innerHTML += "<a href='/teahc/add/"+ projects[i]['pk'] +"'>"+ projects[i]['title'] +"</a>,"
+       }
+    })
 </script>
 <div class="container text-center my-3">
     <div class="row mx-auto my-auto">
@@ -81,6 +82,125 @@
             <div class="carousel-inner w-100" role="listbox">
                 {% if ongoing_projects %}
                 {% for project in ongoing_projects %}
+                <!-- <script>{{project.0.title}}</script> -->
+                {% if forloop.first %}
+                <div class="carousel-item active">
+                {% else %}
+                <div class="carousel-item">
+                {% endif %}
+
+                
+                    
+                                    <div class="col-md-4">
+                                        <div class="card">
+                        <img class="card-img-top img-fluid tm-gallery-img" src="/media/images/blog-pic.png" alt="Card image cap">
+                        <div class="card-body">
+                        <h5 class="card-title">{{project | title}}</h5>
+                        <p class="card-text">{{project.overview}}</p>
+                        <span class="bold">Author Name : </span><span> {{ project.author.user.first_name }}{{project.author.user.last_name}}</span><br>
+                        <span class="bold">Hours To Complete :</span><span>{{ project.no_of_hours }}</span><br>
+                        <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
+                        <span class="bold">Languages Used :</span>
+                        <div>
+                            {% for language in project.languages.all %} {% if language.image.url %}
+                            <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
+                            
+                        </div>
+                        <hr>
+                            <button class="but1 but2 but3" onclick="location.href = '{% url 'teach:add_course' project.pk %}';"> GO TO BLOG </button>
+                        
+                        {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
+                    </div>
+                    </div>
+                        </div>
+               
+                
+               
+                
+                   
+        
+       
+            </div>
+            
+                {% endfor %}
+                
+                
+
+           
+            {% else %}
+            No Projects to Show!
+            {% endif %}
+
+        </div>
+        <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+</div>
+<div  class="new-project">
+    <button onclick="location.href='{% url 'teach:add_course' %}';">Create a New Project</button>
+    </div>
+
+    <div class="container center1">
+    <span class="pro"><h4>YOUR COMPLETED PROJECTS</h4></span>
+    <form class="example" >
+  <input type="text" name="search" id="search_projects">
+  <br>
+  <button type="submit" onclick="">Search</button>
+  
+</form>
+</div>
+<script>
+    var project_titles = []
+    {% if completed_projects %}
+        {% for project in completed_projects %}
+        var project_titles_add = {}    
+            project_titles_add['title'] ="{{project.title}}";
+            project_titles_add['slug'] ="{{project.slug}}";
+            project_titles.push(project_titles_add)
+            // alert(project_titles)
+        {%endfor%}
+        {%endif%}
+        function filterTitle(project){
+           
+            var filter = document.getElementById('search_projects').value
+            if (filter){
+                if(project['title'].indexOf(filter)!=-1){
+                // alert(project['title'])
+                return project; 
+            }
+            else{
+                // alert(title)
+                return "";
+            }
+            } 
+        }
+    document.addEventListener('keyup', function(){
+        // alert('5')
+        document.getElementById('results').innerHTML = "results are " 
+       var projects= project_titles.filter(filterTitle)
+       alert(projects)
+       for(var i=0;i<projects.length;i++){
+        document.getElementById('results').innerHTML += "<a href='/"+ projects[i]['slug'] +"'>"+ projects[i]['title'] +"</a>,"
+       }
+    })
+</script>
+<div class="container text-center my-3">
+    <div class="row mx-auto my-auto">
+        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+                {% if completed_projects %}
+                {% for project in completed_projects %}
                 <!-- <script>{{project.0.title}}</script> -->
                 {% if forloop.first %}
                 <div class="carousel-item active">
@@ -146,90 +266,9 @@
 
 </div>
 </div>
-<div  class="new-project">
-    <button onclick="location.href='{% url 'teach:add_course' %}';">Create a New Project</button>
-    </div>
-
-
-    <div class="container center1">
-        <span class="pro"><h4>YOUR COMPLETED PROJECTS</h4></span>
-    </div>
-<div class="container text-center my-3">
-    <div class="row mx-auto my-auto">
-        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-            <div class="carousel-inner w-100" role="listbox">
-                {% if completed_projects %}
-                {% for project in completed_projects %}
-                <!-- <script>{{project.0.title}}</script> -->
-                {% if forloop.counter == 1 %}
-                <div class="carousel-item active">
-                {% else %}
-                <div class="carousel-item">
-                {% endif %}
-
-                {% with index=forloop.counter %} 
-                {% for project in completed_projects %}
-                {% if forloop.counter == index or forloop.counter == index|add:"1" or forloop.counter == index|add:"2" %}
-                    
-                                    <div class="col-md-4">
-                                        <div class="card">
-                        <img class="card-img-top img-fluid tm-gallery-img" src="/media/images/blog-pic.png" alt="Card image cap">
-                        <div class="card-body">
-                        <h5 class="card-title">{{project | title}}</h5>
-                        <p class="card-text">{{project.overview}}</p>
-                        <span class="bold">Author Name : </span><span> {{ project.author.user.first_name }}{{project.author.user.last_name}}</span><br>
-                        <span class="bold">Hours To Complete :</span><span>{{ project.no_of_hours }}</span><br>
-                        <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
-                        <span class="bold">Languages Used :</span>
-                        <div>
-                            {% for language in project.languages.all %} {% if language.image.url %}
-                            <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
-                            
-                        </div>
-                        <hr>
-                            <button class="but1 but2 but3" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> GO TO BLOG </button>
-                        
-                        {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
-                    </div>
-                    </div>
-                        </div>
-                {% endif %}
-                {% endfor %}   
-                {% endwith %}
-                
-               
-                
-                   
-        
-       
-            </div>
-            
-                {% endfor %}
-                
-                
-
-           
-            {% else %}
-            No Projects to Show!
-            {% endif %}
-
-        </div>
-        <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-
-    </div>
-
+<div id= "results">
+    results are
 </div>
-
-</div>
-</div>
-
 <!-- <div class="container jumbotron text-center" style="color: black;">
     <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Ongoing Projects</h3>
     <div class="row">
