@@ -519,7 +519,7 @@ margin: 2% auto;
 	width:100px;
 }
 
-form{
+.form{
     position: relative;
     top: 50%;
     left: 50%;
@@ -535,7 +535,7 @@ form{
 .form{
 	margin-top: 10px;
 }
-input{
+.input{
     position: absolute;
     top: 0;
     left: 0;
