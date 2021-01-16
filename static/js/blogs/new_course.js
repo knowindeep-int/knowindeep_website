@@ -110,7 +110,6 @@ function createDescriptionPage() {
         }
     }
     //window.name = pk
-    alert(pk)
     setTimeout(function(){sessionStorage.setItem('pk',pk);}, 100)
 
     showhide("2");
@@ -131,6 +130,18 @@ function createDescriptionPage() {
     if (div.innerHTML != "") {
         return false
     }
+
+    div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    '<h3>How about a working description?</h3>' + 
+    "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE">' + 
+    '</div>'
+document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyLevelPage();')
+document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
+document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
+document.getElementById('current').innerHTML = 2
+
+
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD LANGUAGES</h2>";
     div.innerHTML += '<div style="color: black;">';
@@ -159,9 +170,10 @@ function createDescriptionPage() {
     div.innerHTML += '<input type="text" style = "color:black;" id="add_pre_req_input"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
     div.innerHTML += '<span id="error_prereq" ></span></div>'
     div.setAttribute("class", "jumbotron text-center");
-
-    div.innerHTML += "<h2 style='color: black;'>DESCRIPTION </h2>";
-    div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><span id="error_description"></span>';
+    
+   
+    // div.innerHTML += "<h2 style='color: black;'>DESCRIPTION </h2>";
+    // div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><span id="error_description"></span>';
     
     if (document.getElementById("selectpicker") != null) {
         for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
@@ -200,9 +212,18 @@ function createTitlePage() {
     div_4.innerHTML = "";
 
     var div = document.getElementById("1");
-    div.setAttribute("class", "jumbotron text-center") ;
-    div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
-    document.getElementById("title_input").dataset.state = 'invalid';
+
+    div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    '<h3>How about a working title?</h3>' + 
+    "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE">' + 
+    '</div>'
+    document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
+    document.getElementById('prev_btn').setAttribute('style', 'display:none')
+    document.getElementById('current').innerHTML = 1
+    // div.setAttribute("class", "jumbotron text-center") ;
+    // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
+    // document.getElementById("title_input").dataset.state = 'invalid';
 }
 
 

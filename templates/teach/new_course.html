@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
     <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{% static  'css/style.css' %}">
 {% endblock %}
 {% block content %}
@@ -16,7 +18,6 @@
     <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static  'css/style.css' %}">
-    <!-- <script type="text/javascript" src="{% static 'js/teach/teach.js' %}"></script>--> 
 </head>
 
 <script>
@@ -244,10 +245,32 @@ function saveImageDraft() {
 
 
 </script>
-
+<!--local -->
+<head>
+    <link href="{% static 'css/teach/teach.css'%}" rel="stylesheet">
+    <style>
+        ::placeholder{
+            color:#b8b8b8;
+        }
+        input{
+            display: inline;
+            position: relative;
+        }
+    </style>
+</head>
 <div>
     <div id="main_div">
         {% csrf_token %}
+        <div class="container">
+            <div><h6>Step <span id="current">1</span> of <span id="total">4</span></h6></div>
+            <hr class="hr">
+            <div class="o">
+                <hr class="m">
+            </div>
+            <div class="p">
+                <hr class="m">
+            </div>
+        </div>
         <div id="1" class="to_hide"></div>
         <div id="2" class="to_hide"></div>
         <div id="3" class="to_hide"></div>
@@ -258,6 +281,12 @@ function saveImageDraft() {
         <div id="8" class="to_hide"></div>
         <div id="9" class="to_hide"></div>
         <div id="10" class="to_hide"></div>
+        <br>
+        <br>
+        <div class="container">
+            <button class="previous b" id="prev_btn">Previous</button>
+            <button class="next b" id="next_btn">Next</button>
+        </div>
     </div>
 </div>
 
