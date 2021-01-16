@@ -108,7 +108,7 @@
                         <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
                         <span class="bold">Languages Used :</span>
                         <div>
-                            {% for language in project.languages.all %} {% if language.image.url %}
+                            {% for language in project.languages.all %} {% if language.image %}
                             <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
                             
                         </div>
@@ -232,7 +232,7 @@
                         <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
                         <span class="bold">Languages Used :</span>
                         <div>
-                            {% for language in project.languages.all %} {% if language.image.url %}
+                            {% for language in project.languages.all %} {% if language.image %}
                             <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
                             
                         </div>
@@ -292,8 +292,8 @@
                 <p>Level: {{ project.difficulty_level }}</p>
                 <p>Languages Used: {{project.languages.all|join:', '}}</p>
                 <div>
-                    {% for language in project.languages.all %} {% if language.image.url %}
-                    <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
+                    {% for language in project.languages.all %} {% if language.image %}
+                    <img src="{{language.image}}" class="lang"> {% endif %} {% endfor %}
                     
                 </div>
             </div>
