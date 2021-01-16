@@ -408,8 +408,8 @@ function fx(){
                         // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
                         // xhr.setRequestHeader('Origin, X-Requested-With, Content-Type, Accept, Authorization, Authentication');
                         // xhr.setRequestAhorization
-                        xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID}}') 
-                        xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER}}');
+                        xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID_DEBUG}}') 
+                        xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER_DEBUG}}');
                         // xhr.setRequestHeader('Authorization')
                         // xhr.setRequestHeader('Authorization', 'Bearer 7cd876bf6ab3405bad138d3a1886a3048fe9a0f0')
                         }
@@ -738,7 +738,7 @@ function fx(){
                     }
                     console.log('hi')
                     
-                    $.getJSON('https://api.unsplash.com/search/photos?client_id={{UNSPLASH_API_KEY}}&query=' + query + '&page=' + page_number, function(data){
+                    $.getJSON('https://api.unsplash.com/search/photos?client_id={{UNSPLASH_API_KEY_DEBUG}}&query=' + query + '&page=' + page_number, function(data){
                         var div_btn = document.createElement('div')
                         div_btn.className = "buttons"
 
@@ -817,7 +817,7 @@ function fx(){
                     };
                     // xhr = new XMLHttpRequest();
                     function setHeader(xhr) {   
-                    xhr.setRequestHeader('Authorization', '{{PEXELS_API_KEY}}');
+                    xhr.setRequestHeader('Authorization', '{{PEXELS_API_KEY_DEBUG}}');
                     }
                     var p_name = []
                     var p_url = []

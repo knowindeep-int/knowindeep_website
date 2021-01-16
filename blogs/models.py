@@ -13,8 +13,7 @@ from django.db.models import Q
 from django.conf import settings
 import os
 from knowindeep import Constants
-from dotenv import load_dotenv
-load_dotenv()
+
 
 class Language(models.Model):
     is_available = models.BooleanField(null = True, blank = True)
@@ -416,13 +415,7 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
         instance.slug = unique_slug_generator(instance)
         #instance.save()
 
-def getApiKey():
-    if settings.DEBUG:
-        UNSPLASH_API_KEY = os.getenv('UNSPLASH_API_KEY')
-        PEXELS_API_KEY = os.getenv('PEXELS_API_KEY')
-        IMGUR_CLIENT_ID = os.getenv('IMGUR_CLIENT_ID')
-        IMGUR_BEARER = os.getenv('IMGUR_BEARER')
-        return UNSPLASH_API_KEY,PEXELS_API_KEY,IMGUR_CLIENT_ID,IMGUR_BEARER
+
     
 pre_save.connect(r_pre_save_receiever, sender=Project)
 pre_save.connect(r_pre_save_receiever, sender=Chapter)

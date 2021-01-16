@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
-from blogs.models import Language, PreRequisite, Project, Profile,Chapter,getApiKey
+from blogs.models import Language, PreRequisite, Project, Profile,Chapter
+from blogs.utils import getApiKey
 
 def add_course(request, pk = None):
     if request.user.is_authenticated:
@@ -50,7 +51,7 @@ def list_of_projects(request):
     return redirect("/")
 
 def text_editor(request,pk = None, chapter_pk = None):
-    UNSPLASH_API_KEY,PEXELS_API_KEY ,IMGUR_CLIENT_ID,IMGUR_BEARER = getApiKey()  
+    UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
     if not chapter_pk:
         project = Project.objects.get(pk = pk)
         chapters = project.chapters.all()
@@ -58,10 +59,10 @@ def text_editor(request,pk = None, chapter_pk = None):
         context = {
             'chapters':chapters,
             'project': project,
-            'UNSPLASH_API_KEY':UNSPLASH_API_KEY,
-            'PEXELS_API_KEY':PEXELS_API_KEY , 
-            'IMGUR_CLIENT_ID': IMGUR_CLIENT_ID,
-            'IMGUR_BEARER' : IMGUR_BEARER ,
+            'UNSPLASH_API_KEY_DEBUG':UNSPLASH_API_KEY_DEBUG,
+            'PEXELS_API_KEY_DEBUG':PEXELS_API_KEY_DEBUG , 
+            'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
+            'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG ,
             }
 
         return render(request, 'front-end/home page/teach.html',context=context)
