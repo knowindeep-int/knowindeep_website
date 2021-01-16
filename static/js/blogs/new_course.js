@@ -134,9 +134,10 @@ function createDescriptionPage() {
     div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working description?</h3>' + 
     "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
-    '<input type="text"  class="example1" placeholder="FOR EXAMPLE">' + 
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' + 
     '</div>'
-document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyLevelPage();')
+    div.innerHTML += '<span id="error_description"></span></div>';
+document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyPage();')
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
 document.getElementById('current').innerHTML = 2
@@ -171,7 +172,9 @@ document.getElementById('current').innerHTML = 2
     div.innerHTML += '<span id="error_prereq" ></span></div>'
     div.setAttribute("class", "jumbotron text-center");
     
-   
+    // document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours()')
+    // document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
+    // document.getElementById('current').innerHTML = 2
     // div.innerHTML += "<h2 style='color: black;'>DESCRIPTION </h2>";
     // div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><span id="error_description"></span>';
     
@@ -216,7 +219,7 @@ function createTitlePage() {
     div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working title?</h3>' + 
     "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
-    '<input type="text"  class="example1" placeholder="FOR EXAMPLE">' + 
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="title_input" value="' + title + '"> ' +  
     '</div>'
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
@@ -415,8 +418,15 @@ function createOverviewPage() {
 
     var div = document.getElementById("7");
     div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML += "<h2 style='color: black;'>OVERVIEW PAGE</h2>" + "<input id='overview_input' type='text' style='color: black;' value='" + overview + "'> " + '<button type="button" class="btn btn-primary" style="float: right;" onclick="createImagePage()">Next</button><button type="button" class="btn btn-primary" style="float: left;" onclick="createDifficultyPage()">Previous</button>'
+    div.innerHTML +='<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    '<h3>How about a working overview?</h3>' + 
+    "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="overview_input" value="' + overview + '"> ' + 
+    '</div>'
     div.innerHTML += " <span id='error_overview'></span>"
+    document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage();')
+    document.getElementById('current').innerHTML = 4
 }
 
 
@@ -485,7 +495,10 @@ function createImagePage() {
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
     div.innerHTML += '<div style="color: black;">';
     div.innerHTML += '<input type="file" style="color: black;" id="image_input">';
-    div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
+    // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
+    document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
+    document.getElementById('current').innerHTML = 5
 }
 function createNumberOfHours() {
     saveImageDraft()
@@ -534,8 +547,9 @@ function createNumberOfHours() {
         '<label for=">4">MORE THAN 4 HOURS</label>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
-        '</div>';
+    document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage()')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createImagePage();')
+    document.getElementById('current').innerHTML = 6;
 }
 
 
@@ -590,7 +604,9 @@ function createDifficultyPage() {
         else {
             document.getElementById("error_prereq").innerHTML = "";
         }
-
+        document.getElementById('next_btn').setAttribute('onclick', 'createOverviewPage();')
+        document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
+        document.getElementById('current').innerHTML = 3;
     }
     // saveDraft("description", description);
 
@@ -725,8 +741,8 @@ function createDifficultyPage() {
                      '<label style="font-size:18px;" for="medium">MEDIUM</label><br>' +
                      '<input class="difficulty_radio_input" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
                      '<label style="font-size:18px;" for="hard">HARD</label>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
-        '</div>';
+    // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
+    //     '</div>';
 
 }
 

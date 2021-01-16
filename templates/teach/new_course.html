@@ -22,7 +22,7 @@
 
 <script>
     window.onload = function () {
-    alert('{{status}}')
+    // alert('{{status}}')
     if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
         pk = sessionStorage.getItem('pk')
         // alert(pk)
@@ -262,7 +262,7 @@ function saveImageDraft() {
     <div id="main_div">
         {% csrf_token %}
         <div class="container">
-            <div><h6>Step <span id="current">1</span> of <span id="total">4</span></h6></div>
+            <div><h6>Step <span id="current">1</span> of <span id="total">7</span></h6></div>
             <hr class="hr">
             <div class="o">
                 <hr class="m">
