@@ -125,6 +125,10 @@ function createDescriptionPage() {
     div_4.setAttribute("style", "display: none;");
     div_4.innerHTML = "";
 
+    div_6 = document.getElementById("6");
+    div_6.setAttribute("style", "display: none;");
+    div_6.innerHTML = "";
+    
     var div = document.getElementById(2);
 
     if (div.innerHTML != "") {
@@ -604,9 +608,7 @@ function createDifficultyPage() {
         else {
             document.getElementById("error_prereq").innerHTML = "";
         }
-        document.getElementById('next_btn').setAttribute('onclick', 'createOverviewPage();')
-        document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
-        document.getElementById('current').innerHTML = 3;
+       
     }
     // saveDraft("description", description);
 
@@ -730,6 +732,18 @@ function createDifficultyPage() {
     div_7.setAttribute("style", "display: none;");
     div_7.innerHTML = "";
 
+    div_8 = document.getElementById("8");
+    div_8.setAttribute("style", "display: none;");
+    div_8.innerHTML = "";
+
+    div_9 = document.getElementById("9");
+    div_9.setAttribute("style", "display: none;");
+    div_9.innerHTML = "";
+
+    div_10 = document.getElementById("10");
+    div_10.setAttribute("style", "display: none;");
+    div_10.innerHTML = "";
+
     div = document.getElementById("6");
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD DIFFICULTY LEVEL FOR THE PROJECT</h2>";
@@ -743,6 +757,9 @@ function createDifficultyPage() {
                      '<label style="font-size:18px;" for="hard">HARD</label>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
     //     '</div>';
+    document.getElementById('next_btn').setAttribute('onclick', 'createOverviewPage();')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
+    document.getElementById('current').innerHTML = 3;
 
 }
 
