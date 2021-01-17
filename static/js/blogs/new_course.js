@@ -145,6 +145,7 @@ document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyPag
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
 document.getElementById('current').innerHTML = 2
+document.getElementsByClassName('progress-bar')[0].style = "width:28%"
 
 
     div.setAttribute("class", "jumbotron text-center");
@@ -431,6 +432,8 @@ function createOverviewPage() {
     document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage();')
     document.getElementById('current').innerHTML = 4
+    document.getElementsByClassName('progress-bar')[0].style = "width:56%"
+
 }
 
 
@@ -503,6 +506,8 @@ function createImagePage() {
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('current').innerHTML = 5
+    document.getElementsByClassName('progress-bar')[0].style = "width:70%"
+
 }
 function createNumberOfHours() {
     saveImageDraft()
@@ -554,6 +559,8 @@ function createNumberOfHours() {
     document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage()')
     document.getElementById('prev_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('current').innerHTML = 6;
+    document.getElementsByClassName('progress-bar')[0].style = "width:84%"
+
 }
 
 
@@ -760,6 +767,7 @@ function createDifficultyPage() {
     document.getElementById('next_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('current').innerHTML = 3;
+    document.getElementsByClassName('progress-bar')[0].style = "width:42%"
 
 }
 
