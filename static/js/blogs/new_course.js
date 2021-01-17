@@ -437,6 +437,7 @@ function createOverviewPage() {
 }
 
 
+
 function createImagePage() {
     if (document.getElementById("overview_input") != null) {
         overview = document.getElementById("overview_input").value;
@@ -500,8 +501,8 @@ function createImagePage() {
     div.setAttribute("class", "jumbotron text-center");
 
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
-    div.innerHTML += '<div style="color: black;">';
-    div.innerHTML += '<input type="file" style="color: black;" id="image_input">';
+    div.innerHTML += '<div style="color: black;" id="image_input_div">';
+    div.innerHTML += '<input id="image_input" type="file" onchange="addLocalImage(this)" style="color: black;" id="image_input">';
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')

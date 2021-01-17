@@ -5,6 +5,7 @@ from blogs.models import Language, PreRequisite, Project, Profile,Chapter
 from blogs.utils import getApiKey
 
 def add_course(request, pk = None):
+    UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
     if request.user.is_authenticated:
         languages = Language.getAllLanguages()
         pre_reqs = PreRequisite.getAllPreReqs()
@@ -12,7 +13,9 @@ def add_course(request, pk = None):
         if pk is None:
             context = {
                 'languages' : languages,        
-                'pre_reqs' : pre_reqs
+                'pre_reqs' : pre_reqs,
+                'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
+                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
             }
 
         else:
@@ -31,7 +34,9 @@ def add_course(request, pk = None):
                 'overview': overview,
                 'difficulty_level': difficulty_level,
                 'no_of_hours': no_of_hours,
-                'selected_languages': selected_languages
+                'selected_languages': selected_languages,
+                'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
+                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
             }
             
         return render(request, 'teach/new_course.html', context=context)

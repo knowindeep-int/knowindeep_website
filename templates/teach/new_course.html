@@ -250,6 +250,115 @@ function saveImageDraft() {
     // }
 
 
+
+    function setImgurHeader(xhr) {  
+    // xhr.setRequestHeader('Cache-Control', null) 
+    // xhr.setRequestHeader("Origin, X-Requested-With, Content-Type, Accept, Authorization, Token");
+    // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+    // xhr.setRequestHeader('Origin, X-Requested-With, Content-Type, Accept, Authorization, Authentication');
+    // xhr.setRequestAhorization
+    xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID_DEBUG}}') 
+    xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER_DEBUG}}');
+    // xhr.setRequestHeader('Authorization')
+    // xhr.setRequestHeader('Authorization', 'Bearer 7cd876bf6ab3405bad138d3a1886a3048fe9a0f0')
+    }
+ 
+function deleteImage(e){
+    if(e.getAttribute('data-deletehash') != ""){
+        var deletehash = e.getAttribute('data-deletehash')
+        alert(deletehash)
+        $.ajax({
+            url: 'https://api.imgur.com/3/image/' + deletehash,
+            type: 'DELETE',
+            success: function(data){
+                    alert('image deleted sucessfully!')
+                    document.getElementById('image_input_div').remove();
+                },
+                error: function(error){
+                    alert(error)
+                },
+                beforeSend: setImgurHeader,
+
+               
+    })
+}
+}
+
+
+function addLocalImage(e){
+    // alert(0);
+    var targetDiv=document.getElementsByClassName("editor")[0];
+            var file = $(e).prop('files')[0];
+            var img=document.createElement("img");
+            img.setAttribute('style', 'width:200px;height:200px;');
+            // img.setAttribute('style', 'height:200px');
+
+            img.className="image"
+            var reader  = new FileReader();
+            var fig = document.createElement('figure')
+            // var fig_caption = document.createElement('figcaption')
+            // fig_caption.className = "fig-caption"
+            // fig_caption.innerHTML =  "Write your caption here!"
+            fig.className = "fig"
+            // fig.setAttribute('contenteditable','true')
+            var btn = document.createElement('button')
+            btn.setAttribute('id', 'remove_img_btn')
+            btn.innerHTML = "REMOVE"
+            btn.setAttribute('onclick', 'deleteImage(this)')
+            document.getElementById('image_input_div').appendChild(btn)
+            fig.appendChild(img);
+            document.getElementById('image_input_div').appendChild(fig)
+            
+            // fig.appendChild(fig_caption)
+            // if(fx().className == 'editor' ||  document.body === fx()){
+            
+            // }
+            // else{
+            //     console.log('1')
+            //     fx().parentNode.insertBefore(fig, fx().nextSibling);
+            // }
+
+            reader.addEventListener("load", function () {
+                img.src=reader.result;
+               
+            }); 
+            if (file){
+                reader.readAsDataURL(file);
+            // document.getElementById('inpfile').value = "";
+            
+            
+
+        }
+        
+        var formData = new FormData();
+        formData.append('image',file);
+        // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+
+        $.ajax({
+
+                method: 'POST',
+                url: 'https://api.imgur.com/3/image',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data){
+                    alert('success!')
+                    img.src = data.data.link
+                    document.getElementById('remove_img_btn').setAttribute('data-deletehash', data.data.deletehash)
+                    document.getElementById('image_input').value = null
+                },
+                error: function(error){
+                    alert(error)
+                },
+                beforeSend: setImgurHeader,
+
+                
+
+            })
+
+    }
+
 </script>
 <!--local -->
 <head>
