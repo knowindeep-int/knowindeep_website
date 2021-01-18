@@ -163,7 +163,7 @@
         </a><br>
                                 <span class="clk">{{ chapter.description }}</span>
                             </div>
-                            {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
+                            {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
                         </div>
                         {% endfor %} {% else %}
                         <h1>No blogs for the particular url</h1>
