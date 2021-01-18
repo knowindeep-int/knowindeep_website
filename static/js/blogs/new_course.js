@@ -81,6 +81,15 @@ function add_pre_req(){
 function createDescriptionPage() {
 
     // alert("798")
+
+    if (title.length == 0) {
+        document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+        document.getElementById("error_title").style = "color: red;";
+        return;
+    }
+    else {
+        document.getElementById("error_prereq").innerHTML = "";
+    }
         
     if (document.getElementById("title_input") != null) {
 
@@ -225,7 +234,7 @@ function createTitlePage() {
     '<h3>How about a working title?</h3>' + 
     "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
     '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="title_input" value="' + title + '"> ' +  
-    '</div>'
+    '<br><span id="error_title"></span></div>'
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
     document.getElementById('current').innerHTML = 1
