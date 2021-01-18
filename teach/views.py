@@ -80,10 +80,10 @@ def text_editor(request,pk = None, chapter_pk = None):
         'chapters': chapters,
         'chapter': chapter,
         'project': project,
-        'UNSPLASH_API_KEY':UNSPLASH_API_KEY,
-        'PEXELS_API_KEY':PEXELS_API_KEY , 
-        'IMGUR_CLIENT_ID': IMGUR_CLIENT_ID,
-        'IMGUR_BEARER' : IMGUR_BEARER ,
+        'UNSPLASH_API_KEY_DEBUG':UNSPLASH_API_KEY_DEBUG,
+        'PEXELS_API_KEY_DEBUG':PEXELS_API_KEY_DEBUG , 
+        'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
+        'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG ,
     }
 
     return render(request, 'front-end/home page/teach.html', context = context)
