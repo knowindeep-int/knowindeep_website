@@ -82,20 +82,20 @@ function createDescriptionPage() {
 
     // alert("798")
 
-    if (title.length == 0) {
-        document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
-        document.getElementById("error_title").style = "color: red;";
-        return;
-    }
-    else {
-        document.getElementById("error_prereq").innerHTML = "";
-    }
+    
         
     if (document.getElementById("title_input") != null) {
 
         title = document.getElementById("title_input").value;
         saveDraft("title", title);
-        
+        if (title.length == 0) {
+            document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+            document.getElementById("error_title").style = "color: red;";
+            return;
+        }
+        else {
+            document.getElementById("error_title").innerHTML = "";
+        }    
         
 
         if (document.getElementById("title_input").value == "") {

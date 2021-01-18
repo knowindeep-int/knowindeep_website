@@ -132,7 +132,7 @@ class Project(models.Model):
     date_approved = models.DateTimeField(default = None, blank =True ,null=True)  
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
-    image = models.ImageField(null=True,upload_to='project/', blank = True)
+    image = models.URLField(max_length=200,blank=True,null=True)
     isApproved = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default = False) 
     languages = models.ManyToManyField(to = Language, blank = True)

@@ -125,8 +125,7 @@
                     <button class="but1 but2 but3" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> &emsp; GO TO BLOG
                         &emsp;</button> {% if request.user.is_superuser %} {% if not project.isApproved %}
                     <button class="but1 but2 but3" href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</button> {% else %}
-                    <button class='but1 but2 but3' href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</button> {% endif %} {% endif %} {% if project.isApproved %} {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl
-                    function="copyProjectPageURLToClipBoard(this)" %} {% endif %}
+                    <button class='but1 but2 but3' href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</button> {% endif %} {% endif %} {% if project.isApproved %} {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %} {% endif %}
                     <!-- <div class="dropdown left">   
                         <button class="dropbtn"><img class="image1" src="media/images/share.png"></button>
                             <div class="dropdown-content">
