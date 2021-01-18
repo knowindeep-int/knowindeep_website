@@ -403,8 +403,8 @@ class Suggestion(models.Model):
     chapter = models.ForeignKey(to=Chapter,on_delete=models.CASCADE,null = True,blank=True)
     created_on = models.DateTimeField(auto_now_add = True, null = True)
 
-    # def __str__(self):
-    #     return self.title
+    def __str__(self):
+        return self.content
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
