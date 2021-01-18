@@ -11,7 +11,7 @@
                 if('{{chapter}}'){
                     var dom = document.getElementsByClassName('editor')[0];
                     // alert('{{chapter}}')
-                    dom.innerHTML = '{{chapter.description}}';
+                    dom.innerHTML = '{{chapter.content}}';
                     // var parser = new DOMParser();
                     // var doc = parser.parseFromString(dom.innerHTML, 'text/html');
                     // dom = doc
@@ -27,7 +27,7 @@
                     data :{
                         'pk': sessionStorage.getItem('pk'),
                         'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
-                        'description':document.getElementsByClassName('editor')[0].innerHTML             
+                        'content':document.getElementsByClassName('editor')[0].innerHTML             
                     },
                     success:function(data){
                         pk = data.pk
@@ -912,16 +912,17 @@ function fx(){
                     }
                     function addChapter(){
                         content = document.getElementsByClassName('editor')[0].innerHTML
-
+                        var author = {{project.author.pk}}
                         $.ajax({
                             method: 'POST',
                             url: "{% url 'api:create_chapter' %}",
                             data :{
                                 'chapter_pk': chapter_pk,
                                 'link_to': '{{project.pk}}',
-                                'description': content,
+                                'content': content,
                                 'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
-                                'heading': 'LoremIpsum'
+                                'author': author,
+                                // 'heading': 'LoremIpsum'
                             },
                             success: function(data){
                                 alert('SUCCESS!')
@@ -970,7 +971,7 @@ function fx(){
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
         <input type="text" id="inptext_pexels">
         {% for chapter in chapters%}
-        <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.heading}}</a></p>
+        <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.slug}}</a></p>
         {%endfor%}
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->
