@@ -136,19 +136,24 @@ else{
 }
 
 function saveImageDraft() {
-    var fileInput = document.getElementById('image_input');
-    var file = fileInput.files[0];
-    var formData = new FormData();
-    formData.append('image', file);
-    formData.append('pk', pk);
-    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
-    
+    // var fileInput = document.getElementById('image_input');
+    // var file = fileInput.files[0];
+    // var formData = new FormData();
+    // formData.append('image', file);
+    // formData.append('pk', pk);
+    // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+    if(called == 1){
+        var url = document.getElementsByClassName('image')[0].src
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
-        data : formData,
-        processData: false,
-        contentType: false,
+        data : {
+            'pk':pk,
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            'image':url,
+        },
+        // processData: false,
+        // contentType: false,
         //processData: false,
         success: function(data){
             pk = data.pk
@@ -157,7 +162,9 @@ function saveImageDraft() {
         },
         
     })
-}
+    } 
+    }
+    
 
 
     function saveChapterDraft() {
@@ -285,8 +292,9 @@ function deleteImage(e){
 }
 }
 
-
+var called=0;
 function addLocalImage(e){
+    called = 1;
     // alert(0);
     var targetDiv=document.getElementsByClassName("editor")[0];
             var file = $(e).prop('files')[0];
