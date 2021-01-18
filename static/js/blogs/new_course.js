@@ -511,7 +511,7 @@ function createImagePage() {
 
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
     div.innerHTML += '<div style="color: black;" id="image_input_div">';
-    div.innerHTML += '<input id="image_input" type="file" onchange="addLocalImage(this)" style="color: black;" id="image_input"><img id="project_image">';
+    div.innerHTML += '<input id="image_input" type="file" onchange="addLocalImage(this)" style="color: black;" id="image_input">';
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
@@ -519,6 +519,7 @@ function createImagePage() {
     document.getElementsByClassName('progress-bar')[0].style = "width:70%"
     alert(image)
     if(image){
+        div.innerHTML += '<img id="project_image">';
         document.getElementById('project_image').src =image
     }
 
