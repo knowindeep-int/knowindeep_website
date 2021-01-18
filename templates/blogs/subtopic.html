@@ -105,11 +105,11 @@
                 <br>
                 <div class="section-heading">
                     <h1>{{ project.title | title }}</h1>
-                    <p>BY {{project.author}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved}}</p>
+                    <p>BY {{project.author.user.username}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved.date}}</p>
                     <br>
                     <div class="dow">Share on </div>
                     <div class="sh">
-                        <span class="shares"><div class="number">1</div><br><div class="number2">shares</div></span>
+                        <!-- <span class="shares"><div class="number">1</div><br><div class="number2">shares</div></span> -->
                         <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com." title="Share by Email"><img src="/media/images/mail-share.png" class="shareon">
                         </a>
                         <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" data-action="share/whatsapp/share"><img src="/media/images/whatsapp-share.png" class="shareon"></a>
@@ -150,7 +150,7 @@
                         </div>
                         <br>
                         <span><h5>Author Name:</h5></span>
-                        <div class="field">{{project.author}}</span><br>
+                        <div class="field">{{project.author.user.username}}</span><br>
                         </div>
                     </div>
                     {% if chapters %} {% for chapter in chapters %}
@@ -217,7 +217,7 @@
                         <div class="box box55">
                             <br>
                             <br>
-                            <h3>{{project.author}}</h3>
+                            <h3>{{project.author.user.username}}</h3>
                             <div>{{project.author.description}}</div>
                         </div>
 
