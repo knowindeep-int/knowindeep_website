@@ -511,12 +511,16 @@ function createImagePage() {
 
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
     div.innerHTML += '<div style="color: black;" id="image_input_div">';
-    div.innerHTML += '<input id="image_input" type="file" onchange="addLocalImage(this)" style="color: black;" id="image_input">';
+    div.innerHTML += '<input id="image_input" type="file" onchange="addLocalImage(this)" style="color: black;" id="image_input"><img id="project_image">';
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('current').innerHTML = 5
     document.getElementsByClassName('progress-bar')[0].style = "width:70%"
+    alert(image)
+    if(image){
+        document.getElementById('project_image').src =image
+    }
 
 }
 function createNumberOfHours() {
@@ -558,7 +562,7 @@ function createNumberOfHours() {
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>";
     div.innerHTML += '<div style="color: black;">'  ;
-    div.innerHTML += '<input class="time_radio_input" type="radio" id="0--2" name="" value="0.2" style="opacity: 1;">' +
+    div.innerHTML += '<input class="time_radio_input" type="radio" id="0-2" name="" value="0.2" style="opacity: 1;">' +
         '<label for="0--2">0--2 HOURS</label><br>' +
         '<input class="time_radio_input" type="radio" id="2-4" name="" value="2.4"  style="opacity: 1;">' +
         '<label for="2-4">2-4 HOURS</label><br>' +
@@ -566,6 +570,17 @@ function createNumberOfHours() {
         '<label for=">4">MORE THAN 4 HOURS</label>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
+
+    if(no_of_hours == "0.2"){
+        document.getElementById('0-2').checked = true;
+    }
+    else if(no_of_hours == "2.4"){
+        console.log(80)
+        document.getElementById('2-4').checked = true;
+    }
+    else if(no_of_hours == "0.4"){
+        document.getElementById('>4').checked = true;
+    }
     document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage()')
     document.getElementById('prev_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('current').innerHTML = 6;
@@ -774,6 +789,18 @@ function createDifficultyPage() {
                      '<label style="font-size:18px;" for="hard">HARD</label>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
     //     '</div>';
+
+    if(difficulty_level == "EASY"){
+        document.getElementById('easy').checked = true;
+    }
+    else if(difficulty_level == "MEDIUM"){
+        console.log(80)
+        document.getElementById('medium').checked = true;
+    }
+    else if(difficulty_level == "HARD"){
+        document.getElementById('hard').checked = true;
+    }
+
     document.getElementById('next_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('current').innerHTML = 3;
