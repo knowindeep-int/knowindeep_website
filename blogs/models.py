@@ -241,11 +241,8 @@ class Chapter(models.Model):
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     content = RichTextUploadingField(blank=True,null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=300,blank=True,null=True)
-    heading = models.CharField(max_length=40,null=False,blank=False)
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")
     slug = models.SlugField(null=True,blank=True)
-    youtube_link = models.URLField(max_length=200, blank=True, null=True)
    # content = models.CharField(max_length=1000, null=False,blank=False)
   #  content = HTMLField()  .
     # no_of_likes = models.IntegerField(default=0)
