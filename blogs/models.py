@@ -251,7 +251,8 @@ class Chapter(models.Model):
         verbose_name_plural = "Chapters"
 
     def __str__(self):
-        return self.content[:10]
+        return self.link_to.title
+        # return self.content[:10]
     
     @property
     def get_absolute_url(self): 
