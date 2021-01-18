@@ -178,8 +178,12 @@ class Project(models.Model):
 
     @property
     def increase_view(self):
-        self.no_of_views += 1
-        self.save()
+        if self.isCompleted:
+            self.no_of_views += 1
+            self.save()
+        else:
+            self.DoesNotExist = 0
+            self.save()
 
 
     @classmethod
