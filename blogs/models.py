@@ -193,15 +193,19 @@ class Project(models.Model):
 
     @classmethod
     def get_all_projects(cls):
-        return cls.objects.all()
+        return cls.objects.filter(isCompleted = True)
+    
+    @classmethod
+    def get_all_approved_projects(cls):
+        return cls.objects.filter(isApproved = True, isCompleted = True)
 
     @classmethod
-    def get_popular_approved_projects(KClass):
-        return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
+    def get_popular_approved_completed_projects(KClass):
+        return KClass.objects.filter(isApproved = True, isCompleted = True).order_by('-no_of_views')[:5]
 
     @classmethod
     def get_popular_projects(KClass):
-        return KClass.objects.all().order_by('-no_of_views')[:5]
+        return KClass.objects.filter(isCompleted = True).order_by('-no_of_views')[:5]
     
     @classmethod
     def getProjectSearches(cls, search_input):
