@@ -1,5 +1,14 @@
+
+@font-face {
+	font-family:"gilroy";
+	src: url("../font/Gilroy-Light.otf") format("opentype");
+  }
+@font-face {
+	font-family:"georgia";
+	src: url("../font/Georgia-Regular-font.ttf") format("truetype");
+}
+
 body {
-	font-family: 'Roboto', sans-serif;
 	transition: all 0.5s;
 }
 p {
@@ -429,6 +438,8 @@ header {
 }
 
 .pro{
+	font-size: 45px;
+	font-family: 'gilroy';
 	margin-left: 20px;
 }
 .lang{
@@ -519,7 +530,7 @@ margin: 2% auto;
 	width:100px;
 }
 
-form{
+.form{
     position: relative;
     top: 50%;
     left: 50%;
@@ -535,7 +546,7 @@ form{
 .form{
 	margin-top: 10px;
 }
-input{
+.input{
     position: absolute;
     top: 0;
     left: 0;
@@ -580,7 +591,7 @@ input{
   cursor: pointer;
 }
 
-form:hover input{
+.form:hover .input{
   display: block;
 }
 
@@ -686,9 +697,7 @@ form:hover input{
 .section-heading {
 	text-align: center;
 }
-.team-section .section-heading h2 {
-	color: #1e1e1e;
-}
+
 .img2{
 width: 800px;
 }
@@ -756,10 +765,6 @@ h5{
 	font-weight: 900;
 	font-size: 20px;
 }
-h1{
-	font-size: 3.5rem;
-}
-
 #srch{
 	  width: 200px;
 }
@@ -838,9 +843,9 @@ h5{
 	font-weight: 900;
 	font-size: 20px;
 }
-h1{
+/* h1{
 	font-size: 3.5rem;
-}
+} */
 
 .boxes{
 	margin-top: 40px;
@@ -876,48 +881,39 @@ div.spans h5{
 }
 }
 
-@font-face {
-	font-family:"gilroy";
-	src: url("Gilroy-Light.otf") format("opentype");
-  }
-@font-face {
-	font-family:"georgia";
-	src: url("Georgia-Regular-font.ttf") format("truetype");
-}
-
 body{
 	font-family: 'Georgia-Regular-font';
 	font-size: 18px;
 	line-height: 30px;
 }
 
-h1, h2, h3{
+h1, h2, h3,.h1,.h2,.h3{
 	font-family: 'gilroy';
 	font-weight: bold;
 }
-h4{
+h4,.h4{
 	font-family: 'gilroy';
 }
-h5,h6{
+h5,h6,.h5,.h6{
 	font-family: 'georgia';
 }
 
-h1{
+h1,.h1{
 	font-size: 60px;
 }
-h2{
+h2,.h2{
 	font-size: 52px;
 }
-h3{
+h3,.h3{
 	font-size: 45px;
 }
-h4{
+h4,.h4{
 	font-size: 34px;
 }
-h5{
+h5,.h5{
 	font-size: 30px;
 }
-h6{
+h6,.h6{
 	font-size: 24px;
 }
 
@@ -966,4 +962,158 @@ h6{
 	margin-top: 10px;
 }
 .nxt{float: right;
+}
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+    
+}
+
+/* display 3 */
+@media (min-width: 768px) {
+    
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(33.333%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-33.333%);
+    }
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+  transform: translateX(0);
+}
+.center1{
+	text-align: center;
+	margin-top: 100px;
+}
+
+.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid #dcdcdc;
+  box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.07);
+  float: left;
+  width: 60%;
+  background: #fff;
+  margin-left: 15%;
+  border-right: none;
+  border-radius: 7.5px 0 0 7.5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.example button {
+  float: left;
+  border-radius: 0 7.5px 7.5px 0;
+  box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.07);
+  width: 10%;
+  padding: 10px;
+  background: #fff;
+  color:#f9a80d;
+  font-size: 17px;
+  border: 1px solid #dcdcdc;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.example button:hover {
+}
+
+.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.new-project{
+	width: 200px;
+	margin: 0 auto;
+}
+
+.new-project button{
+	background-color: #004a80;
+	color: white;
+	border: none;
+	padding: 5px 20px;
+}
+.new-project button:focus{
+	outline: none;
+}
+.carousel-control-prev-icon{
+	width: 30px;
+	height: 30px;
+	margin-left: -30px;
+	background-image: url('prev.png');
+}
+.carousel-control-next-icon{
+	width: 30px;
+	height: 30px;
+	margin-right: -50px;
+	background-image: url('next.png');
+}
+.carousel{
+	overflow-y: visible;
+}
+.card-body{
+	text-align: left;
+}
+
+.icon1{
+    margin-top: 110px;
+    width: 146px
+}
+.container-fluid1{
+    text-align: center;
+}
+.container-fluid1 *{
+    padding-bottom: 10px;
+}
+.example1{
+    width: 48%;
+    padding: 5px;
+    padding-left: 10px;
+    border: 1px solid #dcdcdc;
+    box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.07);
+}
+.b{ 
+	background-color: #004a80;
+	color: white;
+	border: none;
+	padding: 5px 20px;   
+}
+
+.next{
+    float: right;
+}
+.hr{background-color: #f9a80d;
+    border:1px solid #f9a80d;
+}
+.o{
+    width: 25%;
+    margin-top: -16px;
+}
+.m{
+	margin-left: 25%;
+margin:0; 
+border: 1px solid #f9a80d;
+background-color:#f9a80d;
+}
+.p{
+    width: 25%;
+    margin-top: -6px;
 }
