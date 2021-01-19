@@ -967,3 +967,6 @@ h6{
 }
 .nxt{float: right;
 }
+.footer-link{
+	 color: inherit;  
+}
