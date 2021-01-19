@@ -10,8 +10,17 @@
             window.onload = function(){
                 if('{{chapter}}'){
                     var dom = document.getElementsByClassName('editor')[0];
+                    dom.setAttribute('contenteditable', 'false')
+                    dom.innerHTML = '{{chapter.content | safe}}'
+                    alert('{{chapter.content | safe }}')
+                    dom.setAttribute('contenteditable', 'true')
+                
                     // alert('{{chapter}}')
-                    dom.innerHTML = '{{chapter.content}}';
+                    // dom.appendChild(div)
+                    // var htmlObject = dom.firstChild;
+                    // alert(htmlObject)
+                    // dom.appendChild(htmlObject)
+                    // dom.insertAdjacentHTML('afterbegin', '{{chapter.content}}')
                     // var parser = new DOMParser();
                     // var doc = parser.parseFromString(dom.innerHTML, 'text/html');
                     // dom = doc
