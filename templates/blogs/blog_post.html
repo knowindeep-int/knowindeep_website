@@ -4,7 +4,7 @@
 <script src="{% static 'js/blogs/blog_post.js' %}"></script>
 {% endblock %}
 {% block title %}
-<title>{{ chapter_content.link_to.title |title }} | {{ chapter_content.heading |title }}</title>
+<title>{{ chapter_content.link_to.title |title }} | {{ chapter_content |title }}</title>
 {% endblock %}
 <meta property="og:type" content="website" />
 <meta property="og:title" content="KnowinDeep" />
@@ -155,7 +155,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
-        <li class="breadcrumb-item active">{{ chapter_content.heading | title }}</li>
+        <li class="breadcrumb-item active">{{ chapter_content | title }}</li>
     </ol>
 
 </div>
@@ -166,24 +166,30 @@
 				{% for chapter in chapters %}
             {% if chapter.slug == chapter_content.slug %}
             <a class="" id="selected"
-                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.heading }}</a>
-                <script>ch_list.push('{{chapter.slug}}')</script>
+                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</a>
+                <br>
+                <script>ch_list.push('{{chapter.slug}}')
+                console.log(ch_list)
+                </script>
             {% else %}
            <a class="" id="listItem"
-            href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.heading }}</a>
-            <script>ch_list.push('{{chapter.slug}}')</script>
+            href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</a>
+            <br>
+            <script>ch_list.push('{{chapter.slug}}')
+             console.log(ch_list)
+            </script>
             {% endif %}
             {% endfor %}
 			</ul>
 		</div>
 	<div class="col-lg-9 chapter">
-		<h1>{{chapter_content.heading}}</h1>
+		<h1>{{chapter_content}}</h1>
 		<p>BY {{chapter_content.author}} &emsp;<span class="vertical">|</span>&emsp; {{chapter_content.date_posted}}</p>
 		<br>
 		<img src="/media/images/blog-pic.png" class="head1">
-		<p>{{chapter_content.description}}</p>
+		<p>{{chapter_content}}</p>
 		<h5 id="heading1">heading1</h5>
-		<p>{{chapter_content.content}}</p>
+		<p>{{chapter_content.content | safe}}</p>
 		<div class="code">
 			&lt;body&gt;<br>
 			&emsp;&lt;img src="*your_source*" alt="Here is an image!" width="100px"&gt;<br>
@@ -212,18 +218,22 @@
     function previous(){
         for(var i = 0;i<ch_list.length;i++)
         {
-            if (ch_list[i] == '{{chapter_content.heading}}'&& i >0)
+            // console.log('{{chapter_content.slug}}')
+            if (ch_list[i] == '{{chapter_content.slug}}'&& i >0)
             {
                 document.location.href = '/'+ '{{slug}}/' + ch_list[i-1] ;
+                
             }
         }
     }
     function next(){
         for(var i = 0;i<ch_list.length;i++)
         {
-            if (ch_list[i] == '{{chapter_content.heading}}'&& i<ch_list.length-1)
+            // console.log('{{chapter_content.slug}}')
+            if (ch_list[i] == '{{chapter_content.slug}}'&& i<ch_list.length-1)
             {
                 document.location.href = '/'+ '{{slug}}/' + ch_list[i+1] ;
+               
             }
         }
     }

@@ -159,9 +159,9 @@
                             <div class="right-num">{{ forloop.counter }}</div>
                             <div class="mid">
                                 <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
-            {{ chapter.heading }} 
+            {{ chapter }} 
         </a><br>
-                                <span class="clk">{{ chapter.description }}</span>
+                                <span class="clk">{{ chapter }}</span>
                             </div>
                             {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
                         </div>
