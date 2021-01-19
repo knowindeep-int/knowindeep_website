@@ -9,8 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/script.js' %}"></script>
-    {% block content_head %} {% endblock %}
-    {% block title%} {% endblock %}
+    {% block content_head %} {% endblock %} {% block title%} {% endblock %}
     <!-- <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -25,7 +24,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
     <link rel="icon" href="/static/images/kid-white.png" type="image/icon type">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -35,7 +34,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  
+
 
 
     <!-- <script type="text/javascript">
@@ -57,8 +56,8 @@
             <a href="{% url 'blogs:index' %}">
                 <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" id="image" alt="brandLogo" height="100%">
             </a> -->
-            <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
-            <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i onclick="functionOne()"
+    <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
+    <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i onclick="functionOne()"
                     class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" id="nav-mobile">
                 <li><a class="searches home" href="{% url 'blogs:index' %}">Home</a></li>
@@ -66,7 +65,7 @@
                 {% if request.user.is_authenticated %}
                 <li><a class="searches home" href="{% url 'teach:list_of_projects' %}">Teach with Us</a></li>
                 {% endif %} -->
-                <!--<li>
+    <!--<li>
                     <div id="search_form" style="display: visible;">
                         <form class="form-inline my-2 my-lg-0">
                             <input id="search_input" onkeyup="implementSearch();" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -76,7 +75,7 @@
                         
                     </div>
                 </li> -->
-                <!-- <li>
+    <!-- <li>
                     <form autocomplete="off" action="">
                         <div class="autocomplete" style="width:300px;position: relative;display: inline-block;">
                             <input id="searchInput" type="text" name="search" placeholder="Search" onkeyup="implementSearch();">
@@ -119,12 +118,12 @@
 
                     </div>
                 </li> -->
-                <!--    <div class="dropdown-content" id="myDropdown">
+    <!--    <div class="dropdown-content" id="myDropdown">
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
                 </div>  -->
-                <!-- {% else %}
+    <!-- {% else %}
                 <li>
                     <button class="btn atkt" style="background:#f5b042;">
                         <a id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog"
@@ -142,139 +141,141 @@
     </nav> -->
     <script>
         function implementSearch() {
-  
-  search_input = document.getElementById('navbarDropdown').value;
-  $.ajax({
-      url: '{% url "api:search" %}',
-      method: "GET",
-      data: {
-          'search_input': search_input,
-      },
-      success: function(data) {
-          var result = document.getElementById("srch");
-          result.innerHTML = "";
-          result.innerHTML += '<p class="dropdown-item" style="color:black;" >Projects:</p>'
-          for (var i = 0; i < data.projects.length; i++) {
-              result.innerHTML += '<a class="dropdown-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
-          }
 
-          result.innerHTML += '<p class="dropdown-item" style="color:black;" >Chapters:</p>'
-          for (var i = 0; i < data.chapters.length; i++) {
-              result.innerHTML += '<a class="dropdown-item" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
-          }
+            search_input = document.getElementById('navbarDropdown').value;
+            $.ajax({
+                url: '{% url "api:search" %}',
+                method: "GET",
+                data: {
+                    'search_input': search_input,
+                },
+                success: function(data) {
+                    var result = document.getElementById("srch");
+                    result.innerHTML = "";
+                    result.innerHTML += '<p class="dropdown-item" style="color:black;" >Projects:</p>'
+                    for (var i = 0; i < data.projects.length; i++) {
+                        result.innerHTML += '<a class="dropdown-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
+                    }
 
-          result.innerHTML += '<p class="dropdown-item" style="color:black;" >Authors:</p>'
-          for (var i = 0; i < data.authors.length; i++) {
-              result.innerHTML += '<a class="dropdown-item" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
-          }
+                    result.innerHTML += '<p class="dropdown-item" style="color:black;" >Chapters:</p>'
+                    for (var i = 0; i < data.chapters.length; i++) {
+                        result.innerHTML += '<a class="dropdown-item" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
+                    }
 
-      },
-      error: function(error) {
-          alert(error)
-      },
-  });
-};
-function mousein() {	var a = document.getElementById("srch");
-a.classList.add("mystyle");
-}
+                    result.innerHTML += '<p class="dropdown-item" style="color:black;" >Authors:</p>'
+                    for (var i = 0; i < data.authors.length; i++) {
+                        result.innerHTML += '<a class="dropdown-item" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
+                    }
+
+                },
+                error: function(error) {
+                    alert(error)
+                },
+            });
+        };
+
+        function mousein() {
+            var a = document.getElementById("srch");
+            a.classList.add("mystyle");
+        }
 
 
-function myFunc(){
-    document.getElementById("form").classList.add("form1");
-}
+        function myFunc() {
+            document.getElementById("form").classList.add("form1");
+        }
 
-window.onclick = function(event) {
-  if (!event.target.matches('#navbarDropdown')) {
-    var dropdowns = document.getElementsByClassName("dropdown-menu");
-    var myDropdown = document.getElementById("form");
-    var z=document.getElementById("i");
-    if (myDropdown.classList.contains('form1')) {
-      myDropdown.classList.remove('form1');
-    }
-    if (z.classList.contains('hidden')) {
-      z.classList.remove('hidden');
-    }
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('mystyle')) {
-        openDropdown.classList.remove('mystyle');
-      }
-    }
-  }
-}
-function hide(){
-    var c=document.getElementById("i");
-    c.classList.add("hidden");
-}
-</script>
+        window.onclick = function(event) {
+            if (!event.target.matches('#navbarDropdown')) {
+                var dropdowns = document.getElementsByClassName("dropdown-menu");
+                var myDropdown = document.getElementById("form");
+                var z = document.getElementById("i");
+                if (myDropdown.classList.contains('form1')) {
+                    myDropdown.classList.remove('form1');
+                }
+                if (z.classList.contains('hidden')) {
+                    z.classList.remove('hidden');
+                }
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('mystyle')) {
+                        openDropdown.classList.remove('mystyle');
+                    }
+                }
+            }
+        }
+
+        function hide() {
+            var c = document.getElementById("i");
+            c.classList.add("hidden");
+        }
+    </script>
 
     <header class="background-header">
         <nav class="navbar navbar-expand-lg">
-          <div class="container">
-            <a class="navbar-brand" href="{% url 'blogs:index' %}"><img class="img1" src="/media/images/kid-white.png"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'blogs:index' %}"><img class="img1" src="/media/images/kid-white.png"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'blogs:index' %}">Home
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'blogs:index' %}">Home
                     <span class="sr-only">(current)</span>
                   </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">About Us</a>
-                </li>
-                <li class="nav-item n dropdown hid" id="drop">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item n dropdown hid" id="drop">
 
-                <!-- <form class="form" id="form" action="" onclick="hide()">
+                            <!-- <form class="form" id="form" action="" onclick="hide()">
                     <input type="search"  onmouseover="mousein()"  id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
                   <i class="fa fa-search" id="i" onmouseover="myFunc()" href="#"></i> -->
 
-                <form class="form" id="form" action="" autocomplete="off">
+                            <form class="form" id="form" action="" autocomplete="off">
 
-                    <!-- <input type="search"  onmouseover="mousein()" id="navbarDropdowna input" onkeyup="implementSearch();" placeholder="search"> -->
+                                <!-- <input type="search"  onmouseover="mousein()" id="navbarDropdowna input" onkeyup="implementSearch();" placeholder="search"> -->
 
-                    <input class="input" type="search"  onmouseover="mousein()" id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
-<!-- >>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d -->
-                  <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
+                                <input class="input" type="search" onmouseover="mousein()" id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
+                                <!-- >>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d -->
+                                <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
 
 
-              </form>
-                <div class="dropdown-menu menu" id="srch" style="padding:0; margin:0; border:0;">
+                            </form>
+                            <div class="dropdown-menu menu" id="srch" style="padding:0; margin:0; border:0;">
+                            </div>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item login">
+                            <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
+                        </li>
+                        <li class="nav-item login">
+                            <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item login">
+                            <a class="nav-link" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog" href="{% url 'site_users:login' %}">Login</a>
+                        </li>
+                    </ul>
+                    {%endif%}
                 </div>
-      </li>
-      {% if request.user.is_authenticated %}
-      <li class="nav-item login">
-        <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
-      </li>
-      <li class="nav-item login">
-        <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
-      </li>
-      {% else %}
-                <li class="nav-item login">
-                  <a class="nav-link" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog"
-                  href="{% url 'site_users:login' %}">Login</a>
-                </li>
-              </ul>
-              {%endif%}
+                <div class="functional-buttons">
+                    <ul>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item login">
+                            <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
+                        </li>
+                        <li class="nav-item login">
+                            <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
+                        </li>
+                        {% else %}
+                        <li><a href="{% url 'site_users:login' %}" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog">Log in</a></li>
+                        {%endif%}
+                    </ul>
+                </div>
             </div>
-            <div class="functional-buttons">
-              <ul>
-                {% if request.user.is_authenticated %}
-                <li class="nav-item login">
-                  <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
-                </li>
-                <li class="nav-item login">
-                  <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
-                </li>
-                {% else %}
-                <li><a href="{% url 'site_users:login' %}" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog">Log in</a></li>
-            {%endif%}  
-            </ul>
-            </div>
-          </div>
         </nav>
     </header>
     <br>
@@ -487,12 +488,12 @@ window.onclick = function(event) {
     <footer class="footer">
         <div class="row stacks" id="stacks">
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 stack1">
-        <span class="stack" >
+                <span class="stack">
         <img  class="foot-logo stack" src="/media/images/kid-black.png"><br>
         <br>
-        <span>Contact Us :knowindeep.tech@gmail.com<br>All Rights reserved. KnowInDeep 2020</span>
-        <br>
-            <span>
+        <span>Contact Us: knowindeep.tech@gmail.com<br>All Rights reserved. KnowInDeep 2020</span>
+                <br>
+                <span>
                 <a href="mailto:knowindeep.tech@gmail.com" target="_blank" class="lang1">
                     <!-- <img src="/media/images/google.svg" class="lang1" > -->
                     <svg class="lang2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
@@ -517,46 +518,50 @@ window.onclick = function(event) {
                       
                 </a>
             </span>
-        </span>
+                </span>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-        <ul class="stack">
-            <li class="heads">COMPANY</li>
-            <li>About us</li>
-            <li>Privacy Policy</li>
-            <li>Contact us</li>
-        </ul>
-    </div>
-    <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-        <ul class="stack">
-            <li class="heads">LEARN</li>
-            <li>Algorithms</li>
-            <li>Data Structures</li>
-            <li>Languages</li>
-            <li>CS Subjects</li>
-            <li>Video Tutorials</li>
-        </ul>
-    </div>
-    <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-        <ul class="stack">
-            <li class="heads">PRACTICE</li>
-            <a class="footer-link" href="{% url 'blogs:index' %}"><li>Courses</li></a>
-            <li>Company-wise</li>
-            <li>Topic-wise</li>
-            <li>How To Begin?</li>
-        </ul>
-    </div>
-    <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-        <ul class="stack">
-            <li class="heads">CONTRIBUTE</li>
-            <a class="footer-link" href="{% url 'teach:add_course'%}"><li>Write an Article</li></a>
-            <li>Experience</li>
-            <li>Internships</li>
-            <li>Videos</li>
-        </ul>
-    </div>
+                <ul class="stack">
+                    <li class="heads">COMPANY</li>
+                    <li>About us</li>
+                    <li>Privacy Policy</li>
+                    <li>Contact us</li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                <ul class="stack">
+                    <li class="heads">LEARN</li>
+                    <li>Algorithms</li>
+                    <li>Data Structures</li>
+                    <li>Languages</li>
+                    <li>CS Subjects</li>
+                    <li>Video Tutorials</li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                <ul class="stack">
+                    <li class="heads">PRACTICE</li>
+                    <a class="footer-link" href="{% url 'blogs:index' %}">
+                        <li>Courses</li>
+                    </a>
+                    <li>Company-wise</li>
+                    <li>Topic-wise</li>
+                    <li>How To Begin?</li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                <ul class="stack">
+                    <li class="heads">CONTRIBUTE</li>
+                    <a class="footer-link" href="{% url 'teach:add_course'%}">
+                        <li>Write an Article</li>
+                    </a>
+                    <li>Experience</li>
+                    <li>Internships</li>
+                    <li>Videos</li>
+                </ul>
+            </div>
         </div>
-      </footer>
+    </footer>
 
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax /libs/materialize/1.0.0/js/materialize.min.js"></script> -->
@@ -605,10 +610,9 @@ window.onclick = function(event) {
     <script>
         $(document).ready(function() {
             { % block jquery %
-            } { % endblock jquery % 
+            } { % endblock jquery %
             }
         })
-
     </script>
 
 
