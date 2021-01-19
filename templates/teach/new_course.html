@@ -115,7 +115,7 @@ else{
     function saveDraft(key, value, isAdded = false) {
     var key = key;
     var value = value;
-    // alert(key.length)
+    // alert(key)
             
     var data = {};
     data[key] = value;
@@ -129,6 +129,16 @@ else{
         data : data,
         success: function(data){
             pk = data.pk
+            if(key == 'pre_req' || key == "languages"){
+                getLangPrereq();
+                for(var i=0; i< languages_all.length; i++){
+                    document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
+                }
+                for(var i=0; i< prereqs_all.length; i++){
+                    document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
+                }
+            }
+            
         },error: function(error){
             alert("ERROR!")
         },
@@ -184,15 +194,27 @@ function saveImageDraft() {
             }
         })
 }
-    var languages_all, prereqs_all 
+    var languages_all = [], prereqs_all = [] 
     function getLangPrereq(){
         $.ajax({
             method: 'GET',
             url: "{% url 'api:get_lang_prereq' %}",
             data: {},
+            async:false,
             success: function(data){
-                languages_all = data.languages,
-                prereqs_all = data.prerequisites
+                languages_all = []
+                prereqs_all = []
+                for(var i= 0; i < data.languages.length; i++){
+                    languages_all.push(data.languages[i])
+                
+                }
+                // alert(languages_all)
+                for(var i= 0; i < data.prerequisites.length; i++){
+                    prereqs_all.push(data.prerequisites[i])
+                }
+                
+                // prereqs_all = data.prerequisites
+                
             }, error: function(error){
                 alert("ERROR!")
             }
@@ -225,7 +247,6 @@ function saveImageDraft() {
         //    alert(no_of_hours)
        }
    }
-   alert(pk);
     saveDraft('no_of_hours',no_of_hours)
     document.location.href = '/teach/chapter/' + pk
         // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
@@ -275,7 +296,6 @@ function saveImageDraft() {
 function deleteImage(e){
     if(e.getAttribute('data-deletehash') != ""){
         var deletehash = e.getAttribute('data-deletehash')
-        alert(deletehash)
         $.ajax({
             url: 'https://api.imgur.com/3/image/' + deletehash,
             type: 'DELETE',
