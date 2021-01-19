@@ -963,6 +963,7 @@ h6,.h6{
 }
 .nxt{float: right;
 }
+<<<<<<< HEAD
 @media (max-width: 768px) {
     .carousel-inner .carousel-item > div {
         display: none;
@@ -1116,4 +1117,8 @@ background-color:#f9a80d;
 .p{
     width: 25%;
     margin-top: -6px;
+=======
+.footer-link{
+	 color: inherit;  
+>>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d
 }

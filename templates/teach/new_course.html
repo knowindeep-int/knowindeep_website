@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
     <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{% static  'css/style.css' %}">
 {% endblock %}
 {% block content %}
@@ -16,12 +18,17 @@
     <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static  'css/style.css' %}">
-    <!-- <script type="text/javascript" src="{% static 'js/teach/teach.js' %}"></script>--> 
+    <style>
+        .progress-bar{
+            background-color: orange !important;
+        }
+
+    </style>
 </head>
 
 <script>
     window.onload = function () {
-    alert('{{status}}')
+    // alert('{{status}}')
     if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
         pk = sessionStorage.getItem('pk')
         // alert(pk)
@@ -64,7 +71,8 @@ if('{{project.title}}'){
     counter = 1,
     chapter_innerHTML = "",
     chapter_count = 2,
-    author = '{{project.author.pk}}'
+    author = '{{project.author.pk}}',
+    image = '{{project.image}}'
    )
     
     var chapters = []
@@ -129,19 +137,24 @@ else{
 }
 
 function saveImageDraft() {
-    var fileInput = document.getElementById('image_input');
-    var file = fileInput.files[0];
-    var formData = new FormData();
-    formData.append('image', file);
-    formData.append('pk', pk);
-    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
-    
+    // var fileInput = document.getElementById('image_input');
+    // var file = fileInput.files[0];
+    // var formData = new FormData();
+    // formData.append('image', file);
+    // formData.append('pk', pk);
+    // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+    if(called == 1){
+        var url = document.getElementsByClassName('image')[0].src
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
-        data : formData,
-        processData: false,
-        contentType: false,
+        data : {
+            'pk':pk,
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            'image':url,
+        },
+        // processData: false,
+        // contentType: false,
         //processData: false,
         success: function(data){
             pk = data.pk
@@ -150,7 +163,9 @@ function saveImageDraft() {
         },
         
     })
-}
+    } 
+    }
+    
 
 
     function saveChapterDraft() {
@@ -243,11 +258,149 @@ function saveImageDraft() {
     // }
 
 
-</script>
 
+    function setImgurHeader(xhr) {  
+    // xhr.setRequestHeader('Cache-Control', null) 
+    // xhr.setRequestHeader("Origin, X-Requested-With, Content-Type, Accept, Authorization, Token");
+    // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+    // xhr.setRequestHeader('Origin, X-Requested-With, Content-Type, Accept, Authorization, Authentication');
+    // xhr.setRequestAhorization
+    xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID_DEBUG}}') 
+    xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER_DEBUG}}');
+    // xhr.setRequestHeader('Authorization')
+    // xhr.setRequestHeader('Authorization', 'Bearer 7cd876bf6ab3405bad138d3a1886a3048fe9a0f0')
+    }
+ 
+function deleteImage(e){
+    if(e.getAttribute('data-deletehash') != ""){
+        var deletehash = e.getAttribute('data-deletehash')
+        alert(deletehash)
+        $.ajax({
+            url: 'https://api.imgur.com/3/image/' + deletehash,
+            type: 'DELETE',
+            success: function(data){
+                    alert('image deleted sucessfully!')
+                    document.getElementById('image_input_div').remove();
+                },
+                error: function(error){
+                    alert(error)
+                },
+                beforeSend: setImgurHeader,
+
+               
+    })
+}
+}
+
+var called=0;
+function addLocalImage(e){
+    called = 1;
+    // alert(0);
+    var targetDiv=document.getElementsByClassName("editor")[0];
+            var file = $(e).prop('files')[0];
+            var img=document.createElement("img");
+            img.setAttribute('style', 'width:200px;height:200px;');
+            // img.setAttribute('style', 'height:200px');
+
+            img.className="image"
+            var reader  = new FileReader();
+            var fig = document.createElement('figure')
+            // var fig_caption = document.createElement('figcaption')
+            // fig_caption.className = "fig-caption"
+            // fig_caption.innerHTML =  "Write your caption here!"
+            fig.className = "fig"
+            // fig.setAttribute('contenteditable','true')
+            var btn = document.createElement('button')
+            btn.setAttribute('id', 'remove_img_btn')
+            btn.innerHTML = "REMOVE"
+            btn.setAttribute('onclick', 'deleteImage(this)')
+            document.getElementById('image_input_div').appendChild(btn)
+            fig.appendChild(img);
+            document.getElementById('image_input_div').appendChild(fig)
+            
+            // fig.appendChild(fig_caption)
+            // if(fx().className == 'editor' ||  document.body === fx()){
+            
+            // }
+            // else{
+            //     console.log('1')
+            //     fx().parentNode.insertBefore(fig, fx().nextSibling);
+            // }
+
+            reader.addEventListener("load", function () {
+                img.src=reader.result;
+               
+            }); 
+            if (file){
+                reader.readAsDataURL(file);
+            // document.getElementById('inpfile').value = "";
+            
+            
+
+        }
+        
+        var formData = new FormData();
+        formData.append('image',file);
+        // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+
+        $.ajax({
+
+                method: 'POST',
+                url: 'https://api.imgur.com/3/image',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data){
+                    alert('success!')
+                    img.src = data.data.link
+                    document.getElementById('remove_img_btn').setAttribute('data-deletehash', data.data.deletehash)
+                    document.getElementById('image_input').value = null
+                    document.getElementById('project_image').src = ""
+                },
+                error: function(error){
+                    alert(error)
+                },
+                beforeSend: setImgurHeader,
+
+                
+
+            })
+
+    }
+
+</script>
+<!--local -->
+<head>
+    <link href="{% static 'css/teach/teach.css'%}" rel="stylesheet">
+    <style>
+        ::placeholder{
+            color:#b8b8b8;
+        }
+        input{
+            display: inline;
+            position: relative;
+        }
+    </style>
+</head>
 <div>
     <div id="main_div">
         {% csrf_token %}
+        <div class="container">
+            <div><h6>Step <span id="current">1</span> of <span id="total">7</span></h6></div>
+            <!-- <hr class="hr">
+            <div class="o">
+                <hr class="m">
+            </div>
+            <div class="p">
+                <hr class="m">
+            </div>
+            <br> -->
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:14%">
+                  <!-- <span class="sr-only">70% Complete</span> -->
+                </div>
+        </div>
         <div id="1" class="to_hide"></div>
         <div id="2" class="to_hide"></div>
         <div id="3" class="to_hide"></div>
@@ -258,6 +411,12 @@ function saveImageDraft() {
         <div id="8" class="to_hide"></div>
         <div id="9" class="to_hide"></div>
         <div id="10" class="to_hide"></div>
+        <br>
+        <br>
+        <div class="container">
+            <button class="previous b" id="prev_btn">Previous</button>
+            <button class="next b" id="next_btn">Next</button>
+        </div>
     </div>
 </div>
 

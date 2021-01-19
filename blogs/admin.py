@@ -14,7 +14,7 @@ from .models import Chapter, Project, Comment, Profile, Like, PreRequisite, Lang
 
 class ChapterTopicsInline(admin.StackedInline):
     model = Chapter
-    fields = ['author','description','heading','youtube_link','content',]
+    fields = ['author','content',]
     extra = 1
 
     
@@ -33,10 +33,10 @@ class CommentInline(admin.StackedInline):
 
 class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author','link_to','heading','youtube_link','content','description','slug']})
+        (None, {'fields':['author','link_to','content','slug']})
     ]
     inlines = [LikeInline,CommentInline]
-    search_fields = ['heading','content']
+    search_fields = ['content']
 
 class ProjectAdmin(admin.ModelAdmin):
     fieldsets = [

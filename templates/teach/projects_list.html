@@ -7,21 +7,26 @@
     <!-- <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
    
+    
+    <!-- <script src="{% static 'js/teach/teach.js' %}"></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>sessionStorage.removeItem('pk')</script>
+    <!-- <title></title> -->
+    
+
+
     <link rel="stylesheet" href="{% static  'css/teach/style1.css' %}">
     <link rel="stylesheet" href="{% static  'css/teach/style.css' %}">
     <script type="text/javascript" src="{% static 'js/teach/app.js' %}"></script>
-    <!-- <script src="{% static 'js/teach/teach.js' %}"></script> -->
-    <script>sessionStorage.removeItem('pk')</script>
-    <!-- <title></title> -->
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <!--local -->
-    <!-- <link href="style.css" rel="stylesheet"> -->
+    <!-- CDN -- OLD>
+
+    <link href="style.css" rel="stylesheet"> -->
     <!-- <link href="style1.css" rel="stylesheet"> -->
     
 </head>
@@ -34,45 +39,59 @@
     <!-- <img src="star.png" class="star"><br> -->
     <span class="pro"><h4>YOUR ONGOING PROJECTS</h4></span>
     <form class="example" >
+<<<<<<< HEAD
   <input type="text" name="search" id="search_projects">
   <button type="submit" onclick="implementSearchProjects()">Search</button>
   <div class= "results"></div>
+=======
+  <input type="text" name="search" id="search_projects_ongoing">
+  <br>
+  <button type="submit" onclick="">Search</button>
+  
+>>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d
 </form>
+<div id="dropdown_ongoing">
+
+</div>
 </div>
 <script>
-     function implementSearchProjects() {
-  
-  search_input = document.getElementById('search_projects').value;
-  $.ajax({
-      url: '{% url "api:search" %}',
-      method: "GET",
-      data: {
-          'search_input': search_input,
-      },
-      success: function(data) {
-          var result = document.getElementById("results");
-          result.innerHTML = "";
-          result.innerHTML += '<p class="results" style="color:black;" >Projects:</p>'
-          for (var i = 0; i < data.projects.length; i++) {
-              result.innerHTML += '<a class="results" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
-          }
+    var project_titles_ongoing = []
+    {% if ongoing_projects %}
+        {% for project in ongoing_projects %}
+        var project_titles_add = {}    
+            project_titles_add['title'] ="{{project.title}}";
+            project_titles_add['slug'] ="{{project.slug}}";
+            project_titles_add['pk'] ="{{project.pk}}";
+            project_titles_ongoing.push(project_titles_add)
+            // alert(project_titles)
+        {%endfor%}
+        {%endif%}
+        function filterCompletedProjects(project){
+           
+            var filter = document.getElementById('search_projects_ongoing').value
+            if (filter){
+                if(project['title'].indexOf(filter)!=-1){
+                return project; 
+            }
+            else{
+                return "";
+            }
+            } 
+        }
+    document.getElementById('search_projects_ongoing').addEventListener('keyup', function(){
+        if(document.getElementById('search_projects_ongoing').value == ""){
+            document.getElementById('dropdown_ongoing').innerHTML = ""
+        }
+        // document.getElementById('results').innerHTML = "results are " 
+       var projects= project_titles_ongoing.filter(filterCompletedProjects)
+       var dropdown_div = document.getElementById('dropdown_ongoing')
+    //    document.getElementById('search_projects_ongoing').parentElement.parentElement.appendChild(dropdown_div)
+       for(var i=0;i<projects.length;i++){
+        // document.getElementById('results').innerHTML += "<a href='/teach/add/"+ projects[i]['pk'] +"'>"+ projects[i]['title'] +"</a>,"
+        dropdown_div.innerHTML +=  "<a href='/teach/add/"+ projects[i]['pk'] +"'>"+ projects[i]['title'] +"</a><br>"
+    }
+    })
 
-          result.innerHTML += '<p class="results" style="color:black;" >Chapters:</p>'
-          for (var i = 0; i < data.chapters.length; i++) {
-              result.innerHTML += '<a class="results" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
-          }
-
-          result.innerHTML += '<p class="results" style="color:black;" >Authors:</p>'
-          for (var i = 0; i < data.authors.length; i++) {
-              result.innerHTML += '<a class="results" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
-          }
-
-      },
-      error: function(error) {
-          alert(error)
-      },
-  });
-};
 </script>
 <div class="container text-center my-3">
     <div class="row mx-auto my-auto">
@@ -100,12 +119,12 @@
                         <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
                         <span class="bold">Languages Used :</span>
                         <div>
-                            {% for language in project.languages.all %} {% if language.image.url %}
+                            {% for language in project.languages.all %} {% if language.image %}
                             <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
                             
                         </div>
                         <hr>
-                            <button class="but1 but2 but3" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> GO TO BLOG </button>
+                            <button class="but1 but2 but3" onclick="location.href = '{% url 'teach:add_course' project.pk %}';"> GO TO BLOG </button>
                         
                         {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
                     </div>
@@ -149,26 +168,69 @@
     <button onclick="location.href='{% url 'teach:add_course' %}';">Create a New Project</button>
     </div>
 
-
     <div class="container center1">
-        <span class="pro"><h4>YOUR COMPLETED PROJECTS</h4></span>
-    </div>
+    <span class="pro"><h4>YOUR COMPLETED PROJECTS</h4></span>
+    <form class="example" >
+  <input type="text" name="search" id="search_projects_completed">
+  <br>
+  <button type="submit" onclick="">Search</button>
+  
+</form>
+<div id="dropdown_completed">
+
+</div>
+</div>
+<script>
+    var project_titles = []
+    {% if completed_projects %}
+        {% for project in completed_projects %}
+        var project_titles_add = {}    
+            project_titles_add['title'] ="{{project.title}}";
+            project_titles_add['slug'] ="{{project.slug}}";
+            project_titles.push(project_titles_add)
+            // alert(project_titles)
+        {%endfor%}
+        {%endif%}
+        function filterOngoingProjects(project){
+           
+            var filter = document.getElementById('search_projects_completed').value
+            if (filter){
+                if(project['title'].indexOf(filter)!=-1){
+                return project; 
+            }
+            else{
+                return "";
+            }
+            } 
+        }
+    document.getElementById('search_projects_completed').addEventListener('keyup', function(){
+        if(document.getElementById('search_projects_completed').value == ""){
+            document.getElementById('dropdown_completed').innerHTML  = ""
+        }
+        // document.getElementById('results').innerHTML = "results are " 
+       var projects= project_titles.filter(filterOngoingProjects)
+       var dropdown_div = document.getElementById('dropdown_completed')
+       for(var i=0; i<projects.length; i++){
+           dropdown_div.innerHTML += "<a href='/"+ projects[i]['slug'] +"'>"+ projects[i]['title'] +"</a><br>"
+        // document.getElementById('results').innerHTML += "<a href='/"+ projects[i]['slug'] +"'>"+ projects[i]['title'] +"</a>,"
+        
+    }
+    })
+</script>
 <div class="container text-center my-3">
     <div class="row mx-auto my-auto">
-        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+        <div id="recipeCarousel1" class="carousel slide w-100" data-ride="carousel">
             <div class="carousel-inner w-100" role="listbox">
                 {% if completed_projects %}
                 {% for project in completed_projects %}
                 <!-- <script>{{project.0.title}}</script> -->
-                {% if forloop.counter == 1 %}
+                {% if forloop.first %}
                 <div class="carousel-item active">
                 {% else %}
                 <div class="carousel-item">
                 {% endif %}
 
-                {% with index=forloop.counter %} 
-                {% for project in completed_projects %}
-                {% if forloop.counter == index or forloop.counter == index|add:"1" or forloop.counter == index|add:"2" %}
+                
                     
                                     <div class="col-md-4">
                                         <div class="card">
@@ -181,7 +243,7 @@
                         <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
                         <span class="bold">Languages Used :</span>
                         <div>
-                            {% for language in project.languages.all %} {% if language.image.url %}
+                            {% for language in project.languages.all %} {% if language.image %}
                             <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
                             
                         </div>
@@ -189,35 +251,21 @@
                             <button class="but1 but2 but3" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> GO TO BLOG </button>
                         
                         {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
-                    </div>
-                    </div>
                         </div>
-                {% endif %}
-                {% endfor %}   
-                {% endwith %}
-                
-               
-                
-                   
-        
-       
+                    </div>
+                </div>
             </div>
             
                 {% endfor %}
-                
-                
-
-           
             {% else %}
             No Projects to Show!
             {% endif %}
-
         </div>
-        <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+        <a class="carousel-control-prev w-auto" href="#recipeCarousel1" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+        <a class="carousel-control-next w-auto" href="#recipeCarousel1" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
@@ -228,7 +276,9 @@
 
 </div>
 </div>
-
+<!-- <div id= "results">
+    results are
+</div> -->
 <!-- <div class="container jumbotron text-center" style="color: black;">
     <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Ongoing Projects</h3>
     <div class="row">
@@ -253,8 +303,8 @@
                 <p>Level: {{ project.difficulty_level }}</p>
                 <p>Languages Used: {{project.languages.all|join:', '}}</p>
                 <div>
-                    {% for language in project.languages.all %} {% if language.image.url %}
-                    <img src="{{language.image.url}}" class="lang"> {% endif %} {% endfor %}
+                    {% for language in project.languages.all %} {% if language.image %}
+                    <img src="{{language.image}}" class="lang"> {% endif %} {% endfor %}
                     
                 </div>
             </div>

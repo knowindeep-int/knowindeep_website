@@ -127,7 +127,6 @@ let chapters = [];
     };
 
     function createDescriptionPage() {
-        alert(title)
         if (document.getElementById("title_input") != null) {
 
             title = document.getElementById("title_input").value;
@@ -169,9 +168,19 @@ let chapters = [];
         if (div.innerHTML != "") {
             return false
         }
-        div.setAttribute("class", "jumbotron text-center");
-        div.innerHTML += "<h2 style='color: black;'>DESCRIPTION PAGE</h2>";
-        div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><span id="error_description"></span>';
+
+        div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+                    '<h3>How about a working description?</h3>' + 
+                    "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
+                    '<input type="text"  class="example1" placeholder="FOR EXAMPLE">' + 
+                    '</div>'
+    document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyLevelPage();')
+    document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
+    document.getElementById('current').innerHTML = 2
+        // div.setAttribute("class", "jumbotron text-center");
+        // div.innerHTML += "<h2 style='color: black;'>DESCRIPTION PAGE</h2>";
+        // div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><span id="error_description"></span>';
 
     }
 
@@ -189,9 +198,21 @@ function createTitlePage() {
     div_4.innerHTML = "";
 
     var div = document.getElementById("1");
-    div.setAttribute("class", "jumbotron text-center") ;
-    div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
-    document.getElementById("title_input").dataset.state = 'invalid';
+    div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+                    '<h3>How about a working title?</h3>' + 
+                    "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
+                    '<input type="text"  class="example1" placeholder="FOR EXAMPLE">' + 
+                    '</div>'
+    document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
+    document.getElementById('prev_btn').setAttribute('style', 'display:none')
+    document.getElementById('current').innerHTML = 1
+    
+    
+    
+    
+    // div.setAttribute("class", "jumbotron text-center") ;
+    // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
+    // document.getElementById("title_input").dataset.state = 'invalid';
 }
 
 function createChapterPage() {

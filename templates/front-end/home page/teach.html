@@ -10,8 +10,17 @@
             window.onload = function(){
                 if('{{chapter}}'){
                     var dom = document.getElementsByClassName('editor')[0];
+                    dom.setAttribute('contenteditable', 'false')
+                    dom.innerHTML = '{{chapter.content | safe}}'
+                    alert('{{chapter.content | safe }}')
+                    dom.setAttribute('contenteditable', 'true')
+                
                     // alert('{{chapter}}')
-                    dom.innerHTML = '{{chapter.description}}';
+                    // dom.appendChild(div)
+                    // var htmlObject = dom.firstChild;
+                    // alert(htmlObject)
+                    // dom.appendChild(htmlObject)
+                    // dom.insertAdjacentHTML('afterbegin', '{{chapter.content}}')
                     // var parser = new DOMParser();
                     // var doc = parser.parseFromString(dom.innerHTML, 'text/html');
                     // dom = doc
@@ -27,7 +36,7 @@
                     data :{
                         'pk': sessionStorage.getItem('pk'),
                         'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
-                        'description':document.getElementsByClassName('editor')[0].innerHTML             
+                        'content':document.getElementsByClassName('editor')[0].innerHTML             
                     },
                     success:function(data){
                         pk = data.pk
@@ -408,8 +417,8 @@ function fx(){
                         // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
                         // xhr.setRequestHeader('Origin, X-Requested-With, Content-Type, Accept, Authorization, Authentication');
                         // xhr.setRequestAhorization
-                        xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID}}') 
-                        xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER}}');
+                        xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID_DEBUG}}') 
+                        xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER_DEBUG}}');
                         // xhr.setRequestHeader('Authorization')
                         // xhr.setRequestHeader('Authorization', 'Bearer 7cd876bf6ab3405bad138d3a1886a3048fe9a0f0')
                         }
@@ -738,7 +747,7 @@ function fx(){
                     }
                     console.log('hi')
                     
-                    $.getJSON('https://api.unsplash.com/search/photos?client_id={{UNSPLASH_API_KEY}}&query=' + query + '&page=' + page_number, function(data){
+                    $.getJSON('https://api.unsplash.com/search/photos?client_id={{UNSPLASH_API_KEY_DEBUG}}&query=' + query + '&page=' + page_number, function(data){
                         var div_btn = document.createElement('div')
                         div_btn.className = "buttons"
 
@@ -817,7 +826,7 @@ function fx(){
                     };
                     // xhr = new XMLHttpRequest();
                     function setHeader(xhr) {   
-                    xhr.setRequestHeader('Authorization', '{{PEXELS_API_KEY}}');
+                    xhr.setRequestHeader('Authorization', '{{PEXELS_API_KEY_DEBUG}}');
                     }
                     var p_name = []
                     var p_url = []
@@ -912,16 +921,17 @@ function fx(){
                     }
                     function addChapter(){
                         content = document.getElementsByClassName('editor')[0].innerHTML
-
+                        var author = {{project.author.pk}}
                         $.ajax({
                             method: 'POST',
                             url: "{% url 'api:create_chapter' %}",
                             data :{
                                 'chapter_pk': chapter_pk,
                                 'link_to': '{{project.pk}}',
-                                'description': content,
+                                'content': content,
                                 'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
-                                'heading': 'LoremIpsum'
+                                'author': author,
+                                // 'heading': 'LoremIpsum'
                             },
                             success: function(data){
                                 alert('SUCCESS!')
@@ -970,7 +980,7 @@ function fx(){
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
         <input type="text" id="inptext_pexels">
         {% for chapter in chapters%}
-        <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.heading}}</a></p>
+        <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.slug}}</a></p>
         {%endfor%}
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->

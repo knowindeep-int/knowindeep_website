@@ -13,8 +13,7 @@ from django.db.models import Q
 from django.conf import settings
 import os
 from knowindeep import Constants
-from dotenv import load_dotenv
-load_dotenv()
+
 
 class Language(models.Model):
     is_available = models.BooleanField(null = True, blank = True)
@@ -133,7 +132,7 @@ class Project(models.Model):
     date_approved = models.DateTimeField(default = None, blank =True ,null=True)  
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
-    image = models.ImageField(null=True,upload_to='project/', blank = True)
+    image = models.URLField(max_length=200,blank=True,null=True)
     isApproved = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default = False) 
     languages = models.ManyToManyField(to = Language, blank = True)
@@ -179,8 +178,12 @@ class Project(models.Model):
 
     @property
     def increase_view(self):
-        self.no_of_views += 1
-        self.save()
+        if self.isCompleted:
+            self.no_of_views += 1
+            self.save()
+        else:
+            self.DoesNotExist = 0
+            self.save()
 
 
     @classmethod
@@ -238,11 +241,8 @@ class Chapter(models.Model):
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     content = RichTextUploadingField(blank=True,null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=300,blank=True,null=True)
-    heading = models.CharField(max_length=40,null=False,blank=False)
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")
     slug = models.SlugField(null=True,blank=True)
-    youtube_link = models.URLField(max_length=200, blank=True, null=True)
    # content = models.CharField(max_length=1000, null=False,blank=False)
   #  content = HTMLField()  .
     # no_of_likes = models.IntegerField(default=0)
@@ -251,7 +251,8 @@ class Chapter(models.Model):
         verbose_name_plural = "Chapters"
 
     def __str__(self):
-        return self.heading
+        return self.link_to.title
+        # return self.content[:10]
     
     @property
     def get_absolute_url(self): 
@@ -403,8 +404,8 @@ class Suggestion(models.Model):
     chapter = models.ForeignKey(to=Chapter,on_delete=models.CASCADE,null = True,blank=True)
     created_on = models.DateTimeField(auto_now_add = True, null = True)
 
-    # def __str__(self):
-    #     return self.title
+    def __str__(self):
+        return self.content
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
@@ -416,13 +417,7 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
         instance.slug = unique_slug_generator(instance)
         #instance.save()
 
-def getApiKey():
-    if settings.DEBUG:
-        UNSPLASH_API_KEY = os.getenv('UNSPLASH_API_KEY')
-        PEXELS_API_KEY = os.getenv('PEXELS_API_KEY')
-        IMGUR_CLIENT_ID = os.getenv('IMGUR_CLIENT_ID')
-        IMGUR_BEARER = os.getenv('IMGUR_BEARER')
-        return UNSPLASH_API_KEY,PEXELS_API_KEY,IMGUR_CLIENT_ID,IMGUR_BEARER
+
     
 pre_save.connect(r_pre_save_receiever, sender=Project)
 pre_save.connect(r_pre_save_receiever, sender=Chapter)

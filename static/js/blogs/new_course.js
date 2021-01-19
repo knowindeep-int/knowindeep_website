@@ -81,12 +81,21 @@ function add_pre_req(){
 function createDescriptionPage() {
 
     // alert("798")
+
+    
         
     if (document.getElementById("title_input") != null) {
 
         title = document.getElementById("title_input").value;
         saveDraft("title", title);
-        
+        if (title.length == 0) {
+            document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+            document.getElementById("error_title").style = "color: red;";
+            return;
+        }
+        else {
+            document.getElementById("error_title").innerHTML = "";
+        }    
         
 
         if (document.getElementById("title_input").value == "") {
@@ -110,7 +119,6 @@ function createDescriptionPage() {
         }
     }
     //window.name = pk
-    alert(pk)
     setTimeout(function(){sessionStorage.setItem('pk',pk);}, 100)
 
     showhide("2");
@@ -126,11 +134,29 @@ function createDescriptionPage() {
     div_4.setAttribute("style", "display: none;");
     div_4.innerHTML = "";
 
+    div_6 = document.getElementById("6");
+    div_6.setAttribute("style", "display: none;");
+    div_6.innerHTML = "";
+    
     var div = document.getElementById(2);
 
     if (div.innerHTML != "") {
         return false
     }
+
+    div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    '<h3>How about a working description?</h3>' + 
+    "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' + 
+    '</div>'
+    div.innerHTML += '<span id="error_description"></span></div>';
+document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyPage();')
+document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
+document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
+document.getElementById('current').innerHTML = 2
+document.getElementsByClassName('progress-bar')[0].style = "width:28%"
+
+
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD LANGUAGES</h2>";
     div.innerHTML += '<div style="color: black;">';
@@ -159,9 +185,12 @@ function createDescriptionPage() {
     div.innerHTML += '<input type="text" style = "color:black;" id="add_pre_req_input"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
     div.innerHTML += '<span id="error_prereq" ></span></div>'
     div.setAttribute("class", "jumbotron text-center");
-
-    div.innerHTML += "<h2 style='color: black;'>DESCRIPTION </h2>";
-    div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><span id="error_description"></span>';
+    
+    // document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours()')
+    // document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
+    // document.getElementById('current').innerHTML = 2
+    // div.innerHTML += "<h2 style='color: black;'>DESCRIPTION </h2>";
+    // div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><span id="error_description"></span>';
     
     if (document.getElementById("selectpicker") != null) {
         for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
@@ -200,9 +229,18 @@ function createTitlePage() {
     div_4.innerHTML = "";
 
     var div = document.getElementById("1");
-    div.setAttribute("class", "jumbotron text-center") ;
-    div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
-    document.getElementById("title_input").dataset.state = 'invalid';
+
+    div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    '<h3>How about a working title?</h3>' + 
+    "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="title_input" value="' + title + '"> ' +  
+    '<br><span id="error_title"></span></div>'
+    document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
+    document.getElementById('prev_btn').setAttribute('style', 'display:none')
+    document.getElementById('current').innerHTML = 1
+    // div.setAttribute("class", "jumbotron text-center") ;
+    // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
+    // document.getElementById("title_input").dataset.state = 'invalid';
 }
 
 
@@ -394,9 +432,19 @@ function createOverviewPage() {
 
     var div = document.getElementById("7");
     div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML += "<h2 style='color: black;'>OVERVIEW PAGE</h2>" + "<input id='overview_input' type='text' style='color: black;' value='" + overview + "'> " + '<button type="button" class="btn btn-primary" style="float: right;" onclick="createImagePage()">Next</button><button type="button" class="btn btn-primary" style="float: left;" onclick="createDifficultyPage()">Previous</button>'
+    div.innerHTML +='<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    '<h3>How about a working overview?</h3>' + 
+    "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="overview_input" value="' + overview + '"> ' + 
+    '</div>'
     div.innerHTML += " <span id='error_overview'></span>"
+    document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage();')
+    document.getElementById('current').innerHTML = 4
+    document.getElementsByClassName('progress-bar')[0].style = "width:56%"
+
 }
+
 
 
 function createImagePage() {
@@ -462,9 +510,19 @@ function createImagePage() {
     div.setAttribute("class", "jumbotron text-center");
 
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
-    div.innerHTML += '<div style="color: black;">';
-    div.innerHTML += '<input type="file" style="color: black;" id="image_input">';
-    div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
+    div.innerHTML += '<div style="color: black;" id="image_input_div">';
+    div.innerHTML += '<input id="image_input" type="file" onchange="addLocalImage(this)" style="color: black;" id="image_input">';
+    // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
+    document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
+    document.getElementById('current').innerHTML = 5
+    document.getElementsByClassName('progress-bar')[0].style = "width:70%"
+    alert(image)
+    if(image){
+        div.innerHTML += '<img id="project_image">';
+        document.getElementById('project_image').src =image
+    }
+
 }
 function createNumberOfHours() {
     saveImageDraft()
@@ -505,7 +563,7 @@ function createNumberOfHours() {
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>";
     div.innerHTML += '<div style="color: black;">'  ;
-    div.innerHTML += '<input class="time_radio_input" type="radio" id="0--2" name="" value="0.2" style="opacity: 1;">' +
+    div.innerHTML += '<input class="time_radio_input" type="radio" id="0-2" name="" value="0.2" style="opacity: 1;">' +
         '<label for="0--2">0--2 HOURS</label><br>' +
         '<input class="time_radio_input" type="radio" id="2-4" name="" value="2.4"  style="opacity: 1;">' +
         '<label for="2-4">2-4 HOURS</label><br>' +
@@ -513,8 +571,22 @@ function createNumberOfHours() {
         '<label for=">4">MORE THAN 4 HOURS</label>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
-        '</div>';
+
+    if(no_of_hours == "0.2"){
+        document.getElementById('0-2').checked = true;
+    }
+    else if(no_of_hours == "2.4"){
+        console.log(80)
+        document.getElementById('2-4').checked = true;
+    }
+    else if(no_of_hours == "0.4"){
+        document.getElementById('>4').checked = true;
+    }
+    document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage()')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createImagePage();')
+    document.getElementById('current').innerHTML = 6;
+    document.getElementsByClassName('progress-bar')[0].style = "width:84%"
+
 }
 
 
@@ -569,7 +641,7 @@ function createDifficultyPage() {
         else {
             document.getElementById("error_prereq").innerHTML = "";
         }
-
+       
     }
     // saveDraft("description", description);
 
@@ -693,6 +765,18 @@ function createDifficultyPage() {
     div_7.setAttribute("style", "display: none;");
     div_7.innerHTML = "";
 
+    div_8 = document.getElementById("8");
+    div_8.setAttribute("style", "display: none;");
+    div_8.innerHTML = "";
+
+    div_9 = document.getElementById("9");
+    div_9.setAttribute("style", "display: none;");
+    div_9.innerHTML = "";
+
+    div_10 = document.getElementById("10");
+    div_10.setAttribute("style", "display: none;");
+    div_10.innerHTML = "";
+
     div = document.getElementById("6");
     div.setAttribute("class", "jumbotron text-center");
     div.innerHTML += "<h2 style='color: black;'> ADD DIFFICULTY LEVEL FOR THE PROJECT</h2>";
@@ -704,8 +788,24 @@ function createDifficultyPage() {
                      '<label style="font-size:18px;" for="medium">MEDIUM</label><br>' +
                      '<input class="difficulty_radio_input" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
                      '<label style="font-size:18px;" for="hard">HARD</label>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
-        '</div>';
+    // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
+    //     '</div>';
+
+    if(difficulty_level == "EASY"){
+        document.getElementById('easy').checked = true;
+    }
+    else if(difficulty_level == "MEDIUM"){
+        console.log(80)
+        document.getElementById('medium').checked = true;
+    }
+    else if(difficulty_level == "HARD"){
+        document.getElementById('hard').checked = true;
+    }
+
+    document.getElementById('next_btn').setAttribute('onclick', 'createOverviewPage();')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
+    document.getElementById('current').innerHTML = 3;
+    document.getElementsByClassName('progress-bar')[0].style = "width:42%"
 
 }
 

@@ -233,7 +233,11 @@ function hide(){
                   <i class="fa fa-search" id="i" onmouseover="myFunc()" href="#"></i> -->
 
                 <form class="form" id="form" action="" autocomplete="off">
+<<<<<<< HEAD
                     <input type="search"  onmouseover="mousein()" id="navbarDropdowna input" onkeyup="implementSearch();" placeholder="search">
+=======
+                    <input class="input" type="search"  onmouseover="mousein()" id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
+>>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d
                   <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
 
 
@@ -536,7 +540,7 @@ window.onclick = function(event) {
     <div class="col-lg-2 col-md-3 col-sm-6 col-12">
         <ul class="stack">
             <li class="heads">PRACTICE</li>
-            <li>Courses</li>
+            <a class="footer-link" href="{% url 'blogs:index' %}"><li>Courses</li></a>
             <li>Company-wise</li>
             <li>Topic-wise</li>
             <li>How To Begin?</li>
@@ -545,7 +549,7 @@ window.onclick = function(event) {
     <div class="col-lg-2 col-md-3 col-sm-6 col-12">
         <ul class="stack">
             <li class="heads">CONTRIBUTE</li>
-            <li>Write an Article</li>
+            <a class="footer-link" href="{% url 'teach:add_course'%}"><li>Write an Article</li></a>
             <li>Experience</li>
             <li>Internships</li>
             <li>Videos</li>
