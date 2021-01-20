@@ -517,7 +517,6 @@ function createImagePage() {
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('current').innerHTML = 5
     document.getElementsByClassName('progress-bar')[0].style = "width:70%"
-    alert(image)
     if(image){
         div.innerHTML += '<img id="project_image">';
         document.getElementById('project_image').src =image
