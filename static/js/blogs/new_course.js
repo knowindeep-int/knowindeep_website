@@ -195,7 +195,7 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
     if (document.getElementById("selectpicker") != null) {
         for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
             option = document.getElementById("selectpicker").options[i];
-            if (languages.indexOf(option.value) != -1) {
+            if (languages.includes(option.value) == true) {
                 option.selected = true;
             }
         }
@@ -204,7 +204,7 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
     if (document.getElementById("selectpicker_prereq") != null) {
         for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
             option = document.getElementById("selectpicker_prereq").options[i];
-            if (pre_reqs.indexOf(option.value) != -1) {
+            if (pre_reqs.includes(option.value) == true) {
                 option.selected = true;
             }
         }

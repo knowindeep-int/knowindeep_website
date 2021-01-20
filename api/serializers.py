@@ -128,7 +128,9 @@ class ChapterSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def update(self, chapter_instance):
-        chapter_instance.description =  (self.validated_data['description'], chapter_instance.description)[self.validated_data.get('description') is None],
+        print(self.validated_data)
+        print(chapter_instance.content)
+        chapter_instance.content =  (self.validated_data['content'], chapter_instance.content)[self.validated_data.get('content') is None]
         chapter_instance.save()
         #extra_kwargs = { 'link_to' : {'required': False}, 'heading':{'required': False}, 'id': {'read_only':True}}            
 

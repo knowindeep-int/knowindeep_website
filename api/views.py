@@ -260,41 +260,33 @@ def api_get_chapter_absolute_url(request):
 @api_view(['POST',])
 def api_create_chapter(request):
     if request.method == "POST":
-        # pk = request.POST.get('pk',None)
 
-        # if pk == "":
-        #     pk = None
+        print(request.data)
 
-        # chapter = Chapter.objects.get(pk=pk)
-        # chapter.description = request.POST['content']
-        # chapter.save()
-        # chapter_serializer = ChapterSerializer(chapter)
-        # print(request.data)
-        # data = {
-        #     'success': "Project updated successfully!", 
-        #     'pk': pk
-        # }
-        # return Response(chapter_serializer.data, status = status.HTTP_200_OK)
         chapter_pk = request.POST.get('chapter_pk', None)
-        pk = request.POST.get('pk', None)
 
+        if chapter_pk == "":
+            chapter_pk = None
+
+        pk = request.POST.get('link_to', None)
         chapter_serializer = ChapterSerializer(data = request.data)
 
         if not chapter_serializer.is_valid():
             print(chapter_serializer.data)
             print(chapter_serializer.errors)
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-        chapter_serializer.save()
-        # if not chapter_pk:
-            
-        # else:
-        #     print('update')
-        #     chapter_serializer.update(chapter_instance = Chapter.objects.get(pk = chapter_pk))
 
+        if chapter_pk is None:
+            chapter_serializer.save()
+            chapter_pk = chapter_serializer.data['id']
+
+        else:
+            chapter_serializer.update(chapter_instance= Chapter.objects.get(pk = chapter_pk))
+            # print(chapter_serializer.data['id'])
         data = {
             'success': 'Chapter saved successfully!',
             'pk': pk,
-            # 'chapter': chapter_serializer.data()
+            'chapter_pk': chapter_pk
         }
 
         return Response(data, status = status.HTTP_200_OK)

@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
 
         <script>
+           window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+    e.returnValue = '';
+});
             window.onload = function(){
                 if('{{chapter}}'){
                     var dom = document.getElementsByClassName('editor')[0];
@@ -28,27 +32,75 @@
                 }
             }
             // var pk = sessionStorage.getItem('pk')
-            // alert(pk)
-            function newChapter(){
-                $.ajax({
-                    method:'POST',
-                    url:'{% url "api:create_chapter" %}',
-                    data :{
-                        'pk': sessionStorage.getItem('pk'),
-                        'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
-                        'content':document.getElementsByClassName('editor')[0].innerHTML             
-                    },
-                    success:function(data){
-                        pk = data.pk
-                    },
-                    error: function(error){
-                        alert('ERROR!')
-                    },
-                })
+            // // alert(pk)
+            // var project = {{project.pk}}
+            // var author = {{project.author.pk}}
+            // function newChapter(){
+            //     $.ajax({
+            //         method:'POST',
+            //         url:'{% url "api:create_chapter" %}',
+            //         data :{
+            //             'pk': sessionStorage.getItem('pk'),
+            //             'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
+            //             'content':document.getElementsByClassName('editor')[0].innerHTML,
+            //             'link_to' : project,
+            //             'author': author,            
+            //         },
+            //         success:function(data){
+            //             pk = data.pk
+            //         },
+            //         error: function(error){
+            //             alert('ERROR!')
+            //         },
+            //     })
 
-            }
-           
+            // }
+            var timeoutId;
+            document.addEventListener('keyup',
+                function(){
 
+                var project = '{{project.pk}}'
+
+                if (timeoutId){ 
+                    clearTimeout(timeoutId);
+                }
+
+               timeoutId = setTimeout(function(){
+
+                content = document.getElementsByClassName('editor')[0].innerHTML
+                        var author = '{{project.author.pk}}'
+                        $.ajax({
+                            method: 'POST',
+                            url: "{% url 'api:create_chapter' %}",
+                            async:false,
+                            data :{
+                                'chapter_pk': chapter_pk,
+                                'link_to': '{{project.pk}}',
+                                'content': content,
+                                'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
+                                'author': author,
+                                // 'heading': 'LoremIpsum'
+                            },
+                            success: function(data){
+                                alert('SUCCESS!')
+                                if(chapter_pk == ''){
+                                    document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
+                            }
+                            }, error: function(error){
+                                alert('ERROR!')
+                            }
+
+                        })
+                        // if('{{chapter.pk}}'){
+                        // document.location.href = '/teach/chapter/' + '{{project.pk}}/' + '{{chapter.pk}}'
+                        // }
+                        // else{
+                        //     document.location.href = '/teach/chapter/' + '{{project.pk}}'
+                        // }
+                    },5000)
+           }
+            )
+            
             function createProject(){
    
   
@@ -921,10 +973,12 @@ function fx(){
                     }
                     function addChapter(){
                         content = document.getElementsByClassName('editor')[0].innerHTML
-                        var author = {{project.author.pk}}
+                        var author = '{{project.author.pk}}'
+                        var project = '{{project.pk}}'
                         $.ajax({
                             method: 'POST',
                             url: "{% url 'api:create_chapter' %}",
+                            async:false,
                             data :{
                                 'chapter_pk': chapter_pk,
                                 'link_to': '{{project.pk}}',
@@ -935,17 +989,46 @@ function fx(){
                             },
                             success: function(data){
                                 alert('SUCCESS!')
+                                if(chapter_pk == ''){
+                                    document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
+                            }
+                            
                             }, error: function(error){
                                 alert('ERROR!')
                             }
 
                         })
-                        if('{{chapter.pk}}'){
-                        document.location.href = '/teach/chapter/' + '{{project.pk}}/' + '{{chapter.pk}}'
-                        }
-                        else{
-                            document.location.href = '/teach/chapter/' + '{{project.pk}}'
-                        }
+                        // if('{{chapter.pk}}'){
+                        // document.location.href = '/teach/chapter/' + '{{project.pk}}/' + '{{chapter.pk}}'
+                        // }
+                        // else{
+                        //     document.location.href = '/teach/chapter/' + '{{project.pk}}'
+                        // }
+                    }
+                    function newChapter(){
+                        document.location.href = '/teach/chapter/' + '{{project.pk}}'
+                    //  content = ""
+                    //     var author = '{{project.author.pk}}'
+                    //     // alert(a+1);
+                    //     $.ajax({
+                    //         method: 'POST',
+                    //         url: "{% url 'api:create_chapter' %}",
+                    //         async:false,
+                    //         data :{
+                    //             // 'chapter_pk': a+1,
+                    //             'link_to': '{{project.pk}}',
+                    //             'content': content,
+                    //             'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
+                    //             'author': author,
+                    //             // 'heading': 'LoremIpsum'
+                    //         },
+                    //         success: function(data){
+                    //             alert('SUCCESS!')
+                    //         }, error: function(error){
+                    //             alert('ERROR!')
+                    //         }
+
+                    //     })
                     }
                 function createNumberofHours(){
                     var pk = '{{project.pk}}'
@@ -968,7 +1051,7 @@ function fx(){
                     })
                     document.location.href = "/teach/add/"+pk;
                 }    
-                    
+              var a;      
          </script>
         <button id="bold" onclick="format('bold')">B</button>
         <button id="underline" onclick="format('underline')">U</button>
@@ -981,12 +1064,15 @@ function fx(){
         <input type="text" id="inptext_pexels">
         {% for chapter in chapters%}
         <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.slug}}</a></p>
+        {%if forloop.last%}
+        <script>a = {{chapter.pk}}</script>
+        {%endif%}
         {%endfor%}
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->
         <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createNumberofHours()">Previous</button>
-        <button  type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();">Add</button>
-
+        <button  type="button" class="btn btn-primary" style="float: right;" onclick="newChapter();">Add</button>
+        <button  type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();">Save Changes</button>
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
         <script>
