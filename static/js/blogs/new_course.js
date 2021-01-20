@@ -63,7 +63,7 @@ function add_language(){
     var new_lang =document.getElementById("add_language_input").value;
     languages_add.push(new_lang)
     saveDraft("languages",languages_add, isAdded = true)
-    // setTimeout(function(){location.reload();},50)
+    setTimeout(function(){location.reload();},50)
     
 }
 
@@ -73,7 +73,7 @@ function add_pre_req(){
     var new_pre =document.getElementById("add_pre_req_input").value;
     pre_reqs_add.push(new_pre)
     saveDraft("pre_req",pre_reqs_add, isAdded = true)
-    // setTimeout(function(){location.reload();},50)
+    setTimeout(function(){location.reload();},50)
 }
 
 
