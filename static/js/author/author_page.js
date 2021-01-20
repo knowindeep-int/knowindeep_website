@@ -18,7 +18,7 @@ function disableEdit(is_verified) {
     //event.preventDefault();
     // alert('hello')
     edit_buttons = document.getElementsByClassName("can_hide")
-    alert(is_verified)
+    // alert(is_verified)
         //alert('HELLO WORLD!')
     
     if (is_verified == "False") {
