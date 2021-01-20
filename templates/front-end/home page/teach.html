@@ -53,15 +53,18 @@
             // }
             var timeoutId;
             document.addEventListener('keyup',
-                function addChapter(){
-                var project = {{project.pk}}
-                if (timeoutId) 
-                {  
-                    clearTimeout(timeoutId);}
+                function(){
+
+                var project = '{{project.pk}}'
+
+                if (timeoutId){ 
+                    clearTimeout(timeoutId);
+                }
+
                timeoutId = setTimeout(function(){
 
                 content = document.getElementsByClassName('editor')[0].innerHTML
-                        var author = {{project.author.pk}}
+                        var author = '{{project.author.pk}}'
                         $.ajax({
                             method: 'POST',
                             url: "{% url 'api:create_chapter' %}",
@@ -76,6 +79,9 @@
                             },
                             success: function(data){
                                 alert('SUCCESS!')
+                                if(chapter_pk == ''){
+                                    document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
+                            }
                             }, error: function(error){
                                 alert('ERROR!')
                             }
@@ -963,7 +969,8 @@ function fx(){
                     }
                     function addChapter(){
                         content = document.getElementsByClassName('editor')[0].innerHTML
-                        var author = {{project.author.pk}}
+                        var author = '{{project.author.pk}}'
+                        var project = '{{project.pk}}'
                         $.ajax({
                             method: 'POST',
                             url: "{% url 'api:create_chapter' %}",
@@ -978,6 +985,10 @@ function fx(){
                             },
                             success: function(data){
                                 alert('SUCCESS!')
+                                if(chapter_pk == ''){
+                                    document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
+                            }
+                            
                             }, error: function(error){
                                 alert('ERROR!')
                             }
@@ -991,29 +1002,29 @@ function fx(){
                         // }
                     }
                     function newChapter(){
-                     document.location.href = '/teach/chapter/' + '{{project.pk}}'
-                     content = document.getElementsByClassName('editor')[0].innerHTML
-                        var author = {{project.author.pk}}
-                        // alert(a+1);
-                        $.ajax({
-                            method: 'POST',
-                            url: "{% url 'api:create_chapter' %}",
-                            async:false,
-                            data :{
-                                // 'chapter_pk': a+1,
-                                'link_to': '{{project.pk}}',
-                                'content': content,
-                                'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
-                                'author': author,
-                                // 'heading': 'LoremIpsum'
-                            },
-                            success: function(data){
-                                alert('SUCCESS!')
-                            }, error: function(error){
-                                alert('ERROR!')
-                            }
+                        document.location.href = '/teach/chapter/' + '{{project.pk}}'
+                    //  content = ""
+                    //     var author = '{{project.author.pk}}'
+                    //     // alert(a+1);
+                    //     $.ajax({
+                    //         method: 'POST',
+                    //         url: "{% url 'api:create_chapter' %}",
+                    //         async:false,
+                    //         data :{
+                    //             // 'chapter_pk': a+1,
+                    //             'link_to': '{{project.pk}}',
+                    //             'content': content,
+                    //             'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
+                    //             'author': author,
+                    //             // 'heading': 'LoremIpsum'
+                    //         },
+                    //         success: function(data){
+                    //             alert('SUCCESS!')
+                    //         }, error: function(error){
+                    //             alert('ERROR!')
+                    //         }
 
-                        })
+                    //     })
                     }
                 function createNumberofHours(){
                     var pk = '{{project.pk}}'
