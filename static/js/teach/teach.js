@@ -364,7 +364,6 @@ function createLanguagesPage() {
             chapters.push(chapter)            
         }
     }
-    alert(chapters);
     saveChapterDraft();
     if (error == "1") {
         return;
