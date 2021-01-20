@@ -36,7 +36,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
-
+    <style>
+        .dropdown-menu{
+            display: block !important;
+        }
+    </style>
+    <script>
+        $('html').click(function (e) {
+    if (e.target.className == 'input') {
+        // alert('5')
+        document.getElementsByClassName('dropdown-menu')[0].style = 'display: block !important;'
+    } else {
+        alert(e.target.className)
+        document.getElementsByClassName('dropdown-menu')[0].style = 'display: none !important;'
+        document.getElementsByClassName('dropdown-menu')[0].innerHTML = ''
+        document.getElementById("form").classList.remove("form1");
+    }
+    }); 
+    </script>
     <!-- <script type="text/javascript">
         document.cookie = "username=John Doe; expires=Thu, 18 Dec 2021 12:00:00 UTC";
         console.log("cookie saved")
@@ -159,7 +176,7 @@
 
                     result.innerHTML += '<p class="dropdown-item" style="color:black;" >Chapters:</p>'
                     for (var i = 0; i < data.chapters.length; i++) {
-                        result.innerHTML += '<a class="dropdown-item" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
+                        result.innerHTML += '<a class="dropdown-item" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >'+data.chapters[i].slug +'</a>';
                     }
 
                     result.innerHTML += '<p class="dropdown-item" style="color:black;" >Authors:</p>'

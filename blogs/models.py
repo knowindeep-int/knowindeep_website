@@ -322,8 +322,7 @@ class Chapter(models.Model):
     def getChapterSearches(cls, search_input):
         author_searches = cls.objects.filter(
             Q(slug__istartswith = search_input) |
-            Q(author__user__username__icontains = search_input) |
-            Q(heading__icontains = search_input)
+            Q(author__user__username__icontains = search_input) 
         )
         return author_searches
 
