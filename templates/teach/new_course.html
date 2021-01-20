@@ -129,14 +129,33 @@ else{
         data : data,
         success: function(data){
             pk = data.pk
-            if(key == 'pre_req' || key == "languages"){
+            if(key == 'pre_req' ){
+                getLangPrereq();
+                for(var i=0; i< prereqs_all.length; i++){
+                    document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>';
+                }
+                
+                for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+                option = document.getElementById("selectpicker_prereq").options[i];
+                if (pre_reqs.includes(option.value) == true || option.value == value) {
+                    option.selected = true;
+                    }
+                }
+            }
+
+            if(key == "languages"){
                 getLangPrereq();
                 for(var i=0; i< languages_all.length; i++){
                     document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
                 }
-                for(var i=0; i< prereqs_all.length; i++){
-                    document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
+
+                for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
+                option = document.getElementById("selectpicker").options[i];
+                if (languages.includes(option.value) == true || option.value == value) {
+                    option.selected = true;
                 }
+            }
+
             }
             
         },error: function(error){
