@@ -430,7 +430,7 @@ header {
 }
 
 .star{
-	width: 40px;
+	width: 50px;
 }
 
 .title{
@@ -441,6 +441,7 @@ header {
 	font-size: 45px;
 	font-family: 'gilroy';
 	margin-left: 20px;
+	vertical-align: middle;
 }
 .lang{
 	width: 30px;
@@ -831,6 +832,7 @@ margin: 20px 0;
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 h5{
 	margin: 0;
@@ -963,7 +965,6 @@ h6,.h6{
 }
 .nxt{float: right;
 }
-<<<<<<< HEAD
 @media (max-width: 768px) {
     .carousel-inner .carousel-item > div {
         display: none;
@@ -1117,8 +1118,6 @@ background-color:#f9a80d;
 .p{
     width: 25%;
     margin-top: -6px;
-=======
 .footer-link{
 	 color: inherit;  
->>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d
 }
