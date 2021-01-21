@@ -94,7 +94,11 @@
     </ol>
 </div>
 <div class="img2 row img3">
+    {% if not project.image %}
     <img src="/media/images/layer.png" class="col-md-12 layer1">
+    {% else %}
+    <img src="{{project.image}}" class="col-md-12 layer1">
+    {% endif %}
 </div>
 <div class="team-section">
     <div class="container">
@@ -107,7 +111,7 @@
                     <h1>{{ project.title | title }}</h1>
                     <p>BY {{project.author.user.username}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved.date}}</p>
                     <br>
-                    <div class="dow">Share on </div>
+                    <!-- <div class="dow">Share on </div> -->
                     <div class="sh">
                         <!-- <span class="shares"><div class="number">1</div><br><div class="number2">shares</div></span> -->
                         <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com." title="Share by Email"><img src="/media/images/mail-share.png" class="shareon">
