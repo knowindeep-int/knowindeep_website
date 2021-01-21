@@ -1122,6 +1122,9 @@ background-color:#f9a80d;
 .footer-link{
 	 color: inherit;  
 }
+.footer-link:hover{
+	color: inherit;
+}
 #navbarDropdown::-webkit-search-cancel-button{
 	display: none;
 }
