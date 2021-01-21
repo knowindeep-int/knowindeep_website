@@ -43,7 +43,7 @@
                 }
             },
             error: function(error) {
-                alert('error')
+               console.log('error')
             },
         })
     }
@@ -62,7 +62,7 @@
                     getSuggestion()
                 },
                 error: function(error) {
-                    alert('error')
+                    console.log('error')
                 },
             })
             // location.reload()
@@ -82,7 +82,7 @@
                 getSuggestion()
             },
             error: function(error) {
-                alert('error')
+               console.log('error')
             },
         })
     }
@@ -94,7 +94,11 @@
     </ol>
 </div>
 <div class="img2 row img3">
+    {% if not project.image %}
     <img src="/media/images/layer.png" class="col-md-12 layer1">
+    {% else %}
+    <img src="{{project.image}}" class="col-md-12 layer1">
+    {% endif %}
 </div>
 <div class="team-section">
     <div class="container">
@@ -105,9 +109,9 @@
                 <br>
                 <div class="section-heading">
                     <h1>{{ project.title | title }}</h1>
-                    <p>BY {{project.author.user.username}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved.date}}</p>
+                    <p>BY {{project.author}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved.date}}</p>
                     <br>
-                    <div class="dow">Share on </div>
+                    <!-- <div class="dow">Share on </div> -->
                     <div class="sh">
                         <!-- <span class="shares"><div class="number">1</div><br><div class="number2">shares</div></span> -->
                         <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com." title="Share by Email"><img src="/media/images/mail-share.png" class="shareon">
@@ -163,7 +167,7 @@
         </a><br>
                                 <span class="clk">{{ chapter }}</span>
                             </div>
-                            {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
+                            {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
                         </div>
                         {% endfor %} {% else %}
                         <h1>No blogs for the particular url</h1>
@@ -217,7 +221,7 @@
                         <div class="box box55">
                             <br>
                             <br>
-                            <h3>{{project.author.user.username}}</h3>
+                            <h3>{{project.author}}</h3>
                             <div>{{project.author.description}}</div>
                         </div>
 

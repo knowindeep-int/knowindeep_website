@@ -50,10 +50,14 @@
         {% for project in projects %}
         <article class="col-lg-4 col-md-6 col-sm-6 col-12 tm-gallery-item">
             <div class="card">
+                {%if project.image%}
+                <img class="card-img-top img-fluid tm-gallery-img" src="{{project.image}}" alt="Card image cap">
+                {%else%}
                 <img class="card-img-top img-fluid tm-gallery-img" src="media/images/blog-pic.png" alt="Card image cap">
+                {%endif%}
                 <div class="card-body">
                     <h5 class="card-title">{{ project.title | title }}</h5>
-                    <p class="card-text">{{project.description}}</p>
+                    <p class="card-text">{{project.description |  truncatewords:10}}</p>
                     <span class="bold">Author Name :</span><span>{{project.author}}</span><br>
                     <span class="bold">Hours To Complete :</span><span>{{project.no_of_hours}}</span><br>
                     <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
@@ -96,19 +100,22 @@
     <div class="tm-gallery-page">
         <div class="title col-12">
             <!-- <img src="media/images/star.png" class="star"> -->
-            <svg class='star' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39" height="39" viewBox="0 0 39 39">
-                <image id="_1710223" data-name="1710223" width="39" height="39"
-                    xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAnCAYAAACMo1E1AAAFr0lEQVRYhbWYeWxVRRTGf+/xbF1ARRHRCFHrHygUsSAoohFFIS5RtFZc4o5xCSYGFBeCuCBxI2o0KkoMbsGtEY0JMRFcglUBwQVQXCioIQVbohWwoK059ZvkdLz3vvdIOMnLm5k7yzdnzpzzncm1zevBTkhvoAY4ETgG6AfsC+wO/AX8DvwCrAA+BpYBG8pdplxwI4AJwJnAAWWMawEWALOBD8sFl1O9I6Xf8cAdwFlR+zpgJbAeaAb+BgpAT6AvcBRQFY15D5gBfJSGKeDw4JKAVQBTgduA3dT2K/AWUA8sAVozNr8HMAQYp99ham8HHgGmA1sjYMTgkuQg4AVgtL41a8I5wMYMQGmnYDZ5OTBFc5ssBi4FGpPGpYE7HHgbGKC6lW8B1jgASZouZh7o8jwAjFf9R+AcmUcXyScM7gO844Ddq8FrtPjOAMu572afFwGTVa/SeocWA1cJvCJDNpkETCtx8Y4ytWkmco3azRZfBfbKAncnMEpl09isMoDZDb0EOLAEYEHmSAEmw4D7u0zsbO5YGajdyned2ygFmMnLwMXyZ2eoPcsEfPuLuhgduoALcZqzzvcI2GZgYonAggx1Bj4WOLXEDQWZpIiS04kVPLhhmtTkQWBticDCt8mRiUxJGBNvyIu5pvtUHxFMK0x4g/43KMQESbMVb/zVQK3K6/Q/WnE3a1wsdrTfq+2mAM5i5NlqrFccpIivysuRjtKl6QZsAs6V3zJ5CBgDHOKiS5IEbVqkmKeymUW/gsJLTzW+kTGJsY9TZAL9HRMJ8rxYyGw52eG6HK3ybeYnPwcWAZ9pTGx/rwO3K+ydYOBO0of1Gpwk1fpWSPhm9rIceFj1p0QUjpND7yGHPkDxFdGt5QmnY1FiFTDITqWgjiZfR0HYS6s42v5qmy+tfAl850wB9R2n0zgCOFo2WCdNbQH+TFmnXTgM3MCCqA3OmL0Ee7DAfJXYiLVtA55OWSDIZrGWJVJAmOtGZ/jxWqbJn1XvlXd205LQGad6C/4zVR4vfpckuchlXAtcr/IzwNwMJeAYT/e84ikiimnAgkx3TNac5elFNmSX4jGVv3ChKknCmDb9V+RdpVsRYCY7gCt1zHkx2lzGuBnKK5qAK2RvscQ3tiKslZehm+znOmRFBYsey1Te5vomOdgAZqUMvRgwXG6yJS/ajfxWMWBhZ9Uqp7meIJ/o3yjYPiUA8zia8/I3yA9VJnSOj8tIYcgFFuq/SnmG1e8GjlT7B/rvI8ddDJjhGajy6rzySkT4aqLOSXY0WOFoh4C+JH83U+Fsmjb8pvoG31nj5kwLjf0dA19U0NH8AeytAN6QAQyFOxQtnnTtbbqRduTdgfP0C+MHp8zn5XxtfLspLa+btEAdagWSjInM43vwPyiWDhXdqRE3XBVtclAKoPC9UrkFOs2fAmV6Qv/95CqydmiabZFTrhMhMHv7Rt/N+98lDVti9JrSyoaEufxFu9DZ6uM4mm4g3wdOliaHuFvsJwqAe0e5a5YdIfewKQVYh9zYUtn9Cjnv7UFz7crs25WgPJoBzKRUYAFAFjDEvoMHmCqb65JDLHagaqNQk7V4ud9iYJYeXq3yXCVX/3WMMv495auGq24vSs/tQmB1ytrs5q8GRnoCEuetW8U4GlV/Frh5FwGb4IBt1LpdmFHSc0Sjcoq1qs+Sug92fbKeHIolRb1E5WcLWJNu9VfxgCRwObmF01zsvAz4VLysy5NBAoA0qRQzaZDWECEYo7n/DySyuVj1PUR7Jro+3yoRqtdu/8kAlFOstKzsAkcYUEJ0K/Bb6mAHLovHjdU7ykjX1i4Nh5fNJrmACvm1voqT1VFitFQJ9PyMDXXiKOdNOK8juE55ZdbxxmKP2PbManmHuYpOP5YFrLOyk6/p5jAt/bOIYtoxTVmwN7uyhS27spBl8dVovfG6pKQmXYB/AUqaf3mFBM7xAAAAAElFTkSuQmCC" />
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39" height="33" viewBox="0 0 39 33">
+                <image id="group-of-projects" width="39" height="33" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAhCAYAAABa+rIoAAADYklEQVRYhcWXa2jNYRzHP2c7G4aU+6222IuVJC0vXOLFUCMpGyEhtbygKOWSN2oh5QUhIdcil1LkmjeKFwq5t8ZYFrNRrjtsNjv6re+/Hsf/nLP/2Tnbt/5t53me//N8/7/L9/d7Qi1n+wOUAgeBoUAWUA0sB57QgzAiU4GrQDNwADgCDAFuAKN6kpxZ7hEwCCgBXml8MnAFuATszeD57cA3oC4euaisVBozdxmYB/yydRki1wg8AMr9JsNi3+Izlwu0Ase1Jt2wD64AJsTbN6xF2T5zlhw/gTUZIOZhFvBb/5sxcnSmebMjIeIhqidTLvUQAWbKvaYYw7yJcBJyIX3AnxQPDnlW8EG29rY1H6QMZrk+nSHXVZgcVQJtil3DOeBezMf3Bl4otsudsax0kDMV/+EzbhLxDtgM9NXYe4ecBy/ZTM7eaL89wOBEMdcZTAcOAfk+ay3QTwBvnbGPCfYM6R0jOw0o6wq5EunjEuACMDpmvgi4CBQAh3VoYYL92rT2JXDXfqdKbr5KnrlhJzAJOOmUu2LgvMZXAquBTXJrouyPSlI61qQSc0uBo8BrYDHwXIfuVwKcBnYB44E5wHW9t9uJPT+EHPnKDkrO0nwjsAV4CqxSlqGGwQ7e4ZTB2cCtmD0iQawQhFw/YC5QL1dVxcybZUYC60QwllhgBCH3FVgoQW7wmbeA3wpsBz51lRgOuXiF3Q3eqGIrESJBXZeMXLsUvFAdQqtiqrUT72cUYan7ROAOMFyH1aiEuO4rUBJY7YtXL5PhGnA7iOUshsaI3DbpTIUsed8p3FYrV6hrCNoIeOFRF5TcAElCmRPI1qI/lJh6Gz9TtlrWpkquJshLYT21MRlWK0HNdyzXLMHtNhix706sudinL85Ei472TeiBsBTfblhnpFERJxajcVr4dMA+PE9teVxyx4BxwDJgkSMhuRkiFYt6/f5PAcKKpbVK8xlAE/BZWdkrQZudDjQ79fk/F3sVIqoWyJ4FMvdN4EuSS1BXERKHInXC/xD0q61TgA3qShsUc4kuKulAjq6i1a4x/MhVqnwVqztt0st5jpXTjahivUquzopHzi4mp/RY6zNQDWR3wowRTdYy2QVmvVrs7mgELHzsGWt/k5GzdttuT1baRkg4Mxl7HsHHQONfh9/H9oUSCvQAAAAASUVORK5CYII="/>
+              </svg>              
             <span class="pro">ALL OUR PROJECTS</span>
         </div>
         {% for project in all_projects %} 
         <article class="col-lg-4 col-md-6 col-sm-6 col-12 tm-gallery-item">
             <div class="card">
+                {%if project.image%}
+                <img class="card-img-top img-fluid tm-gallery-img" src="{{project.image}}" alt="Card image cap">
+                {%else%}
                 <img class="card-img-top img-fluid tm-gallery-img" src="media/images/blog-pic.png" alt="Card image cap">
+                {%endif%}
                 <div class="card-body">
                     <h5 class="card-title">{{ project.title | title }}</h5>
-                    <p class="card-text">{{project.description}}</p>
+                    <p class="card-text">{{project.description | truncatewords:10}}</p>
                     <span class="bold">Author Name :</span><span>{{project.author}}</span><br>
                     <span class="bold">Hours To Complete :</span><span>{{project.no_of_hours}}</span><br>
                     <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>

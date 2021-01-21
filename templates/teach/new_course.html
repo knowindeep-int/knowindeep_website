@@ -28,6 +28,7 @@
 
 <script>
     window.onload = function () {
+
     // alert('{{status}}')
     if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
         pk = sessionStorage.getItem('pk')
@@ -44,20 +45,42 @@
     else{
         sessionStorage.removeItem('pk')
     }
+    
     // alert('{{status}}')
     if('{{status}}' == 'title'){
         createTitlePage();   
+    }
+    else if(document.referrer.indexOf('http://127.0.0.1:8000/teach/chapter') != -1){
+        createNumberOfHours();
+    }
+    else if('{{status}}' == 'description'){
+        createDescriptionPage();   
+    }
+    else if('{{status}}' == 'difficulty_level'){
+        createDifficultyPage();   
+    }
+    else if('{{status}}' == 'overview'){
+        createOverviewPage();   
+    }
+    else if('{{status}}' == 'image'){
+        createImagePage();   
+    }
+    else if('{{status}}' == 'no_of_hours'){
+        createNumberOfHours();   
+    }
+    else if('{{status}}' == 'chapter'){
+        document.location.href = 'http://127.0.0.1:8000/teach/chapter/' + pk      
     }
     else{
         createTitlePage();
     }
     
-    if('{{status}}' == 'teach'){
-        createNumberOfHours();   
-    }
+    
     getLangPrereq();
     
 };
+
+
 if('{{project.title}}'){
    assignParam(
     title = '{{project.title}}',
@@ -115,7 +138,6 @@ else{
     function saveDraft(key, value, isAdded = false) {
     var key = key;
     var value = value;
-    // alert(key)
             
     var data = {};
     data[key] = value;
@@ -209,7 +231,7 @@ function saveImageDraft() {
             success: function(data){
                 // chapters = data.chapters
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         })
 }
@@ -235,7 +257,7 @@ function saveImageDraft() {
                 // prereqs_all = data.prerequisites
                 
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         }
         )
@@ -253,7 +275,7 @@ function saveImageDraft() {
                 project_draft = data.project_draft
 
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         }
         )
@@ -263,7 +285,6 @@ function saveImageDraft() {
         for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
        if (document.getElementsByClassName("time_radio_input")[i].checked) {
            no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
-        //    alert(no_of_hours)
        }
    }
     saveDraft('no_of_hours',no_of_hours)
@@ -335,7 +356,6 @@ function deleteImage(e){
 var called=0;
 function addLocalImage(e){
     called = 1;
-    // alert(0);
     var targetDiv=document.getElementsByClassName("editor")[0];
             var file = $(e).prop('files')[0];
             var img=document.createElement("img");
