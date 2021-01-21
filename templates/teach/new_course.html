@@ -28,6 +28,7 @@
 
 <script>
     window.onload = function () {
+
     // alert('{{status}}')
     if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
         pk = sessionStorage.getItem('pk')
@@ -44,10 +45,30 @@
     else{
         sessionStorage.removeItem('pk')
     }
+    
     // alert('{{status}}')
     if('{{status}}' == 'title'){
         createTitlePage();   
     }
+    else if(document.referrer.indexOf('http://127.0.0.1:8000/teach/chapter') != -1){
+        createNumberOfHours();
+    }
+    else if('{{status}}' == 'description'){
+        createDescriptionPage();   
+    }
+    else if('{{status}}' == 'difficulty_level'){
+        createDifficultyPage();   
+    }
+    else if('{{status}}' == 'overview'){
+        createOverviewPage();   
+    }
+    else if('{{status}}' == 'image'){
+        createImagePage();   
+    }
+    else if('{{status}}' == 'no_of_hours'){
+        createNumberOfHours();   
+    }
+
     else{
         createTitlePage();
     }
@@ -58,6 +79,8 @@
     getLangPrereq();
     
 };
+
+
 if('{{project.title}}'){
    assignParam(
     title = '{{project.title}}',

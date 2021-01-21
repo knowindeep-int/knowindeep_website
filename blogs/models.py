@@ -227,6 +227,14 @@ class Project(models.Model):
             return "title"
         if project.description == None or project.description == "":
             return "description"
+        if project.difficulty_level == None or project.difficulty_level == "":
+            return "difficulty_level"
+        if project.overview == None or project.overview == "":
+            return "overview"
+        if project.image == None or project.image == "":
+            return "image"
+        if project.no_of_hours == None or project.no_of_hours == "":
+            return "no_of_hours"
         if project.chapters.all().count() == 0 :
             return "chapter"
         return None
