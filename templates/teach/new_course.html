@@ -138,7 +138,6 @@ else{
     function saveDraft(key, value, isAdded = false) {
     var key = key;
     var value = value;
-    // alert(key)
             
     var data = {};
     data[key] = value;
@@ -232,7 +231,7 @@ function saveImageDraft() {
             success: function(data){
                 // chapters = data.chapters
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         })
 }
@@ -258,7 +257,7 @@ function saveImageDraft() {
                 // prereqs_all = data.prerequisites
                 
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         }
         )
@@ -276,7 +275,7 @@ function saveImageDraft() {
                 project_draft = data.project_draft
 
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         }
         )
@@ -286,7 +285,6 @@ function saveImageDraft() {
         for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
        if (document.getElementsByClassName("time_radio_input")[i].checked) {
            no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
-        //    alert(no_of_hours)
        }
    }
     saveDraft('no_of_hours',no_of_hours)
@@ -358,7 +356,6 @@ function deleteImage(e){
 var called=0;
 function addLocalImage(e){
     called = 1;
-    // alert(0);
     var targetDiv=document.getElementsByClassName("editor")[0];
             var file = $(e).prop('files')[0];
             var img=document.createElement("img");
