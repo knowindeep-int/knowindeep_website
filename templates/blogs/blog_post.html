@@ -185,9 +185,13 @@
 	<div class="col-lg-9 chapter">
 		<h1>{{chapter_content}}</h1>
 		<p>BY {{chapter_content.author}} &emsp;<span class="vertical">|</span>&emsp; {{chapter_content.date_posted}}</p>
-		<br>
-		<img src="/media/images/blog-pic.png" class="head1">
-		<p>{{chapter_content}}</p>
+        <br>
+        {%if chapter_content.link_to.image%}
+        <img src="{{chapter_content.link_to.image}}" class="head1">
+        {% else %}
+        <img src="/media/images/blog-pic.png" class="head1">
+        {%endif%}
+        <p>{{chapter_content}}</p>
 		<h5 id="heading1">heading1</h5>
 		<p>{{chapter_content.content | safe}}</p>
 		<div class="code">
