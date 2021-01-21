@@ -493,6 +493,7 @@ header {
   color:white;
 }
 footer{
+	background-color: #f7f7f7;
 	font-weight: 550;
 	margin-top: 10%;
 	height: 325px;
@@ -760,6 +761,9 @@ h1{
 
 #srch{
 	  width: 200px;
+	  padding: 0;
+	  margin: 0;
+	  border: 0;
 }
 
 .team-section {
