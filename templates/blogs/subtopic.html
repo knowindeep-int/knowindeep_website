@@ -167,7 +167,7 @@
         </a><br>
                                 <span class="clk">{{ chapter }}</span>
                             </div>
-                            {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
+                            {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
                         </div>
                         {% endfor %} {% else %}
                         <h1>No blogs for the particular url</h1>
