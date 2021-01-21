@@ -68,14 +68,14 @@
     else if('{{status}}' == 'no_of_hours'){
         createNumberOfHours();   
     }
-
+    else if('{{status}}' == 'chapter'){
+        document.location.href = 'http://127.0.0.1:8000/teach/chapter/' + pk      
+    }
     else{
         createTitlePage();
     }
     
-    if('{{status}}' == 'teach'){
-        createNumberOfHours();   
-    }
+    
     getLangPrereq();
     
 };
