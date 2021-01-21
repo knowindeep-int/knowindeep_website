@@ -109,7 +109,7 @@
                 <br>
                 <div class="section-heading">
                     <h1>{{ project.title | title }}</h1>
-                    <p>BY {{project.author.user.username}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved.date}}</p>
+                    <p>BY {{project.author}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved.date}}</p>
                     <br>
                     <!-- <div class="dow">Share on </div> -->
                     <div class="sh">
@@ -221,7 +221,7 @@
                         <div class="box box55">
                             <br>
                             <br>
-                            <h3>{{project.author.user.username}}</h3>
+                            <h3>{{project.author}}</h3>
                             <div>{{project.author.description}}</div>
                         </div>
 
