@@ -16,7 +16,7 @@
                     var dom = document.getElementsByClassName('editor')[0];
                     dom.setAttribute('contenteditable', 'false')
                     dom.innerHTML = '{{chapter.content | safe}}'
-                    alert('{{chapter.content | safe }}')
+                    console.log('{{chapter.content | safe }}')
                     dom.setAttribute('contenteditable', 'true')
                 
                     // alert('{{chapter}}')
@@ -115,7 +115,7 @@
        success: function(data){
            pk =data.pk
        }, error: function(error){
-           alert("ERROR!")
+           console.log("ERROR!")
        }
    }
    )
@@ -521,11 +521,11 @@ function fx(){
                             contentType: false,
                             processData: false,
                             success: function(data){
-                                alert('success!')
+                                console.log('success!')
                                 img.src = data.data.link
                             },
                             error: function(error){
-                                alert(error)
+                                console.log(error)
                             },
                             beforeSend: setImgurHeader,
 
@@ -957,7 +957,7 @@ function fx(){
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
                              },
-                            error: function() { alert('Failed!'); },
+                            error: function() { console.log('Failed!'); },
                             beforeSend: setHeader       
                         });   
                     
@@ -987,13 +987,13 @@ function fx(){
                                 // 'heading': 'LoremIpsum'
                             },
                             success: function(data){
-                                alert('SUCCESS!')
+                                console.log('SUCCESS!')
                                 if(chapter_pk == ''){
                                     document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
                             }
                             
                             }, error: function(error){
-                                alert('ERROR!')
+                                console.log('ERROR!')
                             }
 
                         })
@@ -1043,9 +1043,9 @@ function fx(){
                             
                         },
                         success: function(data){
-                                alert('SUCCESS!')
+                            console.log('SUCCESS!')
                             }, error: function(error){
-                                alert('ERROR!')
+                                console.log('ERROR!')
                             }
                     
                     })
