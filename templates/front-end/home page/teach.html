@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
 
         <script>
-           window.addEventListener('beforeunload', function (e) {
-    e.preventDefault();
-    e.returnValue = '';
-});
+//            window.addEventListener('beforeunload', function (e) {
+//     e.preventDefault();
+//     e.returnValue = '';
+// });
             window.onload = function(){
                 if('{{chapter}}'){
                     var dom = document.getElementsByClassName('editor')[0];
@@ -103,7 +103,7 @@
             
             function createProject(){
    
-  
+            addChapter()
    //document.location.href = "/" + "teach";
    $.ajax({
        method: 'POST',
@@ -1030,8 +1030,9 @@ function fx(){
                     //     })
                     }
                 function createNumberofHours(){
+
                     var pk = '{{project.pk}}'
-                    
+                        addChapter()
                     $.ajax({
                         method:'POST',
                         url: '{% url "api:update_status" %}',
@@ -1050,12 +1051,22 @@ function fx(){
                     })
                     document.location.href = "/teach/add/"+pk;
                 }    
-              var a;      
+                function addLink() {
+    var linkURL = prompt('Enter a URL:', 'http://');
+    document.execCommand('createlink', false, linkURL);
+    document.getElementsByTagName('a').setAttribute('contenteditable','false')
+}    
+        function addCode() {
+            
+        }
          </script>
         <button id="bold" onclick="format('bold')">B</button>
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
+        <button id="link" onclick="addLink()">Add Link</button>
+        <input type="text" id="inptext_url">
+        <button id="code" onclick="addCode()">Insert Code</button>
         <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
         <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
         <input type="text" id="inptext">
@@ -1063,9 +1074,6 @@ function fx(){
         <input type="text" id="inptext_pexels">
         {% for chapter in chapters%}
         <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.slug}}</a></p>
-        {%if forloop.last%}
-        <script>a = {{chapter.pk}}</script>
-        {%endif%}
         {%endfor%}
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->
