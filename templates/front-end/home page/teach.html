@@ -7,58 +7,33 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
 
         <script>
-//            window.addEventListener('beforeunload', function (e) {
-//     e.preventDefault();
-//     e.returnValue = '';
-// });
+
+var isSaved = true
+window.addEventListener("beforeunload", function (e) {
+    
+    if(!isSaved){
+        e.preventDefault(); 
+        e.returnValue = ''; 
+    }
+
+}); 
+
+
+
+
             window.onload = function(){
                 if('{{chapter}}'){
                     var dom = document.getElementsByClassName('editor')[0];
                     dom.setAttribute('contenteditable', 'false')
                     dom.innerHTML = '{{chapter.content | safe}}'
-                    console.log('{{chapter.content | safe }}')
                     dom.setAttribute('contenteditable', 'true')
-                
-                    // alert('{{chapter}}')
-                    // dom.appendChild(div)
-                    // var htmlObject = dom.firstChild;
-                    // alert(htmlObject)
-                    // dom.appendChild(htmlObject)
-                    // dom.insertAdjacentHTML('afterbegin', '{{chapter.content}}')
-                    // var parser = new DOMParser();
-                    // var doc = parser.parseFromString(dom.innerHTML, 'text/html');
-                    // dom = doc
-                    // return doc.body
+
                 }
             }
-            // var pk = sessionStorage.getItem('pk')
-            // // alert(pk)
-            // var project = {{project.pk}}
-            // var author = {{project.author.pk}}
-            // function newChapter(){
-            //     $.ajax({
-            //         method:'POST',
-            //         url:'{% url "api:create_chapter" %}',
-            //         data :{
-            //             'pk': sessionStorage.getItem('pk'),
-            //             'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
-            //             'content':document.getElementsByClassName('editor')[0].innerHTML,
-            //             'link_to' : project,
-            //             'author': author,            
-            //         },
-            //         success:function(data){
-            //             pk = data.pk
-            //         },
-            //         error: function(error){
-            //             alert('ERROR!')
-            //         },
-            //     })
 
-            // }
             var timeoutId;
-            document.addEventListener('keyup',
-                function(){
 
+            function saveChapterDraft(){
                 var project = '{{project.pk}}'
 
                 if (timeoutId){ 
@@ -67,7 +42,7 @@
 
                timeoutId = setTimeout(function(){
 
-                content = document.getElementsByClassName('editor')[0].innerHTML
+                        content = document.getElementsByClassName('editor')[0].innerHTML
                         var author = '{{project.author.pk}}'
                         $.ajax({
                             method: 'POST',
@@ -82,28 +57,25 @@
                                 // 'heading': 'LoremIpsum'
                             },
                             success: function(data){
-                                console.log('SUCCESS!')
+                               console.log('success')
+                                isSaved = true
                                 if(chapter_pk == ''){
                                     document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
                             }
+                            
                             }, error: function(error){
-                                console.log('ERROR!')
+                                alert('ERROR!')
                             }
-
                         })
-                        // if('{{chapter.pk}}'){
-                        // document.location.href = '/teach/chapter/' + '{{project.pk}}/' + '{{chapter.pk}}'
-                        // }
-                        // else{
-                        //     document.location.href = '/teach/chapter/' + '{{project.pk}}'
-                        // }
+
+
                     },5000)
-           }
-            )
+                }
+
+            
+            document.addEventListener('keyup', saveChapterDraft())
             
             function createProject(){
-   
-            addChapter()
    //document.location.href = "/" + "teach";
    $.ajax({
        method: 'POST',
@@ -115,7 +87,7 @@
        success: function(data){
            pk =data.pk
        }, error: function(error){
-           console.log("ERROR!")
+           alert("ERROR!")
        }
    }
    )
@@ -268,6 +240,7 @@ document.addEventListener("keyup", function(e){
     //     return;
     // }
     // if(e.keyCode != "13"){
+        isSaved = false;
         if( document.getElementById('menu_div') != null){
             // alert(0)
             document.getElementById('menu_div').remove();
@@ -521,11 +494,11 @@ function fx(){
                             contentType: false,
                             processData: false,
                             success: function(data){
-                                console.log('success!')
+                                alert('success!')
                                 img.src = data.data.link
                             },
                             error: function(error){
-                                console.log(error)
+                                alert(error)
                             },
                             beforeSend: setImgurHeader,
 
@@ -957,7 +930,7 @@ function fx(){
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
                              },
-                            error: function() { console.log('Failed!'); },
+                            error: function() { alert('Failed!'); },
                             beforeSend: setHeader       
                         });   
                     
@@ -971,9 +944,12 @@ function fx(){
                         var chapter_pk = ""
                     }
                     function addChapter(){
+                        
                         content = document.getElementsByClassName('editor')[0].innerHTML
+                        console.log(content)
                         var author = '{{project.author.pk}}'
                         var project = '{{project.pk}}'
+                        console.log('809')
                         $.ajax({
                             method: 'POST',
                             url: "{% url 'api:create_chapter' %}",
@@ -987,13 +963,14 @@ function fx(){
                                 // 'heading': 'LoremIpsum'
                             },
                             success: function(data){
-                                console.log('SUCCESS!')
+                                console.log('success')
+                                isSaved = true;
                                 if(chapter_pk == ''){
                                     document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
                             }
                             
                             }, error: function(error){
-                                console.log('ERROR!')
+                                console.log(error);
                             }
 
                         })
@@ -1030,9 +1007,8 @@ function fx(){
                     //     })
                     }
                 function createNumberofHours(){
-
                     var pk = '{{project.pk}}'
-                        addChapter()
+                    
                     $.ajax({
                         method:'POST',
                         url: '{% url "api:update_status" %}',
@@ -1043,30 +1019,56 @@ function fx(){
                             
                         },
                         success: function(data){
-                            console.log('SUCCESS!')
+                                console.log('success')
                             }, error: function(error){
-                                console.log('ERROR!')
+                                console.log('error')
                             }
                     
                     })
                     document.location.href = "/teach/add/"+pk;
                 }    
-                function addLink() {
-    var linkURL = prompt('Enter a URL:', 'http://');
-    document.execCommand('createlink', false, linkURL);
-    document.getElementsByTagName('a').setAttribute('contenteditable','false')
-}    
-        function addCode() {
-            
-        }
+              var a;  
+             
+//               $(window).on('beforeunload', function(){
+//   return "Good Bye";
+// });
+  //   $(window).on('beforeunload', function() {
+                        
+            //     content = document.getElementsByClassName('editor')[0].innerHTML
+            //             console.log(content)
+            //             var author = '{{project.author.pk}}'
+            //             var project = '{{project.pk}}'
+            //             $.ajax({
+            //                 type: 'POST',
+            //                 async:false,
+            //                 url: "{% url 'api:create_chapter' %}",
+                            
+            //                 data :{
+            //                     'chapter_pk': chapter_pk,
+            //                     'link_to': '{{project.pk}}',
+            //                     'content': content,
+            //                     'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
+            //                     'author': author,
+            //                     // 'heading': 'LoremIpsum'
+            //                 },
+            //                 success: function(data){
+            //                     console.log('success')
+            //                     if(chapter_pk == ''){
+            //                         document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
+            //                 }
+                            
+            //                 }, error: function(error){
+            //                     console.log(error);
+            //                 }
+
+            //             })
+            //             return "fg"
+            //         });
          </script>
         <button id="bold" onclick="format('bold')">B</button>
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
-        <button id="link" onclick="addLink()">Add Link</button>
-        <input type="text" id="inptext_url">
-        <button id="code" onclick="addCode()">Insert Code</button>
         <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
         <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
         <input type="text" id="inptext">
@@ -1074,10 +1076,13 @@ function fx(){
         <input type="text" id="inptext_pexels">
         {% for chapter in chapters%}
         <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.slug}}</a></p>
+        {%if forloop.last%}
+        <script>a = {{chapter.pk}}</script>
+        {%endif%}
         {%endfor%}
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->
-        <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createNumberofHours()">Previous</button>
+        <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="saveChapterDraft();createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="saveChapterDraft();createNumberofHours()">Previous</button>
         <button  type="button" class="btn btn-primary" style="float: right;" onclick="newChapter();">Add</button>
         <button  type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();">Save Changes</button>
         <div class="editor" contenteditable="true" spellcheck="false" >
