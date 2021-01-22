@@ -82,12 +82,12 @@
                                 // 'heading': 'LoremIpsum'
                             },
                             success: function(data){
-                                alert('SUCCESS!')
+                                console.log('SUCCESS!')
                                 if(chapter_pk == ''){
                                     document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
                             }
                             }, error: function(error){
-                                alert('ERROR!')
+                                console.log('ERROR!')
                             }
 
                         })
