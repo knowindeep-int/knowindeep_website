@@ -1,6 +1,9 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script src = "{% static 'js/chapter/teach.js'%}"></script>
+        <link rel="stylesheet" href="{% static 'css/chapter/chapter.css'%}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.0.13/css/font-awesome.min.css">
@@ -8,15 +11,6 @@
 
         <script>
 
-var isSaved = true
-window.addEventListener("beforeunload", function (e) {
-    
-    if(!isSaved){
-        e.preventDefault(); 
-        e.returnValue = ''; 
-    }
-
-}); 
 
 
 
@@ -100,47 +94,27 @@ window.addEventListener("beforeunload", function (e) {
                 document.execCommand(cmd)
             };
 
-            function getCaretCoordinates() {
-  let x = 0,
-    y = 0;
-  const isSupported = typeof window.getSelection !== "undefined";
-  if (isSupported) {
-    const selection = window.getSelection();
-    if (selection.rangeCount !== 0) {
-      const range = selection.getRangeAt(0).cloneRange();
-      range.collapse(true);
-      const rect = range.getClientRects()[0];
-      if (rect) {
-        x = rect.left;
-        y = rect.top;
-      }
-    }
-  }
-//   return x
-   return [ x, y ];
-}
-var x, y
-function inputvar(e){
-    // alert(e.value)
-    var inp = document.createElement('span');
-    // inp.setAttribute('contenteditable', 'false')
-    // inp.className = 'input'
-    // inp.id = "unsplash_input"
-    // inp.type = "text"
-    if(e.id == "pe"){
-        // alert(e.classList)
-        inp.className = 'input_pexels'
-        inp.id = "inptext_pexels"
-    fx().appendChild(inp)
-    }
-    else{
-        // alert(e.classList)
-        inp.className = 'input'
-        inp.id = "inptext"
-    fx().appendChild(inp)
-    }
-   
-}
+//             function getCaretCoordinates() {
+//   let x = 0,
+//     y = 0;
+//   const isSupported = typeof window.getSelection !== "undefined";
+//   if (isSupported) {
+//     const selection = window.getSelection();
+//     if (selection.rangeCount !== 0) {
+//       const range = selection.getRangeAt(0).cloneRange();
+//       range.collapse(true);
+//       const rect = range.getClientRects()[0];
+//       if (rect) {
+//         x = rect.left;
+//         y = rect.top;
+//       }
+//     }
+//   }
+// //   return x
+//    return [ x, y ];
+// }
+// var x, y
+
 // document.addEventListener("click", function(e){
 //     alert('4')
 //     if( document.getElementById('menu_div') != null){
@@ -235,208 +209,8 @@ function inputvar(e){
     
 // })
 
-document.addEventListener("keyup", function(e){
-    // if(document.getElementById('menu_div') != null){
-    //     // document.getElementById('menu_div').remove();
-    //     return;
-    // }
-    // if(e.keyCode != "13"){
-        isSaved = false;
-        if( document.getElementById('menu_div') != null){
-            // alert(0)
-            document.getElementById('menu_div').remove();
-            // for(var i=0; i< document.getElementsByClassName('menu').length; i++){
-            //     document.getElementsByClassName('menu')[i].remove();
-            // }
 
-        }
-
-        
-        // alert(fx())
-        
-    // }
-    // alert(e.target.className)
-    // alert(e.keyCode)
-    // if(e.keyCode == '13'){
-        var menu_div = document.createElement("span")
-        menu_div.setAttribute("contenteditable",'false')
-        menu_div.id = "menu_div"
-        var plus = document.createElement('button')
-        plus.className = "btn"
-        plus.id = "plus_btn"
-        var plus_i = document.createElement("i")
-        plus_i.classList = "fa fa-plus"
-        plus.appendChild(plus_i)
-        var close = document.createElement('button')
-        close.classList = "btn menu"
-        close.id = "close_btn"
-        var close_i = document.createElement("i")
-        close_i.classList = "fa fa-close"
-        close.appendChild(close_i)
-        var image = document.createElement('button')
-        image.classList = "btn menu"
-        var image_i = document.createElement("i")
-        image_i.classList = "fa fa-camera"
-        var input = document.createElement('input')
-        input.setAttribute('type', 'file')
-        input.setAttribute('id','inpfile_input')
-        input.setAttribute('onchange', 'addLocalImage(this)')
-        image_i.appendChild(input)
-        // <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
-        // image_i.appendChild()
-        image.appendChild(image_i)
-        var un = document.createElement('button')
-        un.classList = "btn menu "
-        un.id = "un"
-        un.setAttribute("onclick","inputvar(this)")
-        var un_i = document.createElement("i")
-        un_i.classList = "fa fa-search"
-        un.appendChild(un_i)
-        var pe = document.createElement('button')
-        pe.classList = "btn menu "
-        pe.id = "pe"
-        pe.setAttribute("onclick","inputvar(this)")
-        var pe_i = document.createElement("i")
-        pe_i.classList = "fa fa-search"
-        pe.appendChild(pe_i)
-        menu_div.appendChild(plus)
-        menu_div.appendChild(close)
-        menu_div.appendChild(image)
-        menu_div.appendChild(un)
-        menu_div.appendChild(pe)
-        //alert('<br>' + menu_div.innerHTML)
-        
-    //    / alert(fx().innerHTML)
-        if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;" || fx().innerHTML == '<br>' +  menu_div.innerHTML){
-        if( document.getElementById('plus_btn') != null){
-            // alert(8)
-            document.getElementById('plus_btn').remove();
-        }
-        fx().innerHTML = ""
-    //    alert(7)
-    
-        fx().appendChild(menu_div)
-        fx().innerHTML += "&nbsp;"
-        var el = document.getElementById("editable")
-        var range = document.createRange()
-        var sel = window.getSelection()
-        range.setStart(fx(), 2)
-        range.collapse(true)
-        
-        sel.removeAllRanges()
-        sel.addRange(range)
-        
-        document.getElementById('plus_btn').addEventListener('click', function(){
-                // alert("clicked")
-                this.style.display = 'none'
-                var menu = document.getElementsByClassName('menu')
-                for(var i=0; i< menu.length; i++){
-                    menu[i].style.display = 'inline'
-                }
-                
-            })
-        
-            document.getElementById('close_btn').addEventListener('click', function(){
-                // alert("clicked")
-                document.getElementById('plus_btn').style.display = 'inline'
-                var menu = document.getElementsByClassName('menu')
-                for(var i=0; i< menu.length; i++){
-                    menu[i].style.display = 'none'
-                }
-                
-            })
-    }
-    // <div id="menu_div" style="display: none;">
-    //         <button class="btn" id="plus_btn" title="Add menu"><i class="fa fa-plus"></i></button>
-    //         <button class="btn menu" id="close_btn" title="Close menu"><i class="fa fa-close"></i></button>
-    //         <button class="btn menu" title="Add a image"><i class="fa fa-camera"></i></button>
-    //         <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
-    //         <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
-    //     </div>
-        // alert(fx().innerHTML)
-    }
-// }
-)
-var span_text
-            document.addEventListener("keypress", function(e){
-
-                // x = getCaretCoordinates()[0]
-                // y = getCaretCoordinates()[1]
-                // alert(fx().className)
-                // alert(getCaretCoordinates()[1])
-                if(e.keyCode == '13'){
-                //     if(fx().className == "input" && document.getElementsByClassName('input') != null){
-                //     alert('i')
-                //     implementUnsplashSearch(query = fx().innerHTML)
-                //     return; 
-                    
-                // }
-                
-
-                if(fx().className == "input" && document.getElementsByClassName('input') != null){
-            // alert('i')
-            // e.preventDefault();
-            span_text = fx().innerHTML
-            implementUnsplashSearch(query = span_text)
-            // implementPexelSearch(query=fx().innerHTML)
-            //
-            document.getElementsByClassName('input')[0].remove();
-            return; 
-        }
-         if(fx().className == "input_pexels" && document.getElementsByClassName('input_pexels') != null){
-            // alert('i')
-            // e.preventDefault();
-            // implementUnsplashSearch(query = fx().innerHTML)
-            span_text = fx().innerHTML
-            implementPexelSearch(query=span_text)
-            //
-            document.getElementsByClassName('input_pexels')[0].remove();
-            return; 
-        }
-
-                if(fx().className == 'fig-caption' && document.getElementsByClassName('fig-caption') != null && document.getElementsByClassName('fig-caption').length >= document.getElementsByClassName('fig').length){
-                    // alert("k")
-                    // e.preventDefault()
-                    
-                    var p =document.createElement('p')
-                    p.innerHTML = "&nbsp;"
-                    // p.style.display = "none"
-                    fx().parentNode.parentNode.append(p)
-                    var el = document.getElementById("editable")
-                    var range = document.createRange()
-                    var sel = window.getSelection()
-                    // alert(fx().parentNode.nextSibling.innerHTML)
-                    e.preventDefault();
-                    range.setStart(fx().parentNode.nextSibling, 0)
-                    range.collapse(true)
-                    
-                    sel.removeAllRanges()
-                    sel.addRange(range)
-                    // alert(fx().innerHTML)
-                    //
-                    
-                }
-            }
-            });
-
-function fx(){
-
-  var target=null;
-  if(window.getSelection)
-  {
-    target=window.getSelection().getRangeAt(0).commonAncestorContainer;
-    return((target.nodeType===1)?target:target.parentNode);
-  }
-//   else if(document.selection)
-//   {
-//     var target=document.selection.createRange().parentElement();
-//   }
-  return target;
-}
-           
-            document.execCommand('defaultParagraphSeparator', false, 'p');
-
-            function setImgurHeader(xhr) {  
+function setImgurHeader(xhr) {  
                         // xhr.setRequestHeader('Cache-Control', null) 
                         // xhr.setRequestHeader("Origin, X-Requested-With, Content-Type, Accept, Authorization, Token");
                         // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
@@ -451,6 +225,8 @@ function fx(){
 
             function addLocalImage(e){
                 // alert(0);
+                
+
                 var targetDiv=document.getElementsByClassName("editor")[0];
                         var file = $(e).prop('files')[0];
                         var img=document.createElement("img");
@@ -508,236 +284,11 @@ function fx(){
                         })
 
                 }
-            $( document ).ready(function(){
-                $('#inpfile').on('change', function(){
-                        var targetDiv=document.getElementsByClassName("editor")[0];
-                        var file = $(this).prop('files')[0];
-                        var img=document.createElement("img");
-                        img.className="image"
-                        var reader  = new FileReader();
-                        var fig = document.createElement('figure')
-                        var fig_caption = document.createElement('figcaption')
-                        fig_caption.className = "fig-caption"
-                        // fig_caption.setAttribute("contenteditable", "true")
-                        fig_caption.innerHTML =  "Write your caption here!"
-                        // var span = document.createElement('span')
-                        // span.innerHTML = "h"
-                        // fig_caption.appendChild(span)
-                        fig.className = "fig"
-                        fig.setAttribute('contenteditable','true')
-                        
-                        // fig_caption.setAttribute("onclick",'this.innerHTML=""')
-                        fig.appendChild(img);
-                        fig.appendChild(fig_caption)
-                        if(fx().className == 'editor' ||  document.body === fx()){
-                            // alert(9)
-                            // console.log('2')
-                            fx().insertBefore(fig, fx().childNodes[1]);
-                            // targetDiv.appendChild(fig)
-                            // fx().insertBefore(fig, fx().nextSibling);
-                        }
-                        else{
-                            console.log('1')
-                            fx().parentNode.insertBefore(fig, fx().nextSibling);
-                        }
-
-                        
-                        // targetDiv.append(fig);
-                        // alert(fx().className)
-                        // $(fig).insertAfter(fx());
-                        // targetDiv.insertBefore(fig, fig.nextSibling);
-                        
-                        // var p =document.createElement('p')
-                        // // p.setAttribute("onclick",'this.style.display = "none"')
-                        // p.innerHTML = "&nbsp;"
-                        // targetDiv.append(p)
-            //             fig_captio.addEventListener('keydown', event => {
-            // if (event.key === 'Enter') {
-            // document.execCommand('insertLineBreak')
-            // event.preventDefault()
-            // }
-            // })
-                        reader.addEventListener("load", function () {
-                            img.src=reader.result;
-                           
-                            // var image = document.createElement('img')
-                            
-                            // fig_caption.appendChild(a)
-                            // fig_caption.innerHTML += "on Unsplash"
-                        }); 
-                        if (file)
-                            reader.readAsDataURL(file);
-                        document.getElementById('inpfile').value = "";
-                });
-            });
+            
            
-            function addImage(e, url, name){
-                // alert(name)
-                // console.log("click")
-                // (url)alert
-                var fig = document.createElement('figure')
-                var image = document.createElement('img')
-                var fig_caption = document.createElement('figcaption')
-                fig_caption.className = "fig-caption"
-                fig.className = "fig"
-                fig_caption.innerHTML = "Photo by " 
-                var a = document.createElement('a')
-                a.setAttribute("contenteditable", "false")
-                a.setAttribute("target", "_blank")
-                a.href = url    
-                a.innerHTML = name
-                fig_caption.appendChild(a)
-                fig_caption.innerHTML += " on " 
-
-                var unsplash_a = document.createElement('a')
-                unsplash_a.setAttribute("contenteditable", "false")
-                unsplash_a.setAttribute("target", "_blank")
-                // alert(e.target.className)
-                if(url.indexOf('pexels.com') !=-1){
-                    // alert('3')
-                    unsplash_a.href = "https://www.pexels.com/"
-                    unsplash_a.innerHTML = "Pexels"
-                }
-                else{
-                    // alert('4')
-                    unsplash_a.href = "https://unsplash.com/"
-                    unsplash_a.innerHTML = "Unsplash"
-                }
-                
-                fig_caption.appendChild(unsplash_a)
-
-
- 
-                image.src = e.src
-                image.className = "image"
-                fig.appendChild(image)
-                fig.appendChild(fig_caption)
-                if(fx().className == 'editor' ||  document.body === fx()){
-                            // alert(fx().className)
-                            console.log('2')
-                            fx().insertBefore(fig, fx().childNodes[0]);
-                            // targetDiv.appendChild(fig)
-                            // fx().insertBefore(fig, fx().nextSibling);
-                        }
-                        else{
-                            // alert(fx().className)
-                            console.log('1')
-                            fx().parentNode.insertBefore(fig, fx().nextSibling);
-                        }
-                
-                document.getElementsByClassName('editor')[0].appendChild(fig)
-
-                document.getElementsByClassName('grid')[0].remove()
-                document.getElementsByClassName('buttons')[0].remove()
-                // document.execCommand('insertImage', false, e.src)
-                
-                
-            }
+         
         </script>
-        <style>
-            .input{
-                display: inline-block;
-                width: 100px;
-                height: 30px;
-                border: 1px solid orange;
-            }
-            .input_pexels{
-                display: inline-block;
-                width: 100px;
-                height: 30px;
-                border: 1px solid orange;
-            }
-            .fig-caption{
-                /* white-space: nowrap;
-                overflow: hidden; */
-                /* text-overflow: "ellipsis"; */
-                /* max-width: 200px; */
-                /* width: 30%; */
-                /* display: table-r */
-                width: 300px;
-             }
-            body{
-                font-size: x-large;
-            }
-            .fig{
-                font-size: medium;
-                color: grey;
-                /* display: table; */
-            }
-            .container :hover{
-                color: aliceblue;
-            }
-            .container{
-                position: relative;
-                text-align: center;
-                
-            }
-            .author{
-                color:transparent;
-                position: absolute;
-                bottom: 8px;
-                left: 16px;
-            }
-            .editor{
-                border-style: solid;
-                height: 500px;
-                width: 1000px;
-                overflow-y: scroll;
-            }
-            .image{
-                display: block;
-                height: 300px;
-                width: 300px;   
-                
-            }
-            .unsplash-image{
-                cursor: pointer;
-                height: 200px;
-                width: 200px;
-            }
-            .pexels-image{
-                cursor: pointer;
-                height: 200px;
-                width: 200px;
-            }
-            .grid{
-                display:inline-grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-                grid-auto-rows: minmax(100px, auto);
-            }
-            .btn {
-        background-color: DodgerBlue; /* Blue background */
-        border: none; /* Remove borders */
-        color: white; /* White text */
-        padding: 12px 16px; /* Some padding */
-        font-size: 16px; /* Set a font size */
-        cursor: pointer; /* Mouse pointer on hover */
-        }    
-        .menu{
-            display: none;
-    }
-
-        /* Darker background on mouse-over */
-        .btn:hover {
-                background-color: RoyalBlue;
-        }
-        p{
-            counter-increment: line;
-        }
-        p::before{
-            content: counter(line);
-        }
-        .editor{
-            counter-increment: line;
-        }
-        .editor::before{
-            content: counter(line);
-        }
-        /* #inpfile {
-  display: none;
-} */
-        </style>
+   
     </head>
     <body>
         {% csrf_token %}
@@ -1028,7 +579,6 @@ function fx(){
                     })
                     document.location.href = "/teach/add/"+pk;
                 }    
-              var a;  
              
 //               $(window).on('beforeunload', function(){
 //   return "Good Bye";
@@ -1077,9 +627,6 @@ function fx(){
         <input type="text" id="inptext_pexels">
         {% for chapter in chapters%}
         <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.slug}}</a></p>
-        {%if forloop.last%}
-        <script>a = {{chapter.pk}}</script>
-        {%endif%}
         {%endfor%}
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->

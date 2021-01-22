@@ -1,0 +1,102 @@
+.input{
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    border: 1px solid orange;
+}
+.input_pexels{
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    border: 1px solid orange;
+}
+.fig-caption{
+    /* white-space: nowrap;
+    overflow: hidden; */
+    /* text-overflow: "ellipsis"; */
+    /* max-width: 200px; */
+    /* width: 30%; */
+    /* display: table-r */
+    width: 300px;
+ }
+body{
+    font-size: x-large;
+}
+.fig{
+    font-size: medium;
+    color: grey;
+    /* display: table; */
+}
+.container :hover{
+    color: aliceblue;
+}
+.container{
+    position: relative;
+    text-align: center;
+    
+}
+.author{
+    color:transparent;
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+.editor{
+    border-style: solid;
+    height: 500px;
+    width: 1000px;
+    overflow-y: scroll;
+}
+.image{
+    display: block;
+    height: 300px;
+    width: 300px;   
+    
+}
+.unsplash-image{
+    cursor: pointer;
+    height: 200px;
+    width: 200px;
+}
+.pexels-image{
+    cursor: pointer;
+    height: 200px;
+    width: 200px;
+}
+.grid{
+    display:inline-grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+.btn {
+background-color: DodgerBlue; /* Blue background */
+border: none; /* Remove borders */
+color: white; /* White text */
+padding: 12px 16px; /* Some padding */
+font-size: 16px; /* Set a font size */
+cursor: pointer; /* Mouse pointer on hover */
+}    
+.menu{
+display: none;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+    background-color: RoyalBlue;
+}
+p{
+counter-increment: line;
+}
+p::before{
+content: counter(line);
+}
+.editor{
+counter-increment: line;
+}
+.editor::before{
+content: counter(line);
+}
+/* #inpfile {
+display: none;
+} */
