@@ -1,15 +1,57 @@
+window.onclick = function(){
+    alert('jop')
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     var element = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(element, options);
 });
 
-// function myfunc() {
-//  {% if request.user.is_authenticated %}
-//         window.open("{% url 'site_users:logout' %}", "", "width=700,height=700");
-//     {% else %}
-//         window.open("{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}", "", "width=700,height=700");
-//     {% endif %}
-// }
+function mousein() {
+    var a = document.getElementById("srch");
+    a.classList.add("mystyle");
+}
+
+
+function myFunc() {
+    document.getElementById("form").classList.add("form1");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('#navbarDropdown')) {
+        var dropdowns = document.getElementsByClassName("dropdown-menu");
+        var myDropdown = document.getElementById("form");
+        var z = document.getElementById("i");
+        if (myDropdown.classList.contains('form1')) {
+            myDropdown.classList.remove('form1');
+        }
+        if (z.classList.contains('hidden')) {
+            z.classList.remove('hidden');
+        }
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('mystyle')) {
+                openDropdown.classList.remove('mystyle');
+            }
+        }
+    }
+}
+
+function hide() {
+    var c = document.getElementById("i");
+    c.classList.add("hidden");
+}
+$('html').click(function (e) {
+    if (e.target.className == 'input') {
+        // alert('5')
+        document.getElementsByClassName('dropdown-menu')[0].style = 'display: block !important;'
+    } else {
+        document.getElementsByClassName('dropdown-menu')[0].style = 'display: none !important;'
+        document.getElementsByClassName('dropdown-menu')[0].innerHTML = ''
+        document.getElementById("form").classList.remove("form1");
+    }
+    }); 
 
 
 /* FOR BASE */ 
@@ -77,10 +119,10 @@ function myFunction() {
     // document.getElementById("myBar").style.width = scrolled + "%";
 }
 
-(function() { var dialog = document.getElementById('loginDialog'); document.getElementById('loginLink').onclick = function() { dialog.style.display = "block"; }; window.onclick = function() { if (event.target == dialog) { dialog.style.display = "none";
-        }; }; document.getElementById('googleLogin').onclick = function() { var url = this.getAttribute('google-href') window.open(url,"_self") }; document.getElementById('closeDialog').onclick = function() { dialog.style.display = "none"; }; document.getElementById('githubLogin').onclick
-        = function() { var url = this.getAttribute('github-href') window.open(url,"_self") }; // document.addEventListener('DOMContentLoaded', function() { // var element = document.querySelectorAll('.sidenav'); // var instances = M.Sidenav.init(element,
-        options);
+// (function() { var dialog = document.getElementById('loginDialog'); document.getElementById('loginLink').onclick = function() { dialog.style.display = "block"; }; window.onclick = function() { if (event.target == dialog) { dialog.style.display = "none";
+//         }; }; document.getElementById('googleLogin').onclick = function() { var url = this.getAttribute('google-href') window.open(url,"_self") }; document.getElementById('closeDialog').onclick = function() { dialog.style.display = "none"; }; document.getElementById('githubLogin').onclick
+//         = function() { var url = this.getAttribute('github-href') window.open(url,"_self") }; // document.addEventListener('DOMContentLoaded', function() { // var element = document.querySelectorAll('.sidenav'); // var instances = M.Sidenav.init(element,
+//         options);
 
         /* FOR DROPDOWN */ 
         // window.onclick = function(event) {
@@ -116,3 +158,4 @@ function hide(){
     var c=document.getElementById("i");
     c.classList.add("hidden");
 }
+

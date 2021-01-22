@@ -1164,3 +1164,7 @@ background-color:#f9a80d;
 	right: -8px;
 	border-bottom-color: rgba(0,0,0,.15);
   }
+
+  .dropdown-menu{
+	display: block !important;
+}
