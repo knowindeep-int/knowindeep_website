@@ -111,3 +111,108 @@ document.addEventListener('keyup', function(e) {
         document.getElementById('sugg_inp').remove()
     }
 })
+
+var fields = document.getElementsByClassName('field')
+if ('{{request.user.is_superuser}}' == 'True') {
+    for (var i = 0; i < fields.length; i++) {
+        fields[i].addEventListener('mouseover', function(e) {
+
+            // alert(e.target.getAttribute('class'))
+            if (document.getElementById('sugg_btn') != null && e.target.getAttribute('class') != 'sugg_btn') {
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if (e.target.getAttribute('class') != 'sugg_btn') {
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                    // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+
+p_tags = document.getElementsByTagName('p')
+if ('{{request.user.is_superuser}}' == 'True') {
+    for (var i = 0; i < p_tags.length; i++) {
+        p_tags[i].addEventListener('mouseover', function(e) {
+
+            // alert(e.target.getAttribute('class'))
+            if (document.getElementById('sugg_btn') != null && e.target.getAttribute('class') != 'sugg_btn') {
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if (e.target.getAttribute('class') != 'sugg_btn') {
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                    // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+var title = document.getElementsByTagName('h1')
+if ('{{request.user.is_superuser}}' == 'True') {
+    for (var i = 0; i < title.length; i++) {
+        title[i].addEventListener('mouseover', function(e) {
+
+            // alert(e.target.getAttribute('class'))
+            if (document.getElementById('sugg_btn') != null && e.target.getAttribute('class') != 'sugg_btn') {
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if (e.target.getAttribute('class') != 'sugg_btn') {
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                    // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+
+
+
+// for(var i = 0; i< fields.length; i++ ){
+//     fields[i].addEventListener('mouseout', function(e){
+//         // alert(e.target.getAttribute('class'))
+//         if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'field' && e.target.getAttribute('class') != 'sugg_btn'){
+//             document.getElementById('sugg_btn').remove()
+//         }
+//     })
+// }
+
+function createInputBox(e) {
+    if (document.getElementById('sugg_inp') == null) {
+        var inp = document.createElement('input')
+        inp.id = "sugg_inp"
+            // alert(e.parentNode)
+            // document.getElementById('sugg_btn').remove()
+        e.parentNode.appendChild(inp)
+
+    }
+
+    // alert('y')
+
+}
+document.addEventListener('keyup', function(e) {
+    // alert(e.keyCode)
+    if (e.keyCode == "13") {
+        // alert("6")
+        if (document.getElementById('sugg_inp') != null) {
+            var value = document.getElementById('sugg_inp').value
+            addSuggestion();
+            // alert(value)   
+        }
+        document.getElementById('sugg_inp').remove()
+    }
+})
