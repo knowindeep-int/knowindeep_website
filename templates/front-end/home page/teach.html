@@ -579,7 +579,10 @@ function setImgurHeader(xhr) {
                     })
                     document.location.href = "/teach/add/"+pk;
                 }    
-             
+             function addLink(){
+                 var url = prompt("enter a valid url")
+                 document.execCommand("CreateLink", false, url);
+             }
 //               $(window).on('beforeunload', function(){
 //   return "Good Bye";
 // });
@@ -620,6 +623,7 @@ function setImgurHeader(xhr) {
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
+        <button id="ordered-list" onclick="addLink()">add link</button>
         <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
         <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
         <input type="text" id="inptext">
