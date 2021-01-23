@@ -438,10 +438,17 @@ header {
 }
 
 .pro{
-	font-size: 45px;
-	font-family: 'gilroy';
-	margin-left: 20px;
+	font-weight: bold;
+	font-size: 2em;
+	/* font-family: 'gilroy'; */
+	margin-left: 5px;
 	vertical-align: middle;
+}
+.card-title{	
+	font-weight: ;
+	font-size: 2em;
+	/* margin-left: 5px; */
+	/* vertical-align: middle; */
 }
 .lang{
 	width: 30px;
@@ -567,7 +574,13 @@ margin: 2% auto;
 .card{
 	border-radius: 10px !important;
 	border-width: 0 !important;
+   width:inherit;
+   height: 600px; /* or whatever width you want. */
+   max-width:400px; 
+   max-height: 600px;/* or whatever width you want. */
+   display: inline-block;
 }
+
 
 .card-img-top{
 	border-radius: 10px !important;
@@ -620,6 +633,15 @@ margin: 2% auto;
 }
 .but3{
   padding: 4px 14px;
+}
+.btn_div{
+	position: absolute !important;
+	bottom: 20px;
+}
+.dropdown.left.left-share{
+	/* position: relative; */
+	float: right !important;
+	
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 660px) {
