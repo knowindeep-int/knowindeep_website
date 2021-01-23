@@ -8,7 +8,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.0.13/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
-
+<style>
+    pre{
+        color: orange;
+        background-color: black;
+    }
+</style>
         <script>
 
 
@@ -19,7 +24,7 @@
                 if('{{chapter}}'){
                     var dom = document.getElementsByClassName('editor')[0];
                     dom.setAttribute('contenteditable', 'false')
-                    dom.innerHTML = '{{chapter.content | safe}}'
+                    dom.innerHTML = '{{chapter.content | safe | linebreaksbr }}'
                     dom.setAttribute('contenteditable', 'true')
 
                 }
@@ -583,6 +588,27 @@ function setImgurHeader(xhr) {
                  var url = prompt("enter a valid url")
                  document.execCommand("CreateLink", false, url);
              }
+             function addCode(){
+                 if(document.getElementsByClassName('pre') != null){
+                    positionCursor()
+                 }
+                 else{
+                    var editor = document.getElementsByClassName('editor')[0];
+
+                var pre = document.createElement('pre')
+                pre.className = "pre"
+                pre.innerHTML = '&nbsp;'
+                fx().appendChild(pre)
+               positionCursor()
+                 }
+                
+            }
+            $('.pre').keyup(function(e){
+                    if(e.keyCode == 13){
+                        alert('6')
+                        e.preventDefault()
+                    }
+                })
 //               $(window).on('beforeunload', function(){
 //   return "Good Bye";
 // });
@@ -624,6 +650,7 @@ function setImgurHeader(xhr) {
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
         <button id="ordered-list" onclick="addLink()">add link</button>
+        <button id="ordered-list" onclick="addCode()">add code</button>
         <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
         <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
         <input type="text" id="inptext">
@@ -647,7 +674,38 @@ function setImgurHeader(xhr) {
             //     })
             // }
            
+            $('.editor').click(function (e) {
+    if (e.target.className == 'pre') {
+        // alert('5')
+    } else if(document.getElementsByClassName('editor')[0].lastElementChild.innerHTML != ""){
+        alert('6')
+        var p =document.createElement('p')
+        document.getElementsByClassName('editor')[0].appendChild(p)
+    }
+    }); 
+
+    function positionCursor() { 
+         
+              var tag = document.getElementsByClassName("pre")[0]; 
+                
+              var setpos = document.createRange(); 
+
+              var set = window.getSelection(); 
+              for (i = 0; i < tag.childNodes.length; i++) {
+                alert(tag.childNodes[i].nodeName)
+  }
+            
+              setpos.setStart(tag.childNodes[0], 1); 
+    
+              setpos.collapse(true); 
+                
+              set.removeAllRanges(); 
         
-        </script>
+              set.addRange(setpos); 
+                
+              tag.focus(); 
+          } 
+          
+        </script>   
     </body>
 </html>
