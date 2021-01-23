@@ -519,7 +519,7 @@ footer{
 	font-weight: 550;
 	margin-top: 10%;
 	height: 325px;
-	border-top: 1px solid black;
+	border-top: 1px solid grey;
 }
 
 ul.stack{
@@ -583,6 +583,8 @@ margin: 2% auto;
 
 
 .card-img-top{
+	width: auto;
+	height: 250px;
 	border-radius: 10px !important;
 }
 
@@ -732,6 +734,10 @@ margin: 50px auto;
 .bold{
 	font-weight: bold;
 }
+.bold1{
+	font-weight:550;
+}
+
 .right-num{
 	float: left;
 }
@@ -1102,6 +1108,9 @@ h6,.h6{
 }
 .card-body{
 	text-align: left;
+}
+.card-body hr{
+	border-top-color: #f9a80d;
 }
 
 .icon1{
