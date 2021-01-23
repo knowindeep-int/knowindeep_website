@@ -589,61 +589,19 @@ function setImgurHeader(xhr) {
                  document.execCommand("CreateLink", false, url);
              }
              function addCode(){
-                 if(document.getElementsByClassName('pre') != null){
-                    positionCursor()
-                 }
-                 else{
-                    var editor = document.getElementsByClassName('editor')[0];
+                var editor = document.getElementsByClassName('editor')[0];
 
                 var pre = document.createElement('pre')
                 pre.className = "pre"
                 pre.innerHTML = '&nbsp;'
+               
                 fx().appendChild(pre)
-               positionCursor()
-                 }
-                
-            }
-            $('.pre').keyup(function(e){
-                    if(e.keyCode == 13){
-                        alert('6')
-                        e.preventDefault()
-                    }
-                })
-//               $(window).on('beforeunload', function(){
-//   return "Good Bye";
-// });
-  //   $(window).on('beforeunload', function() {
-                        
-            //     content = document.getElementsByClassName('editor')[0].innerHTML
-            //             console.log(content)
-            //             var author = '{{project.author.pk}}'
-            //             var project = '{{project.pk}}'
-            //             $.ajax({
-            //                 type: 'POST',
-            //                 async:false,
-            //                 url: "{% url 'api:create_chapter' %}",
-                            
-            //                 data :{
-            //                     'chapter_pk': chapter_pk,
-            //                     'link_to': '{{project.pk}}',
-            //                     'content': content,
-            //                     'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
-            //                     'author': author,
-            //                     // 'heading': 'LoremIpsum'
-            //                 },
-            //                 success: function(data){
-            //                     console.log('success')
-            //                     if(chapter_pk == ''){
-            //                         document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
-            //                 }
-                            
-            //                 }, error: function(error){
-            //                     console.log(error);
-            //                 }
 
-            //             })
-            //             return "fg"
-            //         });
+                positionCursor()
+            }
+
+
+
          </script>
         <button id="bold" onclick="format('bold')">B</button>
         <button id="underline" onclick="format('underline')">U</button>
@@ -678,22 +636,23 @@ function setImgurHeader(xhr) {
     if (e.target.className == 'pre') {
         // alert('5')
     } else if(document.getElementsByClassName('editor')[0].lastElementChild.innerHTML != ""){
-        alert('6')
+        // alert('6')
         var p =document.createElement('p')
         document.getElementsByClassName('editor')[0].appendChild(p)
     }
     }); 
 
     function positionCursor() { 
-         
-              var tag = document.getElementsByClassName("pre")[0]; 
+            // alert(fx().children[0])
+              var tag = fx().children[0]    
+              //document.getElementsByClassName("pre")[document.getElementsByClassName("pre").length -1]; 
                 
               var setpos = document.createRange(); 
 
               var set = window.getSelection(); 
-              for (i = 0; i < tag.childNodes.length; i++) {
-                alert(tag.childNodes[i].nodeName)
-  }
+//               for (i = 0; i < tag.childNodes.length; i++) {
+//                 alert(tag.childNodes[i].nodeName)
+//   }
             
               setpos.setStart(tag.childNodes[0], 1); 
     
@@ -705,7 +664,23 @@ function setImgurHeader(xhr) {
                 
               tag.focus(); 
           } 
-          
+    //       $('[contenteditable]').on('paste', function(e) {
+    //  	var $self = $(this);
+    //   setTimeout(function() {
+    //    	$self.html($self.text());
+    //    }, 0);
+    // }).on('keypress', function(e){
+    //     // alert('h')
+
+    // 	 return e.which != 13;
+    // });
+        document.addEventListener('keydown', event => {
+  if (event.key === 'Enter' && fx().className == "pre") {
+    document.execCommand('insertLineBreak')
+    event.preventDefault()
+  }
+//   alert(fx().className)
+})
         </script>   
     </body>
 </html>
