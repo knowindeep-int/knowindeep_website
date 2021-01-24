@@ -16,8 +16,18 @@ function mousein() {
 function myFunc() {
     document.getElementById("form").classList.add("form1");
 }
+function getLoginPopUp(){
+    document.getElementsByTagName('body')[0].setAttribute('style', 'position: fixed;background-color: #d0d0d0;')
+    document.getElementById('login_div').setAttribute('style', 'display: block;')
+}
+document.onclick = function(event) {
 
-window.onclick = function(event) {
+    if ( event.target.id != 'loginLink cate' && event.target.parentElement.className != "innner" &&  event.target.className != "outerr" && event.target.parentElement.className != "or_div" && event.target.parentElement.className != "outerr" && document.getElementById('login_div').style.display == 'block') {
+        document.getElementById('login_div').style.display = "none";
+        document.getElementsByTagName('body')[0].setAttribute('style', 'position: relative;background-color: #ffffff;')
+    }
+
+
     if (!event.target.matches('#navbarDropdown')) {
         var dropdowns = document.getElementsByClassName("dropdown-menu");
         var myDropdown = document.getElementById("form");

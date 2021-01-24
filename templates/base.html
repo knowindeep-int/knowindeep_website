@@ -75,6 +75,23 @@
                 },
             });
         };
+
+
+
+        // document.onclick = function(event) {
+            // alert(document.getElementById('login_div').style.display == 'block')
+
+            // try using complete class with weavent.target 
+            // alert(event.target)
+            // event.target.id != "loginLink cate"
+            // alert(event.target.parentElement.className)
+
+        // }
+        function getLoginPopUp(){
+            document.getElementsByTagName('body')[0].setAttribute('style', 'position: fixed;background-color: #d0d0d0 ;')
+            document.getElementById('login_div').setAttribute('style', 'display: block;')
+        }
+        
         
 
 
@@ -125,7 +142,7 @@
                         </li>
                         {% else %}
                         <li class="nav-item login">
-                            <a class="nav-link" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog" href="{% url 'site_users:login' %}">Login</a>
+                            <a onclick="getLoginPopUp()" class="nav-link" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog" >Login</a>
                         </li>
                     </ul>
                     {%endif%}
@@ -140,13 +157,81 @@
                             <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
                         </li>
                         {% else %}
-                        <li><a href="{% url 'site_users:login' %}" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog">Log in</a></li>
+                        <li><a onclick="getLoginPopUp()" id="loginLink cate" data-href="" target="">Log in</a></li>
                         {%endif%}
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+    
+  <style>
+    /* body{
+        background-color: #d0d0d0;
+    } */
+    body{
+        /* position: fixed; */
+        /* background-color: rgba(0,0,0,0.4) !important; */
+    }
+.outerr{
+    background-color: white;
+    width: 600px;
+    margin: 10% auto;
+    padding: 10px;
+}
+.innner{
+    border: 1px solid #f9a80d;
+    padding: 40px 20px 30px 20px;
+    text-align: center;
+}
+.l{
+    font-size: 50px;
+    font-family: 'gilroy';
+}
+.log1{
+    background-image: url("/media/images/google_login.png");
+    width: 488px;
+    height: 76px;
+    margin:auto;
+}
+.log2{
+    background-image: url("/media/images/github_login.png");
+    width: 488px;
+    height: 76px;
+    margin:auto;
+}
+.innn{
+    color: white;
+    padding: 25px 0 0 80px;
+    font-size: 24px;
+    font-family: 'georgia';
+}
+.sign1,.sign1:active,.sign1:visited{
+    color: #4287f6;
+}
+.loginlink, .loginlink:hover{
+  color: inherit;
+  padding: 0;
+  border: 0;
+}
+#login_div{
+    /* position: absolute; */
+    /* top: center;
+    vertical-align: middle; */
+    display: none ;
+    position: absolute;
+left: 0;
+right: 0;
+top: 120px;
+
+margin: auto;
+
+    /* display: none; */
+    /* margin-right: auto; */
+}
+
+</style>
+
     <br>
     <br>
     <br>
@@ -255,6 +340,20 @@
             </div>
         </div>
     </footer>
+    <div class="outerr" id="login_div">
+        <div class="innner" id="innner_div">
+            <div class="l">Log In</div>
+            <br>
+            <div><a href="#" class="sign1" style="text-decoration: none; font-size: 20px;"><em>Sign Up Here</em></a> </div>
+            <br>
+            <button class="loginlink" onclick="window.location.href='{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}'"><div class="log1"><div class="innn">Log In with Google</div></div></button>
+            <br>
+            <div class="or_div" style="font-size: 20px; font-family: 'gilroy';"><em>-------------  or  -------------</em></div>
+            <br>
+            <button class="loginlink" onclick="window.location.href='{% url 'social:begin' 'github' %}?next={{request.path}}'"><div class="log2"><div class="innn">Log In with Github</div></div></button>
+    
+        </div>
+    </div>
 
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax /libs/materialize/1.0.0/js/materialize.min.js"></script> -->
