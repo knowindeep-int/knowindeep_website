@@ -122,7 +122,8 @@ else{
         languages = [],
         overview = "",
         pre_reqs = [],
-        pk = ""
+        pk = "",
+        image = ""
     )
 
     // class Chapter {
@@ -341,7 +342,12 @@ function deleteImage(e){
             type: 'DELETE',
             success: function(data){
                     alert('image deleted sucessfully!')
-                    document.getElementById('image_input_div').remove();
+                    for(var i=0;i<document.getElementsByClassName('image').length;i++)
+                    // {alert(document.getElementsByClassName('image').length)
+                      {document.getElementsByClassName('image')[i].remove();}  
+                        
+                    
+                    document.getElementById('remove_img_btn').remove()
                 },
                 error: function(error){
                     alert(error)
@@ -356,7 +362,14 @@ function deleteImage(e){
 var called=0;
 function addLocalImage(e){
     called = 1;
-    var targetDiv=document.getElementsByClassName("editor")[0];
+    // alert(image)
+    // if(image != 'None'){
+       
+    //     document.getElementById('image_input').setAttribute('data-deletehash',document.getElementById('remove_img_btn').getAttribute('data-deletehash'))
+    //     deleteImage(document.getElementById('image_input'))
+    // }
+    // else{
+        var targetDiv=document.getElementsByClassName("editor")[0];
             var file = $(e).prop('files')[0];
             var img=document.createElement("img");
             img.setAttribute('style', 'width:200px;height:200px;');
@@ -414,6 +427,7 @@ function addLocalImage(e){
                     alert('success!')
                     img.src = data.data.link
                     document.getElementById('remove_img_btn').setAttribute('data-deletehash', data.data.deletehash)
+                    document.getElementById('image_input').setAttribute('data-deletehash', data.data.deletehash)
                     document.getElementById('image_input').value = null
                     document.getElementById('project_image').src = ""
                 },
@@ -427,6 +441,9 @@ function addLocalImage(e){
             })
 
     }
+    
+    
+    
 
 </script>
 <!--local -->
