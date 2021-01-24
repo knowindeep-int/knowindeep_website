@@ -511,7 +511,7 @@ function createImagePage() {
 
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
     div.innerHTML += '<div style="color: black;" id="image_input_div">';
-    div.innerHTML += '<input id="image_input" type="file" onchange="addLocalImage(this)" style="color: black;" id="image_input">';
+    div.innerHTML += '<input id="image_input" type="file" onchange="checkImage()" style="color: black;" id="image_input">';
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
@@ -522,6 +522,17 @@ function createImagePage() {
         document.getElementById('project_image').src =image
     }
 
+}
+if(document.getElementById('image') != null){
+    alert('h')
+}
+
+function checkImage(){
+    if(document.getElementById('image') != null){
+        alert('h')
+        deleteImage(document.getElementById('image_input'))
+    }
+    addLocalImage(document.getElementById('image_input'))
 }
 function createNumberOfHours() {
     saveImageDraft()
