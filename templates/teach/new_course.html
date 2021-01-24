@@ -102,7 +102,7 @@ if('{{project.title}}'){
     {% for chapter in project.chapters.all %}
     var chapter_add_dict = {}
     chapter_add_dict['heading'] = '{{chapter.heading}}'
-    chapter_add_dict['content'] = '{{chapter.content}}'
+    chapter_add_dict['content'] = '{{chapter.content | safe |linebreaksbr}}'
     chapter_add_dict['description'] = '{{chapter.description}}'
     chapter_add_dict['youtube_link'] = '{{chapter.youtube_link}}'
     chapters.push(chapter_add_dict)
@@ -195,8 +195,10 @@ function saveImageDraft() {
     // formData.append('image', file);
     // formData.append('pk', pk);
     // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
-    if(called == 1){
-        var url = document.getElementsByClassName('image')[0].src
+    if(called == 1 && document.getElementsByClassName('image')[0]){
+        var url = document.getElementsByClassName('image')[0].src}
+        else  if(called == 1 && document.getElementsByClassName('project_image')[0]){
+        var url = document.getElementsByClassName('project_image')[0].src}
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
@@ -216,7 +218,6 @@ function saveImageDraft() {
         
     })
     } 
-    }
     
 
 
@@ -342,11 +343,7 @@ function deleteImage(e){
             type: 'DELETE',
             success: function(data){
                     alert('image deleted sucessfully!')
-                    for(var i=0;i<document.getElementsByClassName('image').length;i++)
-                    // {alert(document.getElementsByClassName('image').length)
-                      {document.getElementsByClassName('image')[i].remove();}  
-                        
-                    
+                    document.getElementsByClassName('image')[0].remove();  
                     document.getElementById('remove_img_btn').remove()
                 },
                 error: function(error){
@@ -426,10 +423,13 @@ function addLocalImage(e){
                 success: function(data){
                     alert('success!')
                     img.src = data.data.link
+                    // img.style = "display:none;"
                     document.getElementById('remove_img_btn').setAttribute('data-deletehash', data.data.deletehash)
                     document.getElementById('image_input').setAttribute('data-deletehash', data.data.deletehash)
                     document.getElementById('image_input').value = null
-                    document.getElementById('project_image').src = ""
+                    document.getElementById('project_image').src = data.data.link
+                    
+                    image = data.data.link
                 },
                 error: function(error){
                     alert(error)
@@ -437,8 +437,8 @@ function addLocalImage(e){
                 beforeSend: setImgurHeader,
 
                 
-
             })
+            document.getElementById('project_image').style = "display:none"
 
     }
     
