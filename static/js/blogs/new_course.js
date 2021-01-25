@@ -105,19 +105,19 @@ function createDescriptionPage() {
         }
     }
     sessionStorage.setItem("pk", pk);
-    if (document.getElementById("chapter_div") != null) {
-        for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
-            if (document.getElementsByClassName("heading")[i] != null) {
-                let chapter_add = {};
-                chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
-                chapter_add['description'] = document.getElementsByClassName("description")[i].value;
-                chapter_add['content'] = document.getElementsByClassName("content")[i].value;
-                chapter_add['youtube_link'] = document.getElementsByClassName("youtube")[i].value;
+    // if (document.getElementById("chapter_div") != null) {
+    //     for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
+    //         if (document.getElementsByClassName("heading")[i] != null) {
+    //             let chapter_add = {};
+    //             chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
+    //             chapter_add['description'] = document.getElementsByClassName("description")[i].value;
+    //             chapter_add['content'] = document.getElementsByClassName("content")[i].value;
+    //             chapter_add['youtube_link'] = document.getElementsByClassName("youtube")[i].value;
 
-                chapters[i] = chapter_add;
-            }
-        }
-    }
+    //             chapters[i] = chapter_add;
+    //         }
+    //     }
+    // }
     //window.name = pk
     setTimeout(function(){sessionStorage.setItem('pk',pk);}, 100)
 
@@ -143,13 +143,14 @@ function createDescriptionPage() {
     if (div.innerHTML != "") {
         return false
     }
-
-    div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    var content = ""
+    content += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working description?</h3>' + 
     "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
-    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' + 
-    '</div>'
-    div.innerHTML += '<span id="error_description"></span></div>';
+    '<form class="search-bar">'+
+    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' 
+    content += '<span id="error_description"></span>' +
+                '</form>' 
 document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyPage();')
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
@@ -157,35 +158,43 @@ document.getElementById('current').innerHTML = 2
 document.getElementsByClassName('progress-bar')[0].style = "width:28%"
 
 
-    div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML += "<h2 style='color: black;'> ADD LANGUAGES</h2>";
-    div.innerHTML += '<div style="color: black;">';
-    div.innerHTML += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
+    // div.setAttribute("class", "jumbotron text-center");
+    content += "<h7>Add Languages</h7>";
+    content += '<div style="color: black;">';
+    content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
     
 
-    for(var i=0; i< languages_all.length; i++){
-        document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
-    }
-
-
-    div.innerHTML += '</select>'
-    div.innerHTML += '<input type="text" style = "color:black;" id="add_language_input"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_language()">ADD NEW LANGUAGE</button>'
-    div.innerHTML += '<span id="error_language"></span></div>';
     
-    div.innerHTML += "<h2 style='color: black;'> ADD PRE-REQUISITES </h2>";
-    div.innerHTML += '<div style="color: black;">';
+
+
+    content += '</select></div>'
+    content += '<form class="search-bar">'
+    content += '<input type="text" style = "color:black;" id="add_language_input" class="search-input" placeholder="Type here"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_language()">ADD NEW LANGUAGE</button>'
+    content += '</form>'
+    content += '<span id="error_language"></span>';
+    
+    
+    content += "<h8>Add Prerequisites</h8>";
+    content += '<div style="color: black;">';
 
     //div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">' +
     //'{% for pre_req in pre_reqs %}<option>{{pre_req}}</option>{% endfor %}' 
-    div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">'
+    content += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">'
 
+    content += '</select></div>'
+    content += '<form class="search-bar">'
+    content += '<input type="text" style = "color:black;" id="add_pre_req_input"  class="search-input" placeholder="Type here"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
+    content += '</form>'
+    content += '<span id="error_prereq" ></span>'
+    content += '</div>'
+    // div.setAttribute("class", "jumbotron text-center");
+    div.innerHTML = content
+    for(var i=0; i< languages_all.length; i++){
+        document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
+    }
     for(var i=0; i< prereqs_all.length; i++){
         document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
     }
-    div.innerHTML += '<input type="text" style = "color:black;" id="add_pre_req_input"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
-    div.innerHTML += '<span id="error_prereq" ></span></div>'
-    div.setAttribute("class", "jumbotron text-center");
-    
     // document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours()')
     // document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
     // document.getElementById('current').innerHTML = 2
@@ -379,10 +388,10 @@ var view_count =0
 // }
 
 function createOverviewPage() {
-    if (document.getElementsByClassName("difficulty_radio_input") != null) {
-        for (var i = 0; i < document.getElementsByClassName("difficulty_radio_input").length; i++) {
-            if (document.getElementsByClassName("difficulty_radio_input")[i].checked) {
-                difficulty_level = document.getElementsByClassName("difficulty_radio_input")[i].value
+    if (document.getElementsByClassName("male") != null) {
+        for (var i = 0; i < document.getElementsByClassName("male").length; i++) {
+            if (document.getElementsByClassName("male")[i].checked) {
+                difficulty_level = document.getElementsByClassName("male")[i].value
             }
         }
     }
@@ -458,10 +467,10 @@ function createImagePage() {
         }
     }
 
-    if (document.getElementsByClassName("time_radio_input") != null) {
-        for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
-            if (document.getElementsByClassName("time_radio_input")[i].checked) {
-                no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+    if (document.getElementsByClassName("male_time") != null) {
+        for (var i = 0; i < document.getElementsByClassName("male_time").length; i++) {
+            if (document.getElementsByClassName("male_time")[i].checked) {
+                no_of_hours = document.getElementsByClassName("male_time")[i].value
             }
         }
     }
@@ -570,18 +579,19 @@ function createNumberOfHours() {
     div_9.innerHTML = "";
 
     div = document.getElementById("10");
-    div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>";
-    div.innerHTML += '<div style="color: black;">'  ;
-    div.innerHTML += '<input class="time_radio_input" type="radio" id="0-2" name="" value="0.2" style="opacity: 1;">' +
-        '<label for="0--2">0--2 HOURS</label><br>' +
-        '<input class="time_radio_input" type="radio" id="2-4" name="" value="2.4"  style="opacity: 1;">' +
-        '<label for="2-4">2-4 HOURS</label><br>' +
-        '<input class="time_radio_input" type="radio" id=">4" name="" value=".4" style="opacity: 1;">' +
-        '<label for=">4">MORE THAN 4 HOURS</label>';
+    var content = ""
+    content += "<div class='container-fluid container-fluid1'>"
+    content += "<h3> ADD HOURS REQUIRED FOR THE PROJECT</h3><img src='/media/images/icon.png' class='icon1'>";
+    content += '<div style="color: black;">'  ;
+    content += '<div class="dot><input class="male_time" type="radio" id="0-2" name="" value="0.2" style="opacity: 1;">' +
+        '<label for="0--2">0--2 HOURS</label>' +
+        '<input class="male_time" type="radio" id="2-4" name="" value="2.4"  style="opacity: 1;">' +
+        '<label for="2-4">2-4 HOURS</label>' +
+        '<input class="male_time" type="radio" id=">4" name="" value=".4" style="opacity: 1;">' +
+        '<label for=">4">MORE THAN 4 HOURS</label></div></div>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
-
+    div.innerHTML = content
     if(no_of_hours == "0.2"){
         document.getElementById('0-2').checked = true;
     }
@@ -788,19 +798,21 @@ function createDifficultyPage() {
     div_10.innerHTML = "";
 
     div = document.getElementById("6");
-    div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML += "<h2 style='color: black;'> ADD DIFFICULTY LEVEL FOR THE PROJECT</h2>";
-    div.innerHTML += '<div style="color: black;">';
-    div.innerHTML +=
-                    '<input class="difficulty_radio_input" type="radio" id="easy"   name="diff" value="EASY"   style="opacity: 1;">' +
-                    '<label style="font-size:18px;" for="easy">EASY</label><br>' +           
-                     '<input class="difficulty_radio_input" type="radio" id="medium" name="diff" value="MEDIUM" style="opacity: 1;">' +
-                     '<label style="font-size:18px;" for="medium">MEDIUM</label><br>' +
-                     '<input class="difficulty_radio_input" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
-                     '<label style="font-size:18px;" for="hard">HARD</label>';
+    var content = ""
+    // div.setAttribute("class", "jumbotron text-center");
+    content += "<div class='container-fluid container-fluid1'>"
+    content += " <h3>Add difficulty level for the project</h3><img src='/media/images/icon.png' class='icon1'>";
+    content += '<div style="color: black;">';
+    content += '<div class="dot">'+
+                    '<input class="male" type="radio" id="easy"   name="diff" value="EASY"   style="opacity: 1;">' +
+                    '<label style="font-size:18px;" for="easy">EASY</label>' +           
+                     '<input class="male" type="radio" id="medium" name="diff" value="MEDIUM" style="opacity: 1;">' +
+                     '<label style="font-size:18px;" for="medium">MEDIUM</label>' +
+                     '<input class="male" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
+                     '<label style="font-size:18px;" for="hard">HARD</label>' +'</div></div>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
     //     '</div>';
-
+    div.innerHTML = content
     if(difficulty_level == "EASY"){
         document.getElementById('easy').checked = true;
     }

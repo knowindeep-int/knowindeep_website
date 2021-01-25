@@ -1,6 +1,6 @@
-window.onclick = function(){
-    alert('jop')
-}
+// window.onclick = function(){
+//     alert('jop')
+// }
 
 document.addEventListener('DOMContentLoaded', function() {
     var element = document.querySelectorAll('.sidenav');
@@ -52,16 +52,6 @@ function hide() {
     var c = document.getElementById("i");
     c.classList.add("hidden");
 }
-$('html').click(function (e) {
-    if (e.target.className == 'input') {
-        // alert('5')
-        document.getElementsByClassName('dropdown-menu')[0].style = 'display: block !important;'
-    } else {
-        document.getElementsByClassName('dropdown-menu')[0].style = 'display: none !important;'
-        document.getElementsByClassName('dropdown-menu')[0].innerHTML = ''
-        document.getElementById("form").classList.remove("form1");
-    }
-    }); 
 
 
 /* FOR BASE */ 
