@@ -1116,8 +1116,13 @@ h6,.h6{
     margin-top: 110px;
     width: 146px
 }
-.container-fluid1{
+.container-fluid1 {
+    padding-bottom: 10px;
+    background-color: #f2f2f2;
+	/*border: 0px 200px 0 200px;*/
     text-align: center;
+    width:70% !important;
+    padding:50px 0px 50px 0px;
 }
 .container-fluid1 *{
     padding-bottom: 10px;
