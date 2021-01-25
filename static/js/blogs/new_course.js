@@ -147,10 +147,10 @@ function createDescriptionPage() {
     content += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working description?</h3>' + 
     "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
-    '<form class="search-bar">'+
-    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' 
+    '<div class="search-bar">'+
+    '<input type="text"  class="search-input" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' 
     content += '<span id="error_description"></span>' +
-                '</form>' 
+                '</div>' 
 document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyPage();')
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
@@ -168,9 +168,9 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
 
 
     content += '</select></div>'
-    content += '<form class="search-bar">'
+    content += '<div class="search-bar">'
     content += '<input type="text" style = "color:black;" id="add_language_input" class="search-input" placeholder="Type here"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_language()">ADD NEW LANGUAGE</button>'
-    content += '</form>'
+    content += '</div>'
     content += '<span id="error_language"></span>';
     
     
@@ -182,9 +182,9 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
     content += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">'
 
     content += '</select></div>'
-    content += '<form class="search-bar">'
+    content += '<div class="search-bar">'
     content += '<input type="text" style = "color:black;" id="add_pre_req_input"  class="search-input" placeholder="Type here"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
-    content += '</form>'
+    content += '</div>'
     content += '<span id="error_prereq" ></span>'
     content += '</div>'
     // div.setAttribute("class", "jumbotron text-center");
@@ -581,8 +581,8 @@ function createNumberOfHours() {
 
     div = document.getElementById("10");
     var content = ""
-    content += "<div class='container-fluid container-fluid1'>"
-    content += "<h3> ADD HOURS REQUIRED FOR THE PROJECT</h3><img src='/media/images/icon.png' class='icon1'>";
+    content += "<div class='container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
+    content += "<h3> ADD HOURS REQUIRED FOR THE PROJECT</h3>";
     content += '<div style="color: black;">'  ;
     content += '<div class="dot><input class="male_time" type="radio" id="0-2" name="" value="0.2" style="opacity: 1;">' +
         '<label for="0--2">0--2 HOURS</label>' +
@@ -801,8 +801,8 @@ function createDifficultyPage() {
     div = document.getElementById("6");
     var content = ""
     // div.setAttribute("class", "jumbotron text-center");
-    content += "<div class='container-fluid container-fluid1'>"
-    content += " <h3>Add difficulty level for the project</h3><img src='/media/images/icon.png' class='icon1'>";
+    content += "<div class='container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
+    content += " <h3>Add difficulty level for the project</h3>";
     content += '<div style="color: black;">';
     content += '<div class="dot">'+
                     '<input class="male" type="radio" id="easy"   name="diff" value="EASY"   style="opacity: 1;">' +
