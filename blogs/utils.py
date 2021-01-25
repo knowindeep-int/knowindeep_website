@@ -38,8 +38,14 @@ def save_user(backend, user, response, *args, **kwargs):
     try:
         profile = models.Profile.objects.get(user=user)
     except models.Profile.DoesNotExist:
+        
+        if 'picture' in response: 
+            dp = response['picture']
+        else:
+            dp = response['avatar_url']    
+            
         profile = models.Profile(
-            dp = response['picture'],
+            dp = dp,
             user=user
         )
         profile.save()
