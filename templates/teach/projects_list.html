@@ -109,7 +109,11 @@
                     
                                     <div class="col-md-4">
                                         <div class="card">
+                        {% if project.image %}
+                        <img class="card-img-top img-fluid tm-gallery-img" src="{{project.image}}" alt="Card image cap">
+                        {% else %}
                         <img class="card-img-top img-fluid tm-gallery-img" src="/media/images/blog-pic.png" alt="Card image cap">
+                        {% endif %}
                         <div class="card-body">
                         <h5 class="card-title">{{project | title}}</h5>
                         <p class="card-text">{{project.overview}}</p>
@@ -125,7 +129,7 @@
                         <hr>
                             <button class="but1 but2 but3" onclick="location.href = '{% url 'teach:add_course' project.pk %}';"> GO TO BLOG </button>
                         
-                        {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
+                        
                     </div>
                     </div>
                         </div>
@@ -233,9 +237,14 @@
 
                 
                     
-                                    <div class="col-md-4">
-                                        <div class="card">
+                    <div class="col-md-4">
+                        <div class="card">
+                        {% if project.image %}
+                        <img class="card-img-top img-fluid tm-gallery-img" src="{{project.image}}" alt="Card image cap">
+                        {% else %}
                         <img class="card-img-top img-fluid tm-gallery-img" src="/media/images/blog-pic.png" alt="Card image cap">
+                        {% endif %}
+                        
                         <div class="card-body">
                         <h5 class="card-title">{{project | title}}</h5>
                         <p class="card-text">{{project.overview}}</p>
