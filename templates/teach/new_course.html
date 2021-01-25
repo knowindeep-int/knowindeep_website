@@ -427,7 +427,10 @@ function addLocalImage(e){
                     document.getElementById('remove_img_btn').setAttribute('data-deletehash', data.data.deletehash)
                     document.getElementById('image_input').setAttribute('data-deletehash', data.data.deletehash)
                     document.getElementById('image_input').value = null
-                    document.getElementById('project_image').src = data.data.link
+                    if('{{status}}' != 'image'){
+                        document.getElementById('project_image').src = data.data.link
+                    }
+                    
                     
                     image = data.data.link
                 },
@@ -438,8 +441,9 @@ function addLocalImage(e){
 
                 
             })
+            if('{{status}}' != 'image'){
             document.getElementById('project_image').style = "display:none"
-
+            }
     }
     
     
