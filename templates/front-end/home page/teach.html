@@ -501,7 +501,9 @@ function setImgurHeader(xhr) {
                         var chapter_pk = ""
                     }
                     function addChapter(){
-                        
+                        // alert(document.getElementsByClassName('editor')[0].innerHTML.replace(/\s/g, '').length)
+                        if(document.getElementsByClassName('editor')[0].innerHTML.replace(/\s/g, '').length != '0'){
+                            
                         content = document.getElementsByClassName('editor')[0].innerHTML
                         console.log(content)
                         var author = '{{project.author.pk}}'
@@ -538,6 +540,7 @@ function setImgurHeader(xhr) {
                         //     document.location.href = '/teach/chapter/' + '{{project.pk}}'
                         // }
                     }
+                }
                     function newChapter(){
                         document.location.href = '/teach/chapter/' + '{{project.pk}}'
                     //  content = ""
