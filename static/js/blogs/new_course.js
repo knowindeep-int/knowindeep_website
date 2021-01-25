@@ -526,19 +526,20 @@ function createImagePage() {
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('current').innerHTML = 5
     document.getElementsByClassName('progress-bar')[0].style = "width:70%"
-    if(image){
+    if(image != "None"){
+        // alert(image)
         div.innerHTML += '<img id="project_image">';
         document.getElementById('project_image').src =image
     }
 
 }
-if(document.getElementById('image') != null){
-    alert('h')
-}
+// if(document.getElementById('project_image')){
+//     alert('h')
+// }
 
 function checkImage(){
-    if(document.getElementById('image') != null){
-        alert('h')
+    if(document.getElementsByClassName('image') != null || document.getElementById('project_image') != null){
+        // alert('h')
         deleteImage(document.getElementById('image_input'))
     }
     addLocalImage(document.getElementById('image_input'))
