@@ -60,7 +60,7 @@ function getCookie(cname) {
 var languages_add = new Array();
 function add_language(){
     
-    var new_lang =document.getElementById("add_language_input").value;
+    var new_lang =document.getElementById("search_language").value;
     languages_add.push(new_lang)
     saveDraft("languages",languages_add, isAdded = true)
     // setTimeout(function(){location.reload();},50)
@@ -169,7 +169,9 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
 
     content += '</select></div>'
     content += '<div class="search-bar">'
-    content += '<input type="text" style = "color:black;" id="add_language_input" class="search-input" placeholder="Type here"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_language()">ADD NEW LANGUAGE</button>'
+    content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"></input>'
+    content += '<div id ="results_lang" ></div>'
+    
     content += '</div>'
     content += '<span id="error_language"></span>';
     
@@ -222,6 +224,12 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
 }
 
 
+function addLanguage(e){
+    
+    
+    languages.push(e.innerHTML)
+    saveDraft("languages",languages)
+}
 function createTitlePage() {
     if( document.getElementById("description_input") != null) {
         description = document.getElementById("description_input").value;
@@ -247,6 +255,7 @@ function createTitlePage() {
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
     document.getElementById('current').innerHTML = 1
+    document.getElementsByClassName('progress-bar')[0].style = "width:14% !important"
     // div.setAttribute("class", "jumbotron text-center") ;
     // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
     // document.getElementById("title_input").dataset.state = 'invalid';
@@ -440,7 +449,7 @@ function createOverviewPage() {
     showhide("7");
 
     var div = document.getElementById("7");
-    div.setAttribute("class", "jumbotron text-center");
+    // div.setAttribute("class", "jumbotron text-center");
     div.innerHTML +='<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working overview?</h3>' + 
     "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 

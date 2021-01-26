@@ -22,7 +22,9 @@
         .progress-bar{
             background-color: orange !important;
         }
-
+        .lang_results{
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -82,12 +84,15 @@
 
 
 if('{{project.title}}'){
-   assignParam(
+    var languages = []
+    {%for language in selected_languages%}
+    languages.push('{{language}}')
+    {%endfor%}
+    assignParam(
     title = '{{project.title}}',
     description = '{{project.description}}',
     difficulty_level = '{{difficulty_level}}',
     no_of_hours = '{{no_of_hours}}',
-    languages = '{{selected_languages}}',
     overview = "{{overview}}",
     pre_reqs = '{{project.pre_req.all}}',
     pk = '{{project.pk}}',
@@ -219,7 +224,38 @@ function saveImageDraft() {
     })
     } 
     
-
+    function getChapterSearches(){
+        var search_input = document.getElementById('search_language').value
+        $.ajax({
+            method: 'GET',
+            url: '{% url "api:search_lang"%}',
+            data:{
+                'search_input':search_input
+            },
+            success: function(data){
+                //  alert(data.languages.length)
+                var div =document.getElementById('results_lang')
+                div.innerHTML = ""
+                for (var i=0;i<data.languages.length;i++){
+                    div.innerHTML += '<p class="lang_results" onclick = "addLanguage(this)">' + data.languages[i].name +'</p>'
+                    // alert(data.languages[i].name)
+                }
+               
+                if(data.languages.length == 0){
+                    // alert('hello')
+                    var btn = document.createElement('button')
+                    btn.classList = "btn btn-primary"
+                    btn.style = "float: right;"
+                    btn.setAttribute('onclick',add_language())
+                    btn.innerHTML = 'ADD NEW LANGUAGE'
+                    document.getElementById('results_lang').appendChild(btn)
+                }
+            },
+            error: function(error){
+                alert('error')
+            },
+        });
+    };
 
     function saveChapterDraft() {
         $.ajax({
