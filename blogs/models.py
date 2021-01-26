@@ -30,6 +30,11 @@ class Language(models.Model):
     def getAllLanguages(cls):
         languages = cls.objects.all()
         return languages
+        
+    @classmethod
+    def getLanguageSearches(cls,search_input):
+        language_searches = cls.objects.filter(name__icontains = search_input)
+        return language_searches
 
 class Profile(models.Model):
     account_number = models.CharField(max_length=30, null=True, blank=True)
@@ -122,6 +127,11 @@ class PreRequisite(models.Model):
     def getAllPreReqs(cls):
         pre_reqs = cls.objects.all()
         return pre_reqs
+
+    @classmethod
+    def getPrereqSearches(cls,search_input):
+        prereq_searches = cls.objects.filter(name__icontains = search_input)
+        return prereq_searches
 
 
 class Project(models.Model):
