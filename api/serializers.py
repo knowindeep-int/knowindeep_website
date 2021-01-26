@@ -1,6 +1,6 @@
 from rest_framework import fields, serializers
 
-from blogs.models import Project, Comment, Profile, Language, Chapter, PreRequisite, Suggestion
+from blogs.models import Project, Comment, Profile, Language, Chapter, PreRequisite, Suggestion, 
 
 class ProjectSerializer(serializers.ModelSerializer):
     title = serializers.CharField(allow_blank=True, allow_null=True, required = False, max_length = 25)
