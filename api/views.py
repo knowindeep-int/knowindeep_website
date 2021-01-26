@@ -142,6 +142,18 @@ def search_project(request):
 
         return Response(data, status = status.HTTP_200_OK)
 
+@api_view(['GET',])
+def api_search_languages(request):
+    if request.method == "GET":
+        search_input = request.GET['search_input']
+        language_searches = Language.getLanguageSearches(search_input = search_input)
+        language_serializer = LanguageSerializer(language_searches, many = True)
+
+        data = {
+            'languages':language_serializer.data
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
 @api_view(['POST', 'GET',])
 def api_save_draft(request):
     if request.method == "POST":
