@@ -114,24 +114,24 @@ class Blog(models.Model):
         super(Blog,self).save(*args,*kwargs)
     
 
-class PreRequisite(models.Model):
-    name = models.CharField(max_length = 100)
+# class PreRequisite(models.Model):
+#     name = models.CharField(max_length = 100)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
-    class Meta:
-        verbose_name_plural = "Pre-Requisites"
+#     class Meta:
+#         verbose_name_plural = "Pre-Requisites"
     
-    @classmethod
-    def getAllPreReqs(cls):
-        pre_reqs = cls.objects.all()
-        return pre_reqs
+#     @classmethod
+#     def getAllPreReqs(cls):
+#         pre_reqs = cls.objects.all()
+#         return pre_reqs
 
-    @classmethod
-    def getPrereqSearches(cls,search_input):
-        prereq_searches = cls.objects.filter(name__icontains = search_input)
-        return prereq_searches
+#     @classmethod
+#     def getPrereqSearches(cls,search_input):
+#         prereq_searches = cls.objects.filter(name__icontains = search_input)
+#         return prereq_searches
 
 
 class Project(models.Model):
@@ -149,7 +149,7 @@ class Project(models.Model):
     no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
     no_of_views = models.IntegerField(default=0)
     overview = models.CharField(max_length=300, null = True, blank = True)
-    pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
+    pre_req = models.CharField(max_length=300,null= True,blank=True)
     slug = models.SlugField(null=True,blank=True)
     title = models.CharField(max_length=25)  
     
