@@ -18,6 +18,9 @@ p {
 a {
 	text-decoration: none!important;
 }
+html {
+	height: 100%
+  }
 a.main-button {
 	outline: none;
 	cursor: pointer;
@@ -513,14 +516,14 @@ header {
 .fa-bars{
   color:white;
 }
+
 footer{
-	background-color: #f7f7f7;
 	font-weight: 550;
 	margin-top: 10%;
-	height: 325px;
+	min-height: 40vh;
 	border-top: 1px solid grey;
+	background-color:#f7f7f7;
 }
-
 ul.stack{
 	list-style-type: none;
 	padding: 0 30px;
@@ -1247,4 +1250,8 @@ h8,.h8{
 }
 .dot{
 	text-align:center;
+}
+.row-stacks{
+	background-color: grey;
+	margin-bottom: 0;
 }
