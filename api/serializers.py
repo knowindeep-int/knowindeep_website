@@ -1,13 +1,13 @@
 from rest_framework import fields, serializers
 
-from blogs.models import Project, Comment, Profile, Language, Chapter, PreRequisite, Suggestion
+from blogs.models import Project, Comment, Profile, Language, Chapter, Suggestion
 
 class ProjectSerializer(serializers.ModelSerializer):
     title = serializers.CharField(allow_blank=True, allow_null=True, required = False, max_length = 25)
     class Meta:
         model = Project
         #fields = ['topic','topic_image','topic_content']
-        fields = ['image', 'title', 'slug', 'overview', 'languages','difficulty_level','no_of_hours']
+        fields = ['image', 'title', 'slug', 'overview', 'languages','difficulty_level','no_of_hours','pre_req']
         extra_kwargs = {'slug': {'required': False}, 'title': {'required': False}}
 
     def update(self, instance, data):
@@ -22,6 +22,8 @@ class ProjectSerializer(serializers.ModelSerializer):
         instance.overview =(self.data['overview'], instance.overview)[self.data.get('overview', None) is None]
         instance.difficulty_level =(self.data['difficulty_level'], instance.difficulty_level)[self.data.get('difficulty_level', None) is None]
         instance.no_of_hours =(self.data['no_of_hours'], instance.no_of_hours)[self.data.get('no_of_hours', None) is None]
+        if 'pre_req' in data:
+            instance.pre_req =(self.data['pre_req'], instance.pre_req)[self.data.get('pre_req', None) is None]
         if dict(data).get('languages[]'):
             if data['isAdded'] == 'false':
                 instance.languages.clear()
@@ -34,16 +36,16 @@ class ProjectSerializer(serializers.ModelSerializer):
 
                 instance.languages.add(language_obj)
 
-        if dict(data).get('pre_req[]'):
-            if data['isAdded'] == 'false':
-                instance.pre_req.clear()
-            for pre_req in dict(data).get('pre_req[]'):
-                try:
-                    pre_req_obj = PreRequisite.objects.get(name__iexact = pre_req)
-                except PreRequisite.DoesNotExist:
-                    pre_req_obj = PreRequisite.objects.create(name = pre_req.capitalize())
+        # if dict(data).get('pre_req[]'):
+        #     if data['isAdded'] == 'false':
+        #         instance.pre_req.clear()
+        #     for pre_req in dict(data).get('pre_req[]'):
+        #         try:
+        #             pre_req_obj = PreRequisite.objects.get(name__iexact = pre_req)
+        #         except PreRequisite.DoesNotExist:
+        #             pre_req_obj = PreRequisite.objects.create(name = pre_req.capitalize())
 
-                instance.pre_req.add(pre_req_obj)
+        #         instance.pre_req.add(pre_req_obj)
         instance.save()
         return instance
 
@@ -68,11 +70,6 @@ class LanguageSerializer(serializers.ModelSerializer):
         model = Language
         fields = ['name']
         
-class PreRequisiteSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = PreRequisite
-        fields = '__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
     #email_id = serializers.EmailField(required = True)
