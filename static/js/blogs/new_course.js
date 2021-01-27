@@ -67,14 +67,14 @@ function add_language(){
     
 }
 
-var pre_reqs_add = new Array();
-function add_pre_req(){
+// var pre_reqs_add = new Array();
+// function add_pre_req(){
     
-    var new_pre =document.getElementById("add_pre_req_input").value;
-    pre_reqs_add.push(new_pre)
-    saveDraft("pre_req",pre_reqs_add, isAdded = true)
-    // setTimeout(function(){location.reload();},50)
-}
+//     var new_pre =document.getElementById("add_pre_req_input").value;
+//     pre_reqs_add.push(new_pre)
+//     saveDraft("pre_req",pre_reqs_add, isAdded = true)
+//     // setTimeout(function(){location.reload();},50)
+// }
 
 
 
@@ -162,7 +162,10 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
     content += "<h7>Add Languages</h7>";
     content += '<div style="color: black;">';
     content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
-    
+    var bold = "'bold'"
+    var underline = "'underline'"
+    var italic = "'italic'"
+    var ordered = "'insertOrderedList'"
 
     
 
@@ -177,26 +180,33 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
     
     
     content += "<h8>Add Prerequisites</h8>";
-    content += '<div style="color: black;">';
+    // content += '<div style="color: black;">';
 
-    //div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">' +
-    //'{% for pre_req in pre_reqs %}<option>{{pre_req}}</option>{% endfor %}' 
-    content += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">'
+    // //div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">' +
+    // //'{% for pre_req in pre_reqs %}<option>{{pre_req}}</option>{% endfor %}' 
+    // content += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">'
 
-    content += '</select></div>'
+    // content += '</select></div>'
     content += '<div class="search-bar">'
-    content += '<input type="text" style = "color:black;" id="add_pre_req_input"  class="search-input" placeholder="Type here"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
+    content += '<button id="bold" onclick="document.execCommand(' + bold +')">B</button>'
+    content += '<button id="underline" onclick="document.execCommand(' + italic +')">I</button>'
+    content += '<button id="italic" onclick="document.execCommand(' + underline+')">U</button>'
+    content += '<button id="bold" onclick="document.execCommand(' + ordered +')">Ordered</button>'
+    content += '<button id="ordered-list" onclick="addLink()">add link</button>'
+    content += '<div class="editor" contenteditable="true" spellcheck="false" >'
+    content += pre_reqs
     content += '</div>'
-    content += '<span id="error_prereq" ></span>'
+    content += '<button onclick = "addPrereqs()">Add Prerequisites</button>'
+    // content += '<span id="error_prereq" ></span>'
     content += '</div>'
     // div.setAttribute("class", "jumbotron text-center");
     div.innerHTML = content
     for(var i=0; i< languages_all.length; i++){
         document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
     }
-    for(var i=0; i< prereqs_all.length; i++){
-        document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
-    }
+    // for(var i=0; i< prereqs_all.length; i++){
+    //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
+    // }
     // document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours()')
     // document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
     // document.getElementById('current').innerHTML = 2
@@ -212,18 +222,29 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
         }
     }
     
-    if (document.getElementById("selectpicker_prereq") != null) {
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            option = document.getElementById("selectpicker_prereq").options[i];
-            if (pre_reqs.includes(option.value) == true) {
-                option.selected = true;
-            }
-        }
-    }
+    // if (document.getElementById("selectpicker_prereq") != null) {
+    //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+    //         option = document.getElementById("selectpicker_prereq").options[i];
+    //         if (pre_reqs.includes(option.value) == true) {
+    //             option.selected = true;
+    //         }
+    //     }
+    // }
     
 }
+document.execCommand('defaultParagraphSeparator', false, 'p');
+function addLink(){
+    var url = prompt("enter a valid url")
+    document.execCommand("CreateLink", false, url);
+}
 
-
+function format(cmd){
+    document.execCommand(cmd)
+};
+function addPrereqs(){
+    pre_reqs = document.getElementsByClassName('editor')[0].innerText 
+    saveDraft('pre_req', pre_reqs)
+}
 function addLanguage(e){
     
     
@@ -405,15 +426,15 @@ function createOverviewPage() {
         }
     }
     saveDraft('difficulty_level', difficulty_level)
-    if (document.getElementById("selectpicker_prereq") != null) {
-        pre_reqs = [];
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            if (document.getElementById("selectpicker_prereq")[i].selected) {
-                pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
-            }
-        }
+    // if (document.getElementById("selectpicker_prereq") != null) {
+    //     pre_reqs = [];
+    //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+    //         if (document.getElementById("selectpicker_prereq")[i].selected) {
+    //             pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
+    //         }
+    //     }
 
-    }
+    // }
     var div_1 = document.getElementById("1")
     div_1.innerHTML = "";
     div_1.setAttribute("style", "display: none;")
@@ -654,25 +675,25 @@ function createDifficultyPage() {
         }
         
     }
-
-    if (document.getElementById("selectpicker_prereq") != null) {
-        pre_reqs = [];
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            if (document.getElementById("selectpicker_prereq")[i].selected) {
-                pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
-            }
-        }
-        saveDraft('pre_req',pre_reqs)
-        if (pre_reqs.length == 0) {
-            document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_prereq").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_prereq").innerHTML = "";
-        }
+    saveDraft('pre_req',pre_reqs)
+    // if (document.getElementById("selectpicker_prereq") != null) {
+    //     pre_reqs = [];
+    //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+    //         if (document.getElementById("selectpicker_prereq")[i].selected) {
+    //             pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
+    //         }
+    //     }
+    //     
+    //     if (pre_reqs.length == 0) {
+    //         document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+    //         document.getElementById("error_prereq").style = "color: red;";
+    //         return;
+    //     }
+    //     else {
+    //         document.getElementById("error_prereq").innerHTML = "";
+    //     }
        
-    }
+    // }
     // saveDraft("description", description);
 
     // let error = 0;
