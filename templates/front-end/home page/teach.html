@@ -34,6 +34,22 @@
 
             document.addEventListener('keyup',
             function(){
+                // alert('{{chapter}}')
+                var chapter = '{{chapter}}'
+                // alert(chapter == null)
+                if(document.getElementsByClassName('editor')[0].innerHTML.replace(/\s/g, '').length == 0){
+                    document.getElementById('save_changes_btn').style.display = 'none'
+                    document.getElementById('add_btn').style.display = 'none'
+                    // if(){
+                    //     document.getElementById('save_changes_btn').style.display = 'block'
+                    //     document.getElementById('add_btn').style.display = 'block'                        
+                    // }
+                }
+                else{
+                    
+                    document.getElementById('add_btn').style.display = 'block'
+                    document.getElementById('save_changes_btn').style.display = 'block'
+                }
                 var project = '{{project.pk}}'
 
                 if (timeoutId){ 
@@ -623,8 +639,8 @@ function setImgurHeader(xhr) {
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->
         <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="addChapter();createNumberofHours()">Previous</button>
-        <button  type="button" class="btn btn-primary" style="float: right;" onclick="newChapter();">Add</button>
-        <button  type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();">Save Changes</button>
+        <button id="add_btn" type="button" class="btn btn-primary" style="float: right;" onclick="newChapter();">Add</button>
+        <button id="save_changes_btn" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();">Save Changes</button>
         <div class="editor" contenteditable="true" spellcheck="false" >
         </div>
         <script>
