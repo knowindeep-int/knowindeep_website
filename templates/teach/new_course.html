@@ -22,7 +22,27 @@
         .progress-bar{
             background-color: orange !important;
         }
-
+        .lang_results{
+            cursor: pointer;
+        }
+        .editor{
+    counter-increment: line;
+    }
+    .editor::before{
+    content: counter(line);
+    }
+    .editor{
+    border-style: solid;
+    height: 200px;
+    width: 400px;
+    overflow-y: scroll;
+}
+p{
+counter-increment: line;
+}
+p::before{
+content: counter(line);
+}
     </style>
 </head>
 
@@ -82,14 +102,17 @@
 
 
 if('{{project.title}}'){
-   assignParam(
+    var languages = []
+    {%for language in selected_languages%}
+    languages.push('{{language}}')
+    {%endfor%}
+    assignParam(
     title = '{{project.title}}',
     description = '{{project.description}}',
     difficulty_level = '{{difficulty_level}}',
     no_of_hours = '{{no_of_hours}}',
-    languages = '{{selected_languages}}',
     overview = "{{overview}}",
-    pre_reqs = '{{project.pre_req.all}}',
+    pre_reqs = '{{project.pre_req |safe |linebreaksbr}}',
     pk = '{{project.pk}}',
     counter = 1,
     chapter_innerHTML = "",
@@ -121,7 +144,7 @@ else{
         no_of_hours = '',
         languages = [],
         overview = "",
-        pre_reqs = [],
+        pre_reqs = "",
         pk = "",
         image = ""
     )
@@ -152,19 +175,19 @@ else{
         data : data,
         success: function(data){
             pk = data.pk
-            if(key == 'pre_req' ){
-                getLangPrereq();
-                for(var i=0; i< prereqs_all.length; i++){
-                    document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>';
-                }
+            // if(key == 'pre_req' ){
+            //     getLangPrereq();
+            //     // for(var i=0; i< prereqs_all.length; i++){
+            //     //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>';
+            //     // }
                 
-                for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-                option = document.getElementById("selectpicker_prereq").options[i];
-                if (pre_reqs.includes(option.value) == true || option.value == value) {
-                    option.selected = true;
-                    }
-                }
-            }
+            //     // for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+            //     // option = document.getElementById("selectpicker_prereq").options[i];
+            //     // if (pre_reqs.includes(option.value) == true || option.value == value) {
+            //     //     option.selected = true;
+            //     //     }
+            //     // }
+            // }
 
             if(key == "languages"){
                 getLangPrereq();
@@ -219,7 +242,38 @@ function saveImageDraft() {
     })
     } 
     
-
+    function getChapterSearches(){
+        var search_input = document.getElementById('search_language').value
+        $.ajax({
+            method: 'GET',
+            url: '{% url "api:search_lang"%}',
+            data:{
+                'search_input':search_input
+            },
+            success: function(data){
+                //  alert(data.languages.length)
+                var div =document.getElementById('results_lang')
+                div.innerHTML = ""
+                for (var i=0;i<data.languages.length;i++){
+                    div.innerHTML += '<p class="lang_results" onclick = "addLanguage(this)">' + data.languages[i].name +'</p>'
+                    // alert(data.languages[i].name)
+                }
+               
+                if(data.languages.length == 0){
+                    // alert('hello')
+                    var btn = document.createElement('button')
+                    btn.classList = "btn btn-primary"
+                    btn.style = "float: right;"
+                    btn.setAttribute('onclick','add_language()')
+                    btn.innerHTML = 'ADD NEW LANGUAGE'
+                    document.getElementById('results_lang').appendChild(btn)
+                }
+            },
+            error: function(error){
+                alert('error')
+            },
+        });
+    };
 
     function saveChapterDraft() {
         $.ajax({
@@ -237,7 +291,8 @@ function saveImageDraft() {
             }
         })
 }
-    var languages_all = [], prereqs_all = [] 
+    var languages_all = [] 
+    // prereqs_all = [] 
     function getLangPrereq(){
         $.ajax({
             method: 'GET',
@@ -246,15 +301,15 @@ function saveImageDraft() {
             async:false,
             success: function(data){
                 languages_all = []
-                prereqs_all = []
+                // prereqs_all = []
                 for(var i= 0; i < data.languages.length; i++){
                     languages_all.push(data.languages[i])
                 
                 }
-                // alert(languages_all)
-                for(var i= 0; i < data.prerequisites.length; i++){
-                    prereqs_all.push(data.prerequisites[i])
-                }
+                // // alert(languages_all)
+                // for(var i= 0; i < data.prerequisites.length; i++){
+                //     prereqs_all.push(data.prerequisites[i])
+                // }
                 
                 // prereqs_all = data.prerequisites
                 

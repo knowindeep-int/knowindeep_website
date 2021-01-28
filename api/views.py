@@ -4,11 +4,11 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.core.mail import send_mail
-from blogs.models import Project, Chapter, Like, Comment, Profile, Language, PreRequisite,Suggestion
+from blogs.models import Project, Chapter, Like, Comment, Profile, Language, Suggestion
 from django.contrib.auth.models import User
 from knowindeep import Constants
 import os
-from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, PreRequisiteSerializer, SuggestionSerializer
+from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, SuggestionSerializer
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -142,6 +142,18 @@ def search_project(request):
 
         return Response(data, status = status.HTTP_200_OK)
 
+@api_view(['GET',])
+def api_search_languages(request):
+    if request.method == "GET":
+        search_input = request.GET['search_input']
+        language_searches = Language.getLanguageSearches(search_input = search_input)
+        language_serializer = LanguageSerializer(language_searches, many = True)
+
+        data = {
+            'languages':language_serializer.data
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
 @api_view(['POST', 'GET',])
 def api_save_draft(request):
     if request.method == "POST":
@@ -204,14 +216,14 @@ def api_save_chapter_draft(request):
 def api_get_languages_prereqs(request):
     if request.method == "GET":
         lang = Language.getAllLanguages()
-        pre = PreRequisite.getAllPreReqs()
+        # pre = PreRequisite.getAllPreReqs()
 
         lang_serializer = LanguageSerializer(lang, many=True)
-        pre_serializer = PreRequisiteSerializer(pre, many=True)
+        # pre_serializer = PreRequisiteSerializer(pre, many=True)
     
         data = {
                 'languages': lang_serializer.data, 
-                'prerequisites': pre_serializer.data
+                # 'prerequisites': pre_serializer.data
             }
 
         return Response(data, status = status.HTTP_200_OK)

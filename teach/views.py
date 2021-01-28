@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
-from blogs.models import Language, PreRequisite, Project, Profile,Chapter
+from blogs.models import Language, Project, Profile,Chapter
 from blogs.utils import getApiKey
 
 def add_course(request, pk = None):
     UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
     if request.user.is_authenticated:
         languages = Language.getAllLanguages()
-        pre_reqs = PreRequisite.getAllPreReqs()
+        # pre_reqs = PreRequisite.getAllPreReqs()
 
         if pk is None:
             context = {
                 'languages' : languages,        
-                'pre_reqs' : pre_reqs,
+                # 'pre_reqs' : pre_reqs,
                 'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
                 'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
             }
@@ -28,7 +28,7 @@ def add_course(request, pk = None):
             no_of_hours = project.no_of_hours
             context = {
                 'languages': languages,
-                'pre_reqs': pre_reqs,
+                # 'pre_reqs': pre_reqs,
                 'project': project,
                 'status': status,
                 'overview': overview,

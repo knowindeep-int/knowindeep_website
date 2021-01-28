@@ -60,21 +60,21 @@ function getCookie(cname) {
 var languages_add = new Array();
 function add_language(){
     
-    var new_lang =document.getElementById("add_language_input").value;
+    var new_lang =document.getElementById("search_language").value;
     languages_add.push(new_lang)
     saveDraft("languages",languages_add, isAdded = true)
     // setTimeout(function(){location.reload();},50)
     
 }
 
-var pre_reqs_add = new Array();
-function add_pre_req(){
+// var pre_reqs_add = new Array();
+// function add_pre_req(){
     
-    var new_pre =document.getElementById("add_pre_req_input").value;
-    pre_reqs_add.push(new_pre)
-    saveDraft("pre_req",pre_reqs_add, isAdded = true)
-    // setTimeout(function(){location.reload();},50)
-}
+//     var new_pre =document.getElementById("add_pre_req_input").value;
+//     pre_reqs_add.push(new_pre)
+//     saveDraft("pre_req",pre_reqs_add, isAdded = true)
+//     // setTimeout(function(){location.reload();},50)
+// }
 
 
 
@@ -147,10 +147,10 @@ function createDescriptionPage() {
     content += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working description?</h3>' + 
     "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
-    '<form class="search-bar">'+
-    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' 
+    '<div class="search-bar">'+
+    '<input type="text"  class="search-input" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' 
     content += '<span id="error_description"></span>' +
-                '</form>' 
+                '</div>' 
 document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyPage();')
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
@@ -162,39 +162,51 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
     content += "<h7>Add Languages</h7>";
     content += '<div style="color: black;">';
     content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
-    
+    var bold = "'bold'"
+    var underline = "'underline'"
+    var italic = "'italic'"
+    var ordered = "'insertOrderedList'"
 
     
 
 
     content += '</select></div>'
-    content += '<form class="search-bar">'
-    content += '<input type="text" style = "color:black;" id="add_language_input" class="search-input" placeholder="Type here"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_language()">ADD NEW LANGUAGE</button>'
-    content += '</form>'
+    content += '<div class="search-bar">'
+    content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"></input>'
+    content += '<div id ="results_lang" ></div>'
+    
+    content += '</div>'
     content += '<span id="error_language"></span>';
     
     
     content += "<h8>Add Prerequisites</h8>";
-    content += '<div style="color: black;">';
+    // content += '<div style="color: black;">';
 
-    //div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">' +
-    //'{% for pre_req in pre_reqs %}<option>{{pre_req}}</option>{% endfor %}' 
-    content += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">'
+    // //div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">' +
+    // //'{% for pre_req in pre_reqs %}<option>{{pre_req}}</option>{% endfor %}' 
+    // content += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">'
 
-    content += '</select></div>'
-    content += '<form class="search-bar">'
-    content += '<input type="text" style = "color:black;" id="add_pre_req_input"  class="search-input" placeholder="Type here"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
-    content += '</form>'
-    content += '<span id="error_prereq" ></span>'
+    // content += '</select></div>'
+    content += '<div class="search-bar">'
+    content += '<button id="bold" onclick="document.execCommand(' + bold +')">B</button>'
+    content += '<button id="underline" onclick="document.execCommand(' + italic +')">I</button>'
+    content += '<button id="italic" onclick="document.execCommand(' + underline+')">U</button>'
+    content += '<button id="bold" onclick="document.execCommand(' + ordered +')">Ordered</button>'
+    content += '<button id="ordered-list" onclick="addLink()">add link</button>'
+    content += '<div class="editor" contenteditable="true" spellcheck="false" >'
+    content += pre_reqs
+    content += '</div>'
+    content += '<button onclick = "addPrereqs()">Add Prerequisites</button>'
+    // content += '<span id="error_prereq" ></span>'
     content += '</div>'
     // div.setAttribute("class", "jumbotron text-center");
     div.innerHTML = content
     for(var i=0; i< languages_all.length; i++){
         document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
     }
-    for(var i=0; i< prereqs_all.length; i++){
-        document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
-    }
+    // for(var i=0; i< prereqs_all.length; i++){
+    //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
+    // }
     // document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours()')
     // document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
     // document.getElementById('current').innerHTML = 2
@@ -210,18 +222,35 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
         }
     }
     
-    if (document.getElementById("selectpicker_prereq") != null) {
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            option = document.getElementById("selectpicker_prereq").options[i];
-            if (pre_reqs.includes(option.value) == true) {
-                option.selected = true;
-            }
-        }
-    }
+    // if (document.getElementById("selectpicker_prereq") != null) {
+    //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+    //         option = document.getElementById("selectpicker_prereq").options[i];
+    //         if (pre_reqs.includes(option.value) == true) {
+    //             option.selected = true;
+    //         }
+    //     }
+    // }
     
 }
+document.execCommand('defaultParagraphSeparator', false, 'p');
+function addLink(){
+    var url = prompt("enter a valid url")
+    document.execCommand("CreateLink", false, url);
+}
 
-
+function format(cmd){
+    document.execCommand(cmd)
+};
+function addPrereqs(){
+    pre_reqs = document.getElementsByClassName('editor')[0].innerText 
+    saveDraft('pre_req', pre_reqs)
+}
+function addLanguage(e){
+    
+    
+    languages.push(e.innerHTML)
+    saveDraft("languages",languages)
+}
 function createTitlePage() {
     if( document.getElementById("description_input") != null) {
         description = document.getElementById("description_input").value;
@@ -247,6 +276,7 @@ function createTitlePage() {
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
     document.getElementById('current').innerHTML = 1
+    document.getElementsByClassName('progress-bar')[0].style = "width:14% !important"
     // div.setAttribute("class", "jumbotron text-center") ;
     // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
     // document.getElementById("title_input").dataset.state = 'invalid';
@@ -396,15 +426,15 @@ function createOverviewPage() {
         }
     }
     saveDraft('difficulty_level', difficulty_level)
-    if (document.getElementById("selectpicker_prereq") != null) {
-        pre_reqs = [];
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            if (document.getElementById("selectpicker_prereq")[i].selected) {
-                pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
-            }
-        }
+    // if (document.getElementById("selectpicker_prereq") != null) {
+    //     pre_reqs = [];
+    //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+    //         if (document.getElementById("selectpicker_prereq")[i].selected) {
+    //             pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
+    //         }
+    //     }
 
-    }
+    // }
     var div_1 = document.getElementById("1")
     div_1.innerHTML = "";
     div_1.setAttribute("style", "display: none;")
@@ -440,7 +470,7 @@ function createOverviewPage() {
     showhide("7");
 
     var div = document.getElementById("7");
-    div.setAttribute("class", "jumbotron text-center");
+    // div.setAttribute("class", "jumbotron text-center");
     div.innerHTML +='<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working overview?</h3>' + 
     "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 
@@ -581,8 +611,8 @@ function createNumberOfHours() {
 
     div = document.getElementById("10");
     var content = ""
-    content += "<div class='container-fluid container-fluid1'>"
-    content += "<h3> ADD HOURS REQUIRED FOR THE PROJECT</h3><img src='/media/images/icon.png' class='icon1'>";
+    content += "<div class='container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
+    content += "<h3> ADD HOURS REQUIRED FOR THE PROJECT</h3>";
     content += '<div style="color: black;">'  ;
     content += '<div class="dot><input class="male_time" type="radio" id="0-2" name="" value="0.2" style="opacity: 1;">' +
         '<label for="0--2">0--2 HOURS</label>' +
@@ -645,25 +675,25 @@ function createDifficultyPage() {
         }
         
     }
-
-    if (document.getElementById("selectpicker_prereq") != null) {
-        pre_reqs = [];
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            if (document.getElementById("selectpicker_prereq")[i].selected) {
-                pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
-            }
-        }
-        saveDraft('pre_req',pre_reqs)
-        if (pre_reqs.length == 0) {
-            document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_prereq").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_prereq").innerHTML = "";
-        }
+    saveDraft('pre_req',pre_reqs)
+    // if (document.getElementById("selectpicker_prereq") != null) {
+    //     pre_reqs = [];
+    //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+    //         if (document.getElementById("selectpicker_prereq")[i].selected) {
+    //             pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
+    //         }
+    //     }
+    //     
+    //     if (pre_reqs.length == 0) {
+    //         document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+    //         document.getElementById("error_prereq").style = "color: red;";
+    //         return;
+    //     }
+    //     else {
+    //         document.getElementById("error_prereq").innerHTML = "";
+    //     }
        
-    }
+    // }
     // saveDraft("description", description);
 
     // let error = 0;
@@ -801,8 +831,8 @@ function createDifficultyPage() {
     div = document.getElementById("6");
     var content = ""
     // div.setAttribute("class", "jumbotron text-center");
-    content += "<div class='container-fluid container-fluid1'>"
-    content += " <h3>Add difficulty level for the project</h3><img src='/media/images/icon.png' class='icon1'>";
+    content += "<div class='container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
+    content += " <h3>Add difficulty level for the project</h3>";
     content += '<div style="color: black;">';
     content += '<div class="dot">'+
                     '<input class="male" type="radio" id="easy"   name="diff" value="EASY"   style="opacity: 1;">' +

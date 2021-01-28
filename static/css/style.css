@@ -18,6 +18,9 @@ p {
 a {
 	text-decoration: none!important;
 }
+html {
+	height: 100%
+  }
 a.main-button {
 	outline: none;
 	cursor: pointer;
@@ -487,7 +490,7 @@ header {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  top: 20px;
+  top: 30px;
   right: 0; 
 }
 
@@ -513,14 +516,14 @@ header {
 .fa-bars{
   color:white;
 }
+
 footer{
-	background-color: #f7f7f7;
 	font-weight: 550;
 	margin-top: 10%;
-	height: 325px;
+	min-height: 40vh;
 	border-top: 1px solid grey;
+	background-color:#f7f7f7;
 }
-
 ul.stack{
 	list-style-type: none;
 	padding: 0 30px;
@@ -1192,7 +1195,7 @@ background-color:#f9a80d;
   .dropdown-menu-arrow:after {
 	bottom: -18px;
 	right: -8px;
-	border-bottom-color:white;
+	border-bottom-color:#f1f1f1;
   }
   .dropdown-menu-arrow:before {
 	bottom: -17px;
@@ -1248,3 +1251,13 @@ h8,.h8{
 .dot{
 	text-align:center;
 }
+<<<<<<< HEAD
+.carousel-inner{
+	height: 700px !important;
+}
+=======
+.row-stacks{
+	background-color: grey;
+	margin-bottom: 0;
+}
+>>>>>>> 6d076939b1526d72d59a54034fec2fd8697c1567
