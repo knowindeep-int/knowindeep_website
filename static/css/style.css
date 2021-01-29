@@ -1257,6 +1257,7 @@ h8,.h8{
 .row-stacks{
 	background-color: grey;
 	margin-bottom: 0;
+<<<<<<< HEAD
 }
 
 @media only screen and (max-width: 1006px) and (min-width: 991px) {
@@ -1268,3 +1269,6 @@ h8,.h8{
 	}
 	
   }
+=======
+}
+>>>>>>> 5ef713d0b850375dde141e71022b8354525ac612

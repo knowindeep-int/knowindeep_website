@@ -81,7 +81,7 @@ function add_language(){
 function createDescriptionPage() {
 
     // alert("798")
-
+    getLangPrereq();
     
         
     if (document.getElementById("title_input") != null) {
@@ -568,8 +568,8 @@ function createImagePage() {
 // }
 
 function checkImage(){
-    if(document.getElementsByClassName('image') != null || document.getElementById('project_image') != null){
-        // alert('h')
+    if(document.getElementsByClassName('image').length>0){
+        // alert(document.getElementsByClassName('image').length)
         deleteImage(document.getElementById('image_input'))
     }
     addLocalImage(document.getElementById('image_input'))
