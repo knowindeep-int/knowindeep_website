@@ -216,14 +216,14 @@ def api_save_chapter_draft(request):
 def api_get_languages_prereqs(request):
     if request.method == "GET":
         lang = Language.getAllLanguages()
-        # pre = PreRequisite.getAllPreReqs()
+        pre = Project.objects.get(pk = request.GET['pk']).pre_req
 
         lang_serializer = LanguageSerializer(lang, many=True)
         # pre_serializer = PreRequisiteSerializer(pre, many=True)
     
         data = {
                 'languages': lang_serializer.data, 
-                # 'prerequisites': pre_serializer.data
+                'prerequisites': pre
             }
 
         return Response(data, status = status.HTTP_200_OK)
