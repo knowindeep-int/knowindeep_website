@@ -96,7 +96,7 @@ content: counter(line);
     }
     
     
-    getLangPrereq();
+ 
     
 };
 
@@ -175,8 +175,8 @@ else{
         data : data,
         success: function(data){
             pk = data.pk
-            // if(key == 'pre_req' ){
-            //     getLangPrereq();
+            if(key == 'pre_req' ){
+                getLangPrereq();
             //     // for(var i=0; i< prereqs_all.length; i++){
             //     //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>';
             //     // }
@@ -187,7 +187,7 @@ else{
             //     //     option.selected = true;
             //     //     }
             //     // }
-            // }
+             }
 
             if(key == "languages"){
                 getLangPrereq();
@@ -297,7 +297,9 @@ function saveImageDraft() {
         $.ajax({
             method: 'GET',
             url: "{% url 'api:get_lang_prereq' %}",
-            data: {},
+            data: {
+                'pk':sessionStorage.getItem('pk')
+            },
             async:false,
             success: function(data){
                 languages_all = []
@@ -306,6 +308,7 @@ function saveImageDraft() {
                     languages_all.push(data.languages[i])
                 
                 }
+                pre_reqs = data.prerequisites
                 // // alert(languages_all)
                 // for(var i= 0; i < data.prerequisites.length; i++){
                 //     prereqs_all.push(data.prerequisites[i])
@@ -479,7 +482,9 @@ function addLocalImage(e){
                     alert('success!')
                     img.src = data.data.link
                     // img.style = "display:none;"
-                    document.getElementById('remove_img_btn').setAttribute('data-deletehash', data.data.deletehash)
+                    if(document.getElementById('remove_img_btn')!= null){
+                        document.getElementById('remove_img_btn').setAttribute('data-deletehash', data.data.deletehash)
+                    } 
                     document.getElementById('image_input').setAttribute('data-deletehash', data.data.deletehash)
                     document.getElementById('image_input').value = null
                     if('{{status}}' != 'image'){
