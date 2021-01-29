@@ -562,15 +562,15 @@ margin: 2% auto;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;;
-    height: 42.5px;
+    width: 100%;
     line-height: 30px;
     outline: 0;
     border: 0;
     display: none;
     font-size: 1em;
     border-radius: 20px;
-    padding: 0 20px;
+	padding: 0 20px;
+	padding-top: 3.5px;
 }
 
 .card{
@@ -1251,13 +1251,20 @@ h8,.h8{
 .dot{
 	text-align:center;
 }
-<<<<<<< HEAD
 .carousel-inner{
 	height: 700px !important;
 }
-=======
 .row-stacks{
 	background-color: grey;
 	margin-bottom: 0;
 }
->>>>>>> 6d076939b1526d72d59a54034fec2fd8697c1567
+
+@media only screen and (max-width: 1006px) and (min-width: 991px) {
+	.nav-item1{
+		display: none !important;
+	}
+	.n{
+		margin-top: -15px;
+	}
+	
+  }
