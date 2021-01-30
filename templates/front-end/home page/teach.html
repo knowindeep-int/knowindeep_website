@@ -26,7 +26,6 @@
                     dom.setAttribute('contenteditable', 'false')
                     dom.innerHTML = '{{chapter.content | safe | linebreaksbr }}'
                     dom.setAttribute('contenteditable', 'true')
-
                 }
             }
 
@@ -60,6 +59,7 @@
                         // alert('hi')
                         content = document.getElementsByClassName('editor')[0].innerHTML
                         var author = '{{project.author.pk}}'
+                       
                         $.ajax({
                             method: 'POST',
                             url: "{% url 'api:create_chapter' %}",
@@ -70,6 +70,7 @@
                                 'content': content,
                                 'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
                                 'author': author,
+                                'title' : document.getElementsByClassName('editor')[0].getElementsByTagName('h1')[0].innerHTML,
                                 // 'heading': 'LoremIpsum'
                             },
                             success: function(data){
@@ -80,7 +81,7 @@
                             }
                             
                             }, error: function(error){
-                                alert('ERROR!')
+                                console.log('ERROR!')
                             }
                         })
 
@@ -103,7 +104,7 @@
        success: function(data){
            pk =data.pk
        }, error: function(error){
-           alert("ERROR!")
+            console.log("ERROR!")
        }
    }
    )
@@ -292,11 +293,11 @@ function setImgurHeader(xhr) {
                             contentType: false,
                             processData: false,
                             success: function(data){
-                                alert('success!')
+                                console.log('success!')
                                 img.src = data.data.link
                             },
                             error: function(error){
-                                alert(error)
+                                console.log(error)
                             },
                             beforeSend: setImgurHeader,
 
@@ -503,7 +504,7 @@ function setImgurHeader(xhr) {
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
                              },
-                            error: function() { alert('Failed!'); },
+                            error: function() { console.log('Failed!'); },
                             beforeSend: setHeader       
                         });   
                     
@@ -519,7 +520,6 @@ function setImgurHeader(xhr) {
                     function addChapter(){
                         // alert(document.getElementsByClassName('editor')[0].innerHTML.replace(/\s/g, '').length)
                         if(document.getElementsByClassName('editor')[0].innerHTML.replace(/\s/g, '').length != '0'){
-                            
                         content = document.getElementsByClassName('editor')[0].innerHTML
                         console.log(content)
                         var author = '{{project.author.pk}}'
@@ -535,7 +535,7 @@ function setImgurHeader(xhr) {
                                 'content': content,
                                 'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val(),
                                 'author': author,
-                                // 'heading': 'LoremIpsum'
+                                'title' : document.getElementsByClassName('editor')[0].getElementsByTagName('h1')[0].innerHTML,
                             },
                             success: function(data){
                                 console.log('success')
@@ -642,6 +642,11 @@ function setImgurHeader(xhr) {
         <button id="add_btn" type="button" class="btn btn-primary" style="float: right;" onclick="newChapter();">Add</button>
         <button id="save_changes_btn" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();">Save Changes</button>
         <div class="editor" contenteditable="true" spellcheck="false" >
+            {%if chapter.title%}
+        <h1>{{chapter.title}}</h1>
+        {%else%}
+        <h1>&nbsp;</h1>
+        {%endif%} 
         </div>
         <script>
             var btns = document.getElementsByClassName('btn')
