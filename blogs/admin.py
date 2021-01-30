@@ -14,7 +14,7 @@ from .models import Chapter, Project, Comment, Profile, Like, Language, Package,
 
 class ChapterTopicsInline(admin.StackedInline):
     model = Chapter
-    fields = ['author','content',]
+    fields = ['author','content','title']
     extra = 1
 
     
@@ -33,7 +33,7 @@ class CommentInline(admin.StackedInline):
 
 class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author','link_to','content','slug']})
+        (None, {'fields':['author','link_to','content','slug','title']})
     ]
     search_fields = ['content']
 
