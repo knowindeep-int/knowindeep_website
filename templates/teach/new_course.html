@@ -1,745 +1,163 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
 
-<head>
+{% block content_head %}
+<script src="{% static 'js/blogs/new_course.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
     <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static  'css/style1.css' %}">
-    <!-- <script type="text/javascript" src="{% static 'js/teach/teach.js' %}"></script>--> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    
+{% endblock %}
+{% block content %}
+
+<head>
+    <script src="{% static 'js/blogs/new_course.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
+    <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+    <style>
+        .progress-bar{
+            background-color: orange !important;
+        }
+        .lang_results{
+            cursor: pointer;
+        }
+        .editor{
+    counter-increment: line;
+    }
+    .editor::before{
+    content: counter(line);
+    }
+    .editor{
+    border-style: solid;
+    height: 200px;
+    width: 400px;
+    overflow-y: scroll;
+}
+p{
+counter-increment: line;
+}
+p::before{
+content: counter(line);
+}
+    </style>
 </head>
 
 <script>
-if('{{project.title}}' != ""){
-    var title = '{{project.title}}';
-    //var chapters = '{{project.chapters.all | safe}}';
+    window.onload = function () {
+
+    // alert('{{status}}')
+    if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
+        pk = sessionStorage.getItem('pk')
+        // alert(pk)
+        if (pk == null){
+            pk = ""
+        }
+        else{
+            window.location.href = "/teach/add/" + pk
+            sessionStorage.removeItem("pk")
+        }
+        
+    }
+    else{
+        sessionStorage.removeItem('pk')
+    }
+    
+    // alert('{{status}}')
+    if('{{status}}' == 'title'){
+        createTitlePage();   
+    }
+    else if(document.referrer.indexOf('http://127.0.0.1:8000/teach/chapter') != -1){
+        createNumberOfHours();
+    }
+    else if('{{status}}' == 'description'){
+        createDescriptionPage();   
+    }
+    else if('{{status}}' == 'difficulty_level'){
+        createDifficultyPage();   
+    }
+    else if('{{status}}' == 'overview'){
+        createOverviewPage();   
+    }
+    else if('{{status}}' == 'image'){
+        createImagePage();   
+    }
+    else if('{{status}}' == 'no_of_hours'){
+        createNumberOfHours();   
+    }
+    else if('{{status}}' == 'chapter'){
+        document.location.href = 'http://127.0.0.1:8000/teach/chapter/' + pk      
+    }
+    else{
+        createTitlePage();
+    }
+    
+    
+ 
+    
+};
+
+
+if('{{project.title}}'){
+    var languages = []
+    {%for language in selected_languages%}
+    languages.push('{{language}}')
+    {%endfor%}
+    assignParam(
+    title = '{{project.title}}',
+    description = '{{project.description}}',
+    difficulty_level = '{{difficulty_level}}',
+    no_of_hours = '{{no_of_hours}}',
+    overview = "{{overview}}",
+    pre_reqs = '{{project.pre_req |safe |linebreaksbr}}',
+    pk = '{{project.pk}}',
+    counter = 1,
+    chapter_innerHTML = "",
+    chapter_count = 2,
+    author = '{{project.author.pk}}',
+    image = '{{project.image}}'
+   )
     
     var chapters = []
     {% for chapter in project.chapters.all %}
     var chapter_add_dict = {}
     chapter_add_dict['heading'] = '{{chapter.heading}}'
-    chapter_add_dict['content'] = '{{chapter.content}}'
+    chapter_add_dict['content'] = '{{chapter.content | safe |linebreaksbr}}'
     chapter_add_dict['description'] = '{{chapter.description}}'
     chapter_add_dict['youtube_link'] = '{{chapter.youtube_link}}'
     chapters.push(chapter_add_dict)
     {% endfor %}
-    
-    var description = '{{project.description}}';
-    var difficulty_level = '{{difficulty_level}}';
-    var no_of_hours = '{{no_of_hours}}';
-    var languages = '{{selected_languages}}';
-    var overview = "{{overview}}";
-    var pre_reqs = '{{project.pre_req.all}}';
-    var pk = '{{project.pk}}';
-    var counter = 1;
-    var chapter_innerHTML = "";
-    var chapter_count = 2;
-    var image;
+
 }
 else{
-    var title = "";
-    var chapters = [];
-    var description = "";
-    var difficulty_level = null;
-    var no_of_hours = null;
-    var languages = [];
-    var overview = "";
-    var pre_reqs = [];
-    var pk = "";
-    var counter = 1;
-    var chapter_innerHTML = ""; 
-    var chapter_count = 2;
-    var image;
+    assignParam(
+        counter = 1,
+        chapter_count = 2,
+        title = "",
+        description = "",
+        counter = 1,
+        chapter_count = 2,
+        difficulty_level = '',
+        no_of_hours = '',
+        languages = [],
+        overview = "",
+        pre_reqs = "",
+        pk = "",
+        image = ""
+    )
+
+    // class Chapter {
+    //     constructor(heading, description, content, youtube_link, link_to) {
+    //     this.heading = heading;
+    //     this.description = description;
+    //     this.content = content;
+    //     this.youtube_link = youtube_link;
+    //     this.link_to = link_to;
+    //     }
 }
-    class Chapter {
-        constructor(heading, description, content, youtube_link, link_to) {
-        this.heading = heading;
-        this.description = description;
-        this.content = content;
-        this.youtube_link = youtube_link;
-        this.link_to = link_to;
-        }
-    }
-
-    function addChapter(event) {
-        let error = 0;
-        let focus_on = null;
-        // for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
-        var elem = document.getElementById('chapter_left_button');
-        elem.parentNode.removeChild(elem);
-        var elem = document.getElementById('chapter_right_button');
-        elem.parentNode.removeChild(elem);
-        var elem = document.getElementById('chapter_add_button');
-        elem.parentNode.removeChild(elem);
-
-        div = document.getElementById("chapter_main_div");
-        new_div = document.createElement('div');
-        new_div.setAttribute("style", "color: black;");
-        new_div.setAttribute("class", "chapter_div");
-        new_div.setAttribute("id", "chapter_div_" + counter)
-        new_div.innerHTML += '<br><br>' + document.getElementsByClassName("chapter_div")[0].innerHTML + '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>';
-
-        div.appendChild(new_div);
-        document.getElementsByClassName("chapter_h2_heading")[chapter_count - 1].innerHTML = "Chapter " + chapter_count;
-        chapter_innerHTML = div.innerHTML;
-        counter += 1;
-        chapter_count += 1;
-
-    };
-  
-    function showhide(id) {
-        if (document.getElementById) {
-            var divid = document.getElementById(id);
-            var divs = document.getElementsByClassName("to_hide");
-            for (var i = 0; i < divs.length; i++) {
-                divs[i].style.display = "none";
-                divs[i].style.visiblity = "hidden";
-                if (divs[i] != divid) {
-                    divs[i].innerHTML = "";
-                };
-            }
-            divid.style.visibility = "visible";
-            divid.style.display = "block";
-        }
-    };
-    
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-        }
-        }
-        return "";
-    }
-    
-    
-
-    function createDescriptionPage() {
-        
-        if (document.getElementById("title_input") != null) {
-
-            title = document.getElementById("title_input").value;
-            saveDraft("title", title);
-            
-            
-
-            if (document.getElementById("title_input").value == "") {
-                document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
-                document.getElementById("error_title").style = "color: red;";
-                return;
-            }
-        }
-
-        if (document.getElementById("chapter_div") != null) {
-            for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
-                if (document.getElementsByClassName("heading")[i] != null) {
-                    let chapter_add = {};
-                    chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
-                    chapter_add['description'] = document.getElementsByClassName("description")[i].value;
-                    chapter_add['content'] = document.getElementsByClassName("content")[i].value;
-                    chapter_add['youtube_link'] = document.getElementsByClassName("youtube")[i].value;
-
-                    chapters[i] = chapter_add;
-                }
-            }
-        }
-        //window.name = pk
-        setTimeout(function(){sessionStorage.setItem('pk',pk);}, 100)
-  
-        showhide("2");
-        var div_1 = document.getElementById("1");
-        div_1.setAttribute("style", "display:none");
-        div_1.innerHTML = "";
-
-        var div_3 = document.getElementById("3");
-        div_3.setAttribute("style", "display:none");
-        div_3.innerHTML = "";
-
-        div_4 = document.getElementById("4");
-        div_4.setAttribute("style", "display: none;");
-        div_4.innerHTML = "";
-
-        var div = document.getElementById(2);
-
-        if (div.innerHTML != "") {
-            return false
-        }
-        div.setAttribute("class", "jumbotron text-center");
-        div.innerHTML += "<h2 style='color: black;'> ADD LANGUAGES</h2>";
-        div.innerHTML += '<div style="color: black;">';
-        div.innerHTML += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
-        
-
-        for(var i=0; i< languages_all.length; i++){
-            document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
-        }
-
-
-        div.innerHTML += '</select>'
-        div.innerHTML += '<input type="text" style = "color:black;" id="add_language_input"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_language()">ADD NEW LANGUAGE</button>'
-        div.innerHTML += '<span id="error_language"></span></div>';
-        
-        div.innerHTML += "<h2 style='color: black;'> ADD PRE-REQUISITES </h2>";
-        div.innerHTML += '<div style="color: black;">';
-
-        //div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">' +
-        //'{% for pre_req in pre_reqs %}<option>{{pre_req}}</option>{% endfor %}' 
-        div.innerHTML += '<select id="selectpicker_prereq" multiple data-live-search="true" style="display: block;color: black;">'
-
-        for(var i=0; i< prereqs_all.length; i++){
-            document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
-        }
-        div.innerHTML += '<input type="text" style = "color:black;" id="add_pre_req_input"></input>'+'<button type="button" class = "btn btn-primary" style ="float: right;" onclick = "add_pre_req()">ADD NEW PRE REQUISITE</button>'
-        div.innerHTML += '<span id="error_prereq" ></span></div>'
-        div.setAttribute("class", "jumbotron text-center");
-
-        div.innerHTML += "<h2 style='color: black;'>DESCRIPTION </h2>";
-        div.innerHTML += '<input id="description_input" type="text" style="color: black"; value="' + description + '"><button type="button" class="btn btn-primary" style="float: left;" onclick="createTitlePage()">Previous</button> <button type="button" class="btn btn-primary" style="float: right;" onclick="createChapterPage()">Next</button><span id="error_description"></span>';
-        
-        if (document.getElementById("selectpicker") != null) {
-            for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
-                option = document.getElementById("selectpicker").options[i];
-                if (languages.indexOf(option.value) != -1) {
-                    option.selected = true;
-                }
-            }
-        }
-        
-        if (document.getElementById("selectpicker_prereq") != null) {
-            for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-                option = document.getElementById("selectpicker_prereq").options[i];
-                if (pre_reqs.indexOf(option.value) != -1) {
-                    option.selected = true;
-                }
-            }
-        }
-        
-}
-var languages_add = new Array();
-function add_language(){
-    
-    var new_lang =document.getElementById("add_language_input").value;
-    languages_add.push(new_lang)
-    saveDraft("languages",languages_add, isAdded = true)
-    setTimeout(function(){location.reload();},50)
-    
-}
-
-var pre_reqs_add = new Array();
-function add_pre_req(){
-    
-    var new_pre =document.getElementById("add_pre_req_input").value;
-    pre_reqs_add.push(new_pre)
-    saveDraft("pre_req",pre_reqs_add, isAdded = true)
-    setTimeout(function(){location.reload();},50)
-}
-window.onload = function () {
-        if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
-            pk = sessionStorage.getItem('pk')
-            if (pk == null){
-                pk = ""
-            }
-            else{
-                window.location.href = "/teach/add/" + pk
-                sessionStorage.removeItem("pk")
-            }
-            
-        }
-        else{
-            sessionStorage.removeItem('pk')
-        }
-        
-        if('{{status}}' == 'title'){
-            createTitlePage();   
-        }
-        else{
-            createTitlePage();
-        }
-        
-        getLangPrereq();
-        
-    };
-function createTitlePage() {
-    if( document.getElementById("description_input") != null) {
-        description = document.getElementById("description_input").value;
-    }
-    
-
-    var div_2 = document.getElementById("2")
-    div_2.innerHTML = "";
-    div_2.setAttribute("style", "display: none;")
-    showhide("1");
-
-    div_4 = document.getElementById("4");
-    div_4.setAttribute("style", "display: none;");
-    div_4.innerHTML = "";
-
-    var div = document.getElementById("1");
-    div.setAttribute("class", "jumbotron text-center") ;
-    div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
-    document.getElementById("title_input").dataset.state = 'invalid';
-}
-
-
-var view_count =0 
-function createChapterPage() {
-    
-    if (document.getElementById("description_input") != null) {
-        description = document.getElementById("description_input").value;
-        if (document.getElementById("description_input").value == "") {
-            document.getElementById("error_description").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_description").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_description").innerHTML = "";
-        }
-        
-    }
-    
-    
-    
-    if(document.getElementById("selectpicker") != null) {
-        languages = [];
-        for (var i=0; i < document.getElementById("selectpicker").length; i++ ) {
-            if (document.getElementById("selectpicker")[i].selected) {
-                languages.push(document.getElementById("selectpicker")[i].innerHTML);
-            }
-        }
-        saveDraft("languages",languages)
-        if (languages.length == 0) {
-            document.getElementById("error_language").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_language").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_language").innerHTML = "";
-        }
-        
-    }
-
-    if (document.getElementById("selectpicker_prereq") != null) {
-        pre_reqs = [];
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            if (document.getElementById("selectpicker_prereq")[i].selected) {
-                pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
-            }
-        }
-        saveDraft('pre_req',pre_reqs)
-        if (pre_reqs.length == 0) {
-            document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_prereq").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_prereq").innerHTML = "";
-        }
-
-    }
-    saveDraft("description", description);
-
-    view_count += 1
-    //alert(description)
-   
-    //alert(pk)
-    sessionStorage.setItem("pk", pk);
-    //document.cookie = "pk=" + pk;
-    
-    showhide("4");
-    div_1 = document.getElementById("1");
-    div_1.setAttribute("style", "display: none;");
-    div_1.innerHTML = "";
-
-    div_2 = document.getElementById("2");
-    div_2.setAttribute("style", "display: none;");
-    div_2.innerHTML = "";
-
-    div_3 = document.getElementById("3");
-    div_3.setAttribute("style", "display: none;");
-    div_3.innerHTML = "";
-
-    div_5 = document.getElementById("5");
-    div_5.setAttribute("style", "display: none;");
-    div_5.innerHTML = "";
-
-    div_6 = document.getElementById("6");
-    div_6.setAttribute("style", "display: none;");
-    div_6.innerHTML = "";
-
-
-
-    var div = document.getElementById("4");
-    div.setAttribute("class", "jumbotron text-center") ;
-    div.innerHTML +="<h2 style='color: black;'> CHAPTER PAGE</h2>" ;
-    div.innerHTML += '<div id="chapter_main_div" ><div style="color: black;" class="chapter_div" class="current_chapter" id="chapter_div_0">' + 
-            '<h2 class="chapter_h2_heading">Chapter 1</h2><div>' +
-                '<span>Heading</span>' +
-                '<input class="heading chapter" id="heading" type="text" required>' +
-                '<span class="error_heading"></span>' + 
-            '</div>' +
-            '<div>' +
-                '<span>Description</span>' +
-                '<input class="description chapter" id="description" type="text" required>' +
-                '<span class="error_description"></span>' + 
-            '</div>' +
-            '<div>' +
-                '<span>content</span>' +
-                '<input class="content chapter" id="content" type="text" required>' +
-                '<span class="error_content"></span>' + 
-            '</div>' +
-            '<div>' +
-                '<span>Youtube Link</span>' +
-                '<input type="url"  id="youtube" class="youtube chapter" required >' + 
-                '<span class="error_youtube"></span>' +
-            '</div>' ;
-    if (chapter_innerHTML != "") {
-        document.getElementById("chapter_main_div").innerHTML = '<br><br>' + chapter_innerHTML ;   
-    }    
-    else {
-        div.innerHTML += '<button id="chapter_add_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter()">Add</button><button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createDifficultyPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button></div></div>';
-    }
-
-    // if (document.getElementById('heading') != null) { 
-        
-        for (var i=0; i< chapters.length; i++) {
-            
-            document.getElementsByClassName("heading")[i].value = chapters[i]['heading'];
-            document.getElementsByClassName("description")[i].value = chapters[i]['description'];
-            document.getElementsByClassName("content")[i].value = chapters[i]['content'];
-            document.getElementsByClassName("youtube")[i].value = chapters[i]['youtube_link'];
-            if( view_count == 1){
-                if(i < chapters.length-1){addChapter()}
-            }
-        }
-    // }
-    
-}
-
-
-function createDifficultyPage() {
-
-    let error = 0;
-    let focus_on = null;
-    for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
-        if (document.getElementById('heading') != null) {
-            var chapter_add = {};
-            let chapter = new Chapter(document.getElementsByClassName("heading")[i].value, document.getElementsByClassName("description")[i].value, document.getElementsByClassName("content")[i].value, document.getElementsByClassName("youtube")[i].value, pk)
-            chapter_add['heading'] = document.getElementsByClassName("heading")[i].value;
-            chapter_add['description'] = document.getElementsByClassName("description")[i].value;
-            chapter_add['content'] = document.getElementsByClassName("content")[i].value; 
-            chapter_add['youtube_link'] = document.getElementsByClassName("youtube")[i].value;
-            chapter_add['author'] = '{{project.author.pk}}'
-            chapter_add['link_to'] = pk
-            
-            chapters[i] = chapter_add;
-            if (document.getElementsByClassName("heading")[i].checkValidity() == false) {
-                document.getElementsByClassName("error_heading")[i].innerHTML = "Not Valid!" 
-                document.getElementsByClassName("error_heading")[i].style = "color: red;";
-                error = 1;
-                if (focus_on == null) {
-                    document.getElementsByClassName("heading")[i].scrollIntoView({ block: "center" });
-                    focus_on = "heading";
-                }
-            }
-            else {
-                document.getElementsByClassName("error_heading")[i].innerHTML = "" 
-            }
-            if (document.getElementsByClassName("description")[i].checkValidity() == false) {
-                document.getElementsByClassName("error_description")[i].innerHTML = "Not Valid!" 
-                document.getElementsByClassName("error_description")[i].style = "color: red;";
-                if (focus_on == null) {
-                    document.getElementsByClassName("description")[i].scrollIntoView({ block: "center" });
-                    focus_on = "description";
-                }
-            }
-            else {
-                document.getElementsByClassName("error_description")[i].innerHTML = ""
-            }
-            if (document.getElementsByClassName("content")[i].checkValidity() == false) {
-                document.getElementsByClassName("error_content")[i].innerHTML = "Not Valid!" 
-                document.getElementsByClassName("error_content")[i].style = "color: red;";
-                error = 1;
-                if (focus_on == null) {
-                    document.getElementsByClassName("content")[i].scrollIntoView({ block: "center" });
-                    focus_on = "content";
-                }
-            }
-            else {
-                document.getElementsByClassName("error_content")[i].innerHTML = ""
-            }
-            if (document.getElementsByClassName("youtube")[i].checkValidity() == false) {
-                document.getElementsByClassName("error_youtube")[i].innerHTML = "Not Valid!" 
-                document.getElementsByClassName("error_youtube")[i].style = "color: red;";
-                error = 1;
-                if (focus_on == null) {
-                    document.getElementsByClassName("youtube")[i].scrollIntoView({ block: "center" });
-                    focus_on = "youtube";
-                }
-            }
-            else {
-                document.getElementsByClassName("error_youtube")[i].innerHTML = "" 
-            }
-            
-            //chapters.push(chapter)            
-        }
-    }
-
-    if (error == "1") {
-        return;
-    }
-
-    saveChapterDraft();
-    
-    if (document.getElementById("selectpicker") != null) {
-        languages = [];
-        for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
-            if (document.getElementById("selectpicker")[i].selected) {
-                languages.push(document.getElementById("selectpicker")[i].innerHTML);
-            }
-        }
-        if (languages.length == 0) {
-            document.getElementById("error_language").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_language").style = "color: red;";
-            return;
-        }
-        else {
-            document.getElementById("error_language").innerHTML = "";
-        }
-    }
-
-    if (document.getElementById("overview_input") != null) {
-        overview = document.getElementById("overview_input").value;
-
-    }
-
-
-    showhide("6");
-    div_1 = document.getElementById("1");
-    div_1.setAttribute("style", "display: none;");
-    div_1.innerHTML = "";
-
-    div_2 = document.getElementById("2");
-    div_2.setAttribute("style", "display: none;");
-    div_2.innerHTML = "";
-
-    div_3 = document.getElementById("3");
-    div_3.setAttribute("style", "display: none;");
-    div_3.innerHTML = "";
-
-    div_4 = document.getElementById("4");
-    div_4.setAttribute("style", "display: none;");
-    div_4.innerHTML = "";
-
-    div_5 = document.getElementById("5");
-    div_5.setAttribute("style", "display: none;");
-    div_5.innerHTML = "";
-
-    div_7 = document.getElementById("7");
-    div_7.setAttribute("style", "display: none;");
-    div_7.innerHTML = "";
-
-    div = document.getElementById("6");
-    div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML += "<h2 style='color: black;'> ADD DIFFICULTY LEVEL FOR THE PROJECT</h2>";
-    div.innerHTML += '<div style="color: black;">';
-    div.innerHTML +=
-                    '<input class="difficulty_radio_input" type="radio" id="easy"   name="diff" value="EASY"   style="opacity: 1;">' +
-                    '<label style="font-size:18px;" for="easy">EASY</label><br>' +           
-                     '<input class="difficulty_radio_input" type="radio" id="medium" name="diff" value="MEDIUM" style="opacity: 1;">' +
-                     '<label style="font-size:18px;" for="medium">MEDIUM</label><br>' +
-                     '<input class="difficulty_radio_input" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
-                     '<label style="font-size:18px;" for="hard">HARD</label>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createChapterPage()">Previous</button>' +
-        '</div>';
-
-}
-
-function createOverviewPage() {
-    if (document.getElementsByClassName("difficulty_radio_input") != null) {
-        for (var i = 0; i < document.getElementsByClassName("difficulty_radio_input").length; i++) {
-            if (document.getElementsByClassName("difficulty_radio_input")[i].checked) {
-                difficulty_level = document.getElementsByClassName("difficulty_radio_input")[i].value
-            }
-        }
-    }
-    saveDraft('difficulty_level', difficulty_level)
-    if (document.getElementById("selectpicker_prereq") != null) {
-        pre_reqs = [];
-        for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            if (document.getElementById("selectpicker_prereq")[i].selected) {
-                pre_reqs.push(document.getElementById("selectpicker_prereq")[i].innerHTML);
-            }
-        }
-
-    }
-    var div_1 = document.getElementById("1")
-    div_1.innerHTML = "";
-    div_1.setAttribute("style", "display: none;")
-
-    var div_2 = document.getElementById("2")
-    div_2.innerHTML = "";
-    div_2.setAttribute("style", "display: none;")
-
-    var div_3 = document.getElementById("3")
-    div_3.innerHTML = "";
-    div_3.setAttribute("style", "display: none;")
-
-    var div_4 = document.getElementById("4")
-    div_4.innerHTML = "";
-    div_4.setAttribute("style", "display: none;")
-
-    var div_5 = document.getElementById("5")
-    div_5.innerHTML = "";
-    div_5.setAttribute("style", "display: none;")
-
-    var div_6 = document.getElementById("6")
-    div_6.innerHTML = "";
-    div_6.setAttribute("style", "display: none;")
-
-    var div_9 = document.getElementById("9")
-    div_9.innerHTML = "";
-    div_9.setAttribute("style", "display: none;")
-
-    var div_8 = document.getElementById("8")
-    div_8.innerHTML = "";
-    div_8.setAttribute("style", "display: none;")
-
-    showhide("7");
-
-    var div = document.getElementById("7");
-    div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML += "<h2 style='color: black;'>OVERVIEW PAGE</h2>" + "<input id='overview_input' type='text' style='color: black;' value='" + overview + "'> " + '<button type="button" class="btn btn-primary" style="float: right;" onclick="createImagePage()">Next</button><button type="button" class="btn btn-primary" style="float: left;" onclick="createDifficultyPage()">Previous</button>'
-    div.innerHTML += " <span id='error_overview'></span>"
-}
-
-
-
-
-function createImagePage() {
-    if (document.getElementById("overview_input") != null) {
-        overview = document.getElementById("overview_input").value;
-        saveDraft('overview',overview);
-        if (document.getElementById("overview_input").value == "") {
-            document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
-            document.getElementById("error_overview").style = "color: red;";
-            return;
-        }
-    }
-
-    if (document.getElementsByClassName("time_radio_input") != null) {
-        for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
-            if (document.getElementsByClassName("time_radio_input")[i].checked) {
-                no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
-            }
-        }
-    }
-        //saveDraft('no_of_hours',parseInt(no_of_hours))
-    
-    showhide("9")
-    div_1 = document.getElementById("1");
-    div_1.setAttribute("style", "display: none;");
-    div_1.innerHTML = "";
-
-    div_2 = document.getElementById("2");
-    div_2.setAttribute("style", "display: none;");
-    div_2.innerHTML = "";
-
-    div_3 = document.getElementById("3");
-    div_3.setAttribute("style", "display: none;");
-    div_3.innerHTML = "";
-
-    div_4 = document.getElementById("4");
-    div_4.setAttribute("style", "display: none;");
-    div_4.innerHTML = "";
-
-    div_5 = document.getElementById("5");
-    div_5.setAttribute("style", "display: none;");
-    div_5.innerHTML = "";
-
-    div_6 = document.getElementById("6");
-    div_6.setAttribute("style", "display: none;");
-    div_6.innerHTML = "";
-
-    div_7 = document.getElementById("7");
-    div_7.setAttribute("style", "display: none;");
-    div_7.innerHTML = "";
-
-    div_8 = document.getElementById("8");
-    div_8.setAttribute("style", "display: none;");
-    div_8.innerHTML = "";
-
-    div_10 = document.getElementById("10");
-    div_10.setAttribute("style", "display: none;");
-    div_10.innerHTML = "";
-
-
-
-    div = document.getElementById("9")
-    div.setAttribute("class", "jumbotron text-center");
-
-    div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
-    div.innerHTML += '<div style="color: black;">';
-    div.innerHTML += '<input type="file" style="color: black;" id="image_input">';
-    div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
-}
-
-function createNumberOfHours() {
-    saveImageDraft()
-    showhide("10");
-    div_1 = document.getElementById("1");
-    div_1.setAttribute("style", "display: none;");
-    div_1.innerHTML = "";
-
-    div_2 = document.getElementById("2");
-    div_2.setAttribute("style", "display: none;");
-    div_2.innerHTML = "";
-
-    div_3 = document.getElementById("3");
-    div_3.setAttribute("style", "display: none;");
-    div_3.innerHTML = "";
-
-    div_4 = document.getElementById("4");
-    div_4.setAttribute("style", "display: none;");
-    div_4.innerHTML = "";
-
-    div_5 = document.getElementById("5");
-    div_5.setAttribute("style", "display: none;");
-    div_5.innerHTML = "";
-
-    div_7 = document.getElementById("7");
-    div_7.setAttribute("style", "display: none;");
-    div_7.innerHTML = "";
-
-    div_8 = document.getElementById("8");
-    div_8.setAttribute("style", "display: none;");
-    div_8.innerHTML = "";
-
-    div_9 = document.getElementById("9");
-    div_9.setAttribute("style", "display: none;");
-    div_9.innerHTML = "";
-
-    div = document.getElementById("10");
-    div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML += "<h2 style='color: black;'> ADD HOURS REQUIRED FOR THE PROJECT</h2>";
-    div.innerHTML += '<div style="color: black;">'  ;
-    div.innerHTML += '<input class="time_radio_input" type="radio" id="0-2" name="" value="0-2" style="opacity: 1;">' +
-        '<label for="0-2">0-2 HOURS</label><br>' +
-        '<input class="time_radio_input" type="radio" id="2-4" name="" value="2-4"  style="opacity: 1;">' +
-        '<label for="2-4">2-4 HOURS</label><br>' +
-        '<input class="time_radio_input" type="radio" id=">4" name="" value=">4" style="opacity: 1;">' +
-        '<label for=">4">MORE THAN 4 HOURS</label>';
-    div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
-        '</div>';
-}
-
    
     function saveDraft(key, value, isAdded = false) {
     var key = key;
@@ -753,41 +171,106 @@ function createNumberOfHours() {
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
+        async: false,
         data : data,
         success: function(data){
             pk = data.pk
+            if(key == 'pre_req' ){
+                getLangPrereq();
+            //     // for(var i=0; i< prereqs_all.length; i++){
+            //     //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>';
+            //     // }
+                
+            //     // for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
+            //     // option = document.getElementById("selectpicker_prereq").options[i];
+            //     // if (pre_reqs.includes(option.value) == true || option.value == value) {
+            //     //     option.selected = true;
+            //     //     }
+            //     // }
+             }
+
+            if(key == "languages"){
+                getLangPrereq();
+                for(var i=0; i< languages_all.length; i++){
+                    document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
+                }
+
+                for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
+                option = document.getElementById("selectpicker").options[i];
+                if (languages.includes(option.value) == true || option.value == value) {
+                    option.selected = true;
+                }
+            }
+
+            }
+            
         },error: function(error){
-            alert("ERROR!")
+            console.log(error)
         },
         
     })
-    //alert(pk)
 }
 
 function saveImageDraft() {
-    var fileInput = document.getElementById('image_input');
-    var file = fileInput.files[0];
-    var formData = new FormData();
-    formData.append('image', file);
-    formData.append('pk', pk);
-    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
-    
+    // var fileInput = document.getElementById('image_input');
+    // var file = fileInput.files[0];
+    // var formData = new FormData();
+    // formData.append('image', file);
+    // formData.append('pk', pk);
+    // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+    if(called == 1 && document.getElementsByClassName('image')[0]){
+        var url = document.getElementsByClassName('image')[0].src}
+        else  if(called == 1 && document.getElementsByClassName('project_image')[0]){
+        var url = document.getElementsByClassName('project_image')[0].src}
     $.ajax({
         method: "POST",
         url: '{% url "api:save_draft" %}',
-        data : formData,
-        processData: false,
-        contentType: false,
+        data : {
+            'pk':pk,
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            'image':url,
+        },
+        // processData: false,
+        // contentType: false,
         //processData: false,
         success: function(data){
             pk = data.pk
         },error: function(error){
-            alert("ERROR!")
+            console.log(error)
         },
         
     })
-}
-
+    } 
+    
+    function getChapterSearches(){
+        var search_input = document.getElementById('search_language').value
+        $.ajax({
+            method: 'GET',
+            url: '{% url "api:search_lang"%}',
+            data:{
+                'search_input':search_input
+            },
+            success: function(data){
+                var div =document.getElementById('results_lang')
+                div.innerHTML = ""
+                for (var i=0;i<data.languages.length;i++){
+                    div.innerHTML += '<p class="lang_results" onclick = "addLanguage(this)">' + data.languages[i].name +'</p>'
+                }
+               
+                if(data.languages.length == 0){
+                    var btn = document.createElement('button')
+                    btn.classList = "btn btn-primary"
+                    btn.style = "float: right;"
+                    btn.setAttribute('onclick','add_language()')
+                    btn.innerHTML = 'ADD NEW LANGUAGE'
+                    document.getElementById('results_lang').appendChild(btn)
+                }
+            },
+            error: function(error){
+                console.log(error)
+            },
+        });
+    };
 
     function saveChapterDraft() {
         $.ajax({
@@ -801,21 +284,36 @@ function saveImageDraft() {
             success: function(data){
                 // chapters = data.chapters
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         })
 }
-    var languages_all, prereqs_all 
+    var languages_all = [] 
+    // prereqs_all = [] 
     function getLangPrereq(){
         $.ajax({
             method: 'GET',
             url: "{% url 'api:get_lang_prereq' %}",
-            data: {},
+            data: {
+                'pk':sessionStorage.getItem('pk')
+            },
+            async:false,
             success: function(data){
-                languages_all = data.languages,
-                prereqs_all = data.prerequisites
+                languages_all = []
+                // prereqs_all = []
+                for(var i= 0; i < data.languages.length; i++){
+                    languages_all.push(data.languages[i])
+                
+                }
+                pre_reqs = data.prerequisites
+                // for(var i= 0; i < data.prerequisites.length; i++){
+                //     prereqs_all.push(data.prerequisites[i])
+                // }
+                
+                // prereqs_all = data.prerequisites
+                
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         }
         )
@@ -833,46 +331,210 @@ function saveImageDraft() {
                 project_draft = data.project_draft
 
             }, error: function(error){
-                alert("ERROR!")
+                console.log('error')
             }
         }
         )
     }
 
-
-    function createProject(){
-   
+    function createChapterPage(){
         for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
-            if (document.getElementsByClassName("time_radio_input")[i].checked) {
-                no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
-            }
-        }
-        saveDraft('no_of_hours',no_of_hours)
-        //document.location.href = "/" + "teach";
-        $.ajax({
-            method: 'POST',
-            url: "{% url 'api:create_project' %}",
-            data :{
-                'pk': pk,
-                'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
-            },
-            success: function(data){
-                pk =data.pk
-            }, error: function(error){
-                alert("ERROR!")
-            }
-        }
-        )
-        document.location.href = "{% url 'teach:list_of_projects' %}"
+       if (document.getElementsByClassName("time_radio_input")[i].checked) {
+           no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+       }
+   }
+    saveDraft('no_of_hours',no_of_hours)
+    document.location.href = '/teach/chapter/' + pk
+        // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
+        // '</div>';
     }
+    // function createProject(){
+   
+    //     for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
+    //         if (document.getElementsByClassName("time_radio_input")[i].checked) {
+    //             no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+    //         }
+    //     }
+    //     saveDraft('no_of_hours',no_of_hours)
+    //     //document.location.href = "/" + "teach";
+    //     $.ajax({
+    //         method: 'POST',
+    //         url: "{% url 'api:create_project' %}",
+    //         data :{
+    //             'pk': pk,
+    //             'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+    //         },
+    //         success: function(data){
+    //             pk =data.pk
+    //         }, error: function(error){
+    //         }
+    //     }
+    //     )
+    //     document.location.href = "{% url 'teach:list_of_projects' %}"
+    // }
 
 
+
+    function setImgurHeader(xhr) {  
+    // xhr.setRequestHeader('Cache-Control', null) 
+    // xhr.setRequestHeader("Origin, X-Requested-With, Content-Type, Accept, Authorization, Token");
+    // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+    // xhr.setRequestHeader('Origin, X-Requested-With, Content-Type, Accept, Authorization, Authentication');
+    // xhr.setRequestAhorization
+    xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID_DEBUG}}') 
+    xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER_DEBUG}}');
+    // xhr.setRequestHeader('Authorization')
+    // xhr.setRequestHeader('Authorization', 'Bearer 7cd876bf6ab3405bad138d3a1886a3048fe9a0f0')
+    }
+ 
+function deleteImage(e){
+    if(e.getAttribute('data-deletehash') != ""){
+        var deletehash = e.getAttribute('data-deletehash')
+        $.ajax({
+            url: 'https://api.imgur.com/3/image/' + deletehash,
+            type: 'DELETE',
+            success: function(data){
+                    alert('image deleted sucessfully!')
+                    document.getElementsByClassName('image')[0].remove();  
+                    document.getElementById('remove_img_btn').remove()
+                },
+                error: function(error){
+                    alert(error)
+                },
+                beforeSend: setImgurHeader,
+
+               
+    })
+}
+}
+
+var called=0;
+function addLocalImage(e){
+    called = 1;
+    // if(image != 'None'){
+       
+    //     document.getElementById('image_input').setAttribute('data-deletehash',document.getElementById('remove_img_btn').getAttribute('data-deletehash'))
+    //     deleteImage(document.getElementById('image_input'))
+    // }
+    // else{
+        var targetDiv=document.getElementsByClassName("editor")[0];
+            var file = $(e).prop('files')[0];
+            var img=document.createElement("img");
+            img.setAttribute('style', 'width:200px;height:200px;');
+            // img.setAttribute('style', 'height:200px');
+
+            img.className="image"
+            var reader  = new FileReader();
+            var fig = document.createElement('figure')
+            // var fig_caption = document.createElement('figcaption')
+            // fig_caption.className = "fig-caption"
+            // fig_caption.innerHTML =  "Write your caption here!"
+            fig.className = "fig"
+            // fig.setAttribute('contenteditable','true')
+            var btn = document.createElement('button')
+            btn.setAttribute('id', 'remove_img_btn')
+            btn.innerHTML = "REMOVE"
+            btn.setAttribute('onclick', 'deleteImage(this)')
+            document.getElementById('image_input_div').appendChild(btn)
+            fig.appendChild(img);
+            document.getElementById('image_input_div').appendChild(fig)
+            
+            // fig.appendChild(fig_caption)
+            // if(fx().className == 'editor' ||  document.body === fx()){
+            
+            // }
+            // else{
+            //     console.log('1')
+            //     fx().parentNode.insertBefore(fig, fx().nextSibling);
+            // }
+
+            reader.addEventListener("load", function () {
+                img.src=reader.result;
+               
+            }); 
+            if (file){
+                reader.readAsDataURL(file);
+            // document.getElementById('inpfile').value = "";
+            
+            
+
+        }
+        
+        var formData = new FormData();
+        formData.append('image',file);
+        // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+
+        $.ajax({
+
+                method: 'POST',
+                url: 'https://api.imgur.com/3/image',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data){
+                    alert('success!')
+                    img.src = data.data.link
+                    // img.style = "display:none;"
+                    if(document.getElementById('remove_img_btn')!= null){
+                        document.getElementById('remove_img_btn').setAttribute('data-deletehash', data.data.deletehash)
+                    } 
+                    document.getElementById('image_input').setAttribute('data-deletehash', data.data.deletehash)
+                    document.getElementById('image_input').value = null
+                    if('{{status}}' != 'image'){
+                        document.getElementById('project_image').src = data.data.link
+                    }
+                    
+                    
+                    image = data.data.link
+                },
+                error: function(error){
+                    alert(error)
+                },
+                beforeSend: setImgurHeader,
+
+                
+            })
+            if('{{status}}' != 'image'){
+            document.getElementById('project_image').style = "display:none"
+            }
+    }
+    
+    
+    
 
 </script>
-
+<!--local -->
+<head>
+    <link href="{% static 'css/teach/teach.css'%}" rel="stylesheet">
+    <style>
+        ::placeholder{
+            color:#b8b8b8;
+        }
+        input{
+            display: inline;
+            position: relative;
+        }
+    </style>
+</head>
 <div>
     <div id="main_div">
         {% csrf_token %}
+        <div class="container">
+            <div><h6>Step <span id="current">1</span> of <span id="total">7</span></h6></div>
+            <!-- <hr class="hr">
+            <div class="o">
+                <hr class="m">
+            </div>
+            <div class="p">
+                <hr class="m">
+            </div>
+            <br> -->
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:14%">
+                  <!-- <span class="sr-only">70% Complete</span> -->
+                </div>
+        </div>
         <div id="1" class="to_hide"></div>
         <div id="2" class="to_hide"></div>
         <div id="3" class="to_hide"></div>
@@ -883,6 +545,12 @@ function saveImageDraft() {
         <div id="8" class="to_hide"></div>
         <div id="9" class="to_hide"></div>
         <div id="10" class="to_hide"></div>
+        <br>
+        <br>
+        <div class="container">
+            <button class="previous b" id="prev_btn">Previous</button>
+            <button class="next b" id="next_btn">Next</button>
+        </div>
     </div>
 </div>
 

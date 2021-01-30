@@ -3,7 +3,68 @@
 {% block content %}
 
 <body>
-  <div class="container">
+
+
+  <style>
+    body{
+        background-color: #d0d0d0;
+    }
+.outerr{
+    background-color: white;
+    width: 600px;
+    margin: 10% auto;
+    padding: 10px;
+}
+.innner{
+    border: 1px solid #f9a80d;
+    padding: 40px 20px 30px 20px;
+    text-align: center;
+}
+.l{
+    font-size: 50px;
+    font-family: 'gilroy';
+}
+.log1{
+    background-image: url("/media/images/google_login.png");
+    width: 488px;
+    height: 76px;
+    margin:auto;
+}
+.log2{
+    background-image: url("/media/images/github_login.png");
+    width: 488px;
+    height: 76px;
+    margin:auto;
+}
+.innn{
+    color: white;
+    padding: 25px 0 0 80px;
+    font-size: 24px;
+    font-family: 'georgia';
+}
+.sign1,.sign1:active,.sign1:visited{
+    color: #4287f6;
+}
+.loginlink, .loginlink:hover{
+  color: inherit;
+}
+
+</style>
+<div class="outerr">
+    <div class="innner">
+        <div class="l">Log In</div>
+        <br>
+        <div><a href="#" class="sign1" style="text-decoration: none; font-size: 20px;"><em>Sign Up Here</em></a> </div>
+        <br>
+        <div class="log1"><div class="innn"><a class="loginlink" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}">Log In with Google</a></div></div>
+        <br>
+        <div style="font-size: 20px; font-family: 'gilroy';"><em>-------------  or  -------------</em></div>
+        <br>
+        <div class="log2"><div class="innn"><a class="loginlink" href="{% url 'social:begin' 'github' %}?next={{request.path}}">Log In with Github</a></div></div>
+
+    </div>
+</div>
+  <!-- <div class="container">
     <h1 class="center">Login with</h1>
     <div class="row" style="margin-top: 50px;">
       <div class="col-6 center">
@@ -16,7 +77,7 @@
           <img src="/static/images/github-logo.svg" alt="githubLogo" width="200" height="200" />
         </a>
       </div>
-    </div>
+    </div> -->
 
 
     <!-- <form action="" method="POST" class="col s12">
@@ -45,7 +106,7 @@
         </div>
       </div>
     </form> -->
-  </div>
+  <!-- </div> -->
 </body>
 
 

@@ -1,6 +1,20 @@
 {% extends "base.html" %}
-
 {% load static %}
+{% block content_head %}
+<script src="{% static 'js/blogs/blog_post.js' %}"></script>
+{% endblock %}
+{% block title %}
+<title>{{ chapter_content.link_to.title |title }} | {{ chapter_content |title }}</title>
+{% endblock %}
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KnowinDeep" />
+<link rel="stylesheet" href="{% static 'blogs/css/indi_blog.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+   
+
+</script>
+
 <div class="row">
     <div class="col-1">
         <span class="glyphicon glyphicon-user"></span>
@@ -18,139 +32,109 @@
 
     
 
-    function fetchComments() {
-        showLoader()
-        $.ajax({
-            method: 'GET',
-            url: '{% url "api:chapterComments" %}',
-            data: {
-                'chapter_content_slug': '{{ chapter_content.slug }}'
-            },
-            success: function (data) {
-                var com = document.getElementById('comments-list')
-                for (var i = 0; i < data.length; i++) {
-                    com.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data[i].first_name + ' ' + data[i].last_name + '</h5><p>' + data[i].comment_text + '</p></div></div>'
-                }
-                hideLoader()
-            },
-            error: function (error) {
-            }
-        })
-    }
 
-    fetchComments()
-
-    if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-
-    } else {
-        $.ajax({
-            url: '{% url "api:increase_view" %}',
-            method: "POST",
-            data: {
-                'slug': '{{slug}}',
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function (data) {
-            }, error: function (error) {
-            },
-        })
-    }
-
-    function updateLikes(likes, success) {
-        if (success) {
-            $('#like-btn').addClass('liked');
-            document.getElementById('likeImg').src = "/static/images/heart_active.svg";
-        } else {
-            $('#like-btn').removeClass('liked');
-            document.getElementById('likeImg').src = "/static/images/heart.svg";
-        }
-        $('#likes').text(likes)
-    }
-
-    function showLoader() {
-        var loader = document.getElementById('comment_loader')
-        loader.style.display = 'block'
-    }
-
-    function hideLoader() {
-        var loader = document.getElementById('comment_loader')
-        loader.style.display = 'none'
-    }
-
-    function updateComment(user, comment) {
-        var com = document.getElementById('comments-list')
-        hideLoader()
-        com.innerHTML = '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>{{user.first_name}} {{user.last_name}}</h5><p>' + comment + '</p></div></div>' + com.innerHTML
-        document.getElementById('comment').value = ''
-    }
-
-    $("#comment-btn").click(function (e) {
-        e.preventDefault()
-        showLoader()
-        var this_ = $(this)
-
-        var commentUrl = this_.attr('data-comment')
-        var slug = this_.attr('data-comment-slug')
-        $.ajax({
-            url: commentUrl,
-            method: "POST",
-            data: {
-                'slug': slug,
-                'comment_text': document.getElementById('comment').value,
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function (data) {
-                if (data.success) {
-                    if (data.comment != "") {
-                        updateComment(data.user, data.comment)
-                    } else {
-                        // alert('Please enter a comment')
-                        // hideLoader()
-                    }
-                } else {
-
-                }
-            }, error: function (error) {
-            },
-        })
-    })
-
-    $("#like-btn").click(function (e) {
-        e.preventDefault();
-        var this_ = $(this)
-        var user = this_.attr('data-user')
-        if (user) {
-            var likeUrl = this_.attr('data-href')
-            var slug = this_.attr('data-slug')
-            var likes = this_.attr('data-likes')
-            $.ajax({
-                url: likeUrl,
-                method: "POST",
-                data: {
-                    'slug': slug,
-                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-                },
-                success: function (data) {
-                    updateLikes(data.likes, data.success)
-                }, error: function (error) {
-                    alert(error)
-                },
-
-            })
-        } if (user == "False") {
-            alert('You need to login to like this post')
-        }
-    })
     {% endblock %}
 </script>
 
 {% block content %}
-<meta property="og:type" content="website" />
-<meta property="og:title" content="KnowinDeep" />
-<link rel="stylesheet" href="{% static 'blogs/css/indi_blog.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+    var ch_list = new Array;
+</script>
 
 <div class="center">
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
+        <li class="breadcrumb-item active">{{ chapter_content | title }}</li>
+    </ol>
+
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
+			<ul class="list">
+				{% for chapter in chapters %}
+            {% if chapter.slug == chapter_content.slug %}
+            <a class="" id="selected"
+                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</a>
+                <br>
+                <script>ch_list.push('{{chapter.slug}}')
+                console.log(ch_list)
+                </script>
+            {% else %}
+           <a class="" id="listItem"
+            href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</a>
+            <br>
+            <script>ch_list.push('{{chapter.slug}}')
+             console.log(ch_list)
+            </script>
+            {% endif %}
+            {% endfor %}
+			</ul>
+		</div>
+	<div class="col-lg-9 chapter">
+		<h1>{{chapter_content}}</h1>
+		<p>BY {{chapter_content.author}} &emsp;<span class="vertical">|</span>&emsp; {{chapter_content.date_posted}}</p>
+        <br>
+        {%if chapter_content.link_to.image%}
+        <img src="{{chapter_content.link_to.image}}" class="head1">
+        {% else %}
+        <img src="/media/images/blog-pic.png" class="head1">
+        {%endif%}
+        <p>{{chapter_content}}</p>
+		<!-- <h5 id="heading1">heading1</h5> -->
+		<p>{{chapter_content.content | safe}}</p>
+		<!-- <div class="code">
+			&lt;body&gt;<br>
+			&emsp;&lt;img src="*your_source*" alt="Here is an image!" width="100px"&gt;<br>
+			&lt;/body&gt;
+		</div> -->
+		<!-- <h5 id="heading2">heading2</h5>
+		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias officiis, tempora excepturi voluptatem impedit repellendus dolorum velit quasi explicabo aut quisquam numquam sed eius, vero praesentium nihil animi et temporibus.</p>
+		<h5 id="heading3">heading3</h5>
+		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias officiis, tempora excepturi voluptatem impedit repellendus dolorum velit quasi explicabo aut quisquam numquam sed eius, vero praesentium nihil animi et temporibus.</p>
+		<h5 id="heading4">heading4</h5>
+		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias officiis, tempora excepturi voluptatem impedit repellendus dolorum velit quasi explicabo aut quisquam numquam sed eius, vero praesentium nihil animi et temporibus.</p>
+		<div class="code">
+			&lt;body&gt;<br>
+			&emsp;&lt;img src="*your_source*" alt="Here is an image!" width="100px"&gt;<br>
+			&lt;/body&gt;
+		</div>
+		<h5 id="heading5">heading5</h5>
+		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias officiis, tempora excepturi voluptatem impedit repellendus dolorum velit quasi explicabo aut quisquam numquam sed eius, vero praesentium nihil animi et temporibus.</p> -->
+		<hr class="last-line">
+		<button class="prev but1 but3" onclick="previous()">Previous</button>
+		<button class="nxt but1 but3"  onclick="next()">Next</button>
+	</div>
+	</div>
+</div>  
+<script>
+    function previous(){
+        for(var i = 0;i<ch_list.length;i++)
+        {
+            // console.log('{{chapter_content.slug}}')
+            if (ch_list[i] == '{{chapter_content.slug}}'&& i >0)
+            {
+                document.location.href = '/'+ '{{slug}}/' + ch_list[i-1] ;
+                
+            }
+        }
+    }
+    function next(){
+        for(var i = 0;i<ch_list.length;i++)
+        {
+            // console.log('{{chapter_content.slug}}')
+            if (ch_list[i] == '{{chapter_content.slug}}'&& i<ch_list.length-1)
+            {
+                document.location.href = '/'+ '{{slug}}/' + ch_list[i+1] ;
+               
+            }
+        }
+    }
+</script>
+
+<!-- <div class="center">
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
@@ -159,51 +143,21 @@
     </ol>
 
 </div>
+
 <script>
-    function copyCurrentPageURLToClipBoard(){
-        var input = document.createElement("input")
-        var url = document.location.href
-        input.value = url
-        document.body.appendChild(input)
-        input.select();
-        document.execCommand("copy")
-        toastr.options.timeOut = 200
-        toastr.success('Copied To ClipBoard');
-        var audio = new Audio('/media/copy.mp3');
-        audio.volume = 0.2;
-        audio.play();
-        document.body.removeChild(input)
+    // (function(d, s, id) {
+    //         var js, fjs = d.getElementsByTagName(s)[0];
+    //         if (d.getElementById(id)) return;
+    //         js = d.createElement(s);
+    //         js.id = id;
+    //         js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    //         fjs.parentNode.insertBefore(js, fjs);
+    //     }
 
-    }
+    //     (document, 'script', 'facebook-jssdk'));
+</script> -->
 
-</script>
-<script>
-    (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-            fjs.parentNode.insertBefore(js, fjs);
-        }
-
-        (document, 'script', 'facebook-jssdk'));
-</script>
-
-<!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
-{% include 'dropdown/dropdown.html' with url=chapter_content.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
-<!-- <script>
-    document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
-    alert(typeof document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href))
-    document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
-    document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
-
-    document.getElementsByClassName("linkedin-share")[0].setAttribute("href", document.getElementsByClassName("linkedin-share")[0].getAttribute("href") + document.location.href);
-    document.getElementsByClassName("linkedin-share")[0].setAttribute("data-href",  document.location.href )
-
-    document.getElementsByClassName("twitter-share")[0].setAttribute("href", document.getElementsByClassName("twitter-share")[0].getAttribute("href") + document.location.href) ;
-    </script> -->
-<div class="row">
+<!-- <div class="row">
 
     <div class="col-sm-12 col-md-12 col-lg-2 container"></div>
     <div class="col-sm-12 col-md-12 col-lg-8 container">
@@ -227,7 +181,7 @@
             {% endif %}
             {% endfor %}
         </ul>
-    </div>
+    </div> -->
 
 
     <!-- 
@@ -236,10 +190,10 @@
     -->
 
 
-    <div class="col-sm-12 col-md-12 col-lg-8 container" style="margin-top: 0px;">
+    <!-- <div class="col-sm-12 col-md-12 col-lg-8 container" style="margin-top: 0px;"> -->
 
         <!-- for short desc -->
-        <div class="card-panel">
+        <!-- <div class="card-panel">
             <p>
                 ng essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
                 Lorem Ipsum passages, and more recently with desktoypesetting industry. Lorem Ipsum has been the
@@ -269,16 +223,16 @@
                 Video is Not available!
             </div>
         {% endif %}
-    </div>
+    </div> -->
 
-    <div class="col-sm-12 col-md-12 col-lg-2">
+    <!-- <div class="col-sm-12 col-md-12 col-lg-2"> -->
         <!-- <ul class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action" id="selected" href="">Some alksjcn</a>
         </ul> -->
-    </div>
-</div>
+    <!-- </div> -->
+<!-- </div> -->
 
-<div class="row" style="margin-top: 150px; height: 100px;">
+<!-- <div class="row" style="margin-top: 150px; height: 100px;">
     <div class="col-sm-12 col-md-6 col-lg-8 center-div">
         <hr>
         <div class="row valign-wrapper">
@@ -301,107 +255,184 @@
         </div>
         <hr>
     </div>
-</div>
+</div> -->
 
 <!-- <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-8 container center">
        
-    </div>
-</div> -->
-
-
-<div class="row" id="commentsContainer" style="margin-top: 150px;">
-    <div class="col-sm-12 col-md-6 col-lg-8 container">
-        <div class="row no-gutters">
-            <div class="col-6">
-                <h4>Comments</h4>
-            </div>
-            <div class="col-6">
-                <div class="row right vertical-center">
-                    {% csrf_token %}
-                    <i onclick="" class="icon-btn" id="like-btn" data-user="{{ request.user.is_authenticated }}"
-                        data-href='{{ chapter_content.get_like_url }}' data-slug={{chapter_content.slug}}
-                        data-likes={{chapter_content.no_of_likes}}>
-                        {% if not has_liked %}
-                        <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
-                        {% else %}
-                        <img id="likeImg" src="/static/images/heart_active.svg" style="width: 30px; height: 30px;">
-                        {% endif %}
-                    </i>
-                    <p id="likes">{{ chapter_content.like_count }}</p>
-                </div>
-            </div>
-        </div>
-
-        {% if request.user.is_authenticated %}
-        <div class="input-field">
-            {% csrf_token %}
-            <input type="text" class="validate" id="comment" placeholder="Enter your comment" autocomplete="off"
-                onkeyup="stoppedTyping(this.value)">
-            <input type="button" value="Submit" id="comment-btn" data-comment="{{ chapter_content.get_comment_url }}"
-                data-comment-slug={{chapter_content.slug}} class="btn" disabled>
-        </div>
-        {% else %}
-        <div class="row">
-            <div class="col-10">
-                <p>Login to comment</p>
-            </div>
-            <div class="col-2">
-                <div class="row">
-                    <div class="col-6 center-div">
-                        <a id="googleLoginCmt"
-                            google-href-cmt="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
-                            class="icon-btn">
-                            <img src="/static/images/google-logo.svg" alt="googleLogo" width="50px" height="50px" />
-                        </a>
-                    </div>
-                    <div class="col-6 center-div">
-                        <a id="githubLoginCmt" github-href-cmt="{% url 'social:begin' 'github' %}?next={{request.path}}"
-                            class="icon-btn">
-                            <img src="/static/images/github-logo.svg" alt="githubLogo" width="50px" height="50px" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-        <div id="comments-list" style="margin-top: 50px;">
-            <div class="spinner-border text-primary center" role="status" id='comment_loader' style="display: none;">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-
-
-
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
+    </div> -->
+<!-- </div> -->
+<style>
+    	input{
+                position: relative !important;
+                display: inline !important;
+                border: 3px solid orange;
+            }
+    p:hover, .class:hover, h1:hover{
+        color: orange;
     }
+    .sugg_btn{
+        display: inline !important;
+    }
+</style>
+<script>
+        var suggestions
+    function getSuggestion(){
+		$.ajax({
+			method:'GET',
+			url:  "{% url 'api:get_suggestion'%}",
+			data:{
+                // 'project':'{{project.pk}}',
+                'chapter': '{{chapter_content.pk}}'
+				// 'content':document.getElementById('sugg_inp').value,
+				// 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+                sug = document.getElementById('suggestions-list')
+                sug.innerHTML = ""
+                if('{{request.user.is_superuser}}' == 'True' || '{{request.user}}' == '{{chapter_content.link_to.author.user}}' ){
+                for (var i = 0; i < data.suggestions.length; i++){
+                    sug.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data.suggestions[i].content  +'-'+data.suggestions[i].created_on +'</h5></div></div>'
+                    sug.innerHTML +='<button type="button" onclick="resolveSuggestion(this)" data-pk = "' + data.suggestions[i].id +'">Resolve</button>'
+                    }
+                }
+			},error:function(error){
+				console.log(error)
+			},
+        })
+    }
+        getSuggestion()
+	function addSuggestion(){
+		$.ajax({
+			method:'POST',
+			url:  "{% url 'api:create_suggestion'%}",
+			data:{
+                'project':'{{chapter_content.link_to.pk}}',
+                'chapter': '{{chapter_content.pk}}',
+				'content':document.getElementById('sugg_inp').value,
+				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+				getSuggestion()
+			},error:function(error){
+				console.log(error)
+			},
+		})
+        // location.reload()
+	}
+	function resolveSuggestion(e){
+        var pk = e.getAttribute('data-pk')
+		$.ajax({
+			method:'POST',
+			url:  "{% url 'api:resolve_suggestion'%}",
+			data:{
+				'pk': pk,
+				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+                getSuggestion()
+			},error:function(error){
+				console.log(error)
+			},
+        })
+	}
+</script>
 
-    function stoppedTyping(value) {
-        if (value.length > 0) {
-            document.getElementById('comment-btn').disabled = false;
-        } else {
-            document.getElementById('comment-btn').disabled = true;
+
+<div id="suggestions-list"></div>
+
+<script>
+    var codes = document.getElementsByClassName('code')
+
+    if( '{{request.user.is_superuser}}' == 'True'){
+        for(var i = 0; i< codes.length; i++ ){
+            codes[i].addEventListener('mouseover', function(e){
+                
+                if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                    document.getElementById('sugg_btn').remove()
+                }
+
+                if(e.target.getAttribute('class') != 'sugg_btn' ){
+                    var btn = document.createElement('button')
+                    btn.setAttribute('class', 'sugg_btn')
+                    btn.innerHTML = 'ADD SUGGESTION'
+                    btn.setAttribute('id', 'sugg_btn')
+                    btn.setAttribute('onclick', 'createInputBox(this);')
+                    // e.target.appendChild(btn)
+                    e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+                }
+            })
         }
     }
 
-    document.getElementById('googleLoginCmt').onclick = function () {
-        var url = this.getAttribute('google-href-cmt')
-        window.open(url, "_self")
-    };
+    p_tags = document.getElementsByTagName('p')
+    if( '{{request.user.is_superuser}}' == 'True'){
+    for(var i = 0; i< p_tags.length; i++ ){
+        p_tags[i].addEventListener('mouseover', function(e){
+            
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
 
-    document.getElementById('githubLoginCmt').onclick = function () {
-        var url = this.getAttribute('github-href-cmt')
-        window.open(url, "_self")
-    };
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+
+    var title = document.getElementsByTagName('h1')
+    if( '{{request.user.is_superuser}}' == 'True'){
+    for(var i = 0; i< title.length; i++ ){
+        title[i].addEventListener('mouseover', function(e){
+            
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
 
 
+
+
+    function createInputBox(e){
+        if(document.getElementById('sugg_inp') == null){
+        var inp = document.createElement('input')
+        inp.id = "sugg_inp"
+        // document.getElementById('sugg_btn').remove()
+        e.parentNode.appendChild(inp)
+        
+        }
+    }
+
+    document.addEventListener('keyup', function(e){
+        if (e.keyCode == "13"){
+            if(document.getElementById('sugg_inp') != null){
+                var value = document.getElementById('sugg_inp').value
+                addSuggestion();
+            }
+            document.getElementById('sugg_inp').remove()
+        }
+    })
 
 </script>
-
 
 
 {% endblock content %}

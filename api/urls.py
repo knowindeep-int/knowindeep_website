@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_chapter_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url
+from .views import api_create_suggestion, api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_project_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status,api_create_suggestion, api_resolve_suggestion,api_get_suggestion,api_search_languages
 
 
 app_name = "api"
@@ -14,11 +14,17 @@ urlpatterns = [
     path('<slug:slug>/',api_detail_chapter_view),
     path('<slug:slug>/update',api_detail_chapter_update_view),
     path('chaptertopic/like',api_like_chapter_view,name='like-post'),
-    path('chaptertopic/comment',api_comment_chapter_view,name="comment-post"),
+    path('chaptertopic/comment',api_comment_project_view,name="comment-post"),
     path('save_draft', api_save_draft, name="save_draft"),
     path('save_chapter_draft', api_save_chapter_draft, name="save_chapter_draft"),
     path('getLangPrereq', api_get_languages_prereqs, name = "get_lang_prereq"),
     path('createProject', api_create_project, name = "create_project"),
     path('getProjectAbsoluteURL', api_get_project_absolute_url, name = "get_project_absolute_url"),
-    path('getChapterAbsoluteURL', api_get_chapter_absolute_url, name = "get_chapter_absolute_url")
+    path('getChapterAbsoluteURL', api_get_chapter_absolute_url, name = "get_chapter_absolute_url"),
+    path('createChapter', api_create_chapter, name = "create_chapter"),
+    path('updateStatus', api_update_status, name = "update_status"),
+    path('createSuggestion', api_create_suggestion, name = "create_suggestion"),
+    path('resolveSuggestion', api_resolve_suggestion, name = "resolve_suggestion"),
+    path('getSuggestion', api_get_suggestion, name = "get_suggestion"),
+    path('searchLanguages', api_search_languages, name = "search_lang")
 ]

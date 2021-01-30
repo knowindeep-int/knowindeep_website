@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import Chapter, Project, Comment, Profile, Like, PreRequisite, Language, Package, Progress, Blog
+from .models import Chapter, Project, Comment, Profile, Like, Language, Package, Progress, Blog, Suggestion
 # from django.apps import apps
 
 # models = apps.get_models()
@@ -14,7 +14,7 @@ from .models import Chapter, Project, Comment, Profile, Like, PreRequisite, Lang
 
 class ChapterTopicsInline(admin.StackedInline):
     model = Chapter
-    fields = ['author','description','heading','youtube_link','content',]
+    fields = ['author','content','title']
     extra = 1
 
     
@@ -33,10 +33,9 @@ class CommentInline(admin.StackedInline):
 
 class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author','link_to','heading','youtube_link','content','description','slug']})
+        (None, {'fields':['author','link_to','content','slug','title']})
     ]
-    inlines = [LikeInline,CommentInline]
-    search_fields = ['heading','content']
+    search_fields = ['content']
 
 class ProjectAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -46,7 +45,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['title','overview','no_of_views']
     ordering = ['-no_of_views']
     readonly_fields = ['no_of_views','isApproved']
-    inlines = [ChapterTopicsInline,]
+    inlines = [ChapterTopicsInline, LikeInline,CommentInline]
     search_fields = ['title','overview']
 
 class BlogAdmin(admin.ModelAdmin):
@@ -67,8 +66,8 @@ admin.site.register(Project,ProjectAdmin)
 admin.site.register(Comment)
 admin.site.register(Like)
 admin.site.register(Profile)
-admin.site.register(PreRequisite)
 admin.site.register(Language)
 admin.site.register(Package)
 admin.site.register(Progress)
 admin.site.register(Blog)
+admin.site.register(Suggestion)

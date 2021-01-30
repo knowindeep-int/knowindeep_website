@@ -1,156 +1,483 @@
 {% extends "base.html" %} {% load static %} {% block content_head %}
-<link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blog_content.css' %}"> {% endblock %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'blogs/css/blog_content.css' %}">
+<script src="{% static 'js/blogs/subtopic.js' %}"></script> {% endblock %} {% block content %} {% block title %}
+<title>{{ project.title |title}}</title>
+{% endblock %} {%csrf_token%}
+<style>
+    input {
+        position: relative !important;
+        border: 3px solid orange;
+    }
+    
+    p:hover,
+    .field:hover,
+    h1:hover {
+        color: orange;
+    }
+    
+    .sugg_btn {
+        display: inline !important;
+    }
+</style>
+<script>
+    var suggestions
 
+    function getSuggestion() {
+        $.ajax({
+            method: 'GET',
+            url: "{% url 'api:get_suggestion'%}",
+            data: {
+                'project': '{{project.pk}}',
+                // 'content':document.getElementById('sugg_inp').value,
+                // 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data) {
+                sug = document.getElementById('suggestions-list')
+                sug.innerHTML = ""
+                if ('{{request.user.is_superuser}}' == 'True' || '{{request.user}}' == '{{project.author.user}}') {
+                    for (var i = 0; i < data.suggestions.length; i++) {
+                        sug.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data.suggestions[i].content + '-' + data.suggestions[i].created_on + '</h5></div></div>'
+                        sug.innerHTML += '<button type="button" onclick="resolveSuggestion(this)" data-pk = "' + data.suggestions[i].id + '">Resolve</button>'
+                    }
+                }
+            },
+            error: function(error) {
+               console.log('error')
+            },
+        })
+    }
+    getSuggestion()
+
+    function addSuggestion() {
+        $.ajax({
+                method: 'POST',
+                url: "{% url 'api:create_suggestion'%}",
+                data: {
+                    'project': '{{project.pk}}',
+                    'content': document.getElementById('sugg_inp').value,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data) {
+                    getSuggestion()
+                },
+                error: function(error) {
+                    console.log('error')
+                },
+            })
+            // location.reload()
+    }
+
+    function resolveSuggestion(e) {
+        var pk = e.getAttribute('data-pk')
+        $.ajax({
+            method: 'POST',
+            url: "{% url 'api:resolve_suggestion'%}",
+            data: {
+                'pk': pk,
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data) {
+                getSuggestion()
+            },
+            error: function(error) {
+               console.log('error')
+            },
+        })
+    }
+</script>
 <div class="center">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
     </ol>
 </div>
-<div class="container" id="cont">
-
-    <h2 id="blog_heading" class="center">
-        {{ project.title }}
-    </h2>
-
-    <script>
-        
-        function copyCurrentPageURLToClipBoard(){
-            var input = document.createElement("input")
-            var url = document.location.href
-            input.value = url
-            document.body.appendChild(input)
-            input.select();
-            document.execCommand("copy")
-            document.body.removeChild(input)
-            toastr.options.timeOut = 200
-            toastr.success('Copied To ClipBoard');
-            var audio = new Audio('/media/copy.mp3');
-            audio.play();
-
-        }
-        function copyChapterPageURL(e) {
-
-            var input = document.createElement('input');
-            input.value = e.getAttribute('data-href');
-            document.body.appendChild(input);
-            input.select();
-            document.execCommand("copy");
-            document.body.removeChild(input);
-            toastr.options.timeOut = 100
-            toastr.success('Copied To ClipBoard');
-            var audio = new Audio('/media/copy.mp3');
-            audio.volume = 0.2;
-            audio.play();
-
-        }
-        function getChapterAbsoluteUrl(project_slug,chapter_slug){
-            // alert(project_slug)
-            var url = ""
-            $.ajax({
-                method: 'GET',
-                url: '{% url "api:get_chapter_absolute_url" %}',
-                data:{
-                    'project_slug': project_slug,
-                    'chapter_slug': chapter_slug
-                },
-                async: false,
-                success(data){
-                    url = data.url
-                },error(data){
-                    alert('ERROR!')
-                }
-            })
-            return url
-        }
-    </script>
-    
-    <!-- <button style="float: right;" onclick="copyCurrentPageURLToClipBoard()" type="button" class="btn btn-primary">Share</button> -->
-    {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl function="copyCurrentPageURLToClipBoard()" %}
-<!-- <script>
-    document.getElementsByClassName('clipboard')[0].setAttribute("onclick", "copyCurrentPageURLToClipBoard();return false;")
-    document.getElementsByClassName("share-btn")[0].setAttribute("href", document.getElementsByClassName("share-btn")[0].getAttribute("href") + '&u=' + document.location.href);
-    document.getElementsByClassName("share-btn")[0].setAttribute("data-href",  document.location.href )
-
-    document.getElementsByClassName("linkedin-share")[0].setAttribute("href", document.getElementsByClassName("linkedin-share")[0].getAttribute("href")  + document.location.href);
-    document.getElementsByClassName("linkedin-share")[0].setAttribute("data-href",  document.location.href )
-
-    document.getElementsByClassName("twitter-share")[0].setAttribute("href", document.getElementsByClassName("twitter-share")[0].getAttribute("href") + document.location.href) ;
-</script> -->
-    <div style="text-align: center;">
-        <img src="/media/{{ project.image }}" alt="{{project.title}}">
-    </div>
-    <div>
-        <h3>What will you do in this course:</h3>
-        {{project.description}}
-    </div>
-
-    <div>
-        <h3>Pre- Requisites for this course?</h3>
-        <ul>
-            {% for pre_req in project.pre_req.all %}
-            <li style="list-style-type: circle">{{pre_req}}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div>
-        <h3>Difficulty Level:</h3>
-        {{project.difficulty_level}}
-    </div>
-    <div>
-        <h3>Course Duration</h3>
-        {{project.no_of_hours}}
-    </div>
-    <div>
-        <h3>Languages Used:</h3>
-        <ul>
-            {% if project.languages.all %} {% for language in project.languages.all %}
-            <li style="list-style-type: circle">{{language}}</li>
-            {% endfor %} {% endif %}
-        </ul>
-    </div>
-    <div>
-        <h3>Author Name :</h3> {{project.author.user.first_name }} {{project.author.user.last_name}}
-    </div>
-
-    <div class="center">
-        <div id="content">
-            {{ project.topic_content }}
-        </div>
-    </div>
-    {% if chapters %} {% for chapter in chapters %}
-    <div id="blog" class="card hoverable" id="hover">
-        <div class="card-action">
-            <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink">
-                {{ chapter.heading }} : {{ chapter.description }}
-            </a>
-            <!-- <button style="float: right;" id="subtopic_chapter_copy" onclick="copyChapterPageURL()" type="button" class="btn btn-primary" data-href="getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ">Share</button> -->
-            
-            <!-- <script>
-            //     document.getElementById("clipboard").setAttribute("onclick", "copyChapterPageURL();return false;")
-            //     document.getElementById("clipboard").setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
-            // </script> -->
-
-
-        </div>
-        {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
-        
-            <!-- <script>
-                document.getElementsByClassName('clipboard')['{{forloop.counter}}'].setAttribute("onclick", "copyChapterPageURL(this);return false;")
-                document.getElementsByClassName("clipboard")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') )
-                document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("href", document.getElementsByClassName("share-btn")['{{forloop.counter}}'].getAttribute("href") + '&u=' + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
-                document.getElementsByClassName("share-btn")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}')  )
-
-                document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].setAttribute("href", document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].getAttribute("href") + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
-                document.getElementsByClassName("linkedin-share")['{{forloop.counter}}'].setAttribute("data-href",  getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}')  )
-
-                document.getElementsByClassName("twitter-share")['{{forloop.counter}}' ].setAttribute("href", document.getElementsByClassName("twitter-share")['{{forloop.counter}}'].getAttribute("href") + getChapterAbsoluteUrl('{{project.slug}}', '{{chapter.slug}}') ) ;
-            </script> -->
-
-    </div>
-
-    {% endfor %} {% else %}
-    <h1>No blogs for the particular url</h1>
+<div class="img2 row img3">
+    {% if not project.image %}
+    <img src="/media/images/layer.png" class="col-md-12 layer1">
+    {% else %}
+    <img src="{{project.image}}" class="col-md-12 layer1">
     {% endif %}
 </div>
-{% endblock content %}
+<div class="team-section">
+    <div class="container">
+        <div class="row row1">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 white">
+                <br>
+                <br>
+                <div class="section-heading">
+                    <h1>{{ project.title | title }}</h1>
+                    <p>BY {{project.author}} &emsp;<span class="vertical">|</span>&emsp; {{project.date_approved.date}}</p>
+                    <br>
+                    <!-- <div class="dow">Share on </div> -->
+                    <div class="sh">
+                        <!-- <span class="shares"><div class="number">1</div><br><div class="number2">shares</div></span> -->
+                        <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com." title="Share by Email"><img src="/media/images/mail-share.png" class="shareon">
+                        </a>
+                        <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" data-action="share/whatsapp/share"><img src="/media/images/whatsapp-share.png" class="shareon"></a>
+                        <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><img src="/media/images/linkdin-share.png" class="shareon"></a>
+                        <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum" class="twitter-share" data-text="Lorem Ipsum" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=580')"><img src="/media/images/twitter-share.png" class="shareon"></a>
+                        <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="/media/images/facebook-share.png" class="shareon"></a>
+
+                    </div>
+                </div>
+                <br>
+                <br>
+
+                <div class="top-1">
+                    <p>{{project.overview}}</p>
+                    <br>
+                    <h5>What will you learn?</h5>
+                    <p>{{ project.description }}</p>
+                    <br>
+                    <h5>Pre-Requisities</h5>
+                    {% for pre_req in project.pre_req.all %}
+                    <p>{{pre_req}}</p>
+                    {% endfor %}
+                    <br>
+                    <div class="spans">
+                        <span><h5>Hours To Complete</h5></span>
+                        <div class="field">{{ project.no_of_hours }}</div><br>
+                        <span><h5>Level</h5></span>
+                        <div class="field">{{ project.difficulty_level}}</div><br>
+                        <span><h5>Languages Used</h5></span>
+                        <div class="field">
+                            {% if language.image.url %} {% for language in project.languages.all %}
+                            <img src="{{language.image.url}}" class="la"> {% endfor %} {% endif %}
+                            <!-- <img src="/media/images/java.png" class="la">
+			   <img src="/media/images/kotlin.png" class="la">
+			   <img src="/media/images/c.png" class="la">
+			   <img src="/media/images/php.png" class="la">
+			   <img src="/media/images/python.png" class="la"> -->
+                        </div>
+                        <br>
+                        <!-- <span><h5>Author Name:</h5></span>
+                        <div class="field">{{project.author.user.username}}</span><br>
+                        </div> -->
+                    </div>
+                    {% if chapters %} {% for chapter in chapters %}
+                    <div class="boxes">
+                        <div class="box">
+                            <div class="right-num">{{ forloop.counter }}</div>
+                            <div class="mid">
+                                <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
+            {{ chapter }} 
+        </a><br>
+                                <span class="clk">{{ chapter }}</span>
+                            </div>
+                            {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
+                        </div>
+                        {% endfor %} {% else %}
+                        <h1>No blogs for the particular url</h1>
+                        {% endif %}
+                        <!-- <img src="/media/images/share1.png" class="left-share"> -->
+
+                        <!-- <div class="box">
+	<div class="right-num">02</div>	<div class="mid">
+		<span class="add">Adding images to your site</span><br>
+		 <span class="clk">There are ways by which your image can be made clickable...</span>
+		</div>
+	<img src="share1.png" class="left-share">
+</div>
+<div class="box">
+	<div class="right-num">03</div>	<div class="mid">
+		<span class="add">Adding images to your site</span><br>
+		 <span class="clk">There are ways by which your image can be made clickable...</span>
+		</div>
+	<img src="share1.png" class="left-share">
+</div>
+<div class="box">
+	<div class="right-num">04</div>	
+	<div class="mid">
+		<span class="add">Adding images to your site</span><br>
+		 <span class="clk">There are ways by which your image can be made clickable...</span>
+	</div>
+	<img src="share1.png" class="left-share">
+</div>
+<div class="box">
+	<div class="right-num">05</div>
+	<div class="mid">
+		<span class="add">Adding images to your site</span><br>
+		 <span class="clk">There are ways by which your image can be made clickable...</span>
+	</div>
+	<img src="share1.png" class="left-share">
+</div>
+<div class="box">
+	<div class="right-num">06</div>
+	<div class="mid">
+	<span class="add">Adding images to your site</span><br>
+	 <span class="clk">There are ways by which your image can be made clickable...</span>
+	</div>
+	<img src="share1.png" class="left-share">
+</div>
+</div> -->
+                    </div>
+                    <div class="section-heading">
+                        <h4>About the Author</h4>
+                        <br>
+                        <img src="{{project.author.dp.url}}" class="author">
+                        <div class="box box55">
+                            <br>
+                            <br>
+                            <h3>{{project.author}}</h3>
+                            <div>{{project.author.description}}</div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-2"></div>
+                {% if request.user.is_superuser and not project.isApproved%}
+                <!-- <span><button type="button" onclick="addSuggestion()">Add suggestion</button>
+	<label for="title_input">title</label>
+<input type="text" id="title_input" style="color: aqua;">
+<input type="text" id="content_input">
+<br> -->
+                <!-- <button type="button" onclick="resolveSuggestion()">Resolve</button> -->
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="row" id="commentsContainer" style="margin-top: 150px;">
+    <div class="col-sm-12 col-md-6 col-lg-8 container">
+        <div class="row no-gutters">
+            <div class="col-6">
+                <h4>Comments</h4>
+            </div>
+            <div class="col-6">
+                <div class="row right vertical-center">
+                    {% csrf_token %}
+                    <i onclick="" class="icon-btn" id="like-btn" data-user="{{ request.user.is_authenticated }}"
+                        data-href='{{ project.get_like_url }}' data-slug={{project.slug}}
+                        data-likes={{chapter_content.no_of_likes}}>
+                        {% if not has_liked %}
+                        <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
+                        {% else %}
+                        <img id="likeImg" src="/static/images/heart_active.svg" style="width: 30px; height: 30px;">
+                        {% endif %}
+                    </i>
+                    <p id="likes">{{ project.like_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="input-field">
+            {% csrf_token %}
+            <input type="text" class="validate" id="comment" placeholder="Enter your comment" autocomplete="off"
+                onkeyup="stoppedTyping(this.value)">
+            <input type="button" value="Submit" id="comment-btn" data-comment="{{ project.get_comment_url }}"
+                data-comment-slug={{project.slug}} class="btn" disabled>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-10">
+                <p>Login to comment</p>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <div class="col-6 center-div">
+                        <a id="googleLoginCmt"
+                            google-href-cmt="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
+                            class="icon-btn">
+                            <img src="/static/images/google-logo.svg" alt="googleLogo" width="50px" height="50px" />
+                        </a>
+                    </div>
+                    <div class="col-6 center-div">
+                        <a id="githubLoginCmt" github-href-cmt="{% url 'social:begin' 'github' %}?next={{request.path}}"
+                            class="icon-btn">
+                            <img src="/static/images/github-logo.svg" alt="githubLogo" width="50px" height="50px" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div id="comments-list" style="margin-top: 50px;">
+            <div class="spinner-border text-primary center" role="status" id='comment_loader' style="display: none;">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fetchComments() {
+    showLoader()
+    $.ajax({
+        method: 'GET',
+        url: '{% url "api:chapterComments" %}',
+        data: {
+            'project_slug': '{{ project.slug }}'
+        },
+        success: function (data) {
+            var com = document.getElementById('comments-list')
+            for (var i = 0; i < data.length; i++) {
+                com.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data[i].first_name + ' ' + data[i].last_name + '</h5><p>' + data[i].comment_text + '</p></div></div>'
+            }
+            hideLoader()
+        },
+        error: function (error) {
+        }
+    })
+}
+
+fetchComments()
+
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+
+} else {
+    $.ajax({
+        url: '{% url "api:increase_view" %}',
+        method: "POST",
+        data: {
+            'slug': '{{slug}}',
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function (data) {
+        }, error: function (error) {
+        },
+    })
+}
+function updateComment(user, comment) {
+    var com = document.getElementById('comments-list')
+    hideLoader()
+    com.innerHTML = '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>{{user.first_name}} {{user.last_name}}</h5><p>' + comment + '</p></div></div>' + com.innerHTML
+    document.getElementById('comment').value = ''
+}
+
+
+$("#comment-btn").click(function (e) {
+    e.preventDefault()
+    showLoader()
+    var this_ = $(this)
+
+    var commentUrl = this_.attr('data-comment')
+    var slug = this_.attr('data-comment-slug')
+    $.ajax({
+        url: commentUrl,
+        method: "POST",
+        data: {
+            'slug': slug,
+            'comment_text': document.getElementById('comment').value,
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function (data) {
+            if (data.success) {
+                document.getElementById('comment-btn').disabled = true;
+                if (data.comment != "") {
+                    updateComment(data.user, data.comment)
+                }
+                //  else {
+                    // hideLoader()
+                // }
+            } else {
+
+            }
+        }, error: function (error) {
+        },
+    })
+})
+
+$("#like-btn").click(function (e) {
+    e.preventDefault();
+    var this_ = $(this)
+    var user = this_.attr('data-user')
+    if (user) {
+        var likeUrl = this_.attr('data-href')
+        var slug = this_.attr('data-slug')
+        var likes = this_.attr('data-likes')
+        $.ajax({
+            url: likeUrl,
+            method: "POST",
+            data: {
+                'slug': slug,
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (data) {
+                updateLikes(data.likes, data.success)
+            }, error: function (error) {
+               console.log(error)
+            },
+
+        })
+    } if (user == "False") {
+        alert('You need to login to like this post')
+    }
+})
+</script>
+<div id="suggestions-list"></div>
+<script>
+    var fields = document.getElementsByClassName('field')
+    if ('{{request.user.is_superuser}}' == 'True') {
+        for (var i = 0; i < fields.length; i++) {
+            fields[i].addEventListener('mouseover', function(e) {
+
+                if (document.getElementById('sugg_btn') != null && e.target.getAttribute('class') != 'sugg_btn') {
+                    document.getElementById('sugg_btn').remove()
+                }
+
+                if (e.target.getAttribute('class') != 'sugg_btn') {
+                    var btn = document.createElement('button')
+                    btn.setAttribute('class', 'sugg_btn')
+                    btn.innerHTML = 'ADD SUGGESTION'
+                    btn.setAttribute('id', 'sugg_btn')
+                    btn.setAttribute('onclick', 'createInputBox(this);')
+                        // e.target.appendChild(btn)
+                    e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+                }
+            })
+        }
+    }
+
+    p_tags = document.getElementsByTagName('p')
+    if ('{{request.user.is_superuser}}' == 'True') {
+        for (var i = 0; i < p_tags.length; i++) {
+            p_tags[i].addEventListener('mouseover', function(e) {
+
+                if (document.getElementById('sugg_btn') != null && e.target.getAttribute('class') != 'sugg_btn') {
+                    document.getElementById('sugg_btn').remove()
+                }
+
+                if (e.target.getAttribute('class') != 'sugg_btn') {
+                    var btn = document.createElement('button')
+                    btn.setAttribute('class', 'sugg_btn')
+                    btn.innerHTML = 'ADD SUGGESTION'
+                    btn.setAttribute('id', 'sugg_btn')
+                    btn.setAttribute('onclick', 'createInputBox(this);')
+                        // e.target.appendChild(btn)
+                    e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+                }
+            })
+        }
+    }
+    var title = document.getElementsByTagName('h1')
+    if ('{{request.user.is_superuser}}' == 'True') {
+        for (var i = 0; i < title.length; i++) {
+            title[i].addEventListener('mouseover', function(e) {
+
+                if (document.getElementById('sugg_btn') != null && e.target.getAttribute('class') != 'sugg_btn') {
+                    document.getElementById('sugg_btn').remove()
+                }
+
+                if (e.target.getAttribute('class') != 'sugg_btn') {
+                    var btn = document.createElement('button')
+                    btn.setAttribute('class', 'sugg_btn')
+                    btn.innerHTML = 'ADD SUGGESTION'
+                    btn.setAttribute('id', 'sugg_btn')
+                    btn.setAttribute('onclick', 'createInputBox(this);')
+                        // e.target.appendChild(btn)
+                    e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+                }
+            })
+        }
+    }
+
+
+   
+</script>
+
+{% endblock %}

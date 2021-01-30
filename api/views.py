@@ -3,12 +3,15 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
-
-from blogs.models import Project, Chapter, Like, Comment, Profile, Language, PreRequisite
-
+from django.core.mail import send_mail
+from blogs.models import Project, Chapter, Like, Comment, Profile, Language, Suggestion
+from django.contrib.auth.models import User
 from knowindeep import Constants
+import os
+from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, SuggestionSerializer
+from dotenv import load_dotenv
+load_dotenv()
 
-from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, PreRequisiteSerializer
 
 @api_view(['GET',])
 def api_detail_chapter_view(request,slug):
@@ -51,10 +54,10 @@ def api_all_detail_view(request):
 def fetchComments(request):
     comments = None
     if request.method == 'GET':
-        chapter_content_slug = request.GET.get('chapter_content_slug')
+        project_slug = request.GET.get('project_slug')
         #blog_content = Chapter.objects.get(slug=blog_content_slug)
         #comments = Comment.objects.filter(link_to=blog_content).order_by('-timestamp')
-        comments = Chapter.getAllComments(chapter_content_slug)
+        comments = Project.getAllComments(project_slug)
         commentSerializer = CommentSerializer(comments, many=True)
         return Response(commentSerializer.data)
 
@@ -63,34 +66,34 @@ def fetchComments(request):
 def api_like_chapter_view(request):
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        chapter = Chapter.objects.get(slug=slug)
+        project = Project.objects.get(slug=slug)
         data = {}
         try:
-            like = Like.objects.get(profile__user__email = request.user.email, link_to=chapter)
+            like = Like.objects.get(profile__user__email = request.user.email, link_to=project)
             #like = Like.objects.get(link_to = chapter, profile__user__email = 'dev.krishang.09@gmail.comewfewfvrfewefefe4feferfrr')
             #like = Like.objects.getlink_to = chapter)
             like.delete()
             data["success"] = False
-            data["likes"] = chapter.like_count
+            data["likes"] = project.like_count
             return Response(data=data)  
         except Like.DoesNotExist:
             profile = Profile.objects.get(user__email = request.user.email)
-            like = Like.objects.create(profile=profile, link_to=chapter)
+            like = Like.objects.create(profile=profile, link_to=project)
             data["success"] = True
-            data["likes"] = chapter.like_count
+            data["likes"] = project.like_count
             return Response(data=data)
       #  return HttpResponseRedirect(reverse('blogs:blog_post',args=[ ,slug]))
 
 @api_view(['POST',])
-def api_comment_chapter_view(request):
+def api_comment_project_view(request):
     data = {}
     data["success"] = False
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        chapter = Chapter.getChapter(slug = slug)
+        project = Project.getProject(slug = slug)
         comment_text = request.POST.get('comment_text')
         profile = Profile.getProfile(user = request.user)
-        comment = Comment.createComment(chapter = chapter, profile = profile, comment_text = comment_text)
+        comment = Comment.createComment(project = project, profile = profile, comment_text = comment_text)
         data["success"] = True
         data["user"] = request.user.first_name + request.user.last_name
         data["comment"] = comment_text
@@ -138,6 +141,18 @@ def search_project(request):
         }
 
         return Response(data, status = status.HTTP_200_OK)
+
+@api_view(['GET',])
+def api_search_languages(request):
+    if request.method == "GET":
+        search_input = request.GET['search_input']
+        language_searches = Language.getLanguageSearches(search_input = search_input)
+        language_serializer = LanguageSerializer(language_searches, many = True)
+
+        data = {
+            'languages':language_serializer.data
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 @api_view(['POST', 'GET',])
 def api_save_draft(request):
@@ -201,14 +216,14 @@ def api_save_chapter_draft(request):
 def api_get_languages_prereqs(request):
     if request.method == "GET":
         lang = Language.getAllLanguages()
-        pre = PreRequisite.getAllPreReqs()
+        pre = Project.objects.get(pk = request.GET['pk']).pre_req
 
         lang_serializer = LanguageSerializer(lang, many=True)
-        pre_serializer = PreRequisiteSerializer(pre, many=True)
+        # pre_serializer = PreRequisiteSerializer(pre, many=True)
     
         data = {
                 'languages': lang_serializer.data, 
-                'prerequisites': pre_serializer.data
+                'prerequisites': pre
             }
 
         return Response(data, status = status.HTTP_200_OK)
@@ -254,4 +269,96 @@ def api_get_chapter_absolute_url(request):
 
         return Response(data, status = status.HTTP_200_OK)
 
+@api_view(['POST',])
+def api_create_chapter(request):
+    if request.method == "POST":
 
+        print(request.data)
+
+        chapter_pk = request.POST.get('chapter_pk', None)
+
+        if chapter_pk == "":
+            chapter_pk = None
+
+        pk = request.POST.get('link_to', None)
+        chapter_serializer = ChapterSerializer(data = request.data)
+
+        if not chapter_serializer.is_valid():
+            print(chapter_serializer.data)
+            print(chapter_serializer.errors)
+            return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+        if chapter_pk is None:
+            chapter_serializer.save()
+            chapter_pk = chapter_serializer.data['id']
+
+        else:
+            chapter_serializer.update(chapter_instance= Chapter.objects.get(pk = chapter_pk))
+            # print(chapter_serializer.data['id'])
+        data = {
+            'success': 'Chapter saved successfully!',
+            'pk': pk,
+            'chapter_pk': chapter_pk
+        }
+
+        return Response(data, status = status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_update_status(request):
+    if request.method == "POST":
+        pk = request.POST.get('link_to')
+        print(pk)
+        project = Project.objects.get(pk= pk)
+        project.status = 'teach'
+        project.save()
+        print(project.status)
+        return Response(pk,status=status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_create_suggestion(request):
+    if request.method == "POST":
+
+        pk = request.POST['project']
+        project = Project.objects.get(pk = pk)
+        email_id = project.author.user.email
+        suggestion = SuggestionSerializer(data = request.data)
+        
+        if not suggestion.is_valid():
+            print(suggestion.errors)
+            return Response(suggestion.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+        suggestion.save()
+        
+        send_mail('Suggestions - Suggested from KnowInDeep',
+        suggestion.data['content'],
+        os.getenv('EMAIL_HOST_USER'),
+        [email_id],
+        fail_silently=False,    
+        )
+        data = {'success':'suggestion made successfully','pk':request.POST['project']}
+        return Response(data,status=status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_resolve_suggestion(request):
+    if request.method == "POST":
+        pk = request.POST['pk']
+        # project = Project.objects.get(pk = pk)
+        suggestions = Suggestion.objects.get(pk = pk)
+        suggestions.delete()
+        data = {'success':'suggestion resolved successfully','pk':request.POST['pk']}
+        return Response(data,status=status.HTTP_200_OK)
+
+@api_view(['GET',])
+def api_get_suggestion(request):
+    if request.method == "GET":
+        pk = request.GET.get('project', None)
+        chapter_pk = request.GET.get('chapter', None)
+
+        if pk is not None :
+            suggestions = Suggestion.objects.filter(project = pk)
+        else:
+            suggestions = Suggestion.objects.filter(chapter = chapter_pk)
+        
+        sug = SuggestionSerializer(suggestions,many = True)
+        data = {'suggestions':sug.data,'pk':pk}
+        return Response(data,status= status.HTTP_200_OK)

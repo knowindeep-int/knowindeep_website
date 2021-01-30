@@ -1,0 +1,239 @@
+/* FOR BASE */
+
+* {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+    padding: 0px;
+    margin: 0px;
+}
+
+img {
+    width: 100px;
+    height: 50px;
+    line-height: 300px;
+    text-align: center;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+}
+
+nav#navbar {
+    background-color: #1D1B1C;
+    overflow: hidden;
+    position: fixed;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+a:hover {
+    color: brown;
+}
+
+li a:hover {
+    text-decoration: none;
+    color: #51A6C5;
+}
+
+li.active a {
+    background: none;
+    background-color: #292D2A;
+    color: #7E76D7;
+}
+
+div.card {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card .card-image img {
+    object-fit: unset;
+    width: 300px;
+    height: 300px;
+}
+
+button.btn {
+    background-color: #7E76D7;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+button#logInBtn a:hover {
+    background: none;
+    color: white;
+}
+
+button.btn:hover {
+    background-color: #51A6C5;
+    color: white;
+}
+
+#loginDialog {
+    border: solid #51A6C5 1px;
+    border-radius: 10px;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 60%;
+    margin: 5% auto;
+    padding: 60px;
+    overflow: auto;
+}
+
+.icon-btn:hover {
+    cursor: pointer;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.btn {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 7px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button1 {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+.atkt {
+    padding-bottom: 2px 20px 2px 20px;
+    font-size: 20px;
+    border: 1px solid white;
+}
+
+#image {
+    margin-top: 10px;
+}
+
+.displaya {
+    display: none;
+    padding-top: 64px;
+}
+
+i {
+    font-size: 30px;
+}
+
+.searches {
+    padding-left: 5px;
+    font-size: 24px;
+}
+
+.home {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (max-width: 601px) {
+    #image {
+        margin-top: 0;
+    }
+}
+
+
+/* FOR LOGIN PAGE */
+
+button#submitButton {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 30px;
+    font-size: 22px;
+    position: absolute;
+    left: 50%;
+    text-align: center;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.image {
+    background-image: url("/static/images/cover_photo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 600px;
+}
+
+.jumbotron {
+    color: white;
+    padding: 300px 30px 0 30px;
+    background-color: transparent;
+}
+
+#jumbotron1 {
+    margin: 0 auto;
+    height: 244px;
+    width: 1170px;
+}
+
+body,
+html {
+    margin-right: 0;
+}
+
+#display {
+    font-size: 35px;
+}
+
+#lead #lead1 {
+    font-size: 10px;
+}
+
+@media(max-width:768px) {
+    #jumbotron1 {
+        margin: 0 auto;
+        width: 90%;
+    }
+    .image {
+        width: 100%;
+    }
+}
+
+@media(max-width:993px) and (min-width:768px) {
+    #jumbotron1 {
+        margin: 0 auto;
+        height: 244px;
+        width: 750px;
+    }
+}
+
+@media (max-width:1200px) and (min-width:993px) {
+    #jumbotron1 {
+        margin: 0 auto;
+        height: 244px;
+        width: 970px;
+    }
+}
+
+#cate {
+    font-size: 24px;
+}

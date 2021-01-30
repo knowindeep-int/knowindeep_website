@@ -4,12 +4,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>KnowInDeep</title>
+    <!-- <title>KnowInDeep</title> -->
     <meta charset="UTF-8" />
-    <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="/static/images/kid-white.png" type="image/icon type">
-    <meta name="viewport" content="width=device-width, initial-scale=1" /> {% block content_head %} {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block content_head %} {% endblock %} {% block title%} {% endblock %}
+    <!-- <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -20,54 +22,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+    <link rel="icon" href="/static/images/kid-white.png" type="image/icon type">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
-
-
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
-    <script type="text/javascript">
-        // // document.cookie = "username=John Doe; expires=Thu, 18 Dec 2021 12:00:00 UTC";
-        // // console.log("cookie saved")
-        // console.log(document.cookie)
-
-        function implementSearch() {
-
-            search_input = document.getElementById('searchInput').value;
-            $.ajax({
-                url: '{% url "api:search" %}',
-                method: "GET",
-                data: {
-                    'search_input': search_input,
-                },
-                success: function(data) {
-                    var result = document.getElementById("result");
-                    result.innerHTML = "";
-                    result.innerHTML += '<p class="list-group-item" style="color:black;" >Projects:</p>'
-                    for (var i = 0; i < data.projects.length; i++) {
-                        result.innerHTML += '<a class="list-group-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
-                    }
-
-                    result.innerHTML += '<p class="list-group-item" style="color:black;" >Chapters:</p>'
-                    for (var i = 0; i < data.chapters.length; i++) {
-                        result.innerHTML += '<a class="list-group-item" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >' + data.chapters[i].heading + '</a>';
-                    }
-
-                    result.innerHTML += '<p class="list-group-item" style="color:black;" >Authors:</p>'
-                    for (var i = 0; i < data.authors.length; i++) {
-                        result.innerHTML += '<a class="list-group-item" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
-                    }
-
-                },
-                error: function(error) {
-                    alert(error)
-                },
-            });
-        };
-    </script>
 
 </head>
 
@@ -75,110 +41,213 @@
 
 <body>
 
+    <script>
+        function implementSearch() {
 
-    <nav id="navbar" class="navbar-default navbar-static-top" style="overflow: visible">
-        <div class="nav-wrapper container ">
-            <a href="{% url 'blogs:index' %}">
-                <img src="/static/images/kid-white.png" class="brand-logo navbar-brand" id="image" alt="brandLogo" height="100%">
-            </a>
-            <!-- <a href="{% url 'blogs:index' %}" class="brand-logo">KnowInDeep</a> -->
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i onclick="functionOne()"
-                    class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down" id="nav-mobile">
-                <li><a class="searches home" href="{% url 'blogs:index' %}">Home</a></li>
-                <li><a class="searches home" href="#">About Us</a></li>
-                {% if request.user.is_authenticated %}
-                <li><a class="searches home" href="{% url 'teach:list_of_projects' %}">Teach with Us</a></li>
-                {% endif %}
-                <!--<li>
-                    <div id="search_form" style="display: visible;">
-                        <form class="form-inline my-2 my-lg-0">
-                            <input id="search_input" onkeyup="implementSearch();" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-                    </div>
-                    <div id="result_list" data-toggle="collapse">
-                        
-                    </div>
-                </li> -->
-                <li>
-                    <form autocomplete="off" action="">
-                        <div class="autocomplete" style="width:300px;position: relative;display: inline-block;">
-                            <input id="searchInput" type="text" name="search" placeholder="Search" onkeyup="implementSearch();">
-                        </div>
-                        <div id="result"></div>
+            search_input = document.getElementById('navbarDropdown').value;
+            $.ajax({
+                url: '{% url "api:search" %}',
+                method: "GET",
+                data: {
+                    'search_input': search_input,
+                },
+                success: function(data) {
+                    var result = document.getElementById("srch");
+                    result.innerHTML = "";
+                    result.innerHTML += '<p class="dropdown-item" style="color:black;" >Projects:</p>'
+                    for (var i = 0; i < data.projects.length; i++) {
+                        result.innerHTML += '<a class="dropdown-item" href="/' + data.projects[i].slug + '" >' + data.projects[i].title + '</a>';
+                    }
 
-                    </form>
-                </li>
+                    result.innerHTML += '<p class="dropdown-item" style="color:black;" >Chapters:</p>'
+                    for (var i = 0; i < data.chapters.length; i++) {
+                        result.innerHTML += '<a class="dropdown-item" href="/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug + '" >'+data.chapters[i].slug +'</a>';
+                    }
 
-                {% if request.user.is_superuser %}
-                <li>
-                    <a id="cate" href="{% url 'blogs:blogs_list' %}">
-                        All Blogs
-                    </a>
-                </li>
-                {% endif %} {% if request.user.is_authenticated %}
-                <li>
-                    <a id="cate" href="{% url 'site_users:logout' %}">
-                        Log Out
-                    </a>
-                </li>
-                <li>
-                    <div class="dropdown">
+                    result.innerHTML += '<p class="dropdown-item" style="color:black;" >Authors:</p>'
+                    for (var i = 0; i < data.authors.length; i++) {
+                        result.innerHTML += '<a class="dropdown-item" href="/@' + data.authors[i].username + '" >' + data.authors[i].username + '</a>';
+                    }
 
-                        <img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg" class="img-circle" height="25" width="25" type="button" id="logInBtn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        </img>
+                },
+                error: function(error) {
+                    console.log('error')
+                },
+            });
+        };
 
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#"><img src="https://as2.ftcdn.net/jpg/02/34/61/79/500_F_234617921_p1AGQkGyEl8CSzwuUI74ljn6IZXqMUf2.jpg" class="img-circle" height="35" width="35" type="button" id="logInBtn" data-toggle="dropdown">
-
-                                </img><span class="text-center align-middle">&nbspName</span></a>
-                            <div class="dropdown-divider"></div>
-                            <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
-                            <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
-                            <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
-                            <a id="cate" class="dropdown-item text-center" href="#">XXXXXXX</a>
-                            <a id="cate" class="text-center" style="color:black" href="{% url 'site_users:logout' %}">Log Out</a>
-                        </div>
+        $('html').click(function (e) {
+    if (e.target.className == 'input') {
+        document.getElementsByClassName('dropdown-menu')[0].style = 'display: block !important;'
+    } else {
+        document.getElementsByClassName('dropdown-menu')[0].style = 'display: none !important;'
+        document.getElementsByClassName('dropdown-menu')[0].innerHTML = ''
+        document.getElementById("form").classList.remove("form1");
+    }
+    }); 
+    
+    // $('html').click(function (e) {
+    // if (e.target.className == 'navbar-toggler-icon') {
+    //     document.getElementById('navbarResponsive').classList.add('show')
+    // } else {
+    //     document.getElementById('navbarResponsive').classList.remove('show')
+    //     // document.getElementById('navbarResponsive').style = 'display: none !important;'
+    // }
+    // }); 
 
 
-                    </div>
-                </li>
-                <!--    <div class="dropdown-content" id="myDropdown">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>  -->
-                {% else %}
-                <li>
-                    <button class="btn atkt" style="background:#f5b042;">
-                        <a id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog"
-                            href="{% url 'site_users:login' %}">
+        // document.onclick = function(event) {
 
-                            Login
+            // try using complete class with weavent.target 
+            // event.target.id != "loginLink cate"
 
-                        </a>
-                    </button>
-                </li>
-                {% endif %}
+        // }
+        function getLoginPopUp(){
+            document.getElementsByTagName('body')[0].setAttribute('style', 'position: fixed;background-color: #d0d0d0 ;')
+            document.getElementById('login_div').setAttribute('style', 'display: block;')
+        }
+        
 
-            </ul>
-        </div>
-    </nav>
+    </script>
+
+    <header class="background-header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'blogs:index' %}"><img class="img1" src="/media/images/kid-white-new.png"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active nav-item1">
+                            <a class="nav-link" href="{% url 'blogs:index' %}">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-item1" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item n dropdown hid" id="drop">
+
+                            <!-- <form class="form" id="form" action="" onclick="hide()">
+                    <input type="search"  onmouseover="mousein()"  id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
+                  <i class="fa fa-search" id="i" onmouseover="myFunc()" href="#"></i> -->
+
+                            <form class="form" id="form" action="" autocomplete="off">
+
+                                <!-- <input type="search"  onmouseover="mousein()" id="navbarDropdowna input" onkeyup="implementSearch();" placeholder="search"> -->
+
+                                <input class="input" type="search" onmouseover="mousein()" id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
+                                <!-- >>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d -->
+                                <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
 
 
-    <ul class="displaya" id="myLinks">
-        <li>Home</li>
-        <li>About us</li>
-        {% if request.user.is_authenticated %}
-        <li><a class="searches home" href="{% url 'teach:list_of_projects' %}">Teach with Us</a></li>
-        {% endif %}
-        <li>Search</li>
-        <li>All Blogs</li>
-    </ul>
+                            </form>
+                            <div class="dropdown-menu menu" id="srch" style="padding:0; margin:0; border:0;">
+                            </div>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item login">
+                            <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
+                        </li>
+                        <li class="nav-item login">
+                            <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item login">
+                            <a onclick="getLoginPopUp()" class="nav-link" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog" >Login</a>
+                        </li>
+                    </ul>
+                    {%endif%}
+                </div>
+                <div class="functional-buttons">
+                    <ul>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item login">
+                            <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach With Us</a>
+                        </li>
+                        <li class="nav-item login">
+                            <a class="nav-link" id="cate" href="{% url 'site_users:logout' %}">LogOut</a>
+                        </li>
+                        {% else %}
+                        <li><a onclick="getLoginPopUp()" id="loginLink cate" data-href="" target="">Log in</a></li>
+                        {%endif%}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+  <style>
+    /* body{
+        background-color: #d0d0d0;
+    } */
+    body{
+        /* position: fixed; */
+        /* background-color: rgba(0,0,0,0.4) !important; */
+    }
+.outerr{
+    background-color: white;
+    width: 600px;
+    margin: 10% auto;
+    padding: 10px;
+}
+.innner{
+    border: 1px solid #f9a80d;
+    padding: 40px 20px 30px 20px;
+    text-align: center;
+}
+.l{
+    font-size: 50px;
+    font-family: 'gilroy';
+}
+.log1{
+    background-image: url("/media/images/google_login.png");
+    width: 488px;
+    height: 76px;
+    margin:auto;
+}
+.log2{
+    background-image: url("/media/images/github_login.png");
+    width: 488px;
+    height: 76px;
+    margin:auto;
+}
+.innn{
+    color: white;
+    padding: 25px 0 0 80px;
+    font-size: 24px;
+    font-family: 'georgia';
+}
+.sign1,.sign1:active,.sign1:visited{
+    color: #4287f6;
+}
+.loginlink, .loginlink:hover{
+  color: inherit;
+  padding: 0;
+  border: 0;
+}
+#login_div{
+    /* position: absolute; */
+    /* top: center;
+    vertical-align: middle; */
+    display: none ;
+    position: absolute;
+left: 0;
+right: 0;
+top: 120px;
 
+margin: auto;
 
+    /* display: none; */
+    /* margin-right: auto; */
+}
 
+</style>
 
+    <br>
+    <br>
+    <br>
 
     <div class="modal" id="loginDialog">
         <div class="row">
@@ -192,26 +261,111 @@
         <div class="row" style="margin-top: 100px;">
             <div class="col-6 center">
                 <a id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}" class="icon-btn">
-                    <img src="/static/images/google-logo.svg" alt="googleLogo" width="200" height="200" />
+                    <img src="/static/images/google-logo.png" alt="googleLogo" width="200" height="200" />
                 </a>
             </div>
             <div class="col-6 center">
                 <a id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}" class="icon-btn">
-                    <img src="/static/images/github-logo.svg" alt="githubLogo" width="200" height="200" />
+                    <img src="/static/images/github-logo.png" alt="githubLogo" width="200" height="200" />
                 </a>
             </div>
         </div>
-
-        <!-- <dialog id="loginDialog" class="container">
-                <i class="fa fa-google-plus-square" style="font-size:36px" id="googleLogin" google-href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"></i>
-                <i class="fa fa-github" style="font-size:36px" id="githubLogin" github-href="{% url 'social:begin' 'github' %}?next={{request.path}}"></i>
-            </dialog> -->
     </div>
-
-
 
     <div>
         {% block content %} {% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="row stacks" id="stacks">
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12 stack1">
+                <span class="stack">
+        <img  class="foot-logo stack" src="/media/images/kid-black.png"><br>
+        <br>
+        <span>Contact Us: knowindeep.tech@gmail.com<br>All Rights reserved. KnowInDeep 2020</span>
+                <br>
+                <span>
+                <a href="mailto:knowindeep.tech@gmail.com" target="_blank" class="lang1">
+                    <!-- <img src="/media/images/google.svg" class="lang1" > -->
+                    <svg class="lang2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+                        <image width="36" height="36" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAD0ElEQVRYhb2YaYiOURTHf94ZJTGYIlmzla0s+TDGvg8NIUuSsiQ+YMpaopRQ5IPtA7KUsibJNgaNrMkHyi47JUOWsWSno/+j653nmee+02tOvXWf95577v8+zzn/c86t8mV3TVKUZsAgoDvQBmgKBEbeA4+BW8A54DjwMBXzCU+9DGAccB64COQAJ4HpQGsBqqnxdM3lSPe81mb4bOTzhvoD64DXwErgKPDN8yBVgSHAfCAbmCmwFQJUDVgDDARmAYc8QUTJUGAtUAQUAJ/D9KI+WV3gDFAH6JAGMMhGB9k8oz28AJniWZ1kLFCaBjCBlMpmkfYoAyoz6bm6TnIAWJRGIK78ku0M7dUX+BTMJ/vQZkXLOC38n1IF2Al8AKaGvSGLpn5Ax0oAg/aYBlzV3n+iL/ChhCKgIM0+EyeliuB1AU8FgMaKZ1KJpvrAHDnoXTHyZWADkJuCncPAK2AMjg8Zza8CDnoamQgsAxpEzNvn2AosBp572BsGLAC6JZSbWgJHPMEsBLaVAwY57BSlDx8x9m8BNDenzgMKge8eC0frzQRia/YDxQrddsB4oBEwW/ThI2bnmCVtA9QtLr9IsoDVzvML0UNxkt56oCuwzxNMIKeBAQmd6obHAnO6xhrbiSaEgDF5VgEwCEPbTG3iU7OMcMbm/CeS5usou4eJVQdvYuwbhqaZYub3HoBaO+PDIfN7gS4Rax8BnWLsG4YaAVP7MHMNZ/wyZN7eUO2ItY0j/i8jCSHzqWM/OuPskPmf5az96mHfMHwwQE/FRXFyz5kfGKI7RQydK/5x6eGVh33D8MQA3QTaeyxwWXxUCOldUw1tv0uK3kCueNj/E+0JpY1eHgt2ASUaV1Pp0DlCdwkw3Hne4WG/tzUElsuaAxfErnFsPRnY4jxbLbMdOCUfayW+cg94Qm1TeYGTKf7KrUhyNb25HnomD1QRPo7R+ye5opJhnucm8wToXYzeWeXJODCBTUs5f8sPK46uayKM9MLEPs8koA/QUCxtIO+IJPd69m/5eusWWD/cmtrKyE0qYSurasxSCTstSEVuG3RSGXdjJYFBexW7eTG5L5shglpRCWCWa6+Z7p/JfdkntbzmkD9Ugqa7A7FqcikwEujh9mREdK6WOHsqQnbrO6dLsmQzT3uUSdJRvX2J0L+V0+WnAVC+bL3V3VJJmJLPdcwA9U0lCs/CFK9j8kQn9eQvyYVdyoBMjKcsJZhBSzVWkFtEGncZ8QUkWUs3asYplpvsbui+SG+P/LJcqeiV3mC9dqsimzh+Zvz1BLitdGTA/a/0gN8cxOVwtgglBAAAAABJRU5ErkJggg=="/>
+                    </svg>    
+                </a>
+                <a href="https://www.linkedin.com/company/knowindeep" target="_blank" class="lang1">
+                    <img src="/media/images/linkd.png" class="lang2">
+                </a>
+                <a href="https://github.com/knowindeep-int" target="_blank" class="lang1">
+                    <!-- <img src="/media/images/github.png" class="lang1" > -->
+                    <svg class="lang2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+                        <image id="Ellipse_2_copy_2" data-name="Ellipse 2 copy 2" width="36" height="36" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAEEUlEQVRYhb2YbWhWZRjHf8+zdJabYSiVLwyXgVo4rT4spzNWaK1NqQ++BOULRII0iSgR+hgjdAi+wopAP9QmCBJLzSlq2koExUpLSedLRbKlDjdXm87FNf4Hzo7n3M95tpMXPLDd93Vf1//c1/ud6qrPJ0uaAMwFZgKTgQLAE9IOXAZ+Bb4D9gEXsxGfjsmXAywGmoAfgGLgALACmCRA+fp7hfaKxdukszlxFMW5oZeATcB1YC2wB7gd80OGAOXAh8AjwLsCOyBAw4ANwBygCmiICSKKKoGNQCOwCvg3jC/KZKOBI8BIoCgBMEhGkWQekY5YgIzxqL5kIXAzATAe3ZTMRum4B9QDgf8f0pfsAj5KEIifeiU7R7rKgE5vP+hDnylaFuvg/0kp4EugA3g77IYsml4Ept0HMAjQO8Ap6e6LPs+H0oqAVQ6feRNYBuRlqdjcYAnwVmC9V7qqlFb68pRnMjPRSmXfMHrQZ+dWgf9YNzwVeAwYLp6rwM9AN7AaeA94VGcfjvhgc/CtQJ0HyNL8OuCrCEDTgZOBtQsCOiaE/y/5xpOB9RnK3kGaJ/AladWmicDuCDBGd0PWnogAY/R4CBijngj+PZJXaIBeBr4B7jgA/Qhcc+zHITPV8Qg+073XirYBKgEOZxA4Xz4yGMoFFjnOH/ZM9hRwxsFoPNtV2wYLaBswNGLfMEwxZeMz9Cxlio4kKFcuEkaGoSCtzNzuUPZMQmA8mh6xbhjyvMToysy5CQNyyksLmatLa0sY0I2IdcPQYYB+Vy6KonMJA/otYt0wXDFAvwBPOwQ0JVxsv41Y74v2tMrGbIeAW8DnCYGpc5jsBft4q2WFwPfAOEe2tqR4CRg1CDBtMkuYT1qR/sNqnd1QM3AeeNUhzG7p2ZACG5d+Ap5zBEi5inWzF/ZbgA9CGKuBL9SrXBGoJSqGLQ4FN9SGGN9SNfcXHOBN92Z8/ZApPK2Nr32Mz8sJ7QanBISk1OWVhSg4Kr+MEwwVan0ssHq8G+rREGeN1wgfs/UupRqZPw0ISssRw2hWhlTi0QjprPJaE/8YdEAVtzZw6Jic3hrxncAbMtuhDKP4/BiAaiVnv7cQnDqs/z0opjW+9Ul6QMiG3gfWO/irZe5+Y1DwCzs18r6mnjml9bOKkgY1an8Df2YAF5VCUpL9unR1+jfDrrxVfmNtQr3sbHwn1PuO1W8gg6TJqpfsUunqR1E+0CLHbNPcVO57TunSRNGdQXlwv0Ky2jTdtIQdcjnlPxrk7Fcjv6rUpJGJemUye45ZrseFGp+80JcPYr4PGdntLFBqsFJjucnmMett/Ddm04mBsfcjKzc2SdiL2ifADsfUkTUgP1l+eUWJz6LPaqD/Sc8yukWkdQmWqeM/6QH/Affr8ENhndq0AAAAAElFTkSuQmCC"/>
+                      </svg>
+                    
+                      
+                </a>
+                <a href="https://www.youtube.com/channel/UC_XUtq81h3hW2VSNtX_aWpA" target="_blank" class="lang1">
+                    <svg class="lang2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+                        <image width="36" height="36" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAFa0lEQVRYha2Ya4hVVRTHf3ufe++Mo46j+SixLB0kexlpIZnYu0wjCnLyQ/SlxChHEbI+BEKEgUKk5YcSyi9lWlCRVuqApUlgGhFZBPkoxUdm6sx1nPs4Z8c6riN3zj3nekdnXS7ce9Zea/332mutvdYxhY8H00e6DngIuAuYCIwFIiVdwF/A78D3wGbgQF/U2zrXecBcYCfwAzAV6ADmA9croMH6e77ypuranSrr1WOoHg/dD7wN/AcsB74CSnVuJAs8AiwBhgELFOwlAWoEVgIPAu3Al3WCSKNHgVXAFmAh0JO0Lu3IRgDbgaHApH4Ag+qYpDq3q426AMnCHbqTNqCzH8BE1Kk6t6iNKlCZ2P8m3clnwKv1Wsm1JWMurm9OeuxUt6e27gW6I2Y8htZotsxVwT4BSKMUYAb4CMgDzyUBkmx6D7g17Zj6CiROMWASLoOAn4F5UfbZCuYqjf4qqwLkcsFQvSGnttq1rIR1KoqhNq0zvbIp81Se4vDc6K5Phz2THW9uNkMZyWCaybkmcAPMADyHazCyIePAGYIAZ3xTpORKlMw542zenTGdwcngmPvD7c58V1qbKec6y2tdFBIbgZeBOcC6CNALwIr4joLh3hi7tGFb47hyqys5CAC/IrqcBILptenQ5QLOmGgBZjR4npGgeJo7cnPc8vJM8LoqBFcoqHVW76ZWYFMckH9P7lnG0epEtMdA0YBvINCvM+fBxb/CE+Cytqxy5/SAJjMtuM09FjMl1X88ME4APQx8A5Tj523GZ6dQSk02Pdfa7CoKHMGE3JTYY7H9tVzaAmga8G2i8Ch7FX4NQD5ld8QcpKEPwAKHG+GNSUgSwTBNAN0I7K3kXFg8xLWEbk+i8LGx3luFtvLqYJ47aQ6HZfVi/YPE4dDMqASOYLhBxK9O61lc1g1ML49holqv5Bfp6Fnjv1KY4j5jpSubnvBaTqMS2Cv9YQlcwTDWamXuShI3WefVBHQelNeIj3fKP84HhUVmSXlysINPqCHpbDAk4bFgGBQ5+GJma5INT9BSxuF6gjyF8G6qpTP1YDOKTLx0sopbxg9brFqqHUEJixtoW+wsbxGzvIW2xbWEaZ5EUimKNulEBENeAB3SWlQNqGjPkvPTAQUEZSylO3NPenMzy7yxrpWCIxWMkHVw1juacOEKhr/Fdb8BN/XCoYtdpz0TKkj1jguC9oYPM4szG8xo1xoelF8DDOcPy3bybwInzHar08GMROET7lhqfXFhQGfMtUwMa1W9XbZnMUfLRxI4d8tAYHVUmRkvbeKl4KDbQzalDkVU6mNKZAzsLf4Uf6oYNgug/cCfwKwq2Y7u990he8hI19LgIOuQ+13TqjYZzSVP5RodZjAEv7DH7S58HpOVyWSfYIm8shp4CfiiF6Dj/oGepaUZpdm55zPX2FtMsxtOkxtExjXRSAZLzpigCppz1lEKPwXKtpsuuoJT9kRpv9tlN+VXZ/P+6ZiQ2H6Hio5RmqNflbExWtUfTVmcErJrtrYfklh+VKB8HeKka7wgkdIL9yeYZrXZHuVnZcXs0Bv33Yso6U8SW9uArZHOeAl/UQvUG/1tOWFjy9TWgsqHcUDdOvI+Drwe5dLleikmb1T3E2qruxczZbYfqW3lPp2Z8trJ9CnQEzYyUGe/CZrq/8QXpN26snA6cFrnpvuiMUWMXKLHpquuLn23VAWGOl/HPKBz00HgNWCX9sAC0OXaOoPKxcX1zUYrr/AL2iIvlm5Q42Vruqn6AAmJcpmbROEVwAY9e7mYD+s8IcCku5ZuUN6q3a5v2s4CbwLr67h66wZUSZIZcu+I2+W3dH+ht8RB2sbIa70fNQ7rf6UH/A84ON9qpMqP/QAAAABJRU5ErkJggg=="/>
+                      </svg>
+                      
+                </a>
+            </span>
+                </span>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                <ul class="stack">
+                    <li class="heads">COMPANY</li>
+                    <li>About us</li>
+                    <li>Privacy Policy</li>
+                    <li>Contact us</li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                <ul class="stack">
+                    <li class="heads">LEARN</li>
+                    <li>Algorithms</li>
+                    <li>Data Structures</li>
+                    <li>Languages</li>
+                    <li>CS Subjects</li>
+                    <li>Video Tutorials</li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                <ul class="stack">
+                    <li class="heads">PRACTICE</li>
+                    <a class="footer-link" href="{% url 'blogs:index' %}">
+                        <li>Courses</li>
+                    </a>
+                    <li>Company-wise</li>
+                    <li>Topic-wise</li>
+                    <li>How To Begin?</li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                <ul class="stack">
+                    <li class="heads">CONTRIBUTE</li>
+                    <a class="footer-link" href="{% url 'teach:add_course'%}">
+                        <li>Write an Article</li>
+                    </a>
+                    <li>Experience</li>
+                    <li>Internships</li>
+                    <li>Videos</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <div class="outerr" id="login_div">
+        <div class="innner" id="innner_div">
+            <div class="l">Log In</div>
+            <br>
+            <div><a href="#" class="sign1" style="text-decoration: none; font-size: 20px;"><em>Sign Up Here</em></a> </div>
+            <br>
+            <button class="loginlink" onclick="window.location.href='{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}'"><div class="log1"><div class="innn">Log In with Google</div></div></button>
+            <br>
+            <div class="or_div" style="font-size: 20px; font-family: 'gilroy';"><em>-------------  or  -------------</em></div>
+            <br>
+            <button class="loginlink" onclick="window.location.href='{% url 'social:begin' 'github' %}?next={{request.path}}'"><div class="log2"><div class="innn">Log In with Github</div></div></button>
+    
+        </div>
     </div>
 
 
@@ -220,50 +374,14 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        function functionOne() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "block";
-            }
-        }
 
-        window.addEventListener("resize", function() {
-            var a = window.innerWidth;
-            if (a > 993) {
-                var x = document.getElementById("myLinks");
-                x.style.display = "none";
-            }
-        });
-    </script>
-
-    <script>
-        window.onscroll = function() {
-            myFunction()
-        };
-
-        function myFunction() {
-            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            // document.getElementById("myBar").style.width = scrolled + "%";
-        }
-    </script>
-
-    <script type="text/JavaScript">
-        (function() { var dialog = document.getElementById('loginDialog'); document.getElementById('loginLink').onclick = function() { dialog.style.display = "block"; }; window.onclick = function() { if (event.target == dialog) { dialog.style.display = "none";
-        }; }; document.getElementById('googleLogin').onclick = function() { var url = this.getAttribute('google-href') window.open(url,"_self") }; document.getElementById('closeDialog').onclick = function() { dialog.style.display = "none"; }; document.getElementById('githubLogin').onclick
-        = function() { var url = this.getAttribute('github-href') window.open(url,"_self") }; // document.addEventListener('DOMContentLoaded', function() { // var element = document.querySelectorAll('.sidenav'); // var instances = M.Sidenav.init(element,
-        options); // }); })();
-    </script>
     <script>
         $(document).ready(function() {
             { % block jquery %
             } { % endblock jquery %
             }
         })
+       
     </script>
 
 

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import TextField
 from tinymce.models import HTMLField
 from django.db.models.signals import pre_save,post_save
 from .utils import unique_slug_generator
@@ -11,12 +12,14 @@ from django.db.models import Max, Min
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.conf import settings
-
+import os
 from knowindeep import Constants
+
 
 class Language(models.Model):
     is_available = models.BooleanField(null = True, blank = True)
     name = models.CharField(max_length = 100,unique = True, primary_key = True)
+    image = models.ImageField(blank = True,null= True, upload_to = 'languages/')
     
     def __str__(self):
         return self.name
@@ -28,6 +31,11 @@ class Language(models.Model):
     def getAllLanguages(cls):
         languages = cls.objects.all()
         return languages
+        
+    @classmethod
+    def getLanguageSearches(cls,search_input):
+        language_searches = cls.objects.filter(name__icontains = search_input)
+        return language_searches
 
 class Profile(models.Model):
     account_number = models.CharField(max_length=30, null=True, blank=True)
@@ -107,19 +115,24 @@ class Blog(models.Model):
         super(Blog,self).save(*args,*kwargs)
     
 
-class PreRequisite(models.Model):
-    name = models.CharField(max_length = 100)
+# class PreRequisite(models.Model):
+#     name = models.CharField(max_length = 100)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
-    class Meta:
-        verbose_name_plural = "Pre-Requisites"
+#     class Meta:
+#         verbose_name_plural = "Pre-Requisites"
     
-    @classmethod
-    def getAllPreReqs(cls):
-        pre_reqs = cls.objects.all()
-        return pre_reqs
+#     @classmethod
+#     def getAllPreReqs(cls):
+#         pre_reqs = cls.objects.all()
+#         return pre_reqs
+
+#     @classmethod
+#     def getPrereqSearches(cls,search_input):
+#         prereq_searches = cls.objects.filter(name__icontains = search_input)
+#         return prereq_searches
 
 
 class Project(models.Model):
@@ -130,14 +143,15 @@ class Project(models.Model):
     date_approved = models.DateTimeField(default = None, blank =True ,null=True)  
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
-    image = models.ImageField(null=True,upload_to='project/', blank = True)
+    image = models.URLField(max_length=200,blank=True,null=True)
     isApproved = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default = False) 
     languages = models.ManyToManyField(to = Language, blank = True)
     no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
     no_of_views = models.IntegerField(default=0)
+    no_of_likes = models.IntegerField(default=0)
     overview = models.CharField(max_length=300, null = True, blank = True)
-    pre_req = models.ManyToManyField(to = PreRequisite, blank = True)
+    pre_req = models.CharField(max_length=300,null= True,blank=True)
     slug = models.SlugField(null=True,blank=True)
     title = models.CharField(max_length=25)  
     
@@ -176,8 +190,12 @@ class Project(models.Model):
 
     @property
     def increase_view(self):
-        self.no_of_views += 1
-        self.save()
+        if self.isCompleted:
+            self.no_of_views += 1
+            self.save()
+        else:
+            self.DoesNotExist = 0
+            self.save()
 
 
     @classmethod
@@ -187,15 +205,19 @@ class Project(models.Model):
 
     @classmethod
     def get_all_projects(cls):
-        return cls.objects.all()
+        return cls.objects.filter(isCompleted = True)
+    
+    @classmethod
+    def get_all_approved_projects(cls):
+        return cls.objects.filter(isApproved = True, isCompleted = True)
 
     @classmethod
-    def get_popular_approved_projects(KClass):
-        return KClass.objects.filter(isApproved = True).order_by('-no_of_views')[:5]
+    def get_popular_approved_completed_projects(KClass):
+        return KClass.objects.filter(isApproved = True, isCompleted = True).order_by('-no_of_views')[:5]
 
     @classmethod
     def get_popular_projects(KClass):
-        return KClass.objects.all().order_by('-no_of_views')[:5]
+        return KClass.objects.filter(isCompleted = True).order_by('-no_of_views')[:5]
     
     @classmethod
     def getProjectSearches(cls, search_input):
@@ -217,6 +239,14 @@ class Project(models.Model):
             return "title"
         if project.description == None or project.description == "":
             return "description"
+        if project.difficulty_level == None or project.difficulty_level == "":
+            return "difficulty_level"
+        if project.overview == None or project.overview == "":
+            return "overview"
+        if project.image == None or project.image == "":
+            return "image"
+        if project.no_of_hours == None or project.no_of_hours == "":
+            return "no_of_hours"
         if project.chapters.all().count() == 0 :
             return "chapter"
         return None
@@ -231,29 +261,74 @@ class Project(models.Model):
         return self.isApproved or user.is_superuser
 
 
+    @classmethod
+    def getAllComments(cls, project_content_slug):
+        chapter = cls.objects.get(slug = project_content_slug)
+        return chapter.project_comments.all().order_by('-timestamp')
+    
+    def comments(self):
+        return self.project_comments.all()
+
+    def decreaseLikes(self):
+        self.no_of_likes -= 1
+        self.save()
+
+    def has_user_liked(self,user):
+        if not user.is_anonymous:
+            try:
+                #isLiked = Like.objects.get(profile__user__email=user.email,link_to=self)
+                isLiked = self.likes.all().get(profile__user__email = user.email)
+                # self.likes.get(profile.email_id == user.email)
+                return True
+            except Like.DoesNotExist:
+                has_liked = False
+                return False
+        else:
+            return None
+
+    def increaseLikes(self):
+        self.no_of_likes += 1
+        self.save()
+    
+    def get_comment_url(self):
+        return reverse("api:comment-post")
+
+    def get_like_url(self):
+        return reverse("api:like-post")
+
+    @classmethod
+    def getProject(cls, slug):
+        project = cls.objects.get(slug = slug)
+        return project
+    
+    @property
+    def like_count(self):
+        return self.likes.all().count()
+        
 class Chapter(models.Model):
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     content = RichTextUploadingField(blank=True,null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=300,blank=True,null=True)
-    heading = models.CharField(max_length=40,null=False,blank=False)
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")
     slug = models.SlugField(null=True,blank=True)
-    youtube_link = models.URLField(max_length=200, blank=True, null=True)
+    title = models.CharField(max_length=30,null=True,blank=True)
    # content = models.CharField(max_length=1000, null=False,blank=False)
   #  content = HTMLField()  .
     # no_of_likes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "Chapters"
-
+        
     def __str__(self):
-        return self.heading
+        # return self.link_to.title
+        return self.content[:10]
     
     @property
     def get_absolute_url(self): 
         return reverse('blogs:chapter_post', kwargs={'slug': self.link_to.slug, 'chapter': self.slug})
 
+   
+    
     @property
     def getCompleteUrl(self):
         if settings.DEBUG:
@@ -292,65 +367,22 @@ class Chapter(models.Model):
                     return chapterTopics
             return chapterTopics
 
-    @property
-    def like_count(self):
-        return self.likes.all().count()
     
 
-    @classmethod
-    def getChapter(cls, slug):
-        chapter = cls.objects.get(slug = slug)
-        return chapter
 
-
-    @classmethod
-    def getAllComments(cls, chapter_content_slug):
-        chapter = cls.objects.get(slug = chapter_content_slug)
-        return chapter.chapter_comments.all().order_by('-timestamp')
-    
     @classmethod
     def getChapterSearches(cls, search_input):
         author_searches = cls.objects.filter(
             Q(slug__istartswith = search_input) |
-            Q(author__user__username__icontains = search_input) |
-            Q(heading__icontains = search_input)
+            Q(author__user__username__icontains = search_input) 
         )
         return author_searches
 
-    
-    def comments(self):
-        return self.chapter_comments.all()
 
-    def decreaseLikes(self):
-        self.no_of_likes -= 1
-        self.save()
-
-    def has_user_liked(self,user):
-        if not user.is_anonymous:
-            try:
-                #isLiked = Like.objects.get(profile__user__email=user.email,link_to=self)
-                isLiked = self.likes.all().get(profile__user__email = user.email)
-                # self.likes.get(profile.email_id == user.email)
-                return True
-            except Like.DoesNotExist:
-                has_liked = False
-                return False
-        else:
-            return None
-
-    def increaseLikes(self):
-        self.no_of_likes += 1
-        self.save()
-    
-    def get_comment_url(self):
-        return reverse("api:comment-post")
-
-    def get_like_url(self):
-        return reverse("api:like-post")
 
 
 class Like(models.Model):
-    link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE,related_name="likes")
+    link_to = models.ForeignKey(Project, on_delete=models.CASCADE,related_name="likes")
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="liked_users")
 
     # def __str__(self):
@@ -358,7 +390,7 @@ class Like(models.Model):
 
 class Comment(models.Model):
     comment_text = models.CharField(max_length=200)
-    link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="chapter_comments")
+    link_to = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="project_comments")
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     
@@ -366,8 +398,8 @@ class Comment(models.Model):
         return self.user.user.first_name + self.comment_text
 
     @classmethod
-    def createComment(cls, chapter, profile, comment_text):
-        Comment.objects.create(link_to = chapter, user = profile, timestamp = timezone.now(), comment_text = comment_text)
+    def createComment(cls, project, profile, comment_text):
+        Comment.objects.create(link_to = project, user = profile, timestamp = timezone.now(), comment_text = comment_text)
 
 
 class Package(models.Model):
@@ -391,6 +423,15 @@ class Progress(models.Model):
     class Meta:
         verbose_name_plural  = "Progress"
 
+class Suggestion(models.Model):
+    content = models.TextField()
+    # title = models.CharField(max_length=30,null=True)
+    project = models.ForeignKey(to=Project,on_delete=models.CASCADE,null=True)
+    chapter = models.ForeignKey(to=Chapter,on_delete=models.CASCADE,null = True,blank=True)
+    created_on = models.DateTimeField(auto_now_add = True, null = True)
+
+    def __str__(self):
+        return self.content
 
 def create_chapter(sender, instance, created,**kwargs):
     # BlogTopics.objects.create(instance)
@@ -403,6 +444,7 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
         #instance.save()
 
 
+    
 pre_save.connect(r_pre_save_receiever, sender=Project)
 pre_save.connect(r_pre_save_receiever, sender=Chapter)
 # post_save.connect(create_like_for_blog_topic, sender=BlogTopics)
