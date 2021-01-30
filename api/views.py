@@ -54,10 +54,10 @@ def api_all_detail_view(request):
 def fetchComments(request):
     comments = None
     if request.method == 'GET':
-        chapter_content_slug = request.GET.get('chapter_content_slug')
+        project_slug = request.GET.get('project_slug')
         #blog_content = Chapter.objects.get(slug=blog_content_slug)
         #comments = Comment.objects.filter(link_to=blog_content).order_by('-timestamp')
-        comments = Chapter.getAllComments(chapter_content_slug)
+        comments = Project.getAllComments(project_slug)
         commentSerializer = CommentSerializer(comments, many=True)
         return Response(commentSerializer.data)
 
@@ -66,34 +66,34 @@ def fetchComments(request):
 def api_like_chapter_view(request):
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        chapter = Chapter.objects.get(slug=slug)
+        project = Project.objects.get(slug=slug)
         data = {}
         try:
-            like = Like.objects.get(profile__user__email = request.user.email, link_to=chapter)
+            like = Like.objects.get(profile__user__email = request.user.email, link_to=project)
             #like = Like.objects.get(link_to = chapter, profile__user__email = 'dev.krishang.09@gmail.comewfewfvrfewefefe4feferfrr')
             #like = Like.objects.getlink_to = chapter)
             like.delete()
             data["success"] = False
-            data["likes"] = chapter.like_count
+            data["likes"] = project.like_count
             return Response(data=data)  
         except Like.DoesNotExist:
             profile = Profile.objects.get(user__email = request.user.email)
-            like = Like.objects.create(profile=profile, link_to=chapter)
+            like = Like.objects.create(profile=profile, link_to=project)
             data["success"] = True
-            data["likes"] = chapter.like_count
+            data["likes"] = project.like_count
             return Response(data=data)
       #  return HttpResponseRedirect(reverse('blogs:blog_post',args=[ ,slug]))
 
 @api_view(['POST',])
-def api_comment_chapter_view(request):
+def api_comment_project_view(request):
     data = {}
     data["success"] = False
     if request.method == 'POST':
         slug = request.POST.get('slug')
-        chapter = Chapter.getChapter(slug = slug)
+        project = Project.getProject(slug = slug)
         comment_text = request.POST.get('comment_text')
         profile = Profile.getProfile(user = request.user)
-        comment = Comment.createComment(chapter = chapter, profile = profile, comment_text = comment_text)
+        comment = Comment.createComment(project = project, profile = profile, comment_text = comment_text)
         data["success"] = True
         data["user"] = request.user.first_name + request.user.last_name
         data["comment"] = comment_text
