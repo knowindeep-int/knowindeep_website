@@ -603,6 +603,23 @@ function setImgurHeader(xhr) {
                     })
                     document.location.href = "/teach/add/"+pk;
                 }    
+            // function addVideoLink(){
+            //     var pre = document.createElement('iframe')
+            //     pre.className = "iframe"
+            //     pre.setAttribute('src', )
+            //     fx().appendChild(pre)
+            // }
+            function addVideo(){
+                if (document.getElementById('input_iframe') != null ){
+                    document.getElementById('input_iframe').remove();
+                }
+                var editor = document.getElementsByClassName('editor')[0];
+                var input = document.createElement('input')
+                input.id = "input_iframe"
+                input.setAttribute('placeholder', 'Enter your link here!')
+                fx().appendChild(input)
+                
+            }
              function addLink(){
                  var url = prompt("enter a valid url")
                  document.execCommand("CreateLink", false, url);
@@ -627,6 +644,7 @@ function setImgurHeader(xhr) {
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
         <button id="ordered-list" onclick="addLink()">add link</button>
+        <button id="ordered-list" onclick="addVideo()">add video</button>
         <button id="ordered-list" onclick="addCode()">add code</button>
         <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
         <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
