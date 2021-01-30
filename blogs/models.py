@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import TextField
 from tinymce.models import HTMLField
 from django.db.models.signals import pre_save,post_save
 from .utils import unique_slug_generator
@@ -310,6 +311,7 @@ class Chapter(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")
     slug = models.SlugField(null=True,blank=True)
+    title = models.CharField(max_length=30,null=True,blank=True)
    # content = models.CharField(max_length=1000, null=False,blank=False)
   #  content = HTMLField()  .
     # no_of_likes = models.IntegerField(default=0)
