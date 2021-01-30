@@ -35,7 +35,6 @@ class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':['author','link_to','content','slug']})
     ]
-    inlines = [LikeInline,CommentInline]
     search_fields = ['content']
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -46,7 +45,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['title','overview','no_of_views']
     ordering = ['-no_of_views']
     readonly_fields = ['no_of_views','isApproved']
-    inlines = [ChapterTopicsInline,]
+    inlines = [ChapterTopicsInline, LikeInline,CommentInline]
     search_fields = ['title','overview']
 
 class BlogAdmin(admin.ModelAdmin):
