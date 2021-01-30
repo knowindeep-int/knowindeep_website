@@ -78,10 +78,8 @@
 
         $('html').click(function (e) {
     if (e.target.className == 'input') {
-        // alert('5')
         document.getElementsByClassName('dropdown-menu')[0].style = 'display: block !important;'
     } else {
-        // alert('6')
         document.getElementsByClassName('dropdown-menu')[0].style = 'display: none !important;'
         document.getElementsByClassName('dropdown-menu')[0].innerHTML = ''
         document.getElementById("form").classList.remove("form1");
@@ -90,10 +88,8 @@
     
     // $('html').click(function (e) {
     // if (e.target.className == 'navbar-toggler-icon') {
-    //     //  alert('5')
     //     document.getElementById('navbarResponsive').classList.add('show')
     // } else {
-    //     //  alert('6')
     //     document.getElementById('navbarResponsive').classList.remove('show')
     //     // document.getElementById('navbarResponsive').style = 'display: none !important;'
     // }
@@ -101,12 +97,9 @@
 
 
         // document.onclick = function(event) {
-            // alert(document.getElementById('login_div').style.display == 'block')
 
             // try using complete class with weavent.target 
-            // alert(event.target)
             // event.target.id != "loginLink cate"
-            // alert(event.target.parentElement.className)
 
         // }
         function getLoginPopUp(){
@@ -114,8 +107,6 @@
             document.getElementById('login_div').setAttribute('style', 'display: block;')
         }
         
-        
-
 
     </script>
 

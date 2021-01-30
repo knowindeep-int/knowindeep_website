@@ -80,7 +80,6 @@ function add_language(){
 
 function createDescriptionPage() {
 
-    // alert("798")
     getLangPrereq();
     
         
@@ -341,9 +340,7 @@ var view_count =0
     // saveDraft("description", description);
 
 //     view_count += 1
-//     //alert(description)
    
-//     //alert(pk)
 //     sessionStorage.setItem("pk", pk);
 //     //document.cookie = "pk=" + pk;
     
@@ -557,19 +554,16 @@ function createImagePage() {
     document.getElementById('current').innerHTML = 5
     document.getElementsByClassName('progress-bar')[0].style = "width:70%"
     if(image != "None"){
-        // alert(image)
         div.innerHTML += '<img id="project_image">';
         document.getElementById('project_image').src =image
     }
 
 }
 // if(document.getElementById('project_image')){
-//     alert('h')
 // }
 
 function checkImage(){
     if(document.getElementsByClassName('image').length>0){
-        // alert(document.getElementsByClassName('image').length)
         deleteImage(document.getElementById('image_input'))
     }
     addLocalImage(document.getElementById('image_input'))
@@ -655,7 +649,6 @@ function createDifficultyPage() {
         }
         
     }
-    // alert(description)
     saveDraft("description", description);
     if(document.getElementById("selectpicker") != null) {
         languages = [];

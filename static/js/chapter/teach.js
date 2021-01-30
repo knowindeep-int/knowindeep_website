@@ -9,20 +9,17 @@ window.addEventListener("beforeunload", function (e) {
         }); 
 
         function inputvar(e){
-            // alert(e.value)
             var inp = document.createElement('span');
             // inp.setAttribute('contenteditable', 'false')
             // inp.className = 'input'
             // inp.id = "unsplash_input"
             // inp.type = "text"
             if(e.id == "pe"){
-                // alert(e.classList)
                 inp.className = 'input_pexels'
                 inp.id = "inptext_pexels"
             fx().appendChild(inp)
             }
             else{
-                // alert(e.classList)
                 inp.className = 'input'
                 inp.id = "inptext"
             fx().appendChild(inp)
@@ -38,7 +35,6 @@ window.addEventListener("beforeunload", function (e) {
             // if(e.keyCode != "13"){
                 isSaved = false;
                 if( document.getElementById('menu_div') != null){
-                    // alert(0)
                     document.getElementById('menu_div').remove();
                     // for(var i=0; i< document.getElementsByClassName('menu').length; i++){
                     //     document.getElementsByClassName('menu')[i].remove();
@@ -46,12 +42,6 @@ window.addEventListener("beforeunload", function (e) {
         
                 }
         
-                
-                // alert(fx())
-                
-            // }
-            // alert(e.target.className)
-            // alert(e.keyCode)
             // if(e.keyCode == '13'){
                 var menu_div = document.createElement("span")
                 menu_div.setAttribute("contenteditable",'false')
@@ -99,16 +89,12 @@ window.addEventListener("beforeunload", function (e) {
                 menu_div.appendChild(image)
                 menu_div.appendChild(un)
                 menu_div.appendChild(pe)
-                //alert('<br>' + menu_div.innerHTML)
                 
-            //    / alert(fx().innerHTML)
                 if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;" || fx().innerHTML == '<br>' +  menu_div.innerHTML){
                 if( document.getElementById('plus_btn') != null){
-                    // alert(8)
                     document.getElementById('plus_btn').remove();
                 }
                 fx().innerHTML = ""
-            //    alert(7)
             
                 fx().appendChild(menu_div)
                 fx().innerHTML += "&nbsp;"
@@ -122,7 +108,6 @@ window.addEventListener("beforeunload", function (e) {
                 sel.addRange(range)
                 
                 document.getElementById('plus_btn').addEventListener('click', function(){
-                        // alert("clicked")
                         this.style.display = 'none'
                         var menu = document.getElementsByClassName('menu')
                         for(var i=0; i< menu.length; i++){
@@ -132,7 +117,6 @@ window.addEventListener("beforeunload", function (e) {
                     })
                 
                     document.getElementById('close_btn').addEventListener('click', function(){
-                        // alert("clicked")
                         document.getElementById('plus_btn').style.display = 'inline'
                         var menu = document.getElementsByClassName('menu')
                         for(var i=0; i< menu.length; i++){
@@ -148,7 +132,6 @@ window.addEventListener("beforeunload", function (e) {
             //         <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
             //         <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
             //     </div>
-                // alert(fx().innerHTML)
             }
         // }
         )
@@ -158,11 +141,8 @@ window.addEventListener("beforeunload", function (e) {
 
                 // x = getCaretCoordinates()[0]
                 // y = getCaretCoordinates()[1]
-                // alert(fx().className)
-                // alert(getCaretCoordinates()[1])
                 if(e.keyCode == '13'){
                 //     if(fx().className == "input" && document.getElementsByClassName('input') != null){
-                //     alert('i')
                 //     implementUnsplashSearch(query = fx().innerHTML)
                 //     return; 
                     
@@ -170,7 +150,6 @@ window.addEventListener("beforeunload", function (e) {
                 
 
                 if(fx().className == "input" && document.getElementsByClassName('input') != null){
-            // alert('i')
             // e.preventDefault();
             span_text = fx().innerHTML
             implementUnsplashSearch(query = span_text)
@@ -180,7 +159,6 @@ window.addEventListener("beforeunload", function (e) {
             return; 
         }
          if(fx().className == "input_pexels" && document.getElementsByClassName('input_pexels') != null){
-            // alert('i')
             // e.preventDefault();
             // implementUnsplashSearch(query = fx().innerHTML)
             span_text = fx().innerHTML
@@ -191,7 +169,6 @@ window.addEventListener("beforeunload", function (e) {
         }
 
                 if(fx().className == 'fig-caption' && document.getElementsByClassName('fig-caption') != null && document.getElementsByClassName('fig-caption').length >= document.getElementsByClassName('fig').length){
-                    // alert("k")
                     // e.preventDefault()
                     
                     var p =document.createElement('p')
@@ -201,14 +178,12 @@ window.addEventListener("beforeunload", function (e) {
                     var el = document.getElementById("editable")
                     var range = document.createRange()
                     var sel = window.getSelection()
-                    // alert(fx().parentNode.nextSibling.innerHTML)
                     e.preventDefault();
                     range.setStart(fx().parentNode.nextSibling, 0)
                     range.collapse(true)
                     
                     sel.removeAllRanges()
                     sel.addRange(range)
-                    // alert(fx().innerHTML)
                     //
                     
                 }
@@ -267,7 +242,6 @@ function fx(){
                                     fig.appendChild(img);
                                     fig.appendChild(fig_caption)
                                     if(fx().className == 'editor' ||  document.body === fx()){
-                                        // alert(9)
                                         // console.log('2')
                                         fx().insertBefore(fig, fx().childNodes[1]);
                                         // targetDiv.appendChild(fig)
@@ -280,7 +254,6 @@ function fx(){
             
                                     
                                     // targetDiv.append(fig);
-                                    // alert(fx().className)
                                     // $(fig).insertAfter(fx());
                                     // targetDiv.insertBefore(fig, fig.nextSibling);
                                     
@@ -309,9 +282,7 @@ function fx(){
                         });
 
                         function addImage(e, url, name){
-                            // alert(name)
                             // console.log("click")
-                            // (url)alert
                             var fig = document.createElement('figure')
                             var image = document.createElement('img')
                             var fig_caption = document.createElement('figcaption')
@@ -329,14 +300,11 @@ function fx(){
                             var unsplash_a = document.createElement('a')
                             unsplash_a.setAttribute("contenteditable", "false")
                             unsplash_a.setAttribute("target", "_blank")
-                            // alert(e.target.className)
                             if(url.indexOf('pexels.com') !=-1){
-                                // alert('3')
                                 unsplash_a.href = "https://www.pexels.com/"
                                 unsplash_a.innerHTML = "Pexels"
                             }
                             else{
-                                // alert('4')
                                 unsplash_a.href = "https://unsplash.com/"
                                 unsplash_a.innerHTML = "Unsplash"
                             }
@@ -350,14 +318,12 @@ function fx(){
                             fig.appendChild(image)
                             fig.appendChild(fig_caption)
                             if(fx().className == 'editor' ||  document.body === fx()){
-                                        // alert(fx().className)
                                         console.log('2')
                                         fx().insertBefore(fig, fx().childNodes[0]);
                                         // targetDiv.appendChild(fig)
                                         // fx().insertBefore(fig, fx().nextSibling);
                                     }
                                     else{
-                                        // alert(fx().className)
                                         console.log('1')
                                         fx().parentNode.insertBefore(fig, fx().nextSibling);
                                     }

@@ -33,23 +33,18 @@ function createInputBox(e) {
     if (document.getElementById('sugg_inp') == null) {
         var inp = document.createElement('input')
         inp.id = "sugg_inp"
-            // alert(e.parentNode)
             // document.getElementById('sugg_btn').remove()
         e.parentNode.appendChild(inp)
 
     }
 
-    // alert('y')
 
 }
 document.addEventListener('keyup', function(e) {
-    // alert(e.keyCode)
     if (e.key == "13") {
-        // alert("6")
         if (document.getElementById('sugg_inp') != null) {
             var value = document.getElementById('sugg_inp').value
             addSuggestion();
-            // alert(value)   
         }
         document.getElementById('sugg_inp').remove()
     }
