@@ -148,6 +148,7 @@ class Project(models.Model):
     languages = models.ManyToManyField(to = Language, blank = True)
     no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
     no_of_views = models.IntegerField(default=0)
+    no_of_likes = models.IntegerField(default=0)
     overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.CharField(max_length=300,null= True,blank=True)
     slug = models.SlugField(null=True,blank=True)
@@ -259,6 +260,50 @@ class Project(models.Model):
         return self.isApproved or user.is_superuser
 
 
+    @classmethod
+    def getAllComments(cls, project_content_slug):
+        chapter = cls.objects.get(slug = project_content_slug)
+        return chapter.project_comments.all().order_by('-timestamp')
+    
+    def comments(self):
+        return self.project_comments.all()
+
+    def decreaseLikes(self):
+        self.no_of_likes -= 1
+        self.save()
+
+    def has_user_liked(self,user):
+        if not user.is_anonymous:
+            try:
+                #isLiked = Like.objects.get(profile__user__email=user.email,link_to=self)
+                isLiked = self.likes.all().get(profile__user__email = user.email)
+                # self.likes.get(profile.email_id == user.email)
+                return True
+            except Like.DoesNotExist:
+                has_liked = False
+                return False
+        else:
+            return None
+
+    def increaseLikes(self):
+        self.no_of_likes += 1
+        self.save()
+    
+    def get_comment_url(self):
+        return reverse("api:comment-post")
+
+    def get_like_url(self):
+        return reverse("api:like-post")
+
+    @classmethod
+    def getProject(cls, slug):
+        project = cls.objects.get(slug = slug)
+        return project
+    
+    @property
+    def like_count(self):
+        return self.likes.all().count()
+        
 class Chapter(models.Model):
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     content = RichTextUploadingField(blank=True,null=True)
@@ -320,22 +365,9 @@ class Chapter(models.Model):
                     return chapterTopics
             return chapterTopics
 
-    @property
-    def like_count(self):
-        return self.likes.all().count()
     
 
-    @classmethod
-    def getChapter(cls, slug):
-        chapter = cls.objects.get(slug = slug)
-        return chapter
 
-
-    @classmethod
-    def getAllComments(cls, chapter_content_slug):
-        chapter = cls.objects.get(slug = chapter_content_slug)
-        return chapter.chapter_comments.all().order_by('-timestamp')
-    
     @classmethod
     def getChapterSearches(cls, search_input):
         author_searches = cls.objects.filter(
@@ -344,40 +376,11 @@ class Chapter(models.Model):
         )
         return author_searches
 
-    
-    def comments(self):
-        return self.chapter_comments.all()
 
-    def decreaseLikes(self):
-        self.no_of_likes -= 1
-        self.save()
-
-    def has_user_liked(self,user):
-        if not user.is_anonymous:
-            try:
-                #isLiked = Like.objects.get(profile__user__email=user.email,link_to=self)
-                isLiked = self.likes.all().get(profile__user__email = user.email)
-                # self.likes.get(profile.email_id == user.email)
-                return True
-            except Like.DoesNotExist:
-                has_liked = False
-                return False
-        else:
-            return None
-
-    def increaseLikes(self):
-        self.no_of_likes += 1
-        self.save()
-    
-    def get_comment_url(self):
-        return reverse("api:comment-post")
-
-    def get_like_url(self):
-        return reverse("api:like-post")
 
 
 class Like(models.Model):
-    link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE,related_name="likes")
+    link_to = models.ForeignKey(Project, on_delete=models.CASCADE,related_name="likes")
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="liked_users")
 
     # def __str__(self):
@@ -385,7 +388,7 @@ class Like(models.Model):
 
 class Comment(models.Model):
     comment_text = models.CharField(max_length=200)
-    link_to = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="chapter_comments")
+    link_to = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="project_comments")
     user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     
@@ -393,8 +396,8 @@ class Comment(models.Model):
         return self.user.user.first_name + self.comment_text
 
     @classmethod
-    def createComment(cls, chapter, profile, comment_text):
-        Comment.objects.create(link_to = chapter, user = profile, timestamp = timezone.now(), comment_text = comment_text)
+    def createComment(cls, project, profile, comment_text):
+        Comment.objects.create(link_to = project, user = profile, timestamp = timezone.now(), comment_text = comment_text)
 
 
 class Package(models.Model):
