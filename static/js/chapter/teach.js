@@ -27,6 +27,16 @@ window.addEventListener("beforeunload", function (e) {
            
         }
 
+        function getEmbedLink(link){
+            if ( link.indexOf('watch?v=') == -1) {
+                return link
+            }
+            else{
+                link = link.replace('watch?v=', 'embed/')
+                return link
+            }
+        }
+
         document.addEventListener("keyup", function(e){
             // if(document.getElementById('menu_div') != null){
             //     // document.getElementById('menu_div').remove();
@@ -147,6 +157,14 @@ window.addEventListener("beforeunload", function (e) {
                 //     return; 
                     
                 // }
+            if( document.getElementById('input_iframe')){
+                var embed_link = getEmbedLink(document.getElementById('input_iframe').value)
+                var pre = document.createElement('iframe')
+                pre.id = "iframe_video"
+                pre.setAttribute('src', embed_link)
+                fx().appendChild(pre)
+                document.getElementById('input_iframe').remove();
+            }
                 
 
                 if(fx().className == "input" && document.getElementsByClassName('input') != null){
