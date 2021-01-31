@@ -155,8 +155,9 @@
                         <div class="field">{{project.author.user.username}}</span><br>
                         </div> -->
                     </div>
-                    {% if chapters %} {% for chapter in chapters %}
+                   
                     <div class="boxes">
+                        {% if chapters %} {% for chapter in chapters %}
                         <div class="box">
                             <div class="right-num">{{ forloop.counter }}</div>
                             <div class="mid">
@@ -475,8 +476,45 @@ $("#like-btn").click(function (e) {
             })
         }
     }
+    function getChapters(){
+        var number = document.getElementsByClassName('boxes')[0].childElementCount
+        //alert(document.getElementsByClassName('boxes')[0].childElementCount)
+        $.ajax({
+            method:'GET',
+            url: '{% url "api:get_chapter" %}',
+            async:false,
+            data:{
+                'number': document.getElementsByClassName('boxes')[0].childElementCount,
+                'pk':'{{project.pk}}',
+            },
+            success: function(data){
+                var content = ""
+                var numbers = number +1
+                content += '<div class="box">'+
+                            '<div class="right-num">'+numbers +'</div>'+
+                            '<div class="mid">'+
+                                '<a href="/{{chapter_heading}}/'+ data.chapter[0].slug+'" id="blogLink" class="add">'
+                                 + data.chapter[0].title 
+                                +'</a><br>'
+                                +'<span class="clk">'+ data.chapter[0].title +'</span>'
+                            +'</div>'
+                        +'</div>' 
+                        div = document.getElementsByClassName('boxes')[0]
+                        div.innerHTML += content
+            },
+            error: function(error){
+                console.log('error')
+            }
+        })
+    }
 
+    window.addEventListener('scroll', function(){
 
+    if ($(window).scrollTop() + $(window).height() >= 
+    $('.boxes').offset().top + $('.boxes').height() ) { 
+        getChapters()
+    } 
+    })
    
 </script>
 
