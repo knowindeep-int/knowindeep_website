@@ -362,3 +362,17 @@ def api_get_suggestion(request):
         sug = SuggestionSerializer(suggestions,many = True)
         data = {'suggestions':sug.data,'pk':pk}
         return Response(data,status= status.HTTP_200_OK)
+
+@api_view(['GET',])
+def api_get_chapter(request):
+    if request.method == 'GET':
+        number = int(request.GET['number'])
+        chapters = Chapter.objects.filter(link_to = request.GET['pk']) 
+        if number<=chapters.count():
+            chapter = chapters[number:number+1]
+            print(chapter)
+            ch = ChapterSerializer(chapter,many = True)
+            data = {'chapter':ch.data}
+        else:
+            data = {}
+        return Response(data,status= status.HTTP_200_OK)
