@@ -26,7 +26,7 @@ def subtopics(request,slug):
     project = Project.objects.get(slug=slug)
     if project.canUserView(request.user):
         #blog = Chapter.objects.filter(link_to__slug=slug)
-        chapters = Project.getAllChapters(slug)
+        chapters = Project.getAllChapters(slug)[:5]
         has_liked = project.has_user_liked(request.user)
 
         context = {
