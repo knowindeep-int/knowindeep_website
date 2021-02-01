@@ -5,7 +5,10 @@ from blogs.models import Profile, Package, Progress
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
 
-def author_page(request, slug):
+def author_page(request):
+    str = request.META['HTTP_HOST']
+    slug = str.split('.')[0]
+    print(slug)
     if slug == "me":
         user = request.user
     else:

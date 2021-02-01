@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
+    'django_hosts',
     # 'django.contrib.sites',
   
     
@@ -61,6 +62,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,10 +73,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 
 ROOT_URLCONF = 'knowindeep.urls'
+ROOT_HOSTCONF = 'knowindeep.hosts' 
+DEFAULT_HOST = 'www'
 
 TEMPLATES = [
     {
@@ -220,3 +225,4 @@ CKEDITOR_CONFIGS = {
     },
 }
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
+
