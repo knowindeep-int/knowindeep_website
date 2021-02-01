@@ -78,7 +78,15 @@ function hideLoader() {
     var loader = document.getElementById('comment_loader')
     loader.style.display = 'none'
 }
+function showChapterLoader() {
+    var loader = document.getElementById('chapter_loader')
+    loader.style.display = 'block'
+}
 
+function hideChapterLoader() {
+    var loader = document.getElementById('chapter_loader')
+    loader.style.display = 'none'
+}
 
 
 if (window.history.replaceState) {
