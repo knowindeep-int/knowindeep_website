@@ -33,24 +33,66 @@ function createInputBox(e) {
     if (document.getElementById('sugg_inp') == null) {
         var inp = document.createElement('input')
         inp.id = "sugg_inp"
-            // alert(e.parentNode)
             // document.getElementById('sugg_btn').remove()
         e.parentNode.appendChild(inp)
 
     }
 
-    // alert('y')
 
 }
 document.addEventListener('keyup', function(e) {
-    // alert(e.keyCode)
     if (e.key == "13") {
-        // alert("6")
         if (document.getElementById('sugg_inp') != null) {
             var value = document.getElementById('sugg_inp').value
             addSuggestion();
-            // alert(value)   
         }
         document.getElementById('sugg_inp').remove()
     }
 })
+
+function stoppedTyping(value) {
+    if (value.length > 0) {
+        document.getElementById('comment-btn').disabled = false;
+    } else {
+        document.getElementById('comment-btn').disabled = true;
+    }
+}
+
+function updateLikes(likes, success) {
+    if (success) {
+        $('#like-btn').addClass('liked');
+        document.getElementById('likeImg').src = "/static/images/heart_active.svg";
+    } else {
+        $('#like-btn').removeClass('liked');
+        document.getElementById('likeImg').src = "/static/images/heart.svg";
+    }
+    $('#likes').text(likes)
+}
+
+function showLoader() {
+    var loader = document.getElementById('comment_loader')
+    loader.style.display = 'block'
+}
+
+function hideLoader() {
+    var loader = document.getElementById('comment_loader')
+    loader.style.display = 'none'
+}
+
+
+
+if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+}
+
+
+
+document.getElementById('googleLoginCmt').onclick = function () {
+    var url = this.getAttribute('google-href-cmt')
+    window.open(url, "_self")
+};
+
+document.getElementById('githubLoginCmt').onclick = function () {
+    var url = this.getAttribute('github-href-cmt')
+    window.open(url, "_self")
+};

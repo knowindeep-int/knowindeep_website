@@ -205,7 +205,7 @@ else{
             }
             
         },error: function(error){
-            alert("ERROR!")
+            console.log(error)
         },
         
     })
@@ -236,7 +236,7 @@ function saveImageDraft() {
         success: function(data){
             pk = data.pk
         },error: function(error){
-            alert("ERROR!")
+            console.log(error)
         },
         
     })
@@ -251,16 +251,13 @@ function saveImageDraft() {
                 'search_input':search_input
             },
             success: function(data){
-                //  alert(data.languages.length)
                 var div =document.getElementById('results_lang')
                 div.innerHTML = ""
                 for (var i=0;i<data.languages.length;i++){
                     div.innerHTML += '<p class="lang_results" onclick = "addLanguage(this)">' + data.languages[i].name +'</p>'
-                    // alert(data.languages[i].name)
                 }
                
                 if(data.languages.length == 0){
-                    // alert('hello')
                     var btn = document.createElement('button')
                     btn.classList = "btn btn-primary"
                     btn.style = "float: right;"
@@ -270,7 +267,7 @@ function saveImageDraft() {
                 }
             },
             error: function(error){
-                alert('error')
+                console.log(error)
             },
         });
     };
@@ -309,7 +306,6 @@ function saveImageDraft() {
                 
                 }
                 pre_reqs = data.prerequisites
-                // // alert(languages_all)
                 // for(var i= 0; i < data.prerequisites.length; i++){
                 //     prereqs_all.push(data.prerequisites[i])
                 // }
@@ -371,7 +367,6 @@ function saveImageDraft() {
     //         success: function(data){
     //             pk =data.pk
     //         }, error: function(error){
-    //             alert("ERROR!")
     //         }
     //     }
     //     )
@@ -417,7 +412,6 @@ function deleteImage(e){
 var called=0;
 function addLocalImage(e){
     called = 1;
-    // alert(image)
     // if(image != 'None'){
        
     //     document.getElementById('image_input').setAttribute('data-deletehash',document.getElementById('remove_img_btn').getAttribute('data-deletehash'))

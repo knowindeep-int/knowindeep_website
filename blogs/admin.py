@@ -14,7 +14,7 @@ from .models import Chapter, Project, Comment, Profile, Like, Language, Package,
 
 class ChapterTopicsInline(admin.StackedInline):
     model = Chapter
-    fields = ['author','content',]
+    fields = ['author','content','title']
     extra = 1
 
     
@@ -33,9 +33,8 @@ class CommentInline(admin.StackedInline):
 
 class ChapterAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['author','link_to','content','slug']})
+        (None, {'fields':['author','link_to','content','slug','title']})
     ]
-    inlines = [LikeInline,CommentInline]
     search_fields = ['content']
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -46,7 +45,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['title','overview','no_of_views']
     ordering = ['-no_of_views']
     readonly_fields = ['no_of_views','isApproved']
-    inlines = [ChapterTopicsInline,]
+    inlines = [ChapterTopicsInline, LikeInline,CommentInline]
     search_fields = ['title','overview']
 
 class BlogAdmin(admin.ModelAdmin):

@@ -1,5 +1,4 @@
 // window.onclick = function(){
-//     alert('jop')
 // }
 
 document.addEventListener('DOMContentLoaded', function() {

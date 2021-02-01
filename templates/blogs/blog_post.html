@@ -32,102 +32,7 @@
 
     
 
-    function fetchComments() {
-        showLoader()
-        $.ajax({
-            method: 'GET',
-            url: '{% url "api:chapterComments" %}',
-            data: {
-                'chapter_content_slug': '{{ chapter_content.slug }}'
-            },
-            success: function (data) {
-                var com = document.getElementById('comments-list')
-                for (var i = 0; i < data.length; i++) {
-                    com.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data[i].first_name + ' ' + data[i].last_name + '</h5><p>' + data[i].comment_text + '</p></div></div>'
-                }
-                hideLoader()
-            },
-            error: function (error) {
-            }
-        })
-    }
 
-    fetchComments()
-
-    if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-
-    } else {
-        $.ajax({
-            url: '{% url "api:increase_view" %}',
-            method: "POST",
-            data: {
-                'slug': '{{slug}}',
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function (data) {
-            }, error: function (error) {
-            },
-        })
-    }
-
-   
-    $("#comment-btn").click(function (e) {
-        e.preventDefault()
-        showLoader()
-        var this_ = $(this)
-
-        var commentUrl = this_.attr('data-comment')
-        var slug = this_.attr('data-comment-slug')
-        $.ajax({
-            url: commentUrl,
-            method: "POST",
-            data: {
-                'slug': slug,
-                'comment_text': document.getElementById('comment').value,
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function (data) {
-                if (data.success) {
-                    if (data.comment != "") {
-                        updateComment(data.user, data.comment)
-                    } else {
-                        // alert('Please enter a comment')
-                        // hideLoader()
-                    }
-                } else {
-
-                }
-            }, error: function (error) {
-            },
-        })
-    })
-
-    $("#like-btn").click(function (e) {
-        e.preventDefault();
-        var this_ = $(this)
-        var user = this_.attr('data-user')
-        if (user) {
-            var likeUrl = this_.attr('data-href')
-            var slug = this_.attr('data-slug')
-            var likes = this_.attr('data-likes')
-            $.ajax({
-                url: likeUrl,
-                method: "POST",
-                data: {
-                    'slug': slug,
-                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-                },
-                success: function (data) {
-                    updateLikes(data.likes, data.success)
-                }, error: function (error) {
-                    alert(error)
-                },
-
-            })
-        } if (user == "False") {
-            alert('You need to login to like this post')
-        }
-    })
     {% endblock %}
 </script>
 
@@ -392,7 +297,7 @@
                     }
                 }
 			},error:function(error){
-				alert('error')
+				console.log(error)
 			},
         })
     }
@@ -410,13 +315,12 @@
 			success:function(data){
 				getSuggestion()
 			},error:function(error){
-				alert('error')
+				console.log(error)
 			},
 		})
         // location.reload()
 	}
 	function resolveSuggestion(e){
-        // alert(e.getAttribute('data-pk'))
         var pk = e.getAttribute('data-pk')
 		$.ajax({
 			method:'POST',
@@ -428,85 +332,22 @@
 			success:function(data){
                 getSuggestion()
 			},error:function(error){
-				alert('error')
+				console.log(error)
 			},
         })
 	}
 </script>
 
-<div class="row" id="commentsContainer" style="margin-top: 150px;">
-    <div class="col-sm-12 col-md-6 col-lg-8 container">
-        <div class="row no-gutters">
-            <div class="col-6">
-                <h4>Comments</h4>
-            </div>
-            <div class="col-6">
-                <div class="row right vertical-center">
-                    {% csrf_token %}
-                    <i onclick="" class="icon-btn" id="like-btn" data-user="{{ request.user.is_authenticated }}"
-                        data-href='{{ chapter_content.get_like_url }}' data-slug={{chapter_content.slug}}
-                        data-likes={{chapter_content.no_of_likes}}>
-                        {% if not has_liked %}
-                        <img id="likeImg" src="/static/images/heart.svg" style="width: 30px; height: 30px;">
-                        {% else %}
-                        <img id="likeImg" src="/static/images/heart_active.svg" style="width: 30px; height: 30px;">
-                        {% endif %}
-                    </i>
-                    <p id="likes">{{ chapter_content.like_count }}</p>
-                </div>
-            </div>
-        </div>
 
-        {% if request.user.is_authenticated %}
-        <div class="input-field">
-            {% csrf_token %}
-            <input type="text" class="validate" id="comment" placeholder="Enter your comment" autocomplete="off"
-                onkeyup="stoppedTyping(this.value)">
-            <input type="button" value="Submit" id="comment-btn" data-comment="{{ chapter_content.get_comment_url }}"
-                data-comment-slug={{chapter_content.slug}} class="btn" disabled>
-        </div>
-        {% else %}
-        <div class="row">
-            <div class="col-10">
-                <p>Login to comment</p>
-            </div>
-            <div class="col-2">
-                <div class="row">
-                    <div class="col-6 center-div">
-                        <a id="googleLoginCmt"
-                            google-href-cmt="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}"
-                            class="icon-btn">
-                            <img src="/static/images/google-logo.svg" alt="googleLogo" width="50px" height="50px" />
-                        </a>
-                    </div>
-                    <div class="col-6 center-div">
-                        <a id="githubLoginCmt" github-href-cmt="{% url 'social:begin' 'github' %}?next={{request.path}}"
-                            class="icon-btn">
-                            <img src="/static/images/github-logo.svg" alt="githubLogo" width="50px" height="50px" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-        <div id="comments-list" style="margin-top: 50px;">
-            <div class="spinner-border text-primary center" role="status" id='comment_loader' style="display: none;">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-    </div>
-</div>
 <div id="suggestions-list"></div>
 
 <script>
     var codes = document.getElementsByClassName('code')
-    // alert(codes.length)
 
     if( '{{request.user.is_superuser}}' == 'True'){
         for(var i = 0; i< codes.length; i++ ){
             codes[i].addEventListener('mouseover', function(e){
                 
-                // alert(e.target.getAttribute('class'))
                 if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
                     document.getElementById('sugg_btn').remove()
                 }
@@ -529,7 +370,6 @@
     for(var i = 0; i< p_tags.length; i++ ){
         p_tags[i].addEventListener('mouseover', function(e){
             
-            // alert(e.target.getAttribute('class'))
             if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
                 document.getElementById('sugg_btn').remove()
             }
@@ -552,7 +392,6 @@
     for(var i = 0; i< title.length; i++ ){
         title[i].addEventListener('mouseover', function(e){
             
-            // alert(e.target.getAttribute('class'))
             if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
                 document.getElementById('sugg_btn').remove()
             }
@@ -574,11 +413,9 @@
 
 
     function createInputBox(e){
-        // alert('8')
         if(document.getElementById('sugg_inp') == null){
         var inp = document.createElement('input')
         inp.id = "sugg_inp"
-        // alert(e.parentNode)
         // document.getElementById('sugg_btn').remove()
         e.parentNode.appendChild(inp)
         
@@ -586,13 +423,10 @@
     }
 
     document.addEventListener('keyup', function(e){
-        // alert(e.keyCode)
         if (e.keyCode == "13"){
-            // alert("6")
             if(document.getElementById('sugg_inp') != null){
                 var value = document.getElementById('sugg_inp').value
                 addSuggestion();
-                // alert(value)   
             }
             document.getElementById('sugg_inp').remove()
         }

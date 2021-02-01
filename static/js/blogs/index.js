@@ -2,16 +2,12 @@ function copyProjectPageURLToClipBoard(e) {
     var input = document.createElement('input');
     // document.getElementById("clipboard").setAttribute("data-href",  getProjectAbsoluteUrl(project_slug) )
     // input.value = document.getElementById("clipboard").getAttribute('data-href');
-    // alert(e.getAttribute("class"))
     //e.setAttribute("data-href",  getProjectAbsoluteUrl(project_slug) )
     input.value = e.getAttribute('data-href');
-    // alert(e.getAttribute('data-href'))
     document.body.appendChild(input);
     input.select();
     // document.execCommand("copy");
     navigator.clipboard.writeText(input.value)
-//   .then(() => { alert(`Copied!`) })
-//   .catch((error) => { alert(`Copy failed! ${error}`) })
     document.body.removeChild(input);
     toastr.options.timeOut = 200
     toastr.success('Copied To ClipBoard');

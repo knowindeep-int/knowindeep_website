@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import api_create_suggestion, api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_chapter_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status,api_create_suggestion, api_resolve_suggestion,api_get_suggestion,api_search_languages
+from .views import api_create_suggestion, api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_project_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status,api_create_suggestion, api_resolve_suggestion,api_get_suggestion,api_search_languages
 
 
 app_name = "api"
@@ -14,7 +14,7 @@ urlpatterns = [
     path('<slug:slug>/',api_detail_chapter_view),
     path('<slug:slug>/update',api_detail_chapter_update_view),
     path('chaptertopic/like',api_like_chapter_view,name='like-post'),
-    path('chaptertopic/comment',api_comment_chapter_view,name="comment-post"),
+    path('chaptertopic/comment',api_comment_project_view,name="comment-post"),
     path('save_draft', api_save_draft, name="save_draft"),
     path('save_chapter_draft', api_save_chapter_draft, name="save_chapter_draft"),
     path('getLangPrereq', api_get_languages_prereqs, name = "get_lang_prereq"),
