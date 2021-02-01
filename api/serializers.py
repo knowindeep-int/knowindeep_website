@@ -120,6 +120,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class ChapterSerializer(serializers.ModelSerializer):
     project_slug = serializers.CharField(source='link_to.slug', required = False)
+    url = serializers.SerializerMethodField('get_absolute_url')
+
+    def get_absolute_url(self, obj):
+        return obj.getCompleteUrl
+
     class Meta:
         model = Chapter
         fields = '__all__'
