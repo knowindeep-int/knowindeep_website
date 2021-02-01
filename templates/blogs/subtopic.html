@@ -168,7 +168,8 @@
                             </div>
                             {% include 'dropdown/dropdown.html' with url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
                         </div>
-                        {% endfor %} {% else %}
+                        {% endfor %} 
+                        {% else %}
                         <h1>No blogs for the particular url</h1>
                         {% endif %}
                         <!-- <img src="/media/images/share1.png" class="left-share"> -->
@@ -212,6 +213,11 @@
 	<img src="share1.png" class="left-share">
 </div>
 </div> -->
+                    </div>
+                    <div id="comments-list" style="margin-top: 50px;">
+                        <div class="spinner-border text-primary center" role="status" id='chapter_loader' style="display: none;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                     </div>
                     <div class="section-heading">
                         <h4>About the Author</h4>
@@ -478,6 +484,7 @@ $("#like-btn").click(function (e) {
     }
     function getChapters(){
         var number = document.getElementsByClassName('boxes')[0].childElementCount
+        showChapterLoader()
         //alert(document.getElementsByClassName('boxes')[0].childElementCount)
         $.ajax({
             method:'GET',
@@ -535,11 +542,13 @@ $("#like-btn").click(function (e) {
                             + '</div>' 
                         div = document.getElementsByClassName('boxes')[0]
                         div.innerHTML += content
+                        hideChapterLoader()
             },
             error: function(error){
                 console.log('error')
             }
         })
+
     }
 
     window.addEventListener('scroll', function(){
