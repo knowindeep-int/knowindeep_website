@@ -242,7 +242,6 @@ function format(cmd){
 };
 function addPrereqs(){
     pre_reqs = document.getElementsByClassName('editor')[0].innerHTML 
-    alert(pre_reqs)
     saveDraft('pre_req', pre_reqs)
 }
 function addLanguage(e){
