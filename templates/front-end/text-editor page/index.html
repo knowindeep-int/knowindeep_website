@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <!--local -->
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+	
+	<div class="background-header">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><img class="img1" src="kid-white.png"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About Us</a>
+              </li>
+              <li class="nav-item n dropdown hid" id="drop">
+	      	<form class="form" id="form" action="">
+	  			<input type="search" class="input"  onmouseover="mousein()" id="navbarDropdown">
+			    <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
+			</form>
+			  <div class="dropdown-menu menu" id="srch">
+			      <a class="dropdown-item">first</a>
+			      <a class="dropdown-item">second</a>
+			      <a class="dropdown-item">third</a>
+		      </div>
+   			 </li>
+              <li class="nav-item login">
+                <a class="nav-link" href="#">Login</a>
+              </li>
+            </ul>
+          </div>
+          <div class="functional-buttons">
+            <ul>
+              <li><a href="#">Log in</a></li>
+            </ul>
+          </div>
+        </div>
+	  </nav>
+	  </div>
+<br>
+<br>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="list">
+				<a href="#heading1">heading1</a>
+				<a href="#heading2">heading2</a>
+				<a href="#heading3">heading3</a>
+				<a href="#heading4">heading4</a>
+				<a href="#heading5">heading5</a>
+			</div>
+		</div>
+	<div class="col-lg-9 chapter">
+		<div class="text-editor" contenteditable="true">
+			<div class="top-bar">
+				<span class="icons">
+					<i class="fas fa-bold"></i>
+					<i class="fas fa-italic"></i>
+					<i class="fas fa-underline" style="font-size: 17px;"></i>
+					<span class="slash">|</span>
+					<svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531.8 534.09"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><path class="cls-1" d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59" transform="translate(-280.31 -224.63)"/><path class="cls-1" d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88" transform="translate(-280.31 -224.63)"/><line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"/><circle class="cls-1" cx="386.8" cy="389.09" r="130"/><line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"/><line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"/></svg>
+					<svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 526 526.75"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><polyline class="cls-1" points="422 206.5 422 102.5 334.5 15 15 15 15 510.5 263 510.5"/><polyline class="cls-1" points="147 147.5 75.5 219 147 290.5"/><polyline class="cls-1" points="208.25 147.5 279.75 219 208.25 290.5"/><circle class="cls-1" cx="381" cy="381.75" r="130"/><line class="cls-1" x1="321.5" y1="381.75" x2="440.5" y2="381.75"/><line class="cls-1" x1="381" y1="441.25" x2="381" y2="322.25"/></svg>
+					<img class="svg1" src="youtube.png" style="width: 30px;">
+					<span class="slash">|</span>
+					<i class="fas fa-list-ul"></i>
+					<i class="fas fa-list-ol"></i>
+					<span class="slash">|</span>
+					<i class="fas fa-superscript" style="position: relative;top: -2px;"></i>
+					<i class="fas fa-subscript" style="position: relative;top: 2px;"></i>
+				</span>
+				<span class="icon-2">
+					<i class="fas fa-image"></i>
+					<form class="main-form">
+						<input type="text" class="searching" id="fname" value="Search Unsplash">
+						<input type="text" class="searching" id="lname" value="Search Pexels">
+					  </form> 
+				</span>
+			</div>
+		</div>
+		<button class="prev but1 but3" style="margin-left: 0;">Previous</button>
+		<button class="nxt but1 but3">Save Changes</button>
+		<button class="nxt but1 but3">Add</button>
+	</div>
+	</div>
+</div>  
+  			
+<footer class="footer" style="margin-top: 100px;">
+	<div class="row stacks" id="stacks">
+		<div class="col-lg-4 col-md-12 col-sm-12 col-12 stack1">
+	<span class="stack">
+	<img  class="foot-logo stack" src="kid-black.png"><br>
+	<br>
+	<span>Contact Us: knowindeep.tech@gmail.com<br>All Rigths reserved.KnowInDeep 2020</span>
+	<br>
+		<span>
+      <a href="#" class="lang1">
+			<img src="google.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+			<img src="linkd.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+			<img src="github.png" class="lang2">
+      </a>
+      <a href="#" class="lang1">
+			<img src="youtube.png" class="lang2">
+      </a>
+		</span>
+	</span>
+</div>
+<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+    <ul class="stack">
+    	<li class="heads">COMPANY</li>
+    	<li>About us</li>
+    	<li>Privacy Policy</li>
+    	<li>Contact us</li>
+    </ul>
+</div>
+<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+    <ul class="stack">
+    	<li class="heads">LEARN</li>
+    	<li>Algorithms</li>
+    	<li>Data Structures</li>
+    	<li>Languages</li>
+    	<li>CS Subjects</li>
+    	<li>Video Tutorials</li>
+    </ul>
+</div>
+<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+    <ul class="stack">
+    	<li class="heads">PRACTICE</li>
+    	<li>Courses</li>
+    	<li>Company-wise</li>
+    	<li>Topic-wise</li>
+    	<li>How To Begin?</li>
+    </ul>
+</div>
+<div class="col-lg-2 col-md-3 col-sm-6 col-12">
+    <ul class="stack">
+    	<li class="heads">CONTRIBUTE</li>
+    	<li>Write an Article</li>
+    	<li>Experience</li>
+    	<li>Internships</li>
+    	<li>Videos</li>
+    </ul>
+</div>
+</div>
+  </footer>
+<!--for the nav bar and underlying image-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>
