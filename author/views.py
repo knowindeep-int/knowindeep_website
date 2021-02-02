@@ -27,4 +27,5 @@ def author_page(request, slug):
         "progresses":packages
     }
     return render(request,"author/author_page.html",context)
+    # return render(request, 'front-end/profile page/index.html', context)
  
