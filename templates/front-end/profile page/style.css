@@ -517,7 +517,7 @@ margin: 2% auto;
 	width:100px;
 }
 
-form{
+.form{
     position: relative;
     top: 50%;
     left: 50%;
@@ -533,7 +533,7 @@ form{
 .form{
 	margin-top: 10px;
 }
-input{
+.input{
     position: absolute;
     top: 0;
     left: 0;
@@ -557,28 +557,13 @@ input{
 	border-radius: 10px !important;
 }
 
-.fa{
-    box-sizing: border-box;
-    padding: 10px;
-    width: 42.5px;
-    height: 42.5px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-radius: 50%;
-    color: #07051a;
-    text-align: center;
-    font-size: 1.2em;
-    transition: all 1s;
-}
-
 /* toggel it in form when srch is clicked */
 .form1{
   width: 200px;
   cursor: pointer;
 }
 
-form:hover input{
+.form:hover input{
   display: block;
 }
 
@@ -1011,6 +996,7 @@ h6{
 }
 button{
 	float:right;
+	outline: none !important;
 }
 .btn{
 	padding: 2px;
@@ -1033,10 +1019,41 @@ button{
 	border-radius: 1px !important;
 	margin-left: 10px !important;
 }
+.cancel:hover{
+color:#f00;
+}
 .save{
 	color: #1a8917;
 	padding: 2px 10px;
 	border: 1px solid #1a8917;
 	border-radius: 1px !important;
+}
+.save:hover{
+	color:#1a8917;
+	}
 
+.btn:focus,.btn:active {
+	outline: none !important;
+	box-shadow: none;
+ }
+
+ .fa-times{
+	 padding-left: 10px;
+ }
+ .xyz{
+	 font-size: 16px;
+	 background-color: #f1f1f1;
+	 padding: 5px;
+	 margin: 10px 2px;
+ }
+
+.pret{
+	border: none;
+	border-bottom: 1px solid #858282;
+	margin: 5px;
+	outline: none;
+    background-color: rgba(0,0,0,0);
+}
+.mm{
+	margin-left: 8px;
 }

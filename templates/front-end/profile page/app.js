@@ -59,7 +59,14 @@ function reply(e) {
   var numb = txt.match(/\d/g);
   var p1 = document.getElementsByClassName("btn-group");
   p1[numb-1].classList.toggle("second");
-  var b=String(numb-1);
-  p3=document.getElementById("b");
+  var b=String(numb);
+  p3=document.getElementById(b);
   p3.classList.toggle("second");
+}
+
+function die(e){
+  var txt = e.target.id;
+  var p1 = document.getElementsByClassName("xyz");
+  var b=txt-1;
+  p1[b].classList.toggle("second");
 }
