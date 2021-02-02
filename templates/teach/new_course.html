@@ -50,6 +50,7 @@ content: counter(line);
     window.onload = function () {
 
     // alert('{{status}}')
+    alert('safe')
     if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
         pk = sessionStorage.getItem('pk')
         // alert(pk)
@@ -66,33 +67,43 @@ content: counter(line);
         sessionStorage.removeItem('pk')
     }
     
+    
     // alert('{{status}}')
     if('{{status}}' == 'title'){
-        createTitlePage();   
+        createTitlePage();  
+        console.log('1') 
     }
     else if(document.referrer.indexOf('http://127.0.0.1:8000/teach/chapter') != -1){
         createNumberOfHours();
+        console.log('2') 
     }
     else if('{{status}}' == 'description'){
         createDescriptionPage();   
+        console.log('3') 
     }
     else if('{{status}}' == 'difficulty_level'){
-        createDifficultyPage();   
+        createDifficultyPage();  
+        console.log('4')  
     }
     else if('{{status}}' == 'overview'){
-        createOverviewPage();   
+        createOverviewPage();  
+        console.log('5')  
     }
     else if('{{status}}' == 'image'){
-        createImagePage();   
+        createImagePage();
+        console.log('6')    
     }
     else if('{{status}}' == 'no_of_hours'){
-        createNumberOfHours();   
+        createNumberOfHours();  
+        console.log('7')  
     }
     else if('{{status}}' == 'chapter'){
-        document.location.href = 'http://127.0.0.1:8000/teach/chapter/' + pk      
+        document.location.href = 'http://127.0.0.1:8000/teach/chapter/' + pk    
+        console.log('8')   
     }
     else{
         createTitlePage();
+        console.log('9') 
     }
     
     
@@ -108,10 +119,10 @@ if('{{project.title}}'){
     {%endfor%}
     assignParam(
     title = '{{project.title}}',
-    description = '{{project.description}}',
+    description = `{{project.description}}`,
     difficulty_level = '{{difficulty_level}}',
     no_of_hours = '{{no_of_hours}}',
-    overview = "{{overview}}",
+    overview = `{{overview}}`,
     pre_reqs = '{{project.pre_req |safe |linebreaksbr}}',
     pk = '{{project.pk}}',
     counter = 1,
