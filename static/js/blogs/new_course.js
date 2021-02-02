@@ -825,16 +825,16 @@ function createDifficultyPage() {
     div = document.getElementById("6");
     var content = ""
     // div.setAttribute("class", "jumbotron text-center");
-    content += "<div class='container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
-    content += " <h3>Add difficulty level for the project</h3>";
-    content += '<div style="color: black;">';
+    content += "<div class='container-fluid container-fluid1 container'><img src='/media/images/no_of_hours.png' class='icon1'>"
+    content += " <h3>Add difficulty level for the project</h3><br>";
+    // content += '<div style="color: black;">';
     content += '<div class="dot">'+
-                    '<input class="male" type="radio" id="easy"   name="diff" value="EASY"   style="opacity: 1;">' +
-                    '<label style="font-size:18px;" for="easy">EASY</label>' +           
-                     '<input class="male" type="radio" id="medium" name="diff" value="MEDIUM" style="opacity: 1;">' +
-                     '<label style="font-size:18px;" for="medium">MEDIUM</label>' +
-                     '<input class="male" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
-                     '<label style="font-size:18px;" for="hard">HARD</label>' +'</div></div>';
+                    ' <span class="dot-bar"><input class="male" type="radio" id="easy"   name="diff" value="EASY"  >' +
+                    '<label  for="easy">EASY</label></span>' +           
+                     '<span class="dot-bar"><input class="male" type="radio" id="medium" name="diff" value="MEDIUM" >' +
+                     '<label  for="medium">MEDIUM</label></span>' +
+                     '<span class="dot-bar"><input class="male" type="radio" id="hard"   name="diff" value="HARD" >' +
+                     '<label  for="hard">HARD</label></span>' +'</div><br><br><br>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
     //     '</div>';
     div.innerHTML = content
@@ -852,7 +852,7 @@ function createDifficultyPage() {
     document.getElementById('next_btn').setAttribute('onclick', ';createOverviewPage()')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('current').innerHTML = 3;
-    document.getElementsByClassName('progress-bar')[0].style = "width:42%"
+    document.getElementsByClassName('w3-amber')[0].style = "width:42%"
 
 }
 

@@ -1,5 +1,13 @@
+@font-face {
+	font-family:"gilroy";
+	src: url("Gilroy-ExtraBold.otf") format("opentype");
+  }
+@font-face {
+	font-family:"georgia";
+	src: url("georgiabold.ttf") format("truetype");
+}
+
 body {
-	font-family: 'Roboto', sans-serif;
 	transition: all 0.5s;
 }
 p {
@@ -10,6 +18,9 @@ p {
 a {
 	text-decoration: none!important;
 }
+html {
+	height: 100%
+  }
 a.main-button {
 	outline: none;
 	cursor: pointer;
@@ -327,7 +338,7 @@ header {
 
 .img-fluid {
   max-width: 100%;
-  height: auto;
+  height: 220px !important;
 }
 
 .tm-gallery-page {
@@ -421,7 +432,7 @@ header {
 }
 
 .star{
-	width: 40px;
+	width: 50px;
 }
 
 .title{
@@ -429,7 +440,17 @@ header {
 }
 
 .pro{
-	margin-left: 20px;
+	font-weight: bold;
+	font-size: 2em;
+	/* font-family: 'gilroy'; */
+	margin-left: 5px;
+	vertical-align: middle;
+}
+.card-title{	
+	font-weight: ;
+	font-size: 2em;
+	/* margin-left: 5px; */
+	/* vertical-align: middle; */
 }
 .lang{
 	width: 30px;
@@ -469,7 +490,7 @@ header {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  top: 20px;
+  top: 30px;
   right: 0; 
 }
 
@@ -482,23 +503,27 @@ header {
 
 .dropdown-content a:hover {background-color: #ddd;}
 
-.dropdown:hover .dropdown-content {display: block;}
-
+/* .dropdown:hover .dropdown-content {display: block;} */
+.show{
+	display: block;
+}
 .dropbtn{
   padding: 0;
   border-width: 0;
   background-color: white;
+  outline: none !important;
 }
 .fa-bars{
   color:white;
 }
+
 footer{
 	font-weight: 550;
 	margin-top: 10%;
-	height: 325px;
-	border-top: 1px solid black;
+	min-height: 40vh;
+	border-top: 1px solid grey;
+	background-color:#f7f7f7;
 }
-
 ul.stack{
 	list-style-type: none;
 	padding: 0 30px;
@@ -537,23 +562,31 @@ margin: 2% auto;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;;
-    height: 42.5px;
+    width: 100%;
     line-height: 30px;
     outline: 0;
     border: 0;
     display: none;
     font-size: 1em;
     border-radius: 20px;
-    padding: 0 20px;
+	padding: 0 20px;
+	padding-top: 3.5px;
 }
 
 .card{
 	border-radius: 10px !important;
 	border-width: 0 !important;
+   width:inherit;
+   height: 600px; /* or whatever width you want. */
+   max-width:400px; 
+   max-height: 600px;/* or whatever width you want. */
+   display: inline-block;
 }
 
+
 .card-img-top{
+	width: auto;
+	height: 250px;
 	border-radius: 10px !important;
 }
 
@@ -578,7 +611,7 @@ margin: 2% auto;
   cursor: pointer;
 }
 
-form:hover input{
+.form:hover .input{
   display: block;
 }
 
@@ -604,6 +637,15 @@ form:hover input{
 }
 .but3{
   padding: 4px 14px;
+}
+.btn_div{
+	position: absolute !important;
+	bottom: 20px;
+}
+.dropdown.left.left-share{
+	/* position: relative; */
+	float: right !important;
+	
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 660px) {
@@ -684,9 +726,7 @@ form:hover input{
 .section-heading {
 	text-align: center;
 }
-.team-section .section-heading h2 {
-	color: #1e1e1e;
-}
+
 .img2{
 width: 800px;
 }
@@ -696,6 +736,10 @@ margin: 50px auto;
 .bold{
 	font-weight: bold;
 }
+.bold1{
+	font-weight:550;
+}
+
 .right-num{
 	float: left;
 }
@@ -754,12 +798,11 @@ h5{
 	font-weight: 900;
 	font-size: 20px;
 }
-h1{
-	font-size: 3.5rem;
-}
-
 #srch{
 	  width: 200px;
+	  padding: 0;
+	  margin: 0;
+	  border: 0;
 }
 
 .team-section {
@@ -775,7 +818,7 @@ h1{
 width: 800px;
 }
 .img2{
-margin: 50px auto;
+margin: 50px auto !important;
 }
 .bold{
 	font-weight: bold;
@@ -824,6 +867,7 @@ margin: 20px 0;
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 h5{
 	margin: 0;
@@ -836,9 +880,9 @@ h5{
 	font-weight: 900;
 	font-size: 20px;
 }
-h1{
+/* h1{
 	font-size: 3.5rem;
-}
+} */
 
 .boxes{
 	margin-top: 40px;
@@ -874,48 +918,41 @@ div.spans h5{
 }
 }
 
-@font-face {
-	font-family:"gilroy";
-	src: url("Gilroy-Light.otf") format("opentype");
-  }
-@font-face {
-	font-family:"georgia";
-	src: url("Georgia-Regular-font.ttf") format("truetype");
-}
-
 body{
 	font-family: 'Georgia-Regular-font';
 	font-size: 18px;
 	line-height: 30px;
 }
 
-h1, h2, h3{
+h1, h2, h3,.h1,.h2,.h3{
 	font-family: 'gilroy';
 	font-weight: bold;
 }
-h4{
+h4,.h4{
 	font-family: 'gilroy';
 }
-h5,h6{
+h5,h6,.h5,.h6{
 	font-family: 'georgia';
 }
-
-h1{
+h1,h2,h3,h4,h5,h6{
+	font-weight: 1000 !important;
+}
+h1,.h1{
 	font-size: 60px;
 }
-h2{
+h2,.h2{
 	font-size: 52px;
 }
-h3{
+h3,.h3{
 	font-size: 45px;
 }
-h4{
+h4,.h4{
 	font-size: 34px;
 }
-h5{
+h5,.h5{
 	font-size: 30px;
 }
-h6{
+h6,.h6{
 	font-size: 24px;
 }
 
@@ -965,6 +1002,40 @@ h6{
 }
 .nxt{float: right;
 }
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+    
+}
+
+/* display 3 */
+@media (min-width: 768px) {
+    
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(33.333%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-33.333%);
+    }
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+  transform: translateX(0);
+}
 .center1{
 	text-align: center;
 	margin-top: 100px;
@@ -1000,8 +1071,7 @@ h6{
   margin-bottom: 20px;
 }
 
-.example button:focus {
-    outline: none;
+.example button:hover {
 }
 
 .example::after {
@@ -1041,16 +1111,25 @@ h6{
 .card-body{
 	text-align: left;
 }
+.card-body hr{
+	border-top-color: #f9a80d;
+}
+
 .icon1{
     margin-top: 110px;
     width: 146px
 }
-.container-fluid1{
-    text-align: center;
-}
-.container-fluid1 *{
+.container-fluid1 {
     padding-bottom: 10px;
+    background-color: #f2f2f2;
+	/*border: 0px 200px 0 200px;*/
+    text-align: center;
+    width:70% !important;
+    padding:50px 0px 50px 0px !important;
 }
+/* .container-fluid1 *{
+    padding-bottom: 10px;
+} */
 .example1{
     width: 48%;
     padding: 5px;
@@ -1076,6 +1155,7 @@ h6{
     margin-top: -16px;
 }
 .m{
+	margin-left: 25%;
 margin:0; 
 border: 1px solid #f9a80d;
 background-color:#f9a80d;
@@ -1083,4 +1163,136 @@ background-color:#f9a80d;
 .p{
     width: 25%;
     margin-top: -6px;
+}
+.footer-link{
+	 color: inherit;  
+}
+.footer-link:hover{
+	color: inherit;
+}
+#navbarDropdown::-webkit-search-cancel-button{
+	display: none;
+}
+.dropdown-menu-arrow {
+	top: -17px;
+	left: 90%;
+	width: 0;
+	height: 0;
+	position: relative;
+  }
+  .dropdown-menu-arrow:before,
+  .dropdown-menu-arrow:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 0;
+	height: 0;
+	border-width: 7px 8px;
+	border-style: solid;
+	border-color: transparent;
+	z-index: 1001;
+  }
+  .dropdown-menu-arrow:after {
+	bottom: -18px;
+	right: -8px;
+	border-bottom-color:#f1f1f1;
+  }
+  .dropdown-menu-arrow:before {
+	bottom: -17px;
+	right: -8px;
+	border-bottom-color: rgba(0,0,0,.15);
+  }
+
+  .dropdown-menu{
+	display: block !important;
+}
+h8,.h8{
+	font-size: 24px;
+}
+
+.search-bar .search-input{
+    width: 68%;
+    padding: 5px;
+    padding-left: 30px;
+    border: 1px solid #dcdcdc;
+    box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.07);
+    margin:10px 0px 30px ;
+}
+.container{
+	width:72.5% !important;
+	padding-left:0px;
+	padding-right:0px;
+}
+
+.container-fluid h3, h7, h8{
+	padding-top:10px;
+	font-size:40px;
+}
+.container-fluid h6{
+	padding-top:10px;
+	padding-bottom:15px;
+	font-size:20px;
+}
+.icon1{
+	width:132px;
+	/*height:132px;*/
+	padding:15px 0px 15px 0px !important;
+	font-size:40px;
+}
+
+.male{
+	margin-left:60px !important;
+	font-family: georgia;
+}
+
+.container-fluid h3{
+	font-weight: bold;
+	font-family: gilroy !important;
+	font-size:45px;
+}
+.dot{
+	text-align:center;
+}
+.carousel-inner{
+	height: 700px !important;
+}
+.row-stacks{
+	background-color: grey;
+}
+
+@media only screen and (max-width: 1006px) and (min-width: 991px) {
+	.nav-item1{
+		display: none !important;
+	}
+	.n{
+		margin-top: -15px;
+	}
+	
+  }
+.dot-bar{
+	margin-right:70px;
+	padding: 0;
+}
+.male{
+	margin-left:60px !important;
+	font-family: georgia;
+}
+
+.w3-container{
+	height: 5px !important;
+	padding: 0px .5px 0px .5px !important;
+}
+
+.w3-light-green{
+	color: grey !important;
+	padding: 0px 1px 0px 1px !important;
+}
+hr.hr{
+	margin: 0px .5px 0px .5px !important;
+	
+	padding: 0px 0px 0px 0px !important;
+}
+label{
+	padding: 0 !important;
+	margin-left: 5px !important;
 }
