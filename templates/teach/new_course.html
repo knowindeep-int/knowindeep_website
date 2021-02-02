@@ -50,7 +50,6 @@ content: counter(line);
     window.onload = function () {
 
     // alert('{{status}}')
-    alert('safe')
     if(window.location.href == 'http://127.0.0.1:8000/teach/add/' ){
         pk = sessionStorage.getItem('pk')
         // alert(pk)
@@ -123,7 +122,7 @@ if('{{project.title}}'){
     difficulty_level = '{{difficulty_level}}',
     no_of_hours = '{{no_of_hours}}',
     overview = `{{overview}}`,
-    pre_reqs = '{{project.pre_req |safe |linebreaksbr}}',
+    pre_reqs = `{{project.pre_req |safe |linebreaksbr}}`,
     pk = '{{project.pk}}',
     counter = 1,
     chapter_innerHTML = "",

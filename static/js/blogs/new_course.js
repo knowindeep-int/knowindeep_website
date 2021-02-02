@@ -150,7 +150,7 @@ function createDescriptionPage() {
     '<input type="text"  class="search-input" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' 
     content += '<span id="error_description"></span>' +
                 '</div>' 
-document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyPage();')
+document.getElementById('next_btn').setAttribute('onclick', 'addPrereqs();createDifficultyPage();')
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
 document.getElementById('current').innerHTML = 2
@@ -195,7 +195,7 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
     content += '<div class="editor" contenteditable="true" spellcheck="false" >'
     content += pre_reqs
     content += '</div>'
-    content += '<button onclick = "addPrereqs()">Add Prerequisites</button>'
+    // content += '<button onclick = "addPrereqs()">Add Prerequisites</button>'
     // content += '<span id="error_prereq" ></span>'
     content += '</div>'
     // div.setAttribute("class", "jumbotron text-center");
@@ -241,7 +241,8 @@ function format(cmd){
     document.execCommand(cmd)
 };
 function addPrereqs(){
-    pre_reqs = document.getElementsByClassName('editor')[0].innerText 
+    pre_reqs = document.getElementsByClassName('editor')[0].innerHTML 
+    alert(pre_reqs)
     saveDraft('pre_req', pre_reqs)
 }
 function addLanguage(e){
@@ -848,7 +849,7 @@ function createDifficultyPage() {
         document.getElementById('hard').checked = true;
     }
 
-    document.getElementById('next_btn').setAttribute('onclick', 'createOverviewPage();')
+    document.getElementById('next_btn').setAttribute('onclick', ';createOverviewPage()')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('current').innerHTML = 3;
     document.getElementsByClassName('progress-bar')[0].style = "width:42%"
