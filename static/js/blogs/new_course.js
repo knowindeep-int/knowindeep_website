@@ -25,6 +25,14 @@
 // };
 // var title = ""
 // var description = 
+
+function die(e){
+    var txt = e.target.id;
+    var p1 = document.getElementsByClassName("xyz");
+    var b=txt-1;
+    p1[b].classList.toggle("second");
+    }
+    
 function showhide(id) {
     if (document.getElementById) {
         var divid = document.getElementById(id);
@@ -80,7 +88,7 @@ function add_language(){
 
 function createDescriptionPage() {
 
-    getLangPrereq();
+    // getLangPrereq();
     
         
     if (document.getElementById("title_input") != null) {
@@ -143,7 +151,7 @@ function createDescriptionPage() {
         return false
     }
     var content = ""
-    content += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    content += '<div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working description?</h3>' + 
     "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
     '<div class="search-bar">'+
@@ -154,13 +162,21 @@ document.getElementById('next_btn').setAttribute('onclick', 'addPrereqs();create
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
 document.getElementById('current').innerHTML = 2
-document.getElementsByClassName('progress-bar')[0].style = "width:28%"
+document.getElementsByClassName('w3-amber')[0].style = "width:28%"
 
 
     // div.setAttribute("class", "jumbotron text-center");
     content += "<h7>Add Languages</h7>";
-    content += '<div style="color: black;">';
-    content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
+    content += `<div style="width: 100%; border: 1px solid #ebebeb; box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.2);">
+    <form action="#">
+        <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
+        <span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
+        <span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
+        <input type="text" class="pret" id="lang3" name="Languages">
+    </form> 
+</div>`
+    // content += '<div style="color: black;">';
+    // content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
     var bold = "'bold'"
     var underline = "'underline'"
     var italic = "'italic'"
@@ -169,7 +185,7 @@ document.getElementsByClassName('progress-bar')[0].style = "width:28%"
     
 
 
-    content += '</select></div>'
+    //content += '</select></div>'
     content += '<div class="search-bar">'
     content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"></input>'
     content += '<div id ="results_lang" ></div>'
@@ -268,7 +284,7 @@ function createTitlePage() {
 
     var div = document.getElementById("1");
 
-    div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    div.innerHTML += '<div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working title?</h3>' + 
     "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
     '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="title_input" value="' + title + '"> ' +  
@@ -276,7 +292,7 @@ function createTitlePage() {
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
     document.getElementById('current').innerHTML = 1
-    document.getElementsByClassName('progress-bar')[0].style = "width:14% !important"
+    document.getElementsByClassName('w3-amber')[0].style = "width:14% !important"
     // div.setAttribute("class", "jumbotron text-center") ;
     // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
     // document.getElementById("title_input").dataset.state = 'invalid';

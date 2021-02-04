@@ -68,9 +68,3 @@ p3=document.getElementById(b);
 p3.classList.toggle("second");
 }
 
-function die(e){
-var txt = e.target.id;
-var p1 = document.getElementsByClassName("xyz");
-var b=txt-1;
-p1[b].classList.toggle("second");
-}

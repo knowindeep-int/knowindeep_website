@@ -1040,3 +1040,28 @@ button{
 	border-radius: 1px !important;
 
 }
+.btn:focus,.btn:active {
+	outline: none !important;
+	box-shadow: none;
+ }
+
+ .fa-times{
+	 padding-left: 10px;
+ }
+ .xyz{
+	 font-size: 16px;
+	 background-color: #f1f1f1;
+	 padding: 5px;
+	 margin: 10px 2px;
+ }
+
+.pret{
+	border: none;
+	border-bottom: 1px solid #858282;
+	margin: 5px;
+	outline: none;
+    background-color: rgba(0,0,0,0);
+}
+.mm{
+	margin-left: 8px;
+}
