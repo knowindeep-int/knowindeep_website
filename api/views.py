@@ -216,9 +216,9 @@ def api_save_chapter_draft(request):
 @api_view(['GET',])
 def api_get_languages_prereqs(request):
     if request.method == "GET":
-        lang = Language.getAllLanguages()
+        lang =  Project.objects.get(pk = request.GET['pk']).languages
         pre = Project.objects.get(pk = request.GET['pk']).pre_req
-
+        print(lang)
         lang_serializer = LanguageSerializer(lang, many=True)
         # pre_serializer = PreRequisiteSerializer(pre, many=True)
     
