@@ -559,9 +559,11 @@ margin: 2% auto;
 	margin-top: 10px;
 }
 .input{
-    position: absolute;
-    top: 0;
-    left: 0;
+	background-color:rgba(0, 0, 0, 0) !important;
+	font-size: 17px;
+	position: fixed;
+	top: 1px;
+	right: -1px;
     width: 100%;
     line-height: 30px;
     outline: 0;
