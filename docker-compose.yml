@@ -3,9 +3,8 @@ version : '3'
 services:
     web:
         build: .
-        command: /env/bin/activate
-        command: python manage.py makemigrations
-        command: python manage.py migrate
-        command: python manage.py runserver 0.0.0.0:8000
+        command: bash -c “python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000”
+        volumes: 
+            - .:/app
         ports:  
-            - 8000:8000
+            - "8000:8000"
