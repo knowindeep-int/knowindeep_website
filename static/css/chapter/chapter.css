@@ -1116,15 +1116,19 @@ h6{
 }
 
 .icons button{
-	border: 1px solid #A9A9A9;
+	border:none;
+	margin-top: 4px;
 }
 .icons button:focus{
 	outline: none;
-	border: 1px solid black;
+	border: none;
 }
 
 .fa-image:before{    
     position: relative;
     top: 7.5px;
     font-size: 25px;
+}
+button:focus{
+	outline: none;
 }
