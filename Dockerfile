@@ -1,6 +1,6 @@
-FROM python:3
+FROM python:3.6
 
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
@@ -8,6 +8,6 @@ ADD . /app
 
 COPY ./requirements.txt /app/requirements.txt 
 
-RUN pip install -r requirements.txt
+RUN pip install -r /app/requirements.txt
 
 COPY . /app
