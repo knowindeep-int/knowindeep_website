@@ -90,7 +90,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         extra_kwargs = {'skills': {'required': False}, 'user': {'required': False}, 'username': {'required': False}}
         read_only_fields = ('user',)
 
-    def update(self, instance, validated_data):     
+    def update(self, instance, validated_data):  
+        print(instance.description)   
         skills = validated_data.get('skills')
         instance.dp = self.validated_data.get('dp', instance.dp)
         instance.user.email = (validated_data['email_id'], instance.user.email)[validated_data.get('email_id') is None]

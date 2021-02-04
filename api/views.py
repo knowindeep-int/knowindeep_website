@@ -117,8 +117,9 @@ def update_profile(request):
     if request.method == "POST":
         profile_serializer = ProfileSerializer(data = request.data)
         if not profile_serializer.is_valid():
+            print(profile_serializer.errors)
             return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
-        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.data['profile_id']), validated_data=request.data)
+        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.POST.get('profile_id')), validated_data=request.data)
         se = ProfileSerializer(updated_profile)
         return Response(se.data, status = status.HTTP_200_OK)
 
