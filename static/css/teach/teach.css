@@ -558,7 +558,7 @@ margin: 2% auto;
 .form{
 	margin-top: 10px;
 }
-.input{
+/* .input{
     position: absolute;
     top: 0;
     left: 0;
@@ -571,7 +571,7 @@ margin: 2% auto;
     border-radius: 20px;
 	padding: 0 20px;
 	padding-top: 3.5px;
-}
+} */
 
 .card{
 	border-radius: 10px !important;
@@ -1296,23 +1296,36 @@ label{
 	padding: 0 !important;
 	margin-left: 5px !important;
 }
-.xyz{
-	font-size: 16px;
-	background-color: #f1f1f1;
-	padding: 5px;
-	margin: 10px 2px;
-}
+.btn:focus,.btn:active {
+	outline: none !important;
+	box-shadow: none;
+ }
+
+ .fa-times{
+	 padding-left: 10px !important;
+	 display: block !important;	
+
+ }
+ .xyz{
+	 font-size: 16px;
+	 background-color: #f1f1f1 !important;
+	 padding: 5px !important;
+	 margin: 10px 2px !important;
+ }
 
 .pret{
-   border: none;
-   border-bottom: 1px solid #858282;
-   margin: 5px;
-   outline: none;
-   background-color: rgba(0,0,0,0);
+	border: none;
+	border-bottom: 1px solid #858282;
+	margin: 5px;
+	outline: none;
+    background-color: rgba(0,0,0,0);
 }
 .mm{
-   margin-left: 8px;
-} 
-.fa-times{
-	padding-left: 10px;
+	margin-left: 8px !important;
 }
+/* #1{
+display: block !important;	
+} */
+/* .fa{
+	font-weight: 900 !important;
+} */

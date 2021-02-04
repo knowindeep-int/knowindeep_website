@@ -167,13 +167,11 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
 
     // div.setAttribute("class", "jumbotron text-center");
     content += "<h7>Add Languages</h7>";
-    content += `<div style="width: 100%; border: 1px solid #ebebeb; box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.2);">
-    <form action="#">
+    content += `<div style="width: 100%; background-color:white ;border: 1px solid #ebebeb; box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.2);">
         <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
         <span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
         <span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
-        <input type="text" class="pret" id="lang3" name="Languages">
-    </form> 
+        <input type="text" class="pret" id="lang3" name="Languages"> 
 </div>`
     // content += '<div style="color: black;">';
     // content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
@@ -187,7 +185,7 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
 
     //content += '</select></div>'
     content += '<div class="search-bar">'
-    content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"></input>'
+    content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"> <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></input>'
     content += '<div id ="results_lang" ></div>'
     
     content += '</div>'
