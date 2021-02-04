@@ -167,7 +167,7 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
 
     // div.setAttribute("class", "jumbotron text-center");
     content += "<h7>Add Languages</h7>";
-    content += `<div style="width: 100%; background-color:white ;border: 1px solid #ebebeb; box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.2);">
+    content += `<div style="width: 68%;padding-bottom: 0; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
         <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
         <span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
         <span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
