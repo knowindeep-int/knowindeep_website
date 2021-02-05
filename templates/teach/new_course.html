@@ -272,10 +272,33 @@ function saveImageDraft() {
             }
         })
 }
+
+function die(e){
+    // alert(e.target.id)
+    var txt = e.target.id;
+    var p1 = document.getElementsByClassName("xyz");
+    var b=txt-1;
+    p1[b].classList.toggle("second");
+    $.ajax({
+            method: "POST",
+            url: '{% url "api:delete_lang" %}',
+            data: {
+                'name': p1[b].childNodes[0].nodeValue, 
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'pk': pk
+            },
+            success: function(data){
+                console.log('sucCess')
+            }, error: function(error){
+                console.log('error')
+            }
+        })
+    }
+    
     var languages_all = [] 
     // prereqs_all = [] 
     function getLangPrereq(){
-     
+        document.getElementById('langs').innerHTML = ` <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> `
         $.ajax({
             method: 'GET',
             url: "{% url 'api:get_lang_prereq' %}",

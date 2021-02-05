@@ -26,14 +26,7 @@
 // var title = ""
 // var description = 
 
-function die(e){
-    // alert(e.target.id)
-    var txt = e.target.id;
-    var p1 = document.getElementsByClassName("xyz");
-    var b=txt-1;
-    p1[b].classList.toggle("second");
-    }
-    
+
 function showhide(id) {
     if (document.getElementById) {
         var divid = document.getElementById(id);
