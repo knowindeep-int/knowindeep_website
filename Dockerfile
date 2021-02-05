@@ -1,6 +1,7 @@
-FROM python:3
+FROM python:3.6
 
 ENV PATH="/app/scripts:${PATH}"
+
 
 WORKDIR /app
 

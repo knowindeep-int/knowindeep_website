@@ -87,7 +87,7 @@ def list_all_blogs(request):
 
 
 def error404(request, exception):
-    return HttpResponse("error404")
+    return HttpResponse(request)
 
 def error400(request, exception):
     return HttpResponse("error400")

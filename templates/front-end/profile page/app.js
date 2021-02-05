@@ -70,3 +70,4 @@ var p1 = document.getElementsByClassName("xyz");
 var b=txt-1;
 p1[b].classList.toggle("second");
 }
+
