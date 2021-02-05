@@ -355,35 +355,35 @@ function setImgurHeader(xhr) {
 
                         if(page_number > 1){
                             var prev = document.createElement('button')
-                            prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(span_text, page_number)')
+                            prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
                             prev.innerHTML = "PREV"
                             prev.style.float = "left"
+                            prev.setAttribute('contenteditable','false')
                             div_btn.appendChild(prev)
                         }
                         var next = document.createElement('button')
-                        next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(span_text, page_number)')
+                        
+                        next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
                         next.innerHTML = "NEXT"
                         next.style.float = "right"
-
+                        next.setAttribute('contenteditable','false')
                         div_btn.appendChild(next)
                         document.getElementsByClassName("editor")[0].appendChild(div_btn)
 
                         var imageList = data.results;
                         var div = document.createElement('div')
                         div.className = "grid"
-                        if(fx().className == 'editor' ||  document.body === fx()){
+                        // if(fx().className == 'editor' ||  document.body === fx()){
+                        //     // alert(fx().className)
+                        //     console.log('2')
+                        //     fx().insertBefore(div, fx().childNodes[1]);
+                        //     // targetDiv.appendChild(fig)
+                        //     // fx().insertBefore(fig, fx().nextSibling);
+                        // }
                             // alert(fx().className)
-                            console.log('2')
-                            fx().insertBefore(div, fx().childNodes[1]);
-                            // targetDiv.appendChild(fig)
-                            // fx().insertBefore(fig, fx().nextSibling);
-                        }
-                        else{
-                            // alert(fx().className)
-                            console.log('1')
-                            fx().parentNode.insertBefore(div, fx().nextSibling);
-                        }
-                        // document.getElementsByClassName("editor")[0].appendChild(div)
+                            document.getElementsByClassName('editor')[0].lastChild.appendChild(div)
+                            // fx().parentNode.insertBefore(div, fx().nextSibling);
+                             // document.getElementsByClassName("editor")[0].appendChild(div)
                         
                         
                         // document.getElementsByClassName('editor')[0].append('<div class="grid"></div>')
@@ -391,7 +391,7 @@ function setImgurHeader(xhr) {
                             var imageUrl = val.urls.regular;
                             var img = document.createElement('img')
                             var container = document.createElement('div')
-                            container.className = "container"
+                            container.className = "container1"
                             document.getElementsByClassName('grid')[0].appendChild(container)
                             a_name[i] = val.user.name
                             url[i] =  val.user.links.html
@@ -418,8 +418,8 @@ function setImgurHeader(xhr) {
                             var unsplash_div = document.createElement('div')
                             unsplash_div.className = "unsplashImage"
                             unsplash_div.appendChild(img)
-                            document.getElementsByClassName("container")[i].appendChild(unsplash_div)
-                            document.getElementsByClassName('container')[i].appendChild(author)
+                            document.getElementsByClassName("container1")[i].appendChild(unsplash_div)
+                            document.getElementsByClassName('container1')[i].appendChild(author)
                             
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
@@ -449,14 +449,16 @@ function setImgurHeader(xhr) {
 
                         if(page_number > 1){
                             var prev = document.createElement('button')
-                            prev.setAttribute("onclick", 'page_number-=1;implementPexelSearch(span_text, page_number)')
+                            prev.setAttribute("onclick", 'page_number-=1;implementPexelSearch(document.getElementById("inptext_pexels").value, page_number)')
                             prev.innerHTML = "PREV"
                             prev.style.float = "left"
+                            prev.setAttribute('contenteditable','false')
                             div_btn.appendChild(prev)
                         }
                         var next = document.createElement('button')
-                        next.setAttribute("onclick", 'page_number+=1;implementPexelSearch(span_text, page_number)')
+                        next.setAttribute("onclick", 'page_number+=1;implementPexelSearch(document.getElementById("inptext_pexels").value, page_number)')
                         next.innerHTML = "NEXT"
+                        next.setAttribute('contenteditable','false')
                         next.style.float = "right"
 
                         div_btn.appendChild(next)
@@ -474,7 +476,7 @@ function setImgurHeader(xhr) {
                             var imageUrl = val.src.original;
                             var img = document.createElement('img')
                             var container = document.createElement('div')
-                            container.className = "container"
+                            container.className = "container1"
                             document.getElementsByClassName('grid')[0].appendChild(container)
                             p_name[i] = val.photographer
                             p_url[i] =  val.photographer_url
@@ -502,8 +504,8 @@ function setImgurHeader(xhr) {
                             var unsplash_div = document.createElement('div')
                             unsplash_div.className = "unsplashImage"
                             unsplash_div.appendChild(img)
-                            document.getElementsByClassName("container")[i].appendChild(unsplash_div)
-                            document.getElementsByClassName('container')[i].appendChild(author)
+                            document.getElementsByClassName("container1")[i].appendChild(unsplash_div)
+                            document.getElementsByClassName('container1')[i].appendChild(author)
                             
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
@@ -640,11 +642,9 @@ function setImgurHeader(xhr) {
                 positionCursor()
             }
 
-           
-
+          
          </script>
          <p id="modified"></p>
-         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="list">
@@ -674,8 +674,9 @@ function setImgurHeader(xhr) {
                         <span class="icon-2">
                             <i class="fas fa-image"></i>
                             <form class="main-form">
-                                <input type="text" class="searching" id="fname" placeholder="Search Unsplash">
-                                <input type="text" class="searching" id="lname" placeholder="Search Pexels">
+                                <input type='file' class="searching" id='inpfile' accept="image/jpeg, image/png, image/gif"> 
+                                <input type="text" class="searching" id="inptext" placeholder="Search Unsplash">
+                                <input type="text" class="searching" id="inptext_pexels" placeholder="Search Pexels">
                               </form> 
                         </span>
                     </div>
@@ -719,6 +720,18 @@ function setImgurHeader(xhr) {
         {%endif%} 
         </div> -->
         <script>
+             document.getElementById('inptext').addEventListener('keyup',function (e){
+                if(e.keyCode == '13'){
+                    implementUnsplashSearch(document.getElementById('inptext').value)
+                }
+           })
+
+           document.getElementById('inptext_pexels').addEventListener('keyup',function (e){
+                if(e.keyCode == '13'){
+                    implementPexelSearch(document.getElementById('inptext_pexels').value)
+                }
+           })
+
             var btns = document.getElementsByClassName('btn')
             // for(i=0; i< btns.length; i++){
             //     document.getElementsByClassName('btn')[i].addEventListener('onclick', function(){
