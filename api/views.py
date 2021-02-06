@@ -212,13 +212,26 @@ def api_save_chapter_draft(request):
         chapter_serializer.save()
         return Response(chapter_serializer.data, status = status.HTTP_200_OK)
 
+@api_view(['POST',])
+def api_delete_lang(request):
+    if request.method == 'POST':
+        print(request.data)
+        project = Project.objects.get(pk = request.POST['pk'])
+        language = Language.objects.get(name = request.POST['name'])
+        project.languages.remove(language)
+        data = {
+            'message':'deleted successfully',
+            'pk': request.POST['pk'] 
+        }
+        return Response(data,status=status.HTTP_200_OK)
+
 
 @api_view(['GET',])
 def api_get_languages_prereqs(request):
     if request.method == "GET":
-        lang = Language.getAllLanguages()
+        lang =  Project.objects.get(pk = request.GET['pk']).languages
         pre = Project.objects.get(pk = request.GET['pk']).pre_req
-
+        print(lang)
         lang_serializer = LanguageSerializer(lang, many=True)
         # pre_serializer = PreRequisiteSerializer(pre, many=True)
     

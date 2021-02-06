@@ -146,67 +146,50 @@ window.addEventListener("beforeunload", function (e) {
         // }
         //)
 
-        // var span_text
-        //     document.addEventListener("keypress", function(e){
+        var span_text
+            document.addEventListener("keypress", function(e){
 
-        //         // x = getCaretCoordinates()[0]
-        //         // y = getCaretCoordinates()[1]
-        //         if(e.keyCode == '13'){
-        //         //     if(fx().className == "input" && document.getElementsByClassName('input') != null){
-        //         //     implementUnsplashSearch(query = fx().innerHTML)
-        //         //     return; 
+                // x = getCaretCoordinates()[0]
+                // y = getCaretCoordinates()[1]
+                if(e.keyCode == '13'){
+                //     if(fx().className == "input" && document.getElementsByClassName('input') != null){
+                //     implementUnsplashSearch(query = fx().innerHTML)
+                //     return; 
                     
-        //         // }
-        //     if( document.getElementById('input_iframe')){
-        //         var embed_link = getEmbedLink(document.getElementById('input_iframe').value)
-        //         var pre = document.createElement('iframe')
-        //         pre.id = "iframe_video"
-        //         pre.setAttribute('src', embed_link)
-        //         fx().appendChild(pre)
-        //         document.getElementById('input_iframe').remove();
-        //     }
+                // }
+            if( document.getElementById('input_iframe')){
+                var embed_link = getEmbedLink(document.getElementById('input_iframe').value)
+                var pre = document.createElement('iframe')
+                pre.id = "iframe_video"
+                pre.setAttribute('src', embed_link)
+                fx().appendChild(pre)
+                document.getElementById('input_iframe').remove();
+            }
                 
 
-        //         if(fx().className == "input" && document.getElementsByClassName('input') != null){
-        //     // e.preventDefault();
-        //     span_text = fx().innerHTML
-        //     implementUnsplashSearch(query = span_text)
-        //     // implementPexelSearch(query=fx().innerHTML)
-        //     //
-        //     document.getElementsByClassName('input')[0].remove();
-        //     return; 
-        // }
-        //  if(fx().className == "input_pexels" && document.getElementsByClassName('input_pexels') != null){
-        //     // e.preventDefault();
-        //     // implementUnsplashSearch(query = fx().innerHTML)
-        //     span_text = fx().innerHTML
-        //     implementPexelSearch(query=span_text)
-        //     //
-        //     document.getElementsByClassName('input_pexels')[0].remove();
-        //     return; 
-        // }
+               
 
-        //         if(fx().className == 'fig-caption' && document.getElementsByClassName('fig-caption') != null && document.getElementsByClassName('fig-caption').length >= document.getElementsByClassName('fig').length){
-        //             // e.preventDefault()
+                if(fx().className == 'fig-caption' && document.getElementsByClassName('fig-caption') != null && document.getElementsByClassName('fig-caption').length >= document.getElementsByClassName('fig').length){
+                    // e.preventDefault()
                     
-        //             var p =document.createElement('p')
-        //             p.innerHTML = "&nbsp;"
-        //             // p.style.display = "none"
-        //             fx().parentNode.parentNode.append(p)
-        //             var el = document.getElementById("editable")
-        //             var range = document.createRange()
-        //             var sel = window.getSelection()
-        //             e.preventDefault();
-        //             range.setStart(fx().parentNode.nextSibling, 0)
-        //             range.collapse(true)
+                    var p =document.createElement('p')
+                    p.innerHTML = "&nbsp;"
+                    // p.style.display = "none"
+                    fx().parentNode.parentNode.append(p)
+                    var el = document.getElementById("editable")
+                    var range = document.createRange()
+                    var sel = window.getSelection()
+                    e.preventDefault();
+                    range.setStart(fx().parentNode.nextSibling, 0)
+                    range.collapse(true)
                     
-        //             sel.removeAllRanges()
-        //             sel.addRange(range)
-        //             //
+                    sel.removeAllRanges()
+                    sel.addRange(range)
+                    //
                     
-        //         }
-        //     }
-        //     });
+                }
+            }
+            });
 
 function fx(){
 

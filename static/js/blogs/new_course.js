@@ -26,13 +26,7 @@
 // var title = ""
 // var description = 
 
-function die(e){
-    var txt = e.target.id;
-    var p1 = document.getElementsByClassName("xyz");
-    var b=txt-1;
-    p1[b].classList.toggle("second");
-    }
-    
+
 function showhide(id) {
     if (document.getElementById) {
         var divid = document.getElementById(id);
@@ -88,7 +82,7 @@ function add_language(){
 
 function createDescriptionPage() {
 
-    // getLangPrereq();
+ 
     
         
     if (document.getElementById("title_input") != null) {
@@ -167,25 +161,28 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
 
     // div.setAttribute("class", "jumbotron text-center");
     content += "<h7>Add Languages</h7>";
-    content += `<div style="width: 68%;padding-bottom: 0; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
-        <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
-        <span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
-        <span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
-        <input type="text" class="pret" id="lang3" name="Languages"> 
-</div>`
+    content += `<div id="langs" style="width: 68%;padding-bottom: 0; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
+    <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> 
+    </div>`
     // content += '<div style="color: black;">';
     // content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
+    // <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span> 
+    // <span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
+    // <span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
     var bold = "'bold'"
     var underline = "'underline'"
     var italic = "'italic'"
     var ordered = "'insertOrderedList'"
-
+    console.log('heygdfg')
+    setTimeout(() => {
+        getLangPrereq()
+    }, 10);
     
 
 
     //content += '</select></div>'
     content += '<div class="search-bar">'
-    content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"> <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></input>'
+    //content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"> <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></input>'
     content += '<div id ="results_lang" ></div>'
     
     content += '</div>'
@@ -214,9 +211,9 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
     content += '</div>'
     // div.setAttribute("class", "jumbotron text-center");
     div.innerHTML = content
-    for(var i=0; i< languages_all.length; i++){
-        document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
-    }
+    // for(var i=0; i< languages_all.length; i++){
+    //     document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
+    // }
     // for(var i=0; i< prereqs_all.length; i++){
     //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
     // }
@@ -260,10 +257,11 @@ function addPrereqs(){
     saveDraft('pre_req', pre_reqs)
 }
 function addLanguage(e){
-    
-    
     languages.push(e.innerHTML)
     saveDraft("languages",languages)
+    var num = document.getElementById('langs').childNodes.length
+    var d1 = document.getElementsByClassName('xyz')[num]
+    d1.insertAdjacentHTML('afterend','<span class="xyz">'+e.innerHTML +'<i id="'+num+'" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>')
 }
 function createTitlePage() {
     if( document.getElementById("description_input") != null) {
@@ -483,7 +481,7 @@ function createOverviewPage() {
 
     var div = document.getElementById("7");
     // div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML +='<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    div.innerHTML +='<div class=" container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working overview?</h3>' + 
     "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 
     '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="overview_input" value="' + overview + '"> ' + 
@@ -492,7 +490,7 @@ function createOverviewPage() {
     document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage();')
     document.getElementById('current').innerHTML = 4
-    document.getElementsByClassName('progress-bar')[0].style = "width:56%"
+    document.getElementsByClassName('w3-amber')[0].style = "width:56%"
 
 }
 
@@ -620,15 +618,16 @@ function createNumberOfHours() {
 
     div = document.getElementById("10");
     var content = ""
-    content += "<div class='container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
+    content += "<div class='container container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
     content += "<h3> ADD HOURS REQUIRED FOR THE PROJECT</h3>";
     content += '<div style="color: black;">'  ;
-    content += '<div class="dot><input class="male_time" type="radio" id="0-2" name="" value="0.2" style="opacity: 1;">' +
-        '<label for="0--2">0--2 HOURS</label>' +
-        '<input class="male_time" type="radio" id="2-4" name="" value="2.4"  style="opacity: 1;">' +
-        '<label for="2-4">2-4 HOURS</label>' +
-        '<input class="male_time" type="radio" id=">4" name="" value=".4" style="opacity: 1;">' +
-        '<label for=">4">MORE THAN 4 HOURS</label></div></div>';
+    content += '<div class="dot">'+
+        '<span class= "dot-bar"><input class="male_time" type="radio" id="0-2" name="hours" value="0.2" style="opacity: 1;">' +
+        '<label for="0-2">0-2 HOURS</label></span>' +
+        '<span class= "dot-bar"><input class="male_time" type="radio" id="2-4" name="hours" value="2.4"  style="opacity: 1;">' +
+        '<label for="2-4">2-4 HOURS</label></span>' +
+        '<span class= "dot-bar"><input class="male_time" type="radio" id=">4" name="hours" value=".4" style="opacity: 1;">' +
+        '<label for=">4">MORE THAN 4 HOURS</label></span></div></div>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
     div.innerHTML = content
@@ -645,7 +644,7 @@ function createNumberOfHours() {
     document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage()')
     document.getElementById('prev_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('current').innerHTML = 6;
-    document.getElementsByClassName('progress-bar')[0].style = "width:84%"
+    document.getElementsByClassName('w3-amber')[0].style = "width:84%"
 
 }
 

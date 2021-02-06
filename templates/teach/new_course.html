@@ -180,31 +180,11 @@ else{
         success: function(data){
             pk = data.pk
             if(key == 'pre_req' ){
-                // getLangPrereq();
-            //     // for(var i=0; i< prereqs_all.length; i++){
-            //     //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>';
-            //     // }
-                
-            //     // for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            //     // option = document.getElementById("selectpicker_prereq").options[i];
-            //     // if (pre_reqs.includes(option.value) == true || option.value == value) {
-            //     //     option.selected = true;
-            //     //     }
-            //     // }
+                 getLangPrereq();
              }
 
             if(key == "languages"){
-                // getLangPrereq();
-                for(var i=0; i< languages_all.length; i++){
-                    document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
-                }
-
-                for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
-                option = document.getElementById("selectpicker").options[i];
-                if (languages.includes(option.value) == true || option.value == value) {
-                    option.selected = true;
-                }
-            }
+                 getLangPrereq();
 
             }
             
@@ -292,22 +272,56 @@ function saveImageDraft() {
             }
         })
 }
+
+function die(e){
+    // alert(e.target.id)
+    var txt = e.target.id;
+    var p1 = document.getElementsByClassName("xyz");
+    var b=txt-1;
+    p1[b].classList.toggle("second");
+    $.ajax({
+            method: "POST",
+            url: '{% url "api:delete_lang" %}',
+            data: {
+                'name': p1[b].childNodes[0].nodeValue, 
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'pk': pk
+            },
+            success: function(data){
+                console.log('sucCess')
+            }, error: function(error){
+                console.log('error')
+            }
+        })
+    }
+    
     var languages_all = [] 
     // prereqs_all = [] 
     function getLangPrereq(){
+        document.getElementById('langs').innerHTML = ` <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> `
         $.ajax({
             method: 'GET',
             url: "{% url 'api:get_lang_prereq' %}",
             data: {
-                'pk':sessionStorage.getItem('pk')
+                'pk':pk
             },
             async:false,
             success: function(data){
                 languages_all = []
                 // prereqs_all = []
                 for(var i= 0; i < data.languages.length; i++){
-                    languages_all.push(data.languages[i])
-                
+                    languages_all.push(data.languages[i].name)
+                }
+                var d1 = document.getElementsByClassName('pret')[0]
+                for(var i=0;i<languages_all.length;i++){
+                    var b = i+1;
+                    if(i == 0){
+                        d1.insertAdjacentHTML('beforebegin','<span class="xyz mm">'+ languages_all[i] + '<i id="'+b+'" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>')
+                    }
+                    else{
+                        d1.insertAdjacentHTML('beforebegin','<span class="xyz">'+ languages_all[i] + '<i id="'+b+'" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>')
+                    }
+                   
                 }
                 pre_reqs = data.prerequisites
                 // for(var i= 0; i < data.prerequisites.length; i++){
@@ -342,9 +356,9 @@ function saveImageDraft() {
     }
 
     function createChapterPage(){
-        for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
-       if (document.getElementsByClassName("time_radio_input")[i].checked) {
-           no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+        for (var i = 0; i < document.getElementsByClassName("male_time").length; i++) {
+       if (document.getElementsByClassName("male_time")[i].checked) {
+           no_of_hours = document.getElementsByClassName("male_time")[i].value
        }
    }
     saveDraft('no_of_hours',no_of_hours)
