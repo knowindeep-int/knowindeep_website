@@ -869,17 +869,6 @@ li {
 .box55 {
     margin-top: -20px;
 }
-<<<<<<< HEAD
-
-.author {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
-
-h5 {
-    margin: 0;
-=======
 /* .author{
 	width: 100px;
 	height: 100px;
@@ -887,7 +876,6 @@ h5 {
 } */
 h5{
 	margin: 0;
->>>>>>> 5e2bb5fb049131bcdcdebfec80cb3951a760fb8f
 }
 
 .la {
@@ -981,18 +969,6 @@ h5{
 .box55 {
     margin-top: -20px;
 }
-<<<<<<< HEAD
-
-.author {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-h5 {
-    margin: 0;
-=======
 /* .author{
 	width: 100px;
 	height: 100px;
@@ -1001,7 +977,6 @@ h5 {
 } */
 h5{
 	margin: 0;
->>>>>>> 5e2bb5fb049131bcdcdebfec80cb3951a760fb8f
 }
 
 .la {

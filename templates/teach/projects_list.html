@@ -43,7 +43,7 @@
   <button type="submit" onclick="implementSearchProjects()">Search</button>
   <div class= "results"></div>
 ======= -->
-  <input type="text" name="search" id="search_projects_ongoing">
+  <input type="text" name="search" id="search_projects_ongoing" autocomplete="off">
   <button type="submit" onclick="">Search</button>
   
 <!-- >>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d -->
@@ -76,9 +76,9 @@
             } 
         }
     document.getElementById('search_projects_ongoing').addEventListener('keyup', function(){
-        if(document.getElementById('search_projects_ongoing').value == ""){
+      
             document.getElementById('dropdown_ongoing').innerHTML = ""
-        }
+        
         // document.getElementById('results').innerHTML = "results are " 
        var projects= project_titles_ongoing.filter(filterCompletedProjects)
        var dropdown_div = document.getElementById('dropdown_ongoing')
