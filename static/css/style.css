@@ -449,7 +449,7 @@ header {
 .card-title{	
 	font-weight: ;
 	font-size: 2em;
-	overflow-x: hidden;
+	overflow: hidden;
 	/* margin-left: 5px; */
 	/* vertical-align: middle; */
 }
@@ -475,6 +475,7 @@ header {
 .name{
 	width:120px;
 	border-bottom: 3px;
+	padding-left: 15px ;
 }
 .image{
   width: 20px;
@@ -1177,7 +1178,7 @@ background-color:#f9a80d;
 }
 .dropdown-menu-arrow {
 	top: -17px;
-	left: 90%;
+    left: 70px;
 	width: 0;
 	height: 0;
 	position: relative;
@@ -1192,12 +1193,14 @@ background-color:#f9a80d;
 	border-width: 7px 8px;
 	border-style: solid;
 	border-color: transparent;
+	color: #f1f1f1;
 	z-index: 1001;
   }
   .dropdown-menu-arrow:after {
 	bottom: -18px;
 	right: -8px;
 	border-bottom-color:#f1f1f1;
+	color:#f1f1f1;
   }
   .dropdown-menu-arrow:before {
 	bottom: -17px;
@@ -1269,4 +1272,11 @@ h8,.h8{
 		margin-top: -15px;
 	}
 	
+  }
+
+  .card-text{
+	  height: 80px !important;
+	  background-color: #ebebeb;
+	  overflow: hidden;
+	  padding-left: 7px;
   }
