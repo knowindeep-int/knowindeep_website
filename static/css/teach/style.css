@@ -502,15 +502,32 @@ header {
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    top: 30px;
-    right: 0;
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 150px;
+	box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 20%);
+	z-index: 1;
+	top: 20px;
+	right: -65px;
 }
+
+.col-md-4:nth-child(4) {
+	display: none;
+ }
+
+ .col-md-4:nth-child(5) {
+	display: none;
+ }
+
+ .w-auto{
+	 margin-top: -200px;
+ }
+
+ .w-100{
+	 width: 104% !important;
+	 padding-right: 4% !important;
+ }
 
 .dropdown-content a {
     color: black;
@@ -1173,18 +1190,19 @@ h6 {
     margin-left: -30px !important;
     background-image: url('/media/images/prev.png') !important;
 }
-
-.carousel-control-next-icon {
-    width: 30px !important;
-    height: 30px !important;
-    margin-right: -50px !important;
-    background-image: url('/media/images/next.png') !important;
+.carousel-control-next-icon{
+	width: 30px !important;
+	height: 30px !important;
+	margin-right: 5px !important;
+	background-image: url('/media/images/next.png') !important;
 }
 
 .carousel {
     overflow-y: visible;
 }
-
-.card-body {
-    text-align: left;
+.card-body{
+	text-align: left;
+}
+.carousel-inner{
+	height: 800px !important;
 }

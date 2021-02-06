@@ -479,13 +479,11 @@ header {
     margin-left: 5px;
     vertical-align: middle;
 }
-
-.card-title {
-    font-weight: ;
-    font-size: 2em;
-    overflow-x: hidden;
-    /* margin-left: 5px; */
-    /* vertical-align: middle; */
+.card-title{	
+	font-size: 2em;
+	overflow: hidden;
+	/* margin-left: 5px; */
+	/* vertical-align: middle; */
 }
 
 .lang {
@@ -511,10 +509,10 @@ header {
 .but2 {
     margin: 0;
 }
-
-.name {
-    width: 120px;
-    border-bottom: 3px;
+.name{
+	width:120px;
+	border-bottom: 3px;
+	padding-left: 15px ;
 }
 
 .image {
@@ -1229,7 +1227,6 @@ h6,
     margin-bottom: 20px;
 }
 
-.example button:hover {}
 
 .example::after {
     content: "";
@@ -1352,7 +1349,7 @@ h6,
 
 .dropdown-menu-arrow {
     top: -17px;
-    left: 90%;
+    left: 75px;
     width: 0;
     height: 0;
     position: relative;
@@ -1450,10 +1447,18 @@ h8 {
 }
 
 @media only screen and (max-width: 1006px) and (min-width: 991px) {
-    .nav-item1 {
-        display: none !important;
-    }
-    .n {
-        margin-top: -15px;
-    }
-}
+	.nav-item1{
+		display: none !important;
+	}
+	.n{
+		margin-top: -15px;
+	}
+	
+  }
+
+  .card-text{
+	  height: 80px !important;
+	  background-color: #ebebeb;
+	  overflow: hidden;
+	  padding-left: 7px;
+  }
