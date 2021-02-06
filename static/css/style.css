@@ -705,7 +705,7 @@ li {
 .dropdown.left.left-share {
     /* position: relative; */
     float: right !important;
-    top: 45px;
+    top: 45px;   
 }
 
 
@@ -716,7 +716,12 @@ li {
         margin-right: 200px;
     }
 }
-
+@media only screen and (max-width: 575px){
+    .dropdown.left.left-share{
+    position: relative;
+    right: -100px;
+    }
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
 
@@ -1453,7 +1458,12 @@ h8 {
 	.n{
 		margin-top: -15px;
 	}
-	
+	.login{
+         margin-bottom: -20px;
+    }
+    .n{
+        margin-top: -10px;
+    }
   }
 
   .card-text{
