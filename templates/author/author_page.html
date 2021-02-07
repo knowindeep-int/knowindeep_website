@@ -15,10 +15,19 @@
     function disableEdit(is_verified) ;
 
 
-    function updateProfile(field, value) {
+   
+
+
+    { % endblock jquery %
+    }
+</script>
+
+<script>
+     function updateProfile(field, value) {
         event.preventDefault();
         var dp = '{{ profile.dp }}'
         var first_name = '{{ profile.user.first_name }}'
+        var last_name = '{{ profile.user.last_name }}'
         var description = '{{ profile.description }}'
         var email_id = '{{ profile.user.email }}'
         var phone_number = '{{ profile.phone_number }}'
@@ -32,6 +41,8 @@
 
         let data = {
             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            'username':'{{profile.user.username}}',
+            'profile_id':'{{profile.user.pk}}',
             "description": description,
             "email_id": email_id,
             "phone_number": phone_number,
@@ -43,7 +54,8 @@
             "skills": skills,
             "isAuthor": isAuthor,
             "account_number": account_number,
-            "total_earnings": total_earnings
+            "total_earnings": total_earnings,
+            'last_name':last_name,
         }
 
         data[field] = value
@@ -57,18 +69,13 @@
                 console.log('SUCCESS')
             },
             error: function(error) {
-                console.log(error)
+                console.log('error')
             },
             
         })
-    }
-
-
-    { % endblock jquery %
+        reply(event)
     }
 </script>
-
-
 <!-- <div class="container">
     <div class="row" style="margin-top: 150px;">
         <div class="col-sm-12 col-md-6 col-lg-8 center-div">
@@ -201,7 +208,7 @@
         </div>
     </div>
 </div> -->
-
+{% csrf_token %}
 <br><br>
 
 <div class="container">
@@ -211,21 +218,21 @@
 				<div style="text-align: center;">
 				<img src="{{profile.dp.url}}" class="dp">
 				</div>
-				<!-- <img src="download.jpg" class="edite"> -->
+				<img src="/media/images/download.jpg" class="edite"> 
 			  <div class="porfil">
 				<h3>{{profile.user.username}}</h3>
 				<br>
 				<div class="details">
 					<div class="details1">
 						<b>Name:</b>
-						<!-- <span class="edit-btn">
-							<span class="btn-group second name1">
-								<button id="butn" class="btn save">save</button>
-								<button id="butn1" class="btn cancel" onClick="reply(event)">cancel</button>
-							</span>
-							<button id="1" class="btn edit" onClick="reply_click(event)">edit</button>
-						</span>--><br>
-						<span>{{profile.user.username}}</span>
+                        <span class="edit-btn">
+						<span class="btn-group second name1">
+                            <button id="butnsave1" class="btn save">Save</button>
+                            <button id="butn1" class="btn cancel" onClick="reply(event)">cancel</button>
+                        </span>
+                        <button id="1" class="btn edit" onClick="reply_click(event)">Edit</button>
+                    </span><br>
+						<span class="inputss"><input type="text" placeholder="{{profile.user.username}}" disabled></input></span>
 						<hr>
 					</div>
 				</div>
@@ -234,12 +241,12 @@
 						<b>Description:</b>
 						<span class="edit-btn">
 							<span class="btn-group second name1">
-								<button id="butn" class="btn save">save</button>
+								<button id="butnsave2" class="btn save" onclick="updateProfile('description',document.getElementById('inp_desc').value)">save</button>
 								<button id="butn2" class="btn cancel" onClick="reply(event)">cancel</button>
 							</span>
 							<button id="2" class="btn edit" onClick="reply_click(event)">edit</button>
 						</span><br>
-						<span>{{profile.description}}</span>
+						<span  class="inputss"><input id='inp_desc' type="text" placeholder='{{profile.description}}' disabled></input></span>
 						<hr>
 					</div>
 				</div>
@@ -248,12 +255,12 @@
 						<b>Phone Number:</b>
 						<span class="edit-btn">
 							<span class="btn-group second name1">
-								<button id="butn" class="btn save">save</button>
+								<button id="butnsave3" class="btn save" onclick="updateProfile('phone_number',document.getElementById('inp_ph').value)">save</button>
 								<button id="butn3" class="btn cancel" onClick="reply(event)">cancel</button>
 							</span>
 							<button id="3" class="btn    edit" onClick="reply_click(event)">edit</button>
 						</span><br>
-						<span>{{profile.phone_number}}</span>
+						<span  class="inputss"><input id='inp_ph' type="text" placeholder='{{profile.phone_number}}' disabled></input></span>
 						<hr>
 					</div>
 				</div>
@@ -268,12 +275,12 @@
 					<span class="edit-btn">
 						<span class="btn-group second name1">
 							
-							<button id="butn" class="btn    save">save</button>
+							<button id="butnsave4" class="btn    save" onclick="updateProfile('github_id',document.getElementById('inp_git').value)">save</button>
 							<button id="butn4" class="btn    cancel" onClick="reply(event)">cancel</button>
 						</span>
-						<button id="4" class="btn    edit" onClick="reply_click(event)">edit</button>
+						<button id="4" class="btn edit" onClick="reply_click(event)">edit</button>
 					</span><br>
-                    <span>{{profile.github_id}}</span>
+                    <span  class="inputss"><input id="inp_git" type="text" placeholder='{{profile.github_id}}' disabled></input></span>
 					<hr>
 				</div>
 			</div>
@@ -282,12 +289,12 @@
 					<b>LinkedIn:</b>
 					<span class="edit-btn">
 						<span  class="btn-group second name1">
-							<button id="butn" class="btn save">save</button>
+							<button id="butnsave5" class="btn save" onclick="updateProfile('linkedin_id',document.getElementById('inp_li').value)">save</button>
 							<button id="butn5" class="btn cancel" onClick="reply(event)">cancel</button>
 						</span>
 						<button id="5" class="btn    edit" onClick="reply_click(event)">edit</button>
 					</span><br>
-					<span>{{profile.linkedin_id}}</span>
+					<span  class="inputss"><input id="inp_li" type="text" placeholder='{{profile.linkedin_id}}' disabled></input></span>
 					<hr>
 				</div>
 			</div>
@@ -296,12 +303,12 @@
 					<b>Twitter:</b>
 					<span class="edit-btn">
 						<span class="btn-group second name1">
-							<button id="butn" class="btn    save">save</button>
+							<button id="butnsave6" class="btn    save" onclick="updateProfile('twitter_id',document.getElementById('inp_tw').value)">save</button>
 							<button id="butn6" class="btn    cancel"  onClick="reply(event)">cancel</button>
 						</span>
 						<button id="6" class="btn    edit" onClick="reply_click(event)">edit</button>
 					</span><br>
-                    <span>{{profile.twitter_id}}</span>
+                    <span  class="inputss"><input id="inp_tw" type="text" placeholder='{{profile.twitter_id}}' disabled></input></span>
 					<hr>
 				</div>
 			</div>
@@ -310,12 +317,12 @@
 					<b>Earnings:</b>
 					<span class="edit-btn">
 						<span class="btn-group second name1">
-							<button id="butn" class="btn    save">save</button>
+							<button id="butnsave7" class="btn    save" onclick="updateProfile('total_earnings',document.getElementById('inp_ear').value)">save</button>
 							<button id="butn7" class="btn    cancel" onClick="reply(event)">cancel</button>
 						</span>
 						<button id="7" class="btn    edit" onClick="reply_click(event)">edit</button>
 					</span><br>
-					<span>{{profile.total_earnings}}</span>
+					<span  class="inputss"><input id="inp_ear" type="text" placeholder='{{profile.total_earnings}}' disabled></input></span>
 					<hr>
 				</div>
 			</div>
