@@ -75,6 +75,10 @@
         })
         reply(event)
     }
+
+    function reroute(){
+        document.location.href = '/'
+    }
 </script>
 <!-- <div class="container">
     <div class="row" style="margin-top: 150px;">
@@ -227,12 +231,12 @@
 						<b>Name:</b>
                         <span class="edit-btn">
 						<span class="btn-group second name1">
-                            <button id="butnsave1" class="btn save">Save</button>
+                            <button id="butnsave1" class="btn save" onclick="updateProfile('username',document.getElementById('inp_name').value)">Save</button>
                             <button id="butn1" class="btn cancel" onClick="reply(event)">cancel</button>
                         </span>
                         <button id="1" class="btn edit" onClick="reply_click(event)">Edit</button>
                     </span><br>
-						<span class="inputss"><input type="text" placeholder="{{profile.user.username}}" disabled></input></span>
+						<span class="inputss"><input id= "inp_name" type="text" placeholder="{{profile.user.username}}" disabled></input></span>
 						<hr>
 					</div>
 				</div>
@@ -327,7 +331,7 @@
 				</div>
 			</div>
 			<div style="text-align: center !important;">
-			<button class="saveas">save changes</button>
+			<button class="saveas" onclick="reroute()">save changes</button>
 			</div>
 		</div>
 	</div>
