@@ -129,7 +129,7 @@ if('{{project.title}}'){
     {% for chapter in project.chapters.all %}
     var chapter_add_dict = {}
     chapter_add_dict['heading'] = '{{chapter.heading}}'
-    chapter_add_dict['content'] = '{{chapter.content | safe |linebreaksbr}}'
+    chapter_add_dict['content'] = `{{chapter.content | safe |linebreaksbr}}`
     chapter_add_dict['description'] = '{{chapter.description}}'
     chapter_add_dict['youtube_link'] = '{{chapter.youtube_link}}'
     chapters.push(chapter_add_dict)
@@ -242,12 +242,19 @@ function saveImageDraft() {
                 }
                
                 if(data.languages.length == 0){
-                    var btn = document.createElement('button')
-                    btn.classList = "btn btn-primary"
-                    btn.style = "float: right;"
-                    btn.setAttribute('onclick','add_language()')
-                    btn.innerHTML = 'ADD NEW LANGUAGE'
-                    document.getElementById('results_lang').appendChild(btn)
+                    // var btn = document.createElement('button')
+                    // btn.classList = "btn btn-primary"
+                    // btn.style = "float: right;"
+                    // btn.setAttribute('onclick','add_language()')
+                    // btn.innerHTML = 'ADD NEW LANGUAGE'
+                    // document.getElementById('results_lang').appendChild(btn)
+                    // alert('hey')
+                    document.getElementById('search_language').addEventListener('keyup',function (e) {
+                        if (e.keyCode == '13' && document.getElementById('search_language').value != '') { 
+                     
+                 add_language();
+                }
+                });
                 }
             },
             error: function(error){
