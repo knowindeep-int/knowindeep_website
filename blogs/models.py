@@ -237,7 +237,8 @@ class Project(models.Model):
         project = cls.objects.get(pk=pk)
         if project.title == None or project.title == "":
             return "title"
-        if project.description == None or project.description == "":
+        if project.description == None or project.description == "" or project.pre_req == None or project.pre_req == '':
+            # print(project.languages.all())
             return "description"
         if project.difficulty_level == None or project.difficulty_level == "":
             return "difficulty_level"
