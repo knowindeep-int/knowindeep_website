@@ -254,8 +254,16 @@ header {
 
 
 /* Responsive Style */
+@media (max-width: 991.5px){
+.functional-buttons{
+    display: none;
+}
+.n{
+    display: none !important;
+}
 
-@media (max-width: 991px) {
+}
+@media (max-width: 991.5px) {
     .navbar .navbar-brand {
         position: absolute;
         left: 30px;
@@ -666,6 +674,7 @@ li {
 .form1 {
     width: 200px;
     cursor: pointer;
+    margin-top: 1px;
 }
 
 .form:hover .input {
@@ -745,7 +754,7 @@ li {
 
 /* Large devices (laptops/desktops, 992px and up) */
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 991px) {
     .stacks {
         padding: 2% 2%;
     }
@@ -767,6 +776,7 @@ li {
     .stack {
         margin-right: 40px;
     }
+   
 }
 
 
@@ -1452,18 +1462,7 @@ h8 {
 }
 
 @media only screen and (max-width: 1006px) and (min-width: 991px) {
-	.nav-item1{
-		display: none !important;
-	}
-	.n{
-		margin-top: -15px;
-	}
-	.login{
-         margin-bottom: -20px;
-    }
-    .n{
-        margin-top: -10px;
-    }
+
   }
 
   .card-text{
@@ -1471,4 +1470,10 @@ h8 {
 	  background-color: #ebebeb;
 	  overflow: hidden;
 	  padding-left: 7px;
+  }
+  @media(max-width: 1200px){
+    .container{
+        width: 100% !important;
+        max-width: 1150px !important;
+    }
   }
