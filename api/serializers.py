@@ -95,6 +95,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         skills = validated_data.get('skills')
         instance.dp = self.validated_data.get('dp', instance.dp)
         instance.user.email = (validated_data['email_id'], instance.user.email)[validated_data.get('email_id') is None]
+        instance.user.username = (validated_data['username'], instance.user.username)[validated_data.get('username') is None]
         instance.user.last_name = (validated_data['last_name'], instance.user.last_name)[validated_data.get('last_name') is None]
         instance.user.first_name = (validated_data['first_name'],instance.user.first_name)[validated_data.get('first_name') is None]
         instance.description = (self.validated_data['description'], instance.description)[self.validated_data.get('description') is None]

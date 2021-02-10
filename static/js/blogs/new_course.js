@@ -257,7 +257,6 @@ function format(cmd){
 };
 function addPrereqs(){
     pre_reqs = document.getElementsByClassName('editor')[0].innerHTML 
-    alert(pre_reqs)
     saveDraft('pre_req', pre_reqs)
 }
 function addLanguage(e){
@@ -291,6 +290,8 @@ function createTitlePage() {
     '<br><span id="error_title"></span></div>'
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
+    document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
+    document.getElementById('prev_btn').setAttribute('onclick', 'document.location.href = "/teach"')
     document.getElementById('current').innerHTML = 1
     document.getElementsByClassName('w3-amber')[0].style = "width:14% !important"
     // div.setAttribute("class", "jumbotron text-center") ;
