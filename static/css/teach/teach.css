@@ -1579,3 +1579,13 @@ display: block !important;
 #bold{
     margin-left: 10px;
 }
+
+.k{
+    width: 72.5%;
+    margin: 0 auto;
+    padding: 50px;
+    min-height: 550px;
+}
+.pqrs{
+    min-height: 300px;
+}
