@@ -144,6 +144,38 @@
 
 
                             </form>
+                            <li class="nav-item">
+                                <div class="middle-drop">
+                                    <div class="dropdown left left-share">
+                                        <button onclick="this.parentElement.children[1].classList.toggle('show');" class="dropbtn">
+                                            <img src="link.png">
+                                        </button>
+                                        <div class="dropdown-content" id="myDropdown2">
+                                            <span class="dropdown-menu-arrow"></span>
+                                            <div class="top-menu12">
+                                                <img src="/media/{{request.user.user.dp}}" class="dp1">
+                                                <span style="font-size: 14px;">{{request.user.email}}</span>
+                                                <span>{{request.user.username}}</span>
+                                            </div>
+                                            <hr class="hr">
+                                            <div class="ch1 top22">Write a story</div>
+                                            <div class="ch1">Stories</div>
+                                            <div class="ch1">Stats</div>
+                                            <div class="ch1">Design your profile</div>
+                                            <div class="ch1 bot22">Setting</div>
+                                            <hr class="hr">
+                                            <div class="ch1 top22">Reading List</div>
+                                            <div class="ch1">Publication</div>
+                                            <div class="ch1">Control your recommendations</div>
+                                            <div class="ch1 bot22">Medium Partner Program</div>
+                                            <hr class="hr">
+                                            <div class="ch1 top22">Becaome a Member</div>
+                                            <div class="ch1">help</div>
+                                            <div class="ch1 bot22">Sign out</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
                             <div class="dropdown-menu menu" id="srch" style="padding:0; margin:0; border:0;">
                             </div>
                         </li>
