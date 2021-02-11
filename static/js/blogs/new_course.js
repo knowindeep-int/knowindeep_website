@@ -561,18 +561,35 @@ function createImagePage() {
 
 
     div = document.getElementById("9")
-    div.setAttribute("class", "jumbotron text-center k");
+    // div.setAttribute("class", "jumbotron text-center k");
+//     `
+//     <img src="icon.png" class="icon1">
+    
+// <br>
+// <div >
+//   <img class="imgusr" src="imgg.jpg" >
+// </div>
 
-    div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
-    div.innerHTML += '<div style="color: black;" id="image_input_div" class="pqrs">';
-    div.innerHTML += '<input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;" id="image_input">';
+// <div class="xyz">xyz.jpg</div>
+// <br>
+//   <span class="button-img">
+//     <button class="button-size" type="button" onclick="alert('Hello world!')">Choose image</button>
+//   </span>
+//   <span class="button-img">
+//     <button class="button-size" type="button" onclick="alert('Hello world!')">Remove</button>
+//   </span>
+// </div>`
+    div.innerHTML += `<div class="container-fluid container-fluid1 container"><img src='/media/images/no_of_hours.png' class='icon1'>
+                        <h3>Add image for your page</h3>
+                        <div style="color: black;" id="image_input_div">
+                        <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;" ></div>`
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('current').innerHTML = 5
-    document.getElementsByClassName('progress-bar')[0].style = "width:70%"
+    document.getElementsByClassName('w3-amber')[0].style = "width:70%"
     if(image != "None"){
-        div.innerHTML += '<img id="project_image">';
+        document.getElementsByClassName('container')[2].innerHTML += '<img id="project_image">';
         document.getElementById('project_image').src =image
     }
 

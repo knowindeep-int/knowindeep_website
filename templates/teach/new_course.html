@@ -422,7 +422,7 @@ function deleteImage(e){
             type: 'DELETE',
             success: function(data){
                     alert('image deleted sucessfully!')
-                    document.getElementsByClassName('image')[0].remove();  
+                    document.getElementsByClassName('imgusr')[0].remove();  
                     document.getElementById('remove_img_btn').remove()
                 },
                 error: function(error){
@@ -447,10 +447,10 @@ function addLocalImage(e){
         var targetDiv=document.getElementsByClassName("editor")[0];
             var file = $(e).prop('files')[0];
             var img=document.createElement("img");
-            img.setAttribute('style', 'width:200px;height:200px;');
+            // img.setAttribute('style', 'width:200px;height:200px;');
             // img.setAttribute('style', 'height:200px');
 
-            img.className="image"
+            img.className="imgusr"
             var reader  = new FileReader();
             var fig = document.createElement('figure')
             // var fig_caption = document.createElement('figcaption')
@@ -458,11 +458,15 @@ function addLocalImage(e){
             // fig_caption.innerHTML =  "Write your caption here!"
             fig.className = "fig"
             // fig.setAttribute('contenteditable','true')
+            var span = document.createElement('span')
+            span.className = "button-img"
             var btn = document.createElement('button')
             btn.setAttribute('id', 'remove_img_btn')
+            btn.className = 'button-size'
             btn.innerHTML = "REMOVE"
             btn.setAttribute('onclick', 'deleteImage(this)')
-            document.getElementById('image_input_div').appendChild(btn)
+            span.appendChild(btn)
+            document.getElementById('image_input_div').appendChild(span)
             fig.appendChild(img);
             document.getElementById('image_input_div').appendChild(fig)
             
