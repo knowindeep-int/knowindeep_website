@@ -674,7 +674,6 @@ li {
 .form1 {
     width: 200px;
     cursor: pointer;
-    margin-top: 1px;
 }
 
 .form:hover .input {
@@ -1490,6 +1489,7 @@ h8 {
 
 .dp1{
     width: 35px;
+    height: 35px;
     border-radius: 50%;
     float: left;
     vertical-align: middle;
@@ -1518,22 +1518,21 @@ h8 {
   
   .dropdown-menu-arrow:after {
     bottom: -18px;
-    right: -25px;
+    right: 95px;
     border-bottom-color: white;
   }
   
   .dropdown-menu-arrow:before {
     bottom: -17px;
-    right: -25px;
-    border-bottom-color: white;
+    right: 95px;
+    border-bottom-color: #777777;
   }
   .middle-drop{
-    position: fixed;
-    top: 10%;
-    right: 50%;
+  
   }
   
 .dropdown-content div{
+  text-align: left;
   padding: 10px;
   padding-left: 20px;
   font-size: 15px;
@@ -1546,6 +1545,7 @@ h8 {
 .top-menu12{
   margin: 10px 0;
   padding-right: 20px !important;
+  height: 55px;
 }
 .top22{
   padding-top: 20px !important;
@@ -1553,7 +1553,7 @@ h8 {
 .bot22{
   padding-bottom: 20px !important;
 }
-.hr{
+.hr1{
   margin: 0;
   border: none;
   border-top: 2px solid #d4d4d4;
@@ -1561,4 +1561,11 @@ h8 {
 .ch1:hover{
   color:#f9a80d;
   background-color: #e1e1e1;
+}
+.profile9{
+    margin-top: -41px;
+}
+.cont33{
+    border: 1px solid #777777; 
+    top: 40px;
 }
