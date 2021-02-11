@@ -693,9 +693,9 @@ function createDifficultyPage() {
         document.getElementById("error_prereq").style = "color: red;";
         return;
     }
-    else {
-        document.getElementById("error_prereq").innerHTML = "";
-    }
+    // else {
+    //     document.getElementById("error_prereq").innerHTML = "";
+    // }
     
     // if (document.getElementById("selectpicker_prereq") != null) {
     //     pre_reqs = [];

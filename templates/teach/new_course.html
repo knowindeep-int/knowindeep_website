@@ -179,7 +179,8 @@ else{
         data : data,
         success: function(data){
             pk = data.pk
-            if(key == 'pre_req' ){
+            if(key == 'pre_req' && '{{status}}'!='difficulty_level' ){
+                alert('hey,{{status}}')
                  getLangPrereq();
              }
 
