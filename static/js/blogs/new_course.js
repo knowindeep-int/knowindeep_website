@@ -186,7 +186,7 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
     content += '<div id ="results_lang" ></div>'
     
     content += '</div>'
-    content += '<span id="error_language"></span>';
+    content += '<div id="error_language"></div>';
     
     
     content += "<h8>Add Prerequisites</h8>";
@@ -211,7 +211,7 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
     content += pre_reqs
     content += '</div>'
     // content += '<button onclick = "addPrereqs()">Add Prerequisites</button>'
-    // content += '<span id="error_prereq" ></span>'
+     content += '<div id="error_prereq" ></div>'
     content += '</div>'
     // div.setAttribute("class", "jumbotron text-center");
     div.innerHTML = content
@@ -688,6 +688,15 @@ function createDifficultyPage() {
         
     }
     saveDraft('pre_req',pre_reqs)
+    if(pre_reqs == ''){
+        document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+        document.getElementById("error_prereq").style = "color: red;";
+        return;
+    }
+    else {
+        document.getElementById("error_prereq").innerHTML = "";
+    }
+    
     // if (document.getElementById("selectpicker_prereq") != null) {
     //     pre_reqs = [];
     //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
@@ -697,13 +706,13 @@ function createDifficultyPage() {
     //     }
     //     
     //     if (pre_reqs.length == 0) {
-    //         document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
-    //         document.getElementById("error_prereq").style = "color: red;";
-    //         return;
-    //     }
-    //     else {
-    //         document.getElementById("error_prereq").innerHTML = "";
-    //     }
+        //     document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+        //     document.getElementById("error_prereq").style = "color: red;";
+        //     return;
+        // }
+        // else {
+        //     document.getElementById("error_prereq").innerHTML = "";
+        // }
        
     // }
     // saveDraft("description", description);
