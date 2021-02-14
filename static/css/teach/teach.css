@@ -1604,7 +1604,7 @@ display: block !important;
     box-shadow: inset 0 0 10px #cccccc;
 
 }
-.imgusr{
+.imgusr, #project_image{
 	max-width:380px;
 	max-height: 254px;
 	border:5px solid white;

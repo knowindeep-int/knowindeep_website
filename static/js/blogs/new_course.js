@@ -589,7 +589,8 @@ function createImagePage() {
     document.getElementById('current').innerHTML = 5
     document.getElementsByClassName('w3-amber')[0].style = "width:70%"
     if(image != "None"){
-        document.getElementsByClassName('container')[2].innerHTML += '<img id="project_image">';
+        // document.getElementsByClassName('container')[2].innerHTML += '<img id="project_image">';
+        document.getElementById('image_input').insertAdjacentHTML('beforebegin','<img id="project_image"><br>')
         document.getElementById('project_image').src =image
     }
 
@@ -878,7 +879,7 @@ function createDifficultyPage() {
                      '<span class="dot-bar"><input class="male" type="radio" id="medium" name="diff" value="MEDIUM" >' +
                      '<label  for="medium">MEDIUM</label></span>' +
                      '<span class="dot-bar"><input class="male" type="radio" id="hard"   name="diff" value="HARD" >' +
-                     '<label  for="hard">HARD</label></span>' +'</div><br><br><br>';
+                     '<label  for="hard">HARD</label></span><div id="error_diff" ></div>' +'</div><br><br><br>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
     //     '</div>';
     div.innerHTML = content

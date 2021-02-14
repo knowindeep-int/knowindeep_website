@@ -468,8 +468,8 @@ function addLocalImage(e){
             span.appendChild(btn)
             document.getElementById('image_input_div').appendChild(span)
             fig.appendChild(img);
-            document.getElementById('image_input_div').appendChild(fig)
-            
+            // document.getElementById('image_input_div').appendChild(fig)
+            document.getElementById('image_input').insertAdjacentElement("beforebegin",fig)
             // fig.appendChild(fig_caption)
             // if(fx().className == 'editor' ||  document.body === fx()){
             
