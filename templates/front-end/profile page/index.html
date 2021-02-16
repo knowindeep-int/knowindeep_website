@@ -183,7 +183,17 @@
 					<span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
 					<span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
 				</div>
-					<input type="text" class="pret" id="lang3" name="Languages">
+					<form>
+						<input list="browsers" class="pret" id="lang3" name="Languages" id="browser">
+						<datalist id="browsers">
+						  <option value="Edge">
+						  <option value="Firefox">
+						  <option value="Chrome">
+						  <option value="Opera">
+						  <option value="Safari">
+						</datalist>
+					  </form>
+					  
 			</div>
 		</div>
 	</div>
