@@ -186,7 +186,7 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
     content += '<div id ="results_lang" ></div>'
     
     content += '</div>'
-    content += '<span id="error_language"></span>';
+    content += '<div id="error_language"></div>';
     
     
     content += "<h8>Add Prerequisites</h8>";
@@ -198,16 +198,20 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
 
     // content += '</select></div>'
     content += '<div class="search-bar">'
-    content += '<button id="bold" onclick="document.execCommand(' + bold +')">B</button>'
-    content += '<button id="underline" onclick="document.execCommand(' + italic +')">I</button>'
-    content += '<button id="italic" onclick="document.execCommand(' + underline+')">U</button>'
-    content += '<button id="bold" onclick="document.execCommand(' + ordered +')">Ordered</button>'
-    content += '<button id="ordered-list" onclick="addLink()">add link</button>'
+    content += '<div class="top-bar12">'
+    content += '<button id="bold" onclick="document.execCommand(' + bold +')"><i class="fas fa-bold"></i></button>'
+    content += '<button id="underline" onclick="document.execCommand(' + italic +')"><i class="fas fa-italic"></i></button>'
+    content += '<button id="italic" onclick="document.execCommand(' + underline+')"><i class="fas fa-underline" style="font-size: 17px;"></i></button>'
+    content += '<span class="slash">|</span>'
+    content += '<button id="bold" onclick="document.execCommand(' + ordered +')"><i class="fas fa-list-ol"></i></button>'
+    content += '<span class="slash">|</span>'
+    content += '<button id="ordered-list" onclick="addLink()"><svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531.8 534.09"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><path class="cls-1" d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59" transform="translate(-280.31 -224.63)"/><path class="cls-1" d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88" transform="translate(-280.31 -224.63)"/><line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"/><circle class="cls-1" cx="386.8" cy="389.09" r="130"/><line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"/><line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"/></svg></button>'
+    content += '</div>'
     content += '<div class="editor" contenteditable="true" spellcheck="false" >'
     content += pre_reqs
     content += '</div>'
     // content += '<button onclick = "addPrereqs()">Add Prerequisites</button>'
-    // content += '<span id="error_prereq" ></span>'
+     content += '<div id="error_prereq" ></div>'
     content += '</div>'
     // div.setAttribute("class", "jumbotron text-center");
     div.innerHTML = content
@@ -286,6 +290,8 @@ function createTitlePage() {
     '<br><span id="error_title"></span></div>'
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
+    document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
+    document.getElementById('prev_btn').setAttribute('onclick', 'document.location.href = "/teach"')
     document.getElementById('current').innerHTML = 1
     document.getElementsByClassName('w3-amber')[0].style = "width:14% !important"
     // div.setAttribute("class", "jumbotron text-center") ;
@@ -434,6 +440,11 @@ function createOverviewPage() {
             }
         }
     }
+    if ($('input:checked').length == 0){
+        document.getElementById("error_diff").innerHTML = "Cannot Be Empty!";
+        document.getElementById("error_diff").style = "color: red;";
+        return;
+    }
     saveDraft('difficulty_level', difficulty_level)
     // if (document.getElementById("selectpicker_prereq") != null) {
     //     pre_reqs = [];
@@ -485,7 +496,7 @@ function createOverviewPage() {
     "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 
     '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="overview_input" value="' + overview + '"> ' + 
     '</div>'
-    div.innerHTML += " <span id='error_overview'></span>"
+    div.innerHTML += " <div id='error_overview'></div>"
     document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage();')
     document.getElementById('current').innerHTML = 4
@@ -512,7 +523,9 @@ function createImagePage() {
                 no_of_hours = document.getElementsByClassName("male_time")[i].value
             }
         }
+      
     }
+   
         //saveDraft('no_of_hours',parseInt(no_of_hours))
     
     showhide("9")
@@ -555,18 +568,36 @@ function createImagePage() {
 
 
     div = document.getElementById("9")
-    div.setAttribute("class", "jumbotron text-center");
+    // div.setAttribute("class", "jumbotron text-center k");
+//     `
+//     <img src="icon.png" class="icon1">
+    
+// <br>
+// <div >
+//   <img class="imgusr" src="imgg.jpg" >
+// </div>
 
-    div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
-    div.innerHTML += '<div style="color: black;" id="image_input_div">';
-    div.innerHTML += '<input id="image_input" type="file" onchange="checkImage()" style="color: black;" id="image_input">';
+// <div class="xyz">xyz.jpg</div>
+// <br>
+//   <span class="button-img">
+//     <button class="button-size" type="button" onclick="alert('Hello world!')">Choose image</button>
+//   </span>
+//   <span class="button-img">
+//     <button class="button-size" type="button" onclick="alert('Hello world!')">Remove</button>
+//   </span>
+// </div>`
+    div.innerHTML += `<div class="container-fluid container-fluid1 container"><img src='/media/images/no_of_hours.png' class='icon1'>
+                        <h3>Add image for your page</h3>
+                        <div style="color: black;" id="image_input_div">
+                        <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;" ><div id="error_image" ></div></div>`
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('current').innerHTML = 5
-    document.getElementsByClassName('progress-bar')[0].style = "width:70%"
+    document.getElementsByClassName('w3-amber')[0].style = "width:70%"
     if(image != "None"){
-        div.innerHTML += '<img id="project_image">';
+        // document.getElementsByClassName('container')[2].innerHTML += '<img id="project_image">';
+        document.getElementById('image_input').insertAdjacentHTML('beforebegin','<img id="project_image"><br>')
         document.getElementById('project_image').src =image
     }
 
@@ -575,12 +606,23 @@ function createImagePage() {
 // }
 
 function checkImage(){
-    if(document.getElementsByClassName('image').length>0){
+    document.getElementById("error_image").style = 'display:none;'
+    if(document.getElementsByClassName('imgusr').length>0){
         deleteImage(document.getElementById('image_input'))
     }
     addLocalImage(document.getElementById('image_input'))
 }
 function createNumberOfHours() {
+    
+    // if(document.getElementById('fig-caption') == null){
+    //     alert('7')
+    //     document.getElementById("error_image").innerHTML = "Cannot Be Empty!";
+    //     document.getElementById("error_image").style = "color: red;";
+    //     return;
+    // }
+    // else {
+    //     document.getElementById("error_image").innerHTML = "";
+    // }
     saveImageDraft()
     showhide("10");
     div_1 = document.getElementById("1");
@@ -626,7 +668,7 @@ function createNumberOfHours() {
         '<span class= "dot-bar"><input class="male_time" type="radio" id="2-4" name="hours" value="2.4"  style="opacity: 1;">' +
         '<label for="2-4">2-4 HOURS</label></span>' +
         '<span class= "dot-bar"><input class="male_time" type="radio" id=">4" name="hours" value=".4" style="opacity: 1;">' +
-        '<label for=">4">MORE THAN 4 HOURS</label></span></div></div>';
+        '<label for=">4">MORE THAN 4 HOURS</label></span><div id="error_numb" ></div></div></div>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
     div.innerHTML = content
@@ -682,6 +724,15 @@ function createDifficultyPage() {
         
     }
     saveDraft('pre_req',pre_reqs)
+    if(pre_reqs == ''){
+        document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+        document.getElementById("error_prereq").style = "color: red;";
+        return;
+    }
+    // else {
+    //     document.getElementById("error_prereq").innerHTML = "";
+    // }
+    
     // if (document.getElementById("selectpicker_prereq") != null) {
     //     pre_reqs = [];
     //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
@@ -691,13 +742,13 @@ function createDifficultyPage() {
     //     }
     //     
     //     if (pre_reqs.length == 0) {
-    //         document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
-    //         document.getElementById("error_prereq").style = "color: red;";
-    //         return;
-    //     }
-    //     else {
-    //         document.getElementById("error_prereq").innerHTML = "";
-    //     }
+        //     document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+        //     document.getElementById("error_prereq").style = "color: red;";
+        //     return;
+        // }
+        // else {
+        //     document.getElementById("error_prereq").innerHTML = "";
+        // }
        
     // }
     // saveDraft("description", description);
@@ -846,7 +897,7 @@ function createDifficultyPage() {
                      '<span class="dot-bar"><input class="male" type="radio" id="medium" name="diff" value="MEDIUM" >' +
                      '<label  for="medium">MEDIUM</label></span>' +
                      '<span class="dot-bar"><input class="male" type="radio" id="hard"   name="diff" value="HARD" >' +
-                     '<label  for="hard">HARD</label></span>' +'</div><br><br><br>';
+                     '<label  for="hard">HARD</label></span><div id="error_diff" ></div>' +'</div><br><br><br>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
     //     '</div>';
     div.innerHTML = content

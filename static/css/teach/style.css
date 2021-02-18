@@ -511,26 +511,6 @@ header {
 	top: 20px;
 	right: -65px;
 }
-@media only screen and (max-width: 768px){
-.col-md-6:nth-child(4) {
-	display: none;
- }
-
-.col-md-6:nth-child(5) {
-	display: none;
-}
-
-.col-md-6:nth-child(3) {
-    display: none;
-}
-}
-.col-lg-4:nth-child(4) {
-	display: none;
- }
-
- .col-lg-4:nth-child(5) {
-	display: none;
- }
 
  .w-auto{
 	 margin-top: -200px;
@@ -1209,9 +1189,7 @@ h6 {
 	background-image: url('/media/images/next.png') !important;
 }
 
-.carousel {
-    overflow-y: visible;
-}
+
 .card-body{
 	text-align: left;
 }

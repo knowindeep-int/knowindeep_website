@@ -14,6 +14,9 @@ function mousein() {
 
 function myFunc() {
     document.getElementById("form").classList.add("form1");
+    // var navs=document.getElementsByClassName('nav-item1');
+    // navs[0].classList.add('hidden');
+    // navs[1].classList.add('hidden');
 }
 function getLoginPopUp(){
     document.getElementsByTagName('body')[0].setAttribute('style', 'position: fixed;background-color: #d0d0d0;')
@@ -31,6 +34,11 @@ document.onclick = function(event) {
         var dropdowns = document.getElementsByClassName("dropdown-menu");
         var myDropdown = document.getElementById("form");
         var z = document.getElementById("i");
+        // var navs=document.getElementsByClassName('nav-item1');
+        // if(navs[0].classList.contains('hidden')){
+        //     navs[0].classList.remove('hidden')
+        //     navs[1].classList.remove('hidden')
+        // }
         if (myDropdown.classList.contains('form1')) {
             myDropdown.classList.remove('form1');
         }
