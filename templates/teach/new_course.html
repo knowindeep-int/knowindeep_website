@@ -180,8 +180,7 @@ else{
         success: function(data){
             pk = data.pk
             if(key == 'pre_req' && '{{status}}'!='difficulty_level' ){
-                alert('hey,{{status}}')
-                 getLangPrereq();
+            getLangPrereq();
              }
 
             if(key == "languages"){
@@ -203,8 +202,8 @@ function saveImageDraft() {
     // formData.append('image', file);
     // formData.append('pk', pk);
     // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
-    if(called == 1 && document.getElementsByClassName('image')[0]){
-        var url = document.getElementsByClassName('image')[0].src}
+    if(called == 1 && document.getElementsByClassName('imgusr')[0]){
+        var url = document.getElementsByClassName('imgusr')[0].src}
         else  if(called == 1 && document.getElementsByClassName('project_image')[0]){
         var url = document.getElementsByClassName('project_image')[0].src}
     $.ajax({
@@ -369,6 +368,11 @@ function die(e){
            no_of_hours = document.getElementsByClassName("male_time")[i].value
        }
    }
+   if ($('input:checked').length == 0){
+        document.getElementById("error_numb").innerHTML = "Cannot Be Empty!";
+        document.getElementById("error_numb").style = "color: red;";
+        return;
+    }
     saveDraft('no_of_hours',no_of_hours)
     document.location.href = '/teach/chapter/' + pk
         // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
@@ -421,12 +425,12 @@ function deleteImage(e){
             url: 'https://api.imgur.com/3/image/' + deletehash,
             type: 'DELETE',
             success: function(data){
-                    alert('image deleted sucessfully!')
+                    console.log('image deleted sucessfully!')
                     document.getElementsByClassName('imgusr')[0].remove();  
                     document.getElementById('remove_img_btn').remove()
                 },
                 error: function(error){
-                    alert(error)
+                    console.log(error)
                 },
                 beforeSend: setImgurHeader,
 
@@ -453,9 +457,10 @@ function addLocalImage(e){
             img.className="imgusr"
             var reader  = new FileReader();
             var fig = document.createElement('figure')
-            // var fig_caption = document.createElement('figcaption')
-            // fig_caption.className = "fig-caption"
-            // fig_caption.innerHTML =  "Write your caption here!"
+            var fig_caption = document.createElement('figcaption')
+            fig_caption.id = "fig-caption"
+            fig_caption.innerHTML =  document.getElementById('image_input').value
+            fig_caption.innerHTML = fig_caption.innerHTML.replace(/.*[\/\\]/, '');
             fig.className = "fig"
             // fig.setAttribute('contenteditable','true')
             var span = document.createElement('span')
@@ -468,6 +473,7 @@ function addLocalImage(e){
             span.appendChild(btn)
             document.getElementById('image_input_div').appendChild(span)
             fig.appendChild(img);
+            fig.appendChild(fig_caption)
             // document.getElementById('image_input_div').appendChild(fig)
             document.getElementById('image_input').insertAdjacentElement("beforebegin",fig)
             // fig.appendChild(fig_caption)
@@ -503,7 +509,7 @@ function addLocalImage(e){
                 contentType: false,
                 processData: false,
                 success: function(data){
-                    alert('success!')
+                    console.log('success!')
                     img.src = data.data.link
                     // img.style = "display:none;"
                     if(document.getElementById('remove_img_btn')!= null){
@@ -519,7 +525,7 @@ function addLocalImage(e){
                     image = data.data.link
                 },
                 error: function(error){
-                    alert(error)
+                    console.log(error)
                 },
                 beforeSend: setImgurHeader,
 

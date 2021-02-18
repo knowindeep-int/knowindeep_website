@@ -440,6 +440,11 @@ function createOverviewPage() {
             }
         }
     }
+    if ($('input:checked').length == 0){
+        document.getElementById("error_diff").innerHTML = "Cannot Be Empty!";
+        document.getElementById("error_diff").style = "color: red;";
+        return;
+    }
     saveDraft('difficulty_level', difficulty_level)
     // if (document.getElementById("selectpicker_prereq") != null) {
     //     pre_reqs = [];
@@ -491,7 +496,7 @@ function createOverviewPage() {
     "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 
     '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="overview_input" value="' + overview + '"> ' + 
     '</div>'
-    div.innerHTML += " <span id='error_overview'></span>"
+    div.innerHTML += " <div id='error_overview'></div>"
     document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage();')
     document.getElementById('current').innerHTML = 4
@@ -518,7 +523,9 @@ function createImagePage() {
                 no_of_hours = document.getElementsByClassName("male_time")[i].value
             }
         }
+      
     }
+   
         //saveDraft('no_of_hours',parseInt(no_of_hours))
     
     showhide("9")
@@ -582,7 +589,7 @@ function createImagePage() {
     div.innerHTML += `<div class="container-fluid container-fluid1 container"><img src='/media/images/no_of_hours.png' class='icon1'>
                         <h3>Add image for your page</h3>
                         <div style="color: black;" id="image_input_div">
-                        <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;" ></div>`
+                        <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;" ><div id="error_image" ></div></div>`
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
@@ -599,12 +606,23 @@ function createImagePage() {
 // }
 
 function checkImage(){
-    if(document.getElementsByClassName('image').length>0){
+    document.getElementById("error_image").style = 'display:none;'
+    if(document.getElementsByClassName('imgusr').length>0){
         deleteImage(document.getElementById('image_input'))
     }
     addLocalImage(document.getElementById('image_input'))
 }
 function createNumberOfHours() {
+    
+    // if(document.getElementById('fig-caption') == null){
+    //     alert('7')
+    //     document.getElementById("error_image").innerHTML = "Cannot Be Empty!";
+    //     document.getElementById("error_image").style = "color: red;";
+    //     return;
+    // }
+    // else {
+    //     document.getElementById("error_image").innerHTML = "";
+    // }
     saveImageDraft()
     showhide("10");
     div_1 = document.getElementById("1");
@@ -650,7 +668,7 @@ function createNumberOfHours() {
         '<span class= "dot-bar"><input class="male_time" type="radio" id="2-4" name="hours" value="2.4"  style="opacity: 1;">' +
         '<label for="2-4">2-4 HOURS</label></span>' +
         '<span class= "dot-bar"><input class="male_time" type="radio" id=">4" name="hours" value=".4" style="opacity: 1;">' +
-        '<label for=">4">MORE THAN 4 HOURS</label></span></div></div>';
+        '<label for=">4">MORE THAN 4 HOURS</label></span><div id="error_numb" ></div></div></div>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
     div.innerHTML = content
