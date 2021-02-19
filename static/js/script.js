@@ -42,9 +42,9 @@ document.onclick = function(event) {
         if (myDropdown.classList.contains('form1')) {
             myDropdown.classList.remove('form1');
         }
-        if (z.classList.contains('hidden')) {
-            z.classList.remove('hidden');
-        }
+        // if (z.classList.contains('hidden')) {
+        //     z.classList.remove('hidden');
+        // }
         var i;
         for (i = 0; i < dropdowns.length; i++) {
             var openDropdown = dropdowns[i];

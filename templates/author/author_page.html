@@ -79,6 +79,11 @@
     function reroute(){
         document.location.href = '/'
     }
+    // $("#imagedp").click(function(e) {
+    //     alert('5')
+    // $("#upload").click();  
+    //     });
+
 </script>
 <!-- <div class="container">
     <div class="row" style="margin-top: 150px;">
@@ -222,7 +227,8 @@
 				<div style="text-align: center;">
 				<img src="{{profile.dp.url}}" class="dp">
 				</div>
-				<img src="/media/images/download.jpg" class="edite"> 
+			    <img src="/media/images/download.jpg" class="edite" id="imagedp" onclick="$('#upload').click();">
+                <input type="file" id="upload" >
 			  <div class="porfil">
 				<h3>{{profile.user.username}}</h3>
 				<br>
