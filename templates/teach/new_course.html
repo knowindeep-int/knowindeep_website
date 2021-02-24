@@ -13,15 +13,9 @@
 {% block content %}
 
 <head>
-    <script src="{% static 'js/blogs/new_course.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/teach/teach.css' %}">
-    <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        .progress-bar{
-            background-color: orange !important;
-        }
         .lang_results{
             cursor: pointer;
         }
@@ -66,33 +60,43 @@ content: counter(line);
         sessionStorage.removeItem('pk')
     }
     
+    
     // alert('{{status}}')
     if('{{status}}' == 'title'){
-        createTitlePage();   
+        createTitlePage();  
+        console.log('1') 
     }
     else if(document.referrer.indexOf('http://127.0.0.1:8000/teach/chapter') != -1){
         createNumberOfHours();
+        console.log('2') 
     }
     else if('{{status}}' == 'description'){
         createDescriptionPage();   
+        console.log('3') 
     }
     else if('{{status}}' == 'difficulty_level'){
-        createDifficultyPage();   
+        createDifficultyPage();  
+        console.log('4')  
     }
     else if('{{status}}' == 'overview'){
-        createOverviewPage();   
+        createOverviewPage();  
+        console.log('5')  
     }
     else if('{{status}}' == 'image'){
-        createImagePage();   
+        createImagePage();
+        console.log('6')    
     }
     else if('{{status}}' == 'no_of_hours'){
-        createNumberOfHours();   
+        createNumberOfHours();  
+        console.log('7')  
     }
     else if('{{status}}' == 'chapter'){
-        document.location.href = 'http://127.0.0.1:8000/teach/chapter/' + pk      
+        document.location.href = 'http://127.0.0.1:8000/teach/chapter/' + pk    
+        console.log('8')   
     }
     else{
         createTitlePage();
+        console.log('9') 
     }
     
     
@@ -108,11 +112,11 @@ if('{{project.title}}'){
     {%endfor%}
     assignParam(
     title = '{{project.title}}',
-    description = '{{project.description}}',
+    description = `{{project.description}}`,
     difficulty_level = '{{difficulty_level}}',
     no_of_hours = '{{no_of_hours}}',
-    overview = "{{overview}}",
-    pre_reqs = '{{project.pre_req |safe |linebreaksbr}}',
+    overview = `{{overview}}`,
+    pre_reqs = `{{project.pre_req |safe |linebreaksbr}}`,
     pk = '{{project.pk}}',
     counter = 1,
     chapter_innerHTML = "",
@@ -125,7 +129,7 @@ if('{{project.title}}'){
     {% for chapter in project.chapters.all %}
     var chapter_add_dict = {}
     chapter_add_dict['heading'] = '{{chapter.heading}}'
-    chapter_add_dict['content'] = '{{chapter.content | safe |linebreaksbr}}'
+    chapter_add_dict['content'] = `{{chapter.content | safe |linebreaksbr}}`
     chapter_add_dict['description'] = '{{chapter.description}}'
     chapter_add_dict['youtube_link'] = '{{chapter.youtube_link}}'
     chapters.push(chapter_add_dict)
@@ -175,32 +179,12 @@ else{
         data : data,
         success: function(data){
             pk = data.pk
-            if(key == 'pre_req' ){
-                getLangPrereq();
-            //     // for(var i=0; i< prereqs_all.length; i++){
-            //     //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>';
-            //     // }
-                
-            //     // for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
-            //     // option = document.getElementById("selectpicker_prereq").options[i];
-            //     // if (pre_reqs.includes(option.value) == true || option.value == value) {
-            //     //     option.selected = true;
-            //     //     }
-            //     // }
+            if(key == 'pre_req' && '{{status}}'!='difficulty_level' ){
+            getLangPrereq();
              }
 
             if(key == "languages"){
-                getLangPrereq();
-                for(var i=0; i< languages_all.length; i++){
-                    document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
-                }
-
-                for (var i = 0; i < document.getElementById("selectpicker").length; i++) {
-                option = document.getElementById("selectpicker").options[i];
-                if (languages.includes(option.value) == true || option.value == value) {
-                    option.selected = true;
-                }
-            }
+                 getLangPrereq();
 
             }
             
@@ -218,8 +202,8 @@ function saveImageDraft() {
     // formData.append('image', file);
     // formData.append('pk', pk);
     // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
-    if(called == 1 && document.getElementsByClassName('image')[0]){
-        var url = document.getElementsByClassName('image')[0].src}
+    if(called == 1 && document.getElementsByClassName('imgusr')[0]){
+        var url = document.getElementsByClassName('imgusr')[0].src}
         else  if(called == 1 && document.getElementsByClassName('project_image')[0]){
         var url = document.getElementsByClassName('project_image')[0].src}
     $.ajax({
@@ -258,12 +242,19 @@ function saveImageDraft() {
                 }
                
                 if(data.languages.length == 0){
-                    var btn = document.createElement('button')
-                    btn.classList = "btn btn-primary"
-                    btn.style = "float: right;"
-                    btn.setAttribute('onclick','add_language()')
-                    btn.innerHTML = 'ADD NEW LANGUAGE'
-                    document.getElementById('results_lang').appendChild(btn)
+                    // var btn = document.createElement('button')
+                    // btn.classList = "btn btn-primary"
+                    // btn.style = "float: right;"
+                    // btn.setAttribute('onclick','add_language()')
+                    // btn.innerHTML = 'ADD NEW LANGUAGE'
+                    // document.getElementById('results_lang').appendChild(btn)
+                    // alert('hey')
+                    document.getElementById('search_language').addEventListener('keyup',function (e) {
+                        if (e.keyCode == '13' && document.getElementById('search_language').value != '') { 
+                     
+                 add_language();
+                }
+                });
                 }
             },
             error: function(error){
@@ -288,22 +279,56 @@ function saveImageDraft() {
             }
         })
 }
+
+function die(e){
+    // alert(e.target.id)
+    var txt = e.target.id;
+    var p1 = document.getElementsByClassName("xyz");
+    var b=txt-1;
+    p1[b].classList.toggle("second");
+    $.ajax({
+            method: "POST",
+            url: '{% url "api:delete_lang" %}',
+            data: {
+                'name': p1[b].childNodes[0].nodeValue, 
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'pk': pk
+            },
+            success: function(data){
+                console.log('sucCess')
+            }, error: function(error){
+                console.log('error')
+            }
+        })
+    }
+    
     var languages_all = [] 
     // prereqs_all = [] 
     function getLangPrereq(){
+        document.getElementById('langs').innerHTML = ` <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> `
         $.ajax({
             method: 'GET',
             url: "{% url 'api:get_lang_prereq' %}",
             data: {
-                'pk':sessionStorage.getItem('pk')
+                'pk':pk
             },
             async:false,
             success: function(data){
                 languages_all = []
                 // prereqs_all = []
                 for(var i= 0; i < data.languages.length; i++){
-                    languages_all.push(data.languages[i])
-                
+                    languages_all.push(data.languages[i].name)
+                }
+                var d1 = document.getElementsByClassName('pret')[0]
+                for(var i=0;i<languages_all.length;i++){
+                    var b = i+1;
+                    if(i == 0){
+                        d1.insertAdjacentHTML('beforebegin','<span class="xyz mm">'+ languages_all[i] + '<i id="'+b+'" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>')
+                    }
+                    else{
+                        d1.insertAdjacentHTML('beforebegin','<span class="xyz">'+ languages_all[i] + '<i id="'+b+'" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>')
+                    }
+                   
                 }
                 pre_reqs = data.prerequisites
                 // for(var i= 0; i < data.prerequisites.length; i++){
@@ -338,11 +363,16 @@ function saveImageDraft() {
     }
 
     function createChapterPage(){
-        for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
-       if (document.getElementsByClassName("time_radio_input")[i].checked) {
-           no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
+        for (var i = 0; i < document.getElementsByClassName("male_time").length; i++) {
+       if (document.getElementsByClassName("male_time")[i].checked) {
+           no_of_hours = document.getElementsByClassName("male_time")[i].value
        }
    }
+   if ($('input:checked').length == 0){
+        document.getElementById("error_numb").innerHTML = "Cannot Be Empty!";
+        document.getElementById("error_numb").style = "color: red;";
+        return;
+    }
     saveDraft('no_of_hours',no_of_hours)
     document.location.href = '/teach/chapter/' + pk
         // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
@@ -395,12 +425,12 @@ function deleteImage(e){
             url: 'https://api.imgur.com/3/image/' + deletehash,
             type: 'DELETE',
             success: function(data){
-                    alert('image deleted sucessfully!')
-                    document.getElementsByClassName('image')[0].remove();  
+                    console.log('image deleted sucessfully!')
+                    document.getElementsByClassName('imgusr')[0].remove();  
                     document.getElementById('remove_img_btn').remove()
                 },
                 error: function(error){
-                    alert(error)
+                    console.log(error)
                 },
                 beforeSend: setImgurHeader,
 
@@ -421,25 +451,31 @@ function addLocalImage(e){
         var targetDiv=document.getElementsByClassName("editor")[0];
             var file = $(e).prop('files')[0];
             var img=document.createElement("img");
-            img.setAttribute('style', 'width:200px;height:200px;');
+            // img.setAttribute('style', 'width:200px;height:200px;');
             // img.setAttribute('style', 'height:200px');
 
-            img.className="image"
+            img.className="imgusr"
             var reader  = new FileReader();
             var fig = document.createElement('figure')
-            // var fig_caption = document.createElement('figcaption')
-            // fig_caption.className = "fig-caption"
-            // fig_caption.innerHTML =  "Write your caption here!"
+            var fig_caption = document.createElement('figcaption')
+            fig_caption.id = "fig-caption"
+            fig_caption.innerHTML =  document.getElementById('image_input').value
+            fig_caption.innerHTML = fig_caption.innerHTML.replace(/.*[\/\\]/, '');
             fig.className = "fig"
             // fig.setAttribute('contenteditable','true')
+            var span = document.createElement('span')
+            span.className = "button-img"
             var btn = document.createElement('button')
             btn.setAttribute('id', 'remove_img_btn')
-            btn.innerHTML = "REMOVE"
+            btn.className = 'button-size'
+            btn.innerHTML = "Remove"
             btn.setAttribute('onclick', 'deleteImage(this)')
-            document.getElementById('image_input_div').appendChild(btn)
+            span.appendChild(btn)
+            document.getElementById('image_input_div').appendChild(span)
             fig.appendChild(img);
-            document.getElementById('image_input_div').appendChild(fig)
-            
+            fig.appendChild(fig_caption)
+            // document.getElementById('image_input_div').appendChild(fig)
+            document.getElementById('image_input').insertAdjacentElement("beforebegin",fig)
             // fig.appendChild(fig_caption)
             // if(fx().className == 'editor' ||  document.body === fx()){
             
@@ -473,7 +509,7 @@ function addLocalImage(e){
                 contentType: false,
                 processData: false,
                 success: function(data){
-                    alert('success!')
+                    console.log('success!')
                     img.src = data.data.link
                     // img.style = "display:none;"
                     if(document.getElementById('remove_img_btn')!= null){
@@ -489,7 +525,7 @@ function addLocalImage(e){
                     image = data.data.link
                 },
                 error: function(error){
-                    alert(error)
+                    console.log(error)
                 },
                 beforeSend: setImgurHeader,
 
@@ -530,10 +566,14 @@ function addLocalImage(e){
                 <hr class="m">
             </div>
             <br> -->
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:14%">
-                  <!-- <span class="sr-only">70% Complete</span> -->
+            <div class="w3-container">
+ 
+                <div class="w3-light-orange w3-tiny">
+                  <div class="w3-container w3-amber" style="width:14%"></div>
                 </div>
+               
+        </div>
+        <hr class="hr">
         </div>
         <div id="1" class="to_hide"></div>
         <div id="2" class="to_hide"></div>

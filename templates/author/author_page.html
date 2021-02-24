@@ -1,6 +1,8 @@
 {% extends "base.html" %} {% load static %} {% block content_head %}
 <script src="{% static 'js/author/author_page.js'%}"></script>
-{% endblock %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/author/style.css' %}">
+{% endblock %} 
+{% block content %}
 
 
 <script type="text/javascript">
@@ -13,10 +15,19 @@
     function disableEdit(is_verified) ;
 
 
-    function updateProfile(field, value) {
+   
+
+
+    { % endblock jquery %
+    }
+</script>
+
+<script>
+     function updateProfile(field, value) {
         event.preventDefault();
         var dp = '{{ profile.dp }}'
         var first_name = '{{ profile.user.first_name }}'
+        var last_name = '{{ profile.user.last_name }}'
         var description = '{{ profile.description }}'
         var email_id = '{{ profile.user.email }}'
         var phone_number = '{{ profile.phone_number }}'
@@ -30,6 +41,8 @@
 
         let data = {
             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            'username':'{{profile.user.username}}',
+            'profile_id':'{{profile.user.pk}}',
             "description": description,
             "email_id": email_id,
             "phone_number": phone_number,
@@ -41,7 +54,8 @@
             "skills": skills,
             "isAuthor": isAuthor,
             "account_number": account_number,
-            "total_earnings": total_earnings
+            "total_earnings": total_earnings,
+            'last_name':last_name,
         }
 
         data[field] = value
@@ -55,26 +69,30 @@
                 console.log('SUCCESS')
             },
             error: function(error) {
-                console.log(error)
+                console.log('error')
             },
             
         })
+        reply(event)
     }
 
-
-    { % endblock jquery %
+    function reroute(){
+        document.location.href = '/'
     }
+    // $("#imagedp").click(function(e) {
+    //     alert('5')
+    // $("#upload").click();  
+    //     });
+
 </script>
-
-
-<div class="container">
+<!-- <div class="container">
     <div class="row" style="margin-top: 150px;">
         <div class="col-sm-12 col-md-6 col-lg-8 center-div">
             <hr>
             <div class="row valign-wrapper">
                 <div class="col-sm-2">
-                    <!--<img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                        alt="" class="circle responsive-img">-->
+                    <img src="https://images.unsplash.com/photo-1597887160393-996b475edd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                        alt="" class="circle responsive-img">
                     <img src="{{ profile.dp.url }}" height="60" width="60" style="float: left;" alt="image" id=FIELDS.DP>
                 </div>
 
@@ -130,7 +148,7 @@
                         </span>
                         <span>
 
-                            <!--<img src="{{ profile.dp.url }}" height="60" width="60" style="float: left;" alt="image" id=FIELDS.DP >-->
+                            <img src="{{ profile.dp.url }}" height="60" width="60" style="float: left;" alt="image" id=FIELDS.DP >
                         </span>
 
                     </div>
@@ -198,5 +216,131 @@
             <hr>
         </div>
     </div>
-</div>
+</div> -->
+{% csrf_token %}
+<br><br>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="proflie-card list1">
+				<div style="text-align: center;">
+				<img src="{{profile.dp.url}}" class="dp">
+				</div>
+			    <img src="/media/images/download.jpg" class="edite" id="imagedp" onclick="$('#upload').click();">
+                <input type="file" id="upload" >
+			  <div class="porfil">
+				<h3>{{profile.user.username}}</h3>
+				<br>
+				<div class="details">
+					<div class="details1">
+						<b>Name:</b>
+                        <span class="edit-btn">
+						<span class="btn-group second name1">
+                            <button id="butnsave1" class="btn save" onclick="updateProfile('username',document.getElementById('inp_name').value)">Save</button>
+                            <button id="butn1" class="btn cancel" onClick="reply(event)">cancel</button>
+                        </span>
+                        <button id="1" class="btn edit" onClick="reply_click(event)">Edit</button>
+                    </span><br>
+						<span class="inputss"><input id= "inp_name" type="text" placeholder="{{profile.user.username}}" disabled></input></span>
+						<hr>
+					</div>
+				</div>
+				<div class="details">
+					<div class="details1">
+						<b>Description:</b>
+						<span class="edit-btn">
+							<span class="btn-group second name1">
+								<button id="butnsave2" class="btn save" onclick="updateProfile('description',document.getElementById('inp_desc').value)">save</button>
+								<button id="butn2" class="btn cancel" onClick="reply(event)">cancel</button>
+							</span>
+							<button id="2" class="btn edit" onClick="reply_click(event)">edit</button>
+						</span><br>
+						<span  class="inputss"><input id='inp_desc' type="text" placeholder='{{profile.description}}' disabled></input></span>
+						<hr>
+					</div>
+				</div>
+				<div class="details">
+					<div class="details1">
+						<b>Phone Number:</b>
+						<span class="edit-btn">
+							<span class="btn-group second name1">
+								<button id="butnsave3" class="btn save" onclick="updateProfile('phone_number',document.getElementById('inp_ph').value)">save</button>
+								<button id="butn3" class="btn cancel" onClick="reply(event)">cancel</button>
+							</span>
+							<button id="3" class="btn    edit" onClick="reply_click(event)">edit</button>
+						</span><br>
+						<span  class="inputss"><input id='inp_ph' type="text" placeholder='{{profile.phone_number}}' disabled></input></span>
+						<hr>
+					</div>
+				</div>
+			  </div>
+			</div>
+		</div>
+	<div class="col-lg-8 chapter">
+		<div style="height: 150px;">
+			<div class="details">
+				<div class="details1">
+					<b>Github:</b>
+					<span class="edit-btn">
+						<span class="btn-group second name1">
+							
+							<button id="butnsave4" class="btn    save" onclick="updateProfile('github_id',document.getElementById('inp_git').value)">save</button>
+							<button id="butn4" class="btn    cancel" onClick="reply(event)">cancel</button>
+						</span>
+						<button id="4" class="btn edit" onClick="reply_click(event)">edit</button>
+					</span><br>
+                    <span  class="inputss"><input id="inp_git" type="text" placeholder='{{profile.github_id}}' disabled></input></span>
+					<hr>
+				</div>
+			</div>
+			<div class="details">
+				<div class="details1">
+					<b>LinkedIn:</b>
+					<span class="edit-btn">
+						<span  class="btn-group second name1">
+							<button id="butnsave5" class="btn save" onclick="updateProfile('linkedin_id',document.getElementById('inp_li').value)">save</button>
+							<button id="butn5" class="btn cancel" onClick="reply(event)">cancel</button>
+						</span>
+						<button id="5" class="btn    edit" onClick="reply_click(event)">edit</button>
+					</span><br>
+					<span  class="inputss"><input id="inp_li" type="text" placeholder='{{profile.linkedin_id}}' disabled></input></span>
+					<hr>
+				</div>
+			</div>
+			<div class="details">
+				<div class="details1">
+					<b>Twitter:</b>
+					<span class="edit-btn">
+						<span class="btn-group second name1">
+							<button id="butnsave6" class="btn    save" onclick="updateProfile('twitter_id',document.getElementById('inp_tw').value)">save</button>
+							<button id="butn6" class="btn    cancel"  onClick="reply(event)">cancel</button>
+						</span>
+						<button id="6" class="btn    edit" onClick="reply_click(event)">edit</button>
+					</span><br>
+                    <span  class="inputss"><input id="inp_tw" type="text" placeholder='{{profile.twitter_id}}' disabled></input></span>
+					<hr>
+				</div>
+			</div>
+			<div class="details">
+				<div class="details1">
+					<b>Earnings:</b>
+					<span class="edit-btn">
+						<span class="btn-group second name1">
+							<button id="butnsave7" class="btn    save" onclick="updateProfile('total_earnings',document.getElementById('inp_ear').value)">save</button>
+							<button id="butn7" class="btn    cancel" onClick="reply(event)">cancel</button>
+						</span>
+						<button id="7" class="btn    edit" onClick="reply_click(event)">edit</button>
+					</span><br>
+					<span  class="inputss"><input id="inp_ear" type="text" placeholder='{{profile.total_earnings}}' disabled></input></span>
+					<hr>
+				</div>
+			</div>
+			<div style="text-align: center !important;">
+			<button class="saveas" onclick="reroute()">save changes</button>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>  
 {% endblock content %}

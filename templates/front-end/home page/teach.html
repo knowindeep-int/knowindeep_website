@@ -1,13 +1,15 @@
+{% extends "base.html" %}
 {%load static%}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
+    
+        {% block content_head %}
         <script src = "{% static 'js/chapter/teach.js'%}"></script>
         <link rel="stylesheet" href="{% static 'css/chapter/chapter.css'%}">
+        {% endblock %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.0.13/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
+{% block content %}
 <style>
     pre{
         color: orange;
@@ -33,6 +35,8 @@
 
             document.addEventListener('keyup',
             function(){
+                var mod = document.lastModified
+                document.getElementById('modified').innerHTML = 'last modified on' + mod
                 // alert('{{chapter}}')
                 var chapter = '{{chapter}}'
                 // alert(chapter == null)
@@ -311,8 +315,8 @@ function setImgurHeader(xhr) {
          
         </script>
    
-    </head>
     <body>
+      
         {% csrf_token %}
         <script>
         //    $('editor').on('change',function(){
@@ -351,35 +355,35 @@ function setImgurHeader(xhr) {
 
                         if(page_number > 1){
                             var prev = document.createElement('button')
-                            prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(span_text, page_number)')
+                            prev.setAttribute("onclick", 'page_number-=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
                             prev.innerHTML = "PREV"
                             prev.style.float = "left"
+                            prev.setAttribute('contenteditable','false')
                             div_btn.appendChild(prev)
                         }
                         var next = document.createElement('button')
-                        next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(span_text, page_number)')
+                        
+                        next.setAttribute("onclick", 'page_number+=1;implementUnsplashSearch(document.getElementById("inptext").value, page_number)')
                         next.innerHTML = "NEXT"
                         next.style.float = "right"
-
+                        next.setAttribute('contenteditable','false')
                         div_btn.appendChild(next)
                         document.getElementsByClassName("editor")[0].appendChild(div_btn)
 
                         var imageList = data.results;
                         var div = document.createElement('div')
                         div.className = "grid"
-                        if(fx().className == 'editor' ||  document.body === fx()){
+                        // if(fx().className == 'editor' ||  document.body === fx()){
+                        //     // alert(fx().className)
+                        //     console.log('2')
+                        //     fx().insertBefore(div, fx().childNodes[1]);
+                        //     // targetDiv.appendChild(fig)
+                        //     // fx().insertBefore(fig, fx().nextSibling);
+                        // }
                             // alert(fx().className)
-                            console.log('2')
-                            fx().insertBefore(div, fx().childNodes[1]);
-                            // targetDiv.appendChild(fig)
-                            // fx().insertBefore(fig, fx().nextSibling);
-                        }
-                        else{
-                            // alert(fx().className)
-                            console.log('1')
-                            fx().parentNode.insertBefore(div, fx().nextSibling);
-                        }
-                        // document.getElementsByClassName("editor")[0].appendChild(div)
+                            document.getElementsByClassName('editor')[0].lastChild.appendChild(div)
+                            // fx().parentNode.insertBefore(div, fx().nextSibling);
+                             // document.getElementsByClassName("editor")[0].appendChild(div)
                         
                         
                         // document.getElementsByClassName('editor')[0].append('<div class="grid"></div>')
@@ -387,7 +391,7 @@ function setImgurHeader(xhr) {
                             var imageUrl = val.urls.regular;
                             var img = document.createElement('img')
                             var container = document.createElement('div')
-                            container.className = "container"
+                            container.className = "container1"
                             document.getElementsByClassName('grid')[0].appendChild(container)
                             a_name[i] = val.user.name
                             url[i] =  val.user.links.html
@@ -414,8 +418,8 @@ function setImgurHeader(xhr) {
                             var unsplash_div = document.createElement('div')
                             unsplash_div.className = "unsplashImage"
                             unsplash_div.appendChild(img)
-                            document.getElementsByClassName("container")[i].appendChild(unsplash_div)
-                            document.getElementsByClassName('container')[i].appendChild(author)
+                            document.getElementsByClassName("container1")[i].appendChild(unsplash_div)
+                            document.getElementsByClassName('container1')[i].appendChild(author)
                             
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
@@ -445,14 +449,16 @@ function setImgurHeader(xhr) {
 
                         if(page_number > 1){
                             var prev = document.createElement('button')
-                            prev.setAttribute("onclick", 'page_number-=1;implementPexelSearch(span_text, page_number)')
+                            prev.setAttribute("onclick", 'page_number-=1;implementPexelSearch(document.getElementById("inptext_pexels").value, page_number)')
                             prev.innerHTML = "PREV"
                             prev.style.float = "left"
+                            prev.setAttribute('contenteditable','false')
                             div_btn.appendChild(prev)
                         }
                         var next = document.createElement('button')
-                        next.setAttribute("onclick", 'page_number+=1;implementPexelSearch(span_text, page_number)')
+                        next.setAttribute("onclick", 'page_number+=1;implementPexelSearch(document.getElementById("inptext_pexels").value, page_number)')
                         next.innerHTML = "NEXT"
+                        next.setAttribute('contenteditable','false')
                         next.style.float = "right"
 
                         div_btn.appendChild(next)
@@ -470,7 +476,7 @@ function setImgurHeader(xhr) {
                             var imageUrl = val.src.original;
                             var img = document.createElement('img')
                             var container = document.createElement('div')
-                            container.className = "container"
+                            container.className = "container1"
                             document.getElementsByClassName('grid')[0].appendChild(container)
                             p_name[i] = val.photographer
                             p_url[i] =  val.photographer_url
@@ -498,8 +504,8 @@ function setImgurHeader(xhr) {
                             var unsplash_div = document.createElement('div')
                             unsplash_div.className = "unsplashImage"
                             unsplash_div.appendChild(img)
-                            document.getElementsByClassName("container")[i].appendChild(unsplash_div)
-                            document.getElementsByClassName('container')[i].appendChild(author)
+                            document.getElementsByClassName("container1")[i].appendChild(unsplash_div)
+                            document.getElementsByClassName('container1')[i].appendChild(author)
                             
                             // document.getElementsByClassName('grid')[0].append('<img src=' + imageUrl+ ">")
                         });
@@ -636,27 +642,74 @@ function setImgurHeader(xhr) {
                 positionCursor()
             }
 
-
-
+          
          </script>
-        <button id="bold" onclick="format('bold')">B</button>
+         <p id="modified"></p>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="list">
+                        {% for chapter in chapters%}
+                        <a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.title |safe}}</a>
+                        {%endfor%}
+                    </div>
+                </div>
+            <div class="col-lg-9 chapter">
+                
+                    <div class="top-bar">
+                        <span class="icons">
+                            <button id="bold" onclick="format('bold')"><i class="fas fa-bold" id="bold"></i></button>
+                            <button id="italic" onclick="format('italic')"><i class="fas fa-italic"></i></button>
+                            <button id="underline" onclick="format('underline')"><i class="fas fa-underline" style="font-size: 17px;"></i></button>
+                            <span class="slash">|</span>
+                            <button id="ordered-list" onclick="addLink()"><svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531.8 534.09"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><path class="cls-1" d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59" transform="translate(-280.31 -224.63)"/><path class="cls-1" d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88" transform="translate(-280.31 -224.63)"/><line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"/><circle class="cls-1" cx="386.8" cy="389.09" r="130"/><line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"/><line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"/></svg></button>
+                            <button id="ordered-list" onclick="addCode()"><svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 526 526.75"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><polyline class="cls-1" points="422 206.5 422 102.5 334.5 15 15 15 15 510.5 263 510.5"/><polyline class="cls-1" points="147 147.5 75.5 219 147 290.5"/><polyline class="cls-1" points="208.25 147.5 279.75 219 208.25 290.5"/><circle class="cls-1" cx="381" cy="381.75" r="130"/><line class="cls-1" x1="321.5" y1="381.75" x2="440.5" y2="381.75"/><line class="cls-1" x1="381" y1="441.25" x2="381" y2="322.25"/></svg></button>
+                            <button id="ordered-list" onclick="addVideo()"><img class="svg1" src="/media/images/youtube.png" style="width: 30px;"></button>
+                            <span class="slash">|</span>
+                            <button id="ordered-list" onclick="format('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+                            <button id="ordered-list" onclick="format('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+                            <span class="slash">|</span>
+                            <button id="ordered-list" onclick="format('superscript')"><i class="fas fa-superscript" style="position: relative;top: -2px;"></i></button>
+                            <button id="ordered-list" onclick="format('subscript')"><i class="fas fa-subscript" style="position: relative;top: 2px;"></i></button>
+                        </span>
+                        <span class="icon-2">
+                            <i class="fas fa-image"></i>
+                            <form class="main-form">
+                                <input type='file' class="searching" id='inpfile' accept="image/jpeg, image/png, image/gif"> 
+                                <input type="text" class="searching" id="inptext" placeholder="Search Unsplash">
+                                <input type="text" class="searching" id="inptext_pexels" placeholder="Search Pexels">
+                              </form> 
+                        </span>
+                    </div>
+                    <div class="editor" contenteditable="true" style="color:black;">
+                        {%if chapter.title%}
+                        <h1>{{chapter.title}}</h1>
+                        {%else%}
+                        <h1>&nbsp;</h1>
+                        {%endif%} </div>
+                <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createNumberofHours()">Previous</button>
+                <button class="nxt but1 but3" id="save_changes_btn" type="button" onclick="addChapter();" >Save Changes</button>
+                <button class="nxt but1 but3" id="add_btn" onclick="newChapter();">Add</button>
+            </div>
+            </div>
+        </div>  
+        <!-- <button id="bold" onclick="format('bold')">B</button>
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>
         <button id="ordered-list" onclick="format('insertOrderedList')">Ordered List</button>
         <button id="ordered-list" onclick="addLink()">add link</button>
         <button id="ordered-list" onclick="addVideo()">add video</button>
-        <button id="ordered-list" onclick="addCode()">add code</button>
+        <button id="ordered-list" onclick="addCode()">add code</button> -->
         <!-- <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif"> -->
-        <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
+        <!-- <button id="search" onclick="implementUnsplashSearch(document.getElementById('inptext').value)">Search Unsplash</button>
         <input type="text" id="inptext">
         <button id="pexels_search" onclick="implementPexelSearch(document.getElementById('inptext_pexels').value)">Search Pexels</button>
         <input type="text" id="inptext_pexels">
         {% for chapter in chapters%}
         <p><a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.slug}}</a></p>
-        {%endfor%}
+        {%endfor%} -->
         <!-- <button type="button" onclick="createChapter();">CREATE chAPTER</button>
         <button type="button" onclick="addChapter();">CREATE chAPTER</button> -->
-        <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="addChapter();createNumberofHours()">Previous</button>
+        <!-- <button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="addChapter();createNumberofHours()">Previous</button>
         <button id="add_btn" type="button" class="btn btn-primary" style="float: right;" onclick="newChapter();">Add</button>
         <button id="save_changes_btn" type="button" class="btn btn-primary" style="float: right;" onclick="addChapter();">Save Changes</button>
         <div class="editor" contenteditable="true" spellcheck="false" >
@@ -665,8 +718,20 @@ function setImgurHeader(xhr) {
         {%else%}
         <h1>&nbsp;</h1>
         {%endif%} 
-        </div>
+        </div> -->
         <script>
+             document.getElementById('inptext').addEventListener('keyup',function (e){
+                if(e.keyCode == '13'){
+                    implementUnsplashSearch(document.getElementById('inptext').value)
+                }
+           })
+
+           document.getElementById('inptext_pexels').addEventListener('keyup',function (e){
+                if(e.keyCode == '13'){
+                    implementPexelSearch(document.getElementById('inptext_pexels').value)
+                }
+           })
+
             var btns = document.getElementsByClassName('btn')
             // for(i=0; i< btns.length; i++){
             //     document.getElementsByClassName('btn')[i].addEventListener('onclick', function(){
@@ -725,4 +790,5 @@ function setImgurHeader(xhr) {
 })
         </script>   
     </body>
+    {% endblock content %}
 </html>
