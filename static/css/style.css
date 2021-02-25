@@ -1466,7 +1466,7 @@ h8 {
     }
   }
   .dropdown-content {
-    /* display: none; */
+    display: none !important; 
     position: absolute;
     background-color:white;
     min-width: 290px;

@@ -1146,8 +1146,12 @@ h6 {
     border-radius: 3px;
     padding: 2px 3%;
 }
-
-
+#upload{
+    display:none;
+}
+#imagedp{
+    cursor: pointer;
+}
 /* only for this page styles */
 
 .btn-group {

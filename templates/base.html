@@ -114,7 +114,7 @@
     <header class="background-header">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'blogs:index' %}"><img class="img1" src="/media/images/kid-white-new.png"></a>
+                <a class="navbar-brand" href="{% url 'blogs:index' %}"><img class="img1" src="{% static 'images/kid-white-new.png' %}"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -235,13 +235,13 @@
     font-family: 'gilroy';
 }
 .log1{
-    background-image: url("/media/images/google_login.png");
+    background-image: url("{% static 'images/google_login.png' %}"");
     width: 488px;
     height: 76px;
     margin:auto;
 }
 .log2{
-    background-image: url("/media/images/github_login.png");
+    background-image: url("{% static 'images/github_login.png' %}");
     width: 488px;
     height: 76px;
     margin:auto;
@@ -313,7 +313,7 @@ margin: auto;
         <div class="row stacks" id="stacks">
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 stack1">
                 <span class="stack">
-        <img  class="foot-logo stack" src="/media/images/kid-black.png"><br>
+        <img  class="foot-logo stack" src="{% static 'images/kid-black.png' %}"><br>
         <br>
         <span>Contact Us: knowindeep.tech@gmail.com<br>All Rights reserved. KnowInDeep 2020</span>
                 <br>
@@ -325,7 +325,7 @@ margin: auto;
                     </svg>    
                 </a>
                 <a href="https://www.linkedin.com/company/knowindeep" target="_blank" class="lang1">
-                    <img src="/media/images/linkd.png" class="lang2">
+                    <img src="{% static 'images/linkd.png' %}"" class="lang2">
                 </a>
                 <a href="https://github.com/knowindeep-int" target="_blank" class="lang1">
                     <!-- <img src="/media/images/github.png" class="lang1" > -->
