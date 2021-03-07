@@ -6,11 +6,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- CDN -->
+  <link rel="stylesheet" href="https://fontawesome.com/icons/user-circle?style=solid">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <!--local -->
   <link href="style.css" rel="stylesheet">
+  
+  
 </head>
 <body>
 <header class="background-header">
@@ -30,28 +33,74 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">About Us</a>
               </li>
+
+
+         <div class="dropdown">
+			 <div class="userlogo">
+			 <a onclick="myfunction()" class="dropbtn">
+			  <i class="fas fa-user-circle"></i></a>
+			  <div id="mydropdown" class="dropdown-content">
+				<div class="middle-drop">
+					<div class="dropdown left left-share">
+										
+<button onclick="this.parentElement.children[1].classList.toggle('show');" class="dropbtn">
+	
+	<div class="top-menu12">
+								<img src="dhruv.png.jpg" class="dp1">
+								<span style="font-size: 14px;">xyzabc123@gmail.com</span>
+								<span>xyz abc 123</span>
+	</div>						
+							<hr class="hr">
+							<div class="ch1 top22">Write a story</div>
+							<div class="ch1">Stories</div>
+							<div class="ch1">Stats</div>
+							<div class="ch1">Design your profile</div>
+							<div class="ch1 bot22">Setting</div>
+							<hr class="hr">
+							<div class="ch1 top22">Reading List</div>
+							<div class="ch1">Publication</div>
+							<div class="ch1">Control your recommendations</div>
+							<div class="ch1 bot22">Medium Partner Program</div>
+							<hr class="hr">
+							<div class="ch1 top22">Became a Member</div>
+							<div class="ch1">help</div>
+							<div class="ch1 bot22">Sign out</div>
+						</div>
+					</div>
+				</div>
+				
+			  </div>
+			 </div>
+
+		 </div>
+
               <li class="nav-item n dropdown hid" id="drop">
 	      	<form class="form" id="form" action="">
 	  			<input type="search" class="input"  onmouseover="mousein()" id="navbarDropdown">
 			    <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
 			</form>
+	
+ 		
 			  <div class="dropdown-menu menu" id="srch">
 			      <a class="dropdown-item">first</a>
 			      <a class="dropdown-item">second</a>
 			      <a class="dropdown-item">third</a>
 		      </div>
     </li>
+ 
+</ul>
               <li class="nav-item login">
                 <a class="nav-link" href="#">Login</a>
               </li>
-            </ul>
-          </div>
+         
+          
           <div class="functional-buttons">
             <ul>
               <li><a href="#">Log in</a></li>
             </ul>
           </div>
-        </div>
+      
+	</div>
       </nav>
   </header>
   <br>
@@ -63,8 +112,6 @@
 		<div>We use modern approaches to let out users grip the<br> technical knowledge to its best</div>
 	</div>
 </div>
-
-
 	
     <div class="row tm-gallery" id="row">
 				<div class="tm-gallery-page">
@@ -633,12 +680,20 @@
     </ul>
 </div>
 </div>
+
   </footer>
 <!--for the nav bar and underlying image-->
+<script>
+	function myfunction(){
+		document.getElementById("mydropdown").classList.toggle("show");
+	}
+</script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
+
 
 </body>
 </html>
