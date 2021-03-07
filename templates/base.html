@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/script.js' %}"></script>
-    {% block content_head %} {% endblock %} {% block title%} {% endblock %}
+    {% block title%} {% endblock %}
+
     <!-- <script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -34,7 +35,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
-
+    {% block content_head %} {% endblock %}  
 </head>
 
 
@@ -113,7 +114,7 @@
     <header class="background-header">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'blogs:index' %}"><img class="img1" src="/media/images/kid-white-new.png"></a>
+                <a class="navbar-brand" href="{% url 'blogs:index' %}"><img class="img1" src="{% static 'images/kid-white-new.png' %}"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -137,12 +138,44 @@
 
                                 <!-- <input type="search"  onmouseover="mousein()" id="navbarDropdowna input" onkeyup="implementSearch();" placeholder="search"> -->
 
-                                <input class="input" type="search" onmouseover="mousein()" id="navbarDropdown" onkeyup="implementSearch();" placeholder="search">
+                                <input class="input" type="search" onmouseover="mousein()" id="navbarDropdown" onkeyup="implementSearch();" placeholder="Search">
                                 <!-- >>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d -->
-                                <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
+                                <i class="fa fa-search" onmouseover="myFunc()" href="#" style="font-size: 17px;position: fixed;top: 1px;right: -1px;"></i>
 
 
                             </form>
+                            <li class="nav-item">
+                                <div class="middle-drop">
+                                    <div class="dropdown left left-share profile9">
+                                        <button onclick="this.parentElement.children[1].classList.toggle('show');" class="dropbtn">
+                                            <img src="{% static 'images/star.png' %}">
+                                        </button>
+                                        <div class="dropdown-content cont33" id="myDropdown2">
+                                            <span class="dropdown-menu-arrow"></span>
+                                            <div class="top-menu12">
+                                                <img src="/media/{{request.user.user.dp}}" class="dp1">
+                                                <span style="font-size: 14px;">{{request.user.email}}</span>
+                                                <span>{{request.user.username}}</span>
+                                            </div>
+                                            <hr class="hr1">
+                                            <div class="ch1 top22">Write a story</div>
+                                            <div class="ch1">Stories</div>
+                                            <div class="ch1">Stats</div>
+                                            <div class="ch1">Design your profile</div>
+                                            <div class="ch1 bot22">Setting</div>
+                                            <hr class="hr1">
+                                            <div class="ch1 top22">Reading List</div>
+                                            <div class="ch1">Publication</div>
+                                            <div class="ch1">Control your recommendations</div>
+                                            <div class="ch1 bot22">Medium Partner Program</div>
+                                            <hr class="hr1">
+                                            <div class="ch1 top22">Becaome a Member</div>
+                                            <div class="ch1">help</div>
+                                            <div class="ch1 bot22">Sign out</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
                             <div class="dropdown-menu menu" id="srch" style="padding:0; margin:0; border:0;">
                             </div>
                         </li>
@@ -202,13 +235,13 @@
     font-family: 'gilroy';
 }
 .log1{
-    background-image: url("/media/images/google_login.png");
+    background-image: url("{% static 'images/google_login.png' %}");
     width: 488px;
     height: 76px;
     margin:auto;
 }
 .log2{
-    background-image: url("/media/images/github_login.png");
+    background-image: url("{% static 'images/github_login.png' %}");
     width: 488px;
     height: 76px;
     margin:auto;
@@ -280,7 +313,7 @@ margin: auto;
         <div class="row stacks" id="stacks">
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 stack1">
                 <span class="stack">
-        <img  class="foot-logo stack" src="/media/images/kid-black.png"><br>
+        <img  class="foot-logo stack" src="{% static 'images/kid-black.png' %}"><br>
         <br>
         <span>Contact Us: knowindeep.tech@gmail.com<br>All Rights reserved. KnowInDeep 2020</span>
                 <br>
@@ -292,7 +325,7 @@ margin: auto;
                     </svg>    
                 </a>
                 <a href="https://www.linkedin.com/company/knowindeep" target="_blank" class="lang1">
-                    <img src="/media/images/linkd.png" class="lang2">
+                    <img src="{% static 'images/linkd.png' %}"" class="lang2">
                 </a>
                 <a href="https://github.com/knowindeep-int" target="_blank" class="lang1">
                     <!-- <img src="/media/images/github.png" class="lang1" > -->
