@@ -440,11 +440,11 @@ function createOverviewPage() {
             }
         }
     }
-    if ($('input:checked').length == 0){
-        document.getElementById("error_diff").innerHTML = "Cannot Be Empty!";
-        document.getElementById("error_diff").style = "color: red;";
-        return;
-    }
+    // if ($('input:checked').length == 0){
+    //     document.getElementById("error_diff").innerHTML = "Cannot Be Empty!";
+    //     document.getElementById("error_diff").style = "color: red;";
+    //     return;
+    // }
     saveDraft('difficulty_level', difficulty_level)
     // if (document.getElementById("selectpicker_prereq") != null) {
     //     pre_reqs = [];
