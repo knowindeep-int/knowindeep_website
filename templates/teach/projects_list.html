@@ -43,7 +43,7 @@
   <button type="submit" onclick="implementSearchProjects()">Search</button>
   <div class= "results"></div>
 ======= -->
-  <input type="text" name="search" id="search_projects_ongoing" autocomplete="off">
+  <input type="text" name="search" id="search_projects_ongoing">
   <button type="submit" onclick="">Search</button>
   
 <!-- >>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d -->
@@ -76,9 +76,9 @@
             } 
         }
     document.getElementById('search_projects_ongoing').addEventListener('keyup', function(){
-      
+        if(document.getElementById('search_projects_ongoing').value == ""){
             document.getElementById('dropdown_ongoing').innerHTML = ""
-        
+        }
         // document.getElementById('results').innerHTML = "results are " 
        var projects= project_titles_ongoing.filter(filterCompletedProjects)
        var dropdown_div = document.getElementById('dropdown_ongoing')
@@ -90,14 +90,11 @@
     })
 
 </script>
-
 <div class="container text-center my-3">
-    <div class="row mx-auto my-auto" style="min-width: 845px;">
-        
+    <div class="row mx-auto my-auto">
         <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-            {% if ongoing_projects %}
             <div class="carousel-inner w-100" role="listbox">
-                
+                {% if ongoing_projects %}
                 {% for project in ongoing_projects %}
                 <!-- <script>{{project.0.title}}</script> -->
                 {% if forloop.first %}
@@ -108,7 +105,7 @@
 
                 
                     
-                                    <div class="col-lg-4 col-md-6">
+                                    <div class="col-md-4">
                                         <div class="card">
                         {% if project.image %}
                         <img class="card-img-top img-fluid tm-gallery-img" src="{{project.image}}" alt="Card image cap">
@@ -117,7 +114,7 @@
                         {% endif %}
                         <div class="card-body">
                         <h5 class="card-title">{{project | title}}</h5>
-                        <p class="card-text">{{project.overview | slice:":40"}}...</p>
+                        <p class="card-text">{{project.overview}}</p>
                         <span class="bold">Author Name : </span><span> {{ project.author.user.first_name }}{{project.author.user.last_name}}</span><br>
                         <span class="bold">Hours To Complete :</span><span>{{ project.no_of_hours }}</span><br>
                         <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
@@ -148,10 +145,11 @@
                 
 
            
-            
+            {% else %}
+            No Projects to Show!
+            {% endif %}
 
         </div>
-
         <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
@@ -162,11 +160,8 @@
         </a>
 
     </div>
-    {% else %}
-    No Projects to Show!
-    {% endif %}
-</div>
 
+</div>
 
 </div>
 </div>
@@ -225,11 +220,10 @@
     })
 </script>
 <div class="container text-center my-3">
-    <div class="row mx-auto my-auto" style="min-width: 845px;">
+    <div class="row mx-auto my-auto">
         <div id="recipeCarousel1" class="carousel slide w-100" data-ride="carousel">
-            {% if completed_projects %}
             <div class="carousel-inner w-100" role="listbox">
-                
+                {% if completed_projects %}
                 {% for project in completed_projects %}
                 <!-- <script>{{project.0.title}}</script> -->
                 {% if forloop.first %}
@@ -240,7 +234,7 @@
 
                 
                     
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-md-4">
                         <div class="card">
                         {% if project.image %}
                         <img class="card-img-top img-fluid tm-gallery-img" src="{{project.image}}" alt="Card image cap">
@@ -250,7 +244,7 @@
                         
                         <div class="card-body">
                         <h5 class="card-title">{{project | title}}</h5>
-                        <p class="card-text">{{project.overview | slice:":40"}}...</p>
+                        <p class="card-text">{{project.overview}}</p>
                         <span class="bold">Author Name : </span><span> {{ project.author.user.first_name }}{{project.author.user.last_name}}</span><br>
                         <span class="bold">Hours To Complete :</span><span>{{ project.no_of_hours }}</span><br>
                         <span class="bold">Level :</span><span>{{project.difficulty_level}}</span><br>
@@ -270,7 +264,9 @@
             </div>
             
                 {% endfor %}
-
+            {% else %}
+            No Projects to Show!
+            {% endif %}
         </div>
         <a class="carousel-control-prev w-auto" href="#recipeCarousel1" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -282,9 +278,7 @@
         </a>
 
     </div>
-    {% else %}
-    No Projects to Show!
-    {% endif %}
+
 </div>
 
 </div>

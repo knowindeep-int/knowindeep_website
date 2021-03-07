@@ -117,9 +117,8 @@ def update_profile(request):
     if request.method == "POST":
         profile_serializer = ProfileSerializer(data = request.data)
         if not profile_serializer.is_valid():
-            print(profile_serializer.errors)
             return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
-        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.POST.get('profile_id')), validated_data=request.data)
+        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.data['profile_id']), validated_data=request.data)
         se = ProfileSerializer(updated_profile)
         return Response(se.data, status = status.HTTP_200_OK)
 
@@ -212,26 +211,13 @@ def api_save_chapter_draft(request):
         chapter_serializer.save()
         return Response(chapter_serializer.data, status = status.HTTP_200_OK)
 
-@api_view(['POST',])
-def api_delete_lang(request):
-    if request.method == 'POST':
-        print(request.data)
-        project = Project.objects.get(pk = request.POST['pk'])
-        language = Language.objects.get(name = request.POST['name'])
-        project.languages.remove(language)
-        data = {
-            'message':'deleted successfully',
-            'pk': request.POST['pk'] 
-        }
-        return Response(data,status=status.HTTP_200_OK)
-
 
 @api_view(['GET',])
 def api_get_languages_prereqs(request):
     if request.method == "GET":
-        lang =  Project.objects.get(pk = request.GET['pk']).languages
+        lang = Language.getAllLanguages()
         pre = Project.objects.get(pk = request.GET['pk']).pre_req
-        print(lang)
+
         lang_serializer = LanguageSerializer(lang, many=True)
         # pre_serializer = PreRequisiteSerializer(pre, many=True)
     

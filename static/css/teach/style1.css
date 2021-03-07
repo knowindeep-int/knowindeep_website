@@ -1,79 +1,35 @@
-@media (max-width: 769px) {
-  .carousel-inner .carousel-item > div {
-      display: none;
-  }
-  .carousel-inner .carousel-item > div:first-child {
-      display: block;
-  }
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
 }
 
 .carousel-inner .carousel-item.active,
 .carousel-inner .carousel-item-next,
 .carousel-inner .carousel-item-prev {
-  display: flex;
+    display: flex;
+    
 }
 
 /* display 3 */
-@media (min-width: 991px) {
-  
-  .carousel-inner .carousel-item-right.active,
-  .carousel-inner .carousel-item-next {
-    transform: translateX(33.333%);
-  }
-  .carousel-inner .carousel-item-left.active,
-  .carousel-inner .carousel-item-prev {
-    transform: translateX(-33.333%);
-  }
-}
-@media (max-width: 991px) {
-.carousel-inner .carousel-item-right.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-right {
-  transform: translateX(50%);
-}
-.carousel-inner .carousel-item-left.active,
-.carousel-inner .carousel-item-prev,
-.carousel-inner .carousel-item-left {
-  transform: translateX(-50%);
-}
-}
-
-@media (max-width: 786px) {
-.carousel-inner .carousel-item-right.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-right {
-  transform: translateX(100%);
-}
-.carousel-inner .carousel-item-left.active,
-.carousel-inner .carousel-item-prev,
-.carousel-inner .carousel-item-left {
-  transform: translateX(-100%);
-}
+@media (min-width: 768px) {
+    
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(33.333%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-33.333%);
+    }
 }
 
 .carousel-inner .carousel-item-right,
 .carousel-inner .carousel-item-left{ 
-transform: translateX(0);
+  transform: translateX(0);
 }
 
-
-
-/* .carousel-inner{
- overflow: visible  ;
-} */
-/* 
-.carousel-item-left.active {
- display: none !important;
-}
-
-.carousel-item-right.active {
-display: none !important;
-} */
-
-.carousel-item-next,.carousel-item-prev{
-z-index: 1001;
-}
-
-.carousel-item{
-transition-timing-function: linear !important;
-}

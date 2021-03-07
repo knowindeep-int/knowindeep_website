@@ -1057,30 +1057,3 @@ color:#f00;
 .mm{
 	margin-left: 8px;
 }
-
-
-/* for the new search bar*/
-
-
-.hoho{
-	white-space: nowrap;
-	float: left;
-}
-.hoho::-webkit-scrollbar {
-	height: 5px;
-  }
-  
-  /* Track */
-  .hoho::-webkit-scrollbar-track {
-	background: #f1f1f1; 
-  }
-   
-  /* Handle */
- .hoho::-webkit-scrollbar-thumb {
-	background: #888; 
-  }
-  
-  /* Handle on hover */
-  .hoho::-webkit-scrollbar-thumb:hover {
-	background: #555; 
-  }

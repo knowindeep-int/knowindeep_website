@@ -1,16 +1,14 @@
 from .base import *
-import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 DEBUG = False
 
-# SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', ]
 
 SITE_ID = 0
 

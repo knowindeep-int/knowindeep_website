@@ -17,51 +17,32 @@ function mousein() {
     a.classList.add("mystyle");
 }
 
-
-
-
 function myFunc(){
-    let para=document.getElementById("form").classList.add("form1")
+    document.getElementById("form").classList.add("form1");
     if(window.innerWidth<1220){
     var qw=document.querySelectorAll(".nav-item");
     qw[0].classList.add("hidden");
     qw[1].classList.add("hidden");
-    }}
+    }
+}
 
-    window.onclick = function(event) {
-      if (!event.target.matches('#navbarDropdown')) {
-        var dropdowns = document.getElementsByClassName("dropdown-menu");
-        var myDropdown = document.getElementById("form");
-        var qw=document.querySelectorAll(".nav-item");
-        if (myDropdown.classList.contains('form1')) {
-          myDropdown.classList.remove('form1');
-          qw[0].classList.remove("hidden");
-          qw[1].classList.remove("hidden");
-        }
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('mystyle')) {
-            openDropdown.classList.remove('mystyle');
-          }
-        }
+window.onclick = function(event) {
+  if (!event.target.matches('#navbarDropdown')) {
+    var dropdowns = document.getElementsByClassName("dropdown-menu");
+    var myDropdown = document.getElementById("form");
+    var qw=document.querySelectorAll(".nav-item");
+    if (myDropdown.classList.contains('form1')) {
+      myDropdown.classList.remove('form1');
+      qw[0].classList.remove("hidden");
+      qw[1].classList.remove("hidden");
+    }
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('mystyle')) {
+        openDropdown.classList.remove('mystyle');
       }
     }
-    
-
-
-    let para= document.getElementById("drop");
-    para.addEventListener("mouseout",function run(){
-      var myDropdown = document.getElementById("form");
-      var qw=document.querySelectorAll(".nav-item");
-      if (myDropdown.classList.contains('form1')) {
-        myDropdown.classList.remove('form1');
-        qw[0].classList.remove("hidden");
-        qw[1].classList.remove("hidden");
-      }
-    })
-
-
-
-
+  }
+}
 

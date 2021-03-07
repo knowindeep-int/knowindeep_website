@@ -25,8 +25,6 @@
 // };
 // var title = ""
 // var description = 
-
-
 function showhide(id) {
     if (document.getElementById) {
         var divid = document.getElementById(id);
@@ -82,7 +80,7 @@ function add_language(){
 
 function createDescriptionPage() {
 
- 
+    getLangPrereq();
     
         
     if (document.getElementById("title_input") != null) {
@@ -145,48 +143,39 @@ function createDescriptionPage() {
         return false
     }
     var content = ""
-    content += '<div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    content += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working description?</h3>' + 
     "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
     '<div class="search-bar">'+
     '<input type="text"  class="search-input" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' 
     content += '<span id="error_description"></span>' +
                 '</div>' 
-document.getElementById('next_btn').setAttribute('onclick', 'addPrereqs();createDifficultyPage();')
+document.getElementById('next_btn').setAttribute('onclick', 'createDifficultyPage();')
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
 document.getElementById('current').innerHTML = 2
-document.getElementsByClassName('w3-amber')[0].style = "width:28%"
+document.getElementsByClassName('progress-bar')[0].style = "width:28%"
 
 
     // div.setAttribute("class", "jumbotron text-center");
     content += "<h7>Add Languages</h7>";
-    content += `<div id="langs" style="width: 68%;padding-bottom: 0; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
-    <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> 
-    </div>`
-    // content += '<div style="color: black;">';
-    // content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
-    // <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span> 
-    // <span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
-    // <span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
+    content += '<div style="color: black;">';
+    content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
     var bold = "'bold'"
     var underline = "'underline'"
     var italic = "'italic'"
     var ordered = "'insertOrderedList'"
-    console.log('heygdfg')
-    setTimeout(() => {
-        getLangPrereq()
-    }, 10);
+
     
 
 
-    //content += '</select></div>'
+    content += '</select></div>'
     content += '<div class="search-bar">'
-    //content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"> <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></input>'
+    content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"></input>'
     content += '<div id ="results_lang" ></div>'
     
     content += '</div>'
-    content += '<div id="error_language"></div>';
+    content += '<span id="error_language"></span>';
     
     
     content += "<h8>Add Prerequisites</h8>";
@@ -198,26 +187,22 @@ document.getElementsByClassName('w3-amber')[0].style = "width:28%"
 
     // content += '</select></div>'
     content += '<div class="search-bar">'
-    content += '<div class="top-bar12">'
-    content += '<button id="bold" onclick="document.execCommand(' + bold +')"><i class="fas fa-bold"></i></button>'
-    content += '<button id="underline" onclick="document.execCommand(' + italic +')"><i class="fas fa-italic"></i></button>'
-    content += '<button id="italic" onclick="document.execCommand(' + underline+')"><i class="fas fa-underline" style="font-size: 17px;"></i></button>'
-    content += '<span class="slash">|</span>'
-    content += '<button id="bold" onclick="document.execCommand(' + ordered +')"><i class="fas fa-list-ol"></i></button>'
-    content += '<span class="slash">|</span>'
-    content += '<button id="ordered-list" onclick="addLink()"><svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531.8 534.09"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><path class="cls-1" d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59" transform="translate(-280.31 -224.63)"/><path class="cls-1" d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88" transform="translate(-280.31 -224.63)"/><line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"/><circle class="cls-1" cx="386.8" cy="389.09" r="130"/><line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"/><line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"/></svg></button>'
-    content += '</div>'
+    content += '<button id="bold" onclick="document.execCommand(' + bold +')">B</button>'
+    content += '<button id="underline" onclick="document.execCommand(' + italic +')">I</button>'
+    content += '<button id="italic" onclick="document.execCommand(' + underline+')">U</button>'
+    content += '<button id="bold" onclick="document.execCommand(' + ordered +')">Ordered</button>'
+    content += '<button id="ordered-list" onclick="addLink()">add link</button>'
     content += '<div class="editor" contenteditable="true" spellcheck="false" >'
     content += pre_reqs
     content += '</div>'
-    // content += '<button onclick = "addPrereqs()">Add Prerequisites</button>'
-     content += '<div id="error_prereq" ></div>'
+    content += '<button onclick = "addPrereqs()">Add Prerequisites</button>'
+    // content += '<span id="error_prereq" ></span>'
     content += '</div>'
     // div.setAttribute("class", "jumbotron text-center");
     div.innerHTML = content
-    // for(var i=0; i< languages_all.length; i++){
-    //     document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
-    // }
+    for(var i=0; i< languages_all.length; i++){
+        document.getElementById("selectpicker").innerHTML += '<option>' + languages_all[i]['name'] + '</option>';
+    }
     // for(var i=0; i< prereqs_all.length; i++){
     //     document.getElementById("selectpicker_prereq").innerHTML += '<option>' + prereqs_all[i]['name'] + '</option>'
     // }
@@ -256,15 +241,14 @@ function format(cmd){
     document.execCommand(cmd)
 };
 function addPrereqs(){
-    pre_reqs = document.getElementsByClassName('editor')[0].innerHTML 
+    pre_reqs = document.getElementsByClassName('editor')[0].innerText 
     saveDraft('pre_req', pre_reqs)
 }
 function addLanguage(e){
+    
+    
     languages.push(e.innerHTML)
     saveDraft("languages",languages)
-    var num = document.getElementById('langs').childNodes.length
-    var d1 = document.getElementsByClassName('xyz')[num]
-    d1.insertAdjacentHTML('afterend','<span class="xyz">'+e.innerHTML +'<i id="'+num+'" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>')
 }
 function createTitlePage() {
     if( document.getElementById("description_input") != null) {
@@ -283,17 +267,15 @@ function createTitlePage() {
 
     var div = document.getElementById("1");
 
-    div.innerHTML += '<div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    div.innerHTML += '<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working title?</h3>' + 
     "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
     '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="title_input" value="' + title + '"> ' +  
     '<br><span id="error_title"></span></div>'
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
-    document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
-    document.getElementById('prev_btn').setAttribute('onclick', 'document.location.href = "/teach"')
     document.getElementById('current').innerHTML = 1
-    document.getElementsByClassName('w3-amber')[0].style = "width:14% !important"
+    document.getElementsByClassName('progress-bar')[0].style = "width:14% !important"
     // div.setAttribute("class", "jumbotron text-center") ;
     // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
     // document.getElementById("title_input").dataset.state = 'invalid';
@@ -440,11 +422,6 @@ function createOverviewPage() {
             }
         }
     }
-    if ($('input:checked').length == 0){
-        document.getElementById("error_diff").innerHTML = "Cannot Be Empty!";
-        document.getElementById("error_diff").style = "color: red;";
-        return;
-    }
     saveDraft('difficulty_level', difficulty_level)
     // if (document.getElementById("selectpicker_prereq") != null) {
     //     pre_reqs = [];
@@ -491,16 +468,16 @@ function createOverviewPage() {
 
     var div = document.getElementById("7");
     // div.setAttribute("class", "jumbotron text-center");
-    div.innerHTML +='<div class=" container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
+    div.innerHTML +='<div class="container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working overview?</h3>' + 
     "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 
     '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="overview_input" value="' + overview + '"> ' + 
     '</div>'
-    div.innerHTML += " <div id='error_overview'></div>"
+    div.innerHTML += " <span id='error_overview'></span>"
     document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage();')
     document.getElementById('current').innerHTML = 4
-    document.getElementsByClassName('w3-amber')[0].style = "width:56%"
+    document.getElementsByClassName('progress-bar')[0].style = "width:56%"
 
 }
 
@@ -523,9 +500,7 @@ function createImagePage() {
                 no_of_hours = document.getElementsByClassName("male_time")[i].value
             }
         }
-      
     }
-   
         //saveDraft('no_of_hours',parseInt(no_of_hours))
     
     showhide("9")
@@ -568,36 +543,18 @@ function createImagePage() {
 
 
     div = document.getElementById("9")
-    // div.setAttribute("class", "jumbotron text-center k");
-//     `
-//     <img src="icon.png" class="icon1">
-    
-// <br>
-// <div >
-//   <img class="imgusr" src="imgg.jpg" >
-// </div>
+    div.setAttribute("class", "jumbotron text-center");
 
-// <div class="xyz">xyz.jpg</div>
-// <br>
-//   <span class="button-img">
-//     <button class="button-size" type="button" onclick="alert('Hello world!')">Choose image</button>
-//   </span>
-//   <span class="button-img">
-//     <button class="button-size" type="button" onclick="alert('Hello world!')">Remove</button>
-//   </span>
-// </div>`
-    div.innerHTML += `<div class="container-fluid container-fluid1 container"><img src='/media/images/no_of_hours.png' class='icon1'>
-                        <h3>Add image for your page</h3>
-                        <div style="color: black;" id="image_input_div">
-                        <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;" ><div id="error_image" ></div></div>`
+    div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
+    div.innerHTML += '<div style="color: black;" id="image_input_div">';
+    div.innerHTML += '<input id="image_input" type="file" onchange="checkImage()" style="color: black;" id="image_input">';
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
     document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('current').innerHTML = 5
-    document.getElementsByClassName('w3-amber')[0].style = "width:70%"
+    document.getElementsByClassName('progress-bar')[0].style = "width:70%"
     if(image != "None"){
-        // document.getElementsByClassName('container')[2].innerHTML += '<img id="project_image">';
-        document.getElementById('image_input').insertAdjacentHTML('beforebegin','<img id="project_image"><br>')
+        div.innerHTML += '<img id="project_image">';
         document.getElementById('project_image').src =image
     }
 
@@ -606,23 +563,12 @@ function createImagePage() {
 // }
 
 function checkImage(){
-    document.getElementById("error_image").style = 'display:none;'
-    if(document.getElementsByClassName('imgusr').length>0){
+    if(document.getElementsByClassName('image').length>0){
         deleteImage(document.getElementById('image_input'))
     }
     addLocalImage(document.getElementById('image_input'))
 }
 function createNumberOfHours() {
-    
-    // if(document.getElementById('fig-caption') == null){
-    //     alert('7')
-    //     document.getElementById("error_image").innerHTML = "Cannot Be Empty!";
-    //     document.getElementById("error_image").style = "color: red;";
-    //     return;
-    // }
-    // else {
-    //     document.getElementById("error_image").innerHTML = "";
-    // }
     saveImageDraft()
     showhide("10");
     div_1 = document.getElementById("1");
@@ -659,16 +605,15 @@ function createNumberOfHours() {
 
     div = document.getElementById("10");
     var content = ""
-    content += "<div class='container container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
+    content += "<div class='container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
     content += "<h3> ADD HOURS REQUIRED FOR THE PROJECT</h3>";
     content += '<div style="color: black;">'  ;
-    content += '<div class="dot">'+
-        '<span class= "dot-bar"><input class="male_time" type="radio" id="0-2" name="hours" value="0.2" style="opacity: 1;">' +
-        '<label for="0-2">0-2 HOURS</label></span>' +
-        '<span class= "dot-bar"><input class="male_time" type="radio" id="2-4" name="hours" value="2.4"  style="opacity: 1;">' +
-        '<label for="2-4">2-4 HOURS</label></span>' +
-        '<span class= "dot-bar"><input class="male_time" type="radio" id=">4" name="hours" value=".4" style="opacity: 1;">' +
-        '<label for=">4">MORE THAN 4 HOURS</label></span><div id="error_numb" ></div></div></div>';
+    content += '<div class="dot><input class="male_time" type="radio" id="0-2" name="" value="0.2" style="opacity: 1;">' +
+        '<label for="0--2">0--2 HOURS</label>' +
+        '<input class="male_time" type="radio" id="2-4" name="" value="2.4"  style="opacity: 1;">' +
+        '<label for="2-4">2-4 HOURS</label>' +
+        '<input class="male_time" type="radio" id=">4" name="" value=".4" style="opacity: 1;">' +
+        '<label for=">4">MORE THAN 4 HOURS</label></div></div>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
     //     '</div>';
     div.innerHTML = content
@@ -685,7 +630,7 @@ function createNumberOfHours() {
     document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage()')
     document.getElementById('prev_btn').setAttribute('onclick', 'createImagePage();')
     document.getElementById('current').innerHTML = 6;
-    document.getElementsByClassName('w3-amber')[0].style = "width:84%"
+    document.getElementsByClassName('progress-bar')[0].style = "width:84%"
 
 }
 
@@ -724,15 +669,6 @@ function createDifficultyPage() {
         
     }
     saveDraft('pre_req',pre_reqs)
-    if(pre_reqs == ''){
-        document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
-        document.getElementById("error_prereq").style = "color: red;";
-        return;
-    }
-    // else {
-    //     document.getElementById("error_prereq").innerHTML = "";
-    // }
-    
     // if (document.getElementById("selectpicker_prereq") != null) {
     //     pre_reqs = [];
     //     for (var i = 0; i < document.getElementById("selectpicker_prereq").length; i++) {
@@ -742,13 +678,13 @@ function createDifficultyPage() {
     //     }
     //     
     //     if (pre_reqs.length == 0) {
-        //     document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
-        //     document.getElementById("error_prereq").style = "color: red;";
-        //     return;
-        // }
-        // else {
-        //     document.getElementById("error_prereq").innerHTML = "";
-        // }
+    //         document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
+    //         document.getElementById("error_prereq").style = "color: red;";
+    //         return;
+    //     }
+    //     else {
+    //         document.getElementById("error_prereq").innerHTML = "";
+    //     }
        
     // }
     // saveDraft("description", description);
@@ -888,16 +824,16 @@ function createDifficultyPage() {
     div = document.getElementById("6");
     var content = ""
     // div.setAttribute("class", "jumbotron text-center");
-    content += "<div class='container-fluid container-fluid1 container'><img src='/media/images/no_of_hours.png' class='icon1'>"
-    content += " <h3>Add difficulty level for the project</h3><br>";
-    // content += '<div style="color: black;">';
+    content += "<div class='container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
+    content += " <h3>Add difficulty level for the project</h3>";
+    content += '<div style="color: black;">';
     content += '<div class="dot">'+
-                    ' <span class="dot-bar"><input class="male" type="radio" id="easy"   name="diff" value="EASY"  >' +
-                    '<label  for="easy">EASY</label></span>' +           
-                     '<span class="dot-bar"><input class="male" type="radio" id="medium" name="diff" value="MEDIUM" >' +
-                     '<label  for="medium">MEDIUM</label></span>' +
-                     '<span class="dot-bar"><input class="male" type="radio" id="hard"   name="diff" value="HARD" >' +
-                     '<label  for="hard">HARD</label></span><div id="error_diff" ></div>' +'</div><br><br><br>';
+                    '<input class="male" type="radio" id="easy"   name="diff" value="EASY"   style="opacity: 1;">' +
+                    '<label style="font-size:18px;" for="easy">EASY</label>' +           
+                     '<input class="male" type="radio" id="medium" name="diff" value="MEDIUM" style="opacity: 1;">' +
+                     '<label style="font-size:18px;" for="medium">MEDIUM</label>' +
+                     '<input class="male" type="radio" id="hard"   name="diff" value="HARD"   style="opacity: 1;">' +
+                     '<label style="font-size:18px;" for="hard">HARD</label>' +'</div></div>';
     // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createOverviewPage()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createDescriptionPage()">Previous</button>' +
     //     '</div>';
     div.innerHTML = content
@@ -912,10 +848,10 @@ function createDifficultyPage() {
         document.getElementById('hard').checked = true;
     }
 
-    document.getElementById('next_btn').setAttribute('onclick', ';createOverviewPage()')
+    document.getElementById('next_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('current').innerHTML = 3;
-    document.getElementsByClassName('w3-amber')[0].style = "width:42%"
+    document.getElementsByClassName('progress-bar')[0].style = "width:42%"
 
 }
 

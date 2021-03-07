@@ -665,7 +665,7 @@ function createImagePage() {
 
 
     div = document.getElementById("9")
-    div.setAttribute("class", "jumbotron text-center k");
+    div.setAttribute("class", "jumbotron text-center");
 
     div.innerHTML += "<h2 style='color: black;'> ADD IMAGE PAGE</h2>";
     div.innerHTML += '<div style="color: black;">';

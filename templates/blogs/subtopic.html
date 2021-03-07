@@ -93,7 +93,7 @@
 </div>
 <div class="img2 row img3">
     {% if not project.image %}
-    <img src="{% static 'images/layer.jpg' %}" class="col-md-12 layer1">
+    <img src="/media/images/layer.png" class="col-md-12 layer1">
     {% else %}
     <img src="{{project.image}}" class="col-md-12 layer1">
     {% endif %}
@@ -112,12 +112,12 @@
                     <!-- <div class="dow">Share on </div> -->
                     <div class="sh">
                         <!-- <span class="shares"><div class="number">1</div><br><div class="number2">shares</div></span> -->
-                        <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com." title="Share by Email"><img src="{% static 'images/mail-share.png' %}" class="shareon">
+                        <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com." title="Share by Email"><img src="/media/images/mail-share.png" class="shareon">
                         </a>
-                        <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" data-action="share/whatsapp/share"><img src="{% static 'images/whatsapp-share.png' %}" class="shareon"></a>
-                        <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><img src="{% static 'images/linkdin-share.png' %}" class="shareon"></a>
-                        <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum" class="twitter-share" data-text="Lorem Ipsum" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=580')"><img src="{% static 'images/twitter-share.png' %}" class="shareon"></a>
-                        <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="{% static 'images/facebook-share.png' %}" class="shareon"></a>
+                        <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" data-action="share/whatsapp/share"><img src="/media/images/whatsapp-share.png" class="shareon"></a>
+                        <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><img src="/media/images/linkdin-share.png" class="shareon"></a>
+                        <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum" class="twitter-share" data-text="Lorem Ipsum" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=580')"><img src="/media/images/twitter-share.png" class="shareon"></a>
+                        <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="/media/images/facebook-share.png" class="shareon"></a>
 
                     </div>
                 </div>

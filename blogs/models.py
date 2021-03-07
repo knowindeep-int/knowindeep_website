@@ -48,7 +48,7 @@ class Profile(models.Model):
     skills = models.ManyToManyField(to = Language, related_name="skills", blank = True)
     total_earnings = models.IntegerField(null=True, blank=True)
     twitter_id = models.URLField(max_length=70, null=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='user')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     #email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
     #projects = models.ManyToManyField(to = 'Project', null = True, blank = True)
 
@@ -237,8 +237,7 @@ class Project(models.Model):
         project = cls.objects.get(pk=pk)
         if project.title == None or project.title == "":
             return "title"
-        if project.description == None or project.description == "" or project.pre_req == None or project.pre_req == '':
-            # print(project.languages.all())
+        if project.description == None or project.description == "":
             return "description"
         if project.difficulty_level == None or project.difficulty_level == "":
             return "difficulty_level"

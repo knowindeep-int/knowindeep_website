@@ -37,114 +37,114 @@ window.addEventListener("beforeunload", function (e) {
             }
         }
 
-        // document.addEventListener("keyup", function(e){
-        //     // if(document.getElementById('menu_div') != null){
-        //     //     // document.getElementById('menu_div').remove();
-        //     //     return;
-        //     // }
-        //     // if(e.keyCode != "13"){
-        //         isSaved = false;
-        //         if( document.getElementById('menu_div') != null){
-        //             document.getElementById('menu_div').remove();
-        //             // for(var i=0; i< document.getElementsByClassName('menu').length; i++){
-        //             //     document.getElementsByClassName('menu')[i].remove();
-        //             // }
+        document.addEventListener("keyup", function(e){
+            // if(document.getElementById('menu_div') != null){
+            //     // document.getElementById('menu_div').remove();
+            //     return;
+            // }
+            // if(e.keyCode != "13"){
+                isSaved = false;
+                if( document.getElementById('menu_div') != null){
+                    document.getElementById('menu_div').remove();
+                    // for(var i=0; i< document.getElementsByClassName('menu').length; i++){
+                    //     document.getElementsByClassName('menu')[i].remove();
+                    // }
         
-        //         }
+                }
         
-        //     // if(e.keyCode == '13'){
-        //         var menu_div = document.createElement("span")
-        //         menu_div.setAttribute("contenteditable",'false')
-        //         menu_div.id = "menu_div"
-        //         var plus = document.createElement('button')
-        //         plus.className = "btn"
-        //         plus.id = "plus_btn"
-        //         var plus_i = document.createElement("i")
-        //         plus_i.classList = "fa fa-plus"
-        //         plus.appendChild(plus_i)
-        //         var close = document.createElement('button')
-        //         close.classList = "btn menu"
-        //         close.id = "close_btn"
-        //         var close_i = document.createElement("i")
-        //         close_i.classList = "fa fa-close"
-        //         close.appendChild(close_i)
-        //         var image = document.createElement('button')
-        //         image.classList = "btn menu"
-        //         var image_i = document.createElement("i")
-        //         image_i.classList = "fa fa-camera"
-        //         var input = document.createElement('input')
-        //         input.setAttribute('type', 'file')
-        //         input.setAttribute('id','inpfile_input')
-        //         input.setAttribute('onchange', 'addLocalImage(this)')
-        //         image_i.appendChild(input)
-        //         // <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
-        //         // image_i.appendChild()
-        //         image.appendChild(image_i)
-        //         var un = document.createElement('button')
-        //         un.classList = "btn menu "
-        //         un.id = "un"
-        //         un.setAttribute("onclick","inputvar(this)")
-        //         var un_i = document.createElement("i")
-        //         un_i.classList = "fa fa-search"
-        //         un.appendChild(un_i)
-        //         var pe = document.createElement('button')
-        //         pe.classList = "btn menu "
-        //         pe.id = "pe"
-        //         pe.setAttribute("onclick","inputvar(this)")
-        //         var pe_i = document.createElement("i")
-        //         pe_i.classList = "fa fa-search"
-        //         pe.appendChild(pe_i)
-        //         menu_div.appendChild(plus)
-        //         menu_div.appendChild(close)
-        //         menu_div.appendChild(image)
-        //         menu_div.appendChild(un)
-        //         menu_div.appendChild(pe)
+            // if(e.keyCode == '13'){
+                var menu_div = document.createElement("span")
+                menu_div.setAttribute("contenteditable",'false')
+                menu_div.id = "menu_div"
+                var plus = document.createElement('button')
+                plus.className = "btn"
+                plus.id = "plus_btn"
+                var plus_i = document.createElement("i")
+                plus_i.classList = "fa fa-plus"
+                plus.appendChild(plus_i)
+                var close = document.createElement('button')
+                close.classList = "btn menu"
+                close.id = "close_btn"
+                var close_i = document.createElement("i")
+                close_i.classList = "fa fa-close"
+                close.appendChild(close_i)
+                var image = document.createElement('button')
+                image.classList = "btn menu"
+                var image_i = document.createElement("i")
+                image_i.classList = "fa fa-camera"
+                var input = document.createElement('input')
+                input.setAttribute('type', 'file')
+                input.setAttribute('id','inpfile_input')
+                input.setAttribute('onchange', 'addLocalImage(this)')
+                image_i.appendChild(input)
+                // <input type='file' id='inpfile' accept="image/jpeg, image/png, image/gif">
+                // image_i.appendChild()
+                image.appendChild(image_i)
+                var un = document.createElement('button')
+                un.classList = "btn menu "
+                un.id = "un"
+                un.setAttribute("onclick","inputvar(this)")
+                var un_i = document.createElement("i")
+                un_i.classList = "fa fa-search"
+                un.appendChild(un_i)
+                var pe = document.createElement('button')
+                pe.classList = "btn menu "
+                pe.id = "pe"
+                pe.setAttribute("onclick","inputvar(this)")
+                var pe_i = document.createElement("i")
+                pe_i.classList = "fa fa-search"
+                pe.appendChild(pe_i)
+                menu_div.appendChild(plus)
+                menu_div.appendChild(close)
+                menu_div.appendChild(image)
+                menu_div.appendChild(un)
+                menu_div.appendChild(pe)
                 
-        //         if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;" || fx().innerHTML == '<br>' +  menu_div.innerHTML){
-        //         if( document.getElementById('plus_btn') != null){
-        //             document.getElementById('plus_btn').remove();
-        //         }
-        //         fx().innerHTML = ""
+                if(fx().innerHTML == "<br>" || fx().innerHTML == "&nbsp;" || fx().innerHTML == '<br>' +  menu_div.innerHTML){
+                if( document.getElementById('plus_btn') != null){
+                    document.getElementById('plus_btn').remove();
+                }
+                fx().innerHTML = ""
             
-        //         fx().appendChild(menu_div)
-        //         fx().innerHTML += "&nbsp;"
-        //         var el = document.getElementById("editable")
-        //         var range = document.createRange()
-        //         var sel = window.getSelection()
-        //         range.setStart(fx(), 2)
-        //         range.collapse(true)
+                fx().appendChild(menu_div)
+                fx().innerHTML += "&nbsp;"
+                var el = document.getElementById("editable")
+                var range = document.createRange()
+                var sel = window.getSelection()
+                range.setStart(fx(), 2)
+                range.collapse(true)
                 
-        //         sel.removeAllRanges()
-        //         sel.addRange(range)
+                sel.removeAllRanges()
+                sel.addRange(range)
                 
-        //         document.getElementById('plus_btn').addEventListener('click', function(){
-        //                 this.style.display = 'none'
-        //                 var menu = document.getElementsByClassName('menu')
-        //                 for(var i=0; i< menu.length; i++){
-        //                     menu[i].style.display = 'inline'
-        //                 }
+                document.getElementById('plus_btn').addEventListener('click', function(){
+                        this.style.display = 'none'
+                        var menu = document.getElementsByClassName('menu')
+                        for(var i=0; i< menu.length; i++){
+                            menu[i].style.display = 'inline'
+                        }
                         
-        //             })
+                    })
                 
-        //             document.getElementById('close_btn').addEventListener('click', function(){
-        //                 document.getElementById('plus_btn').style.display = 'inline'
-        //                 var menu = document.getElementsByClassName('menu')
-        //                 for(var i=0; i< menu.length; i++){
-        //                     menu[i].style.display = 'none'
-        //                 }
+                    document.getElementById('close_btn').addEventListener('click', function(){
+                        document.getElementById('plus_btn').style.display = 'inline'
+                        var menu = document.getElementsByClassName('menu')
+                        for(var i=0; i< menu.length; i++){
+                            menu[i].style.display = 'none'
+                        }
                         
-        //             })
-        //     }
-        //     // <div id="menu_div" style="display: none;">
-        //     //         <button class="btn" id="plus_btn" title="Add menu"><i class="fa fa-plus"></i></button>
-        //     //         <button class="btn menu" id="close_btn" title="Close menu"><i class="fa fa-close"></i></button>
-        //     //         <button class="btn menu" title="Add a image"><i class="fa fa-camera"></i></button>
-        //     //         <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
-        //     //         <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
-        //     //     </div>
-        //     }
+                    })
+            }
+            // <div id="menu_div" style="display: none;">
+            //         <button class="btn" id="plus_btn" title="Add menu"><i class="fa fa-plus"></i></button>
+            //         <button class="btn menu" id="close_btn" title="Close menu"><i class="fa fa-close"></i></button>
+            //         <button class="btn menu" title="Add a image"><i class="fa fa-camera"></i></button>
+            //         <button class="btn menu" title="Sarch Unsplash"><i class="fa fa-search"></i></button>
+            //         <button class="btn menu" title="Search Pexels"><i class="fa fa-search"></i></button>
+            //     </div>
+            }
         // }
-        //)
+        )
 
         var span_text
             document.addEventListener("keypress", function(e){
@@ -167,7 +167,24 @@ window.addEventListener("beforeunload", function (e) {
             }
                 
 
-               
+                if(fx().className == "input" && document.getElementsByClassName('input') != null){
+            // e.preventDefault();
+            span_text = fx().innerHTML
+            implementUnsplashSearch(query = span_text)
+            // implementPexelSearch(query=fx().innerHTML)
+            //
+            document.getElementsByClassName('input')[0].remove();
+            return; 
+        }
+         if(fx().className == "input_pexels" && document.getElementsByClassName('input_pexels') != null){
+            // e.preventDefault();
+            // implementUnsplashSearch(query = fx().innerHTML)
+            span_text = fx().innerHTML
+            implementPexelSearch(query=span_text)
+            //
+            document.getElementsByClassName('input_pexels')[0].remove();
+            return; 
+        }
 
                 if(fx().className == 'fig-caption' && document.getElementsByClassName('fig-caption') != null && document.getElementsByClassName('fig-caption').length >= document.getElementsByClassName('fig').length){
                     // e.preventDefault()

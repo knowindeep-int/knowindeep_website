@@ -11,7 +11,7 @@
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
 {% block content %}
 <div class="contain">
-    <img src="{% static 'images/cover.png'%}" class="cover images">
+    <img src="media/images/cover.png" class="cover images">
     <div class="centered"><span class="cap"><span class="know"><b>Know </span> In Deep</span></b>
         <div>We use modern approaches to let out users grip the<br> technical knowledge to its best.</div>
     </div>
@@ -32,7 +32,7 @@
                 {%if project.image%}
                 <img class="card-img-top img-fluid tm-gallery-img" src="{{project.image}}" alt="Card image cap">
                 {%else%}
-                <img class="card-img-top img-fluid tm-gallery-img" src="{% static 'images/blog-pic.png' %}" alt="Card image cap">
+                <img class="card-img-top img-fluid tm-gallery-img" src="media/images/blog-pic.png" alt="Card image cap">
                 {%endif%}
                 <div class="card-body">
                     <h5 class="card-title">{{ project.title | title }}</h5>
@@ -77,7 +77,7 @@
                 {%if project.image%}
                 <img class="card-img-top img-fluid tm-gallery-img" src="{{project.image}}" alt="Card image cap">
                 {%else%}
-                <img class="card-img-top img-fluid tm-gallery-img" src="{% static 'images/blog-pic.png' %}" alt="Card image cap">
+                <img class="card-img-top img-fluid tm-gallery-img" src="media/images/blog-pic.png" alt="Card image cap">
                 {%endif%}
                 <div class="card-body">
                     <h5 class="card-title">{{ project.title | title }}</h5>
