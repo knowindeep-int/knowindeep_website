@@ -73,20 +73,22 @@
 			 </div>
 
 		 </div>
-
-              <li class="nav-item n dropdown hid" id="drop">
-	      	<form class="form" id="form" action="">
+<p id="para">
+              <li class="nav-item n dropdown hid" id="drop" >
+	      	<form class="form" id="form" action="" onmouseover="myFunc()" >
 	  			<input type="search" class="input"  onmouseover="mousein()" id="navbarDropdown">
-			    <i class="fa fa-search" onmouseover="myFunc()" href="#"></i>
+			    <i class="fa fa-search"   href="#"></i>
+			
 			</form>
-	
  		
 			  <div class="dropdown-menu menu" id="srch">
 			      <a class="dropdown-item">first</a>
 			      <a class="dropdown-item">second</a>
 			      <a class="dropdown-item">third</a>
 		      </div>
-    </li>
+			
+			
+    </li></p>
  
 </ul>
               <li class="nav-item login">
@@ -687,6 +689,7 @@
 	function myfunction(){
 		document.getElementById("mydropdown").classList.toggle("show");
 	}
+	
 </script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
