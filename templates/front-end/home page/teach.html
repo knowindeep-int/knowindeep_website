@@ -35,8 +35,9 @@
 
             document.addEventListener('keyup',
             function(){
-                var mod = document.lastModified
-                document.getElementById('modified').innerHTML = 'last modified on' + mod
+                // var mod = document.lastModified
+                // var mod = '{{project.date_modified}}'
+                // document.getElementById('modified').innerHTML = 'last modified on' + mod
                 // alert('{{chapter}}')
                 var chapter = '{{chapter}}'
                 // alert(chapter == null)
@@ -644,7 +645,9 @@ function setImgurHeader(xhr) {
 
           
          </script>
-         <p id="modified"></p>
+         {%if chapter%}
+         <h5 id="modified">Last modified on {{chapter.date_modified}}</h5>
+         {%endif%}
             <div class="row">
                 <div class="col-lg-3">
                     <div class="list">
@@ -687,7 +690,8 @@ function setImgurHeader(xhr) {
                         <h1>&nbsp;</h1>
                         {%endif%} </div>
                 <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createNumberofHours()">Previous</button>
-                <button class="nxt but1 but3" id="save_changes_btn" type="button" onclick="addChapter();" >Save Changes</button>
+                <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createProject();">Create Project</button>
+                <button class="nxt but1 but3" id="save_changes_btn" type="button" onclick="addChapter();">Save Changes</button>
                 <button class="nxt but1 but3" id="add_btn" onclick="newChapter();">Add</button>
             </div>
             </div>
