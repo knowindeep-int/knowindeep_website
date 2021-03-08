@@ -153,7 +153,7 @@ class Project(models.Model):
     overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.CharField(max_length=300,null= True,blank=True)
     slug = models.SlugField(null=True,blank=True)
-    title = models.CharField(max_length=25)  
+    title = models.CharField(max_length=25) 
     
     
     def __str__(self):
@@ -310,6 +310,7 @@ class Chapter(models.Model):
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
     content = RichTextUploadingField(blank=True,null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True) 
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")
     slug = models.SlugField(null=True,blank=True)
     title = models.CharField(max_length=30,null=True,blank=True)
