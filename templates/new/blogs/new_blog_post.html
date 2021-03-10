@@ -1,0 +1,285 @@
+{% extends "new/new_base.html" %}
+{% load static %}
+
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    {% block content_head %}
+<script src="{% static 'js/blogs/blog_post.js' %}"></script>
+{% endblock %}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'new_css/blogs/new_blog_post.css' %}">
+
+    {% block title %}
+    <title>{{ chapter_content.link_to.title |title }} | {{ chapter_content |title }}</title>
+    {% endblock %}
+
+
+    <script type="text/javascript">
+
+        {% block jquery %}
+    
+        
+    
+    
+        {% endblock %}
+    </script>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
+        <li class="breadcrumb-item active">{{ chapter_content | title }}</li>
+    </ol>
+
+
+
+        {% block content %}
+        <div class="chapter-page-content">
+            <div class="window">
+                <div class="left">
+                    <div class="list-group">
+                        <!-- <button type="button" class="list-group-item btn-warning list-group-item-action active" aria-current="true">
+                          Image Style
+                        </button> -->
+                        {% for chapter in chapters %}
+                    {% if chapter.slug == chapter_content.slug %}
+                        <button type="button" class="list-group-item list-group-item-action"  href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</button>
+                        <script>
+                         var ch_list = new Array;
+                        ch_list.push('{{chapter.slug}}')
+                            console.log(ch_list)
+                            </script>  
+                            {%else%}
+                            <button type="button" class="list-group-item list-group-item-action"  href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</button>
+                            <script>
+                                var ch_list = new Array;
+                               ch_list.push('{{chapter.slug}}')
+                                   console.log(ch_list)
+                                   </script>  
+                             {% endif %}
+                             {% endfor %}
+                    </div>
+                </div>
+
+
+
+                <div class="right">
+                    <div class="head">
+                        <h1>{{chapter_content}}</h1>
+                        <p>Author: {{chapter_content.author}}<span style="color: goldenrod;"> | </span>Date: {{chapter_content.date_posted}}</p>
+                        {%if chapter_content.link_to.image%}
+        <img src="{{chapter_content.link_to.image}}" class="head1">
+        {% else %}
+        <img src="{% static 'images/blog-pic.jpg' %}" class="head1">
+        {%endif%}
+                    </div>
+                    <div class="middle">
+                        {{chapter_content.content | safe}}
+                    </div>
+                    <div class="foot">
+                        <button class="btn btn-md btn-warning" onclick="previous()">Previous</button>
+                        <button class="btn btn-md btn-warning" onclick="next()">Next</button>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function previous(){
+                    for(var i = 0;i<ch_list.length;i++)
+                    {
+                        // console.log('{{chapter_content.slug}}')
+                        if (ch_list[i] == '{{chapter_content.slug}}'&& i >0)
+                        {
+                            document.location.href = '/'+ '{{slug}}/' + ch_list[i-1] ;
+                            
+                        }
+                    }
+                }
+                function next(){
+                    for(var i = 0;i<ch_list.length;i++)
+                    {
+                        // console.log('{{chapter_content.slug}}')
+                        if (ch_list[i] == '{{chapter_content.slug}}'&& i<ch_list.length-1)
+                        {
+                            document.location.href = '/'+ '{{slug}}/' + ch_list[i+1] ;
+                           
+                        }
+                    }
+                }
+                var suggestions
+    function getSuggestion(){
+		$.ajax({
+			method:'GET',
+			url:  "{% url 'api:get_suggestion'%}",
+			data:{
+                // 'project':'{{project.pk}}',
+                'chapter': '{{chapter_content.pk}}'
+				// 'content':document.getElementById('sugg_inp').value,
+				// 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+                sug = document.getElementById('suggestions-list')
+                sug.innerHTML = ""
+                if('{{request.user.is_superuser}}' == 'True' || '{{request.user}}' == '{{chapter_content.link_to.author.user}}' ){
+                for (var i = 0; i < data.suggestions.length; i++){
+                    sug.innerHTML += '<div class="row"><div class="col-1"><span class="glyphicon glyphicon-user"></span></div><div class="col-11"><h5>' + data.suggestions[i].content  +'-'+data.suggestions[i].created_on +'</h5></div></div>'
+                    sug.innerHTML +='<button type="button" onclick="resolveSuggestion(this)" data-pk = "' + data.suggestions[i].id +'">Resolve</button>'
+                    }
+                }
+			},error:function(error){
+				console.log(error)
+			},
+        })
+    }
+        getSuggestion()
+	function addSuggestion(){
+		$.ajax({
+			method:'POST',
+			url:  "{% url 'api:create_suggestion'%}",
+			data:{
+                'project':'{{chapter_content.link_to.pk}}',
+                'chapter': '{{chapter_content.pk}}',
+				'content':document.getElementById('sugg_inp').value,
+				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+				getSuggestion()
+			},error:function(error){
+				console.log(error)
+			},
+		})
+        // location.reload()
+	}
+	function resolveSuggestion(e){
+        var pk = e.getAttribute('data-pk')
+		$.ajax({
+			method:'POST',
+			url:  "{% url 'api:resolve_suggestion'%}",
+			data:{
+				'pk': pk,
+				'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+			},
+			success:function(data){
+                getSuggestion()
+			},error:function(error){
+				console.log(error)
+			},
+        })
+	}
+            </script>
+
+
+
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#1a1d20" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,261.3C480,277,600,267,720,245.3C840,224,960,192,1080,176C1200,160,1320,160,1380,160L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+        </div>
+
+
+
+        <div id="suggestions-list"></div>
+
+<script>
+    var codes = document.getElementsByClassName('code')
+
+    if( '{{request.user.is_superuser}}' == 'True'){
+        for(var i = 0; i< codes.length; i++ ){
+            codes[i].addEventListener('mouseover', function(e){
+                
+                if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                    document.getElementById('sugg_btn').remove()
+                }
+
+                if(e.target.getAttribute('class') != 'sugg_btn' ){
+                    var btn = document.createElement('button')
+                    btn.setAttribute('class', 'sugg_btn')
+                    btn.innerHTML = 'ADD SUGGESTION'
+                    btn.setAttribute('id', 'sugg_btn')
+                    btn.setAttribute('onclick', 'createInputBox(this);')
+                    // e.target.appendChild(btn)
+                    e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+                }
+            })
+        }
+    }
+
+    p_tags = document.getElementsByTagName('p')
+    if( '{{request.user.is_superuser}}' == 'True'){
+    for(var i = 0; i< p_tags.length; i++ ){
+        p_tags[i].addEventListener('mouseover', function(e){
+            
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+
+    var title = document.getElementsByTagName('h1')
+    if( '{{request.user.is_superuser}}' == 'True'){
+    for(var i = 0; i< title.length; i++ ){
+        title[i].addEventListener('mouseover', function(e){
+            
+            if(document.getElementById('sugg_btn') != null &&  e.target.getAttribute('class') != 'sugg_btn'){
+                document.getElementById('sugg_btn').remove()
+            }
+
+            if(e.target.getAttribute('class') != 'sugg_btn' ){
+                var btn = document.createElement('button')
+                btn.setAttribute('class', 'sugg_btn')
+                btn.innerHTML = 'ADD SUGGESTION'
+                btn.setAttribute('id', 'sugg_btn')
+                btn.setAttribute('onclick', 'createInputBox(this);')
+                // e.target.appendChild(btn)
+                e.target.insertBefore(btn, e.target.firstChild.nextSibling);
+            }
+        })
+    }
+}
+
+
+
+
+    function createInputBox(e){
+        if(document.getElementById('sugg_inp') == null){
+        var inp = document.createElement('input')
+        inp.id = "sugg_inp"
+        // document.getElementById('sugg_btn').remove()
+        e.parentNode.appendChild(inp)
+        
+        }
+    }
+
+    document.addEventListener('keyup', function(e){
+        if (e.keyCode == "13"){
+            if(document.getElementById('sugg_inp') != null){
+                var value = document.getElementById('sugg_inp').value
+                addSuggestion();
+            }
+            document.getElementById('sugg_inp').remove()
+        }
+    })
+
+</script>
+
+
+
+
+       
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> 
+    {% endblock content %}
