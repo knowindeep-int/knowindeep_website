@@ -47,7 +47,7 @@ ul li {
   max-width: 1300px;
 }
 
-.content {
+.index-content {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -67,19 +67,19 @@ ul li {
   color: #1a1d20;
 }
 
-.content h1 {
+.index-content h1 {
   font-size: 3rem;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
 
-.content p {
+.index-content p {
   font-size: 1.5rem;
   -webkit-transform: translateY(-80%);
           transform: translateY(-80%);
 }
 
-.content svg {
+.index-content svg {
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -182,15 +182,15 @@ ul li {
 }
 
 @media only screen and (max-width: 780px) {
-  .content h1 {
+  .index-content h1 {
     font-size: 2.5rem;
   }
-  .content p {
+  .index-content p {
     font-size: 1rem;
     -webkit-transform: translateY(-60%);
             transform: translateY(-60%);
   }
-  .content svg {
+  .index-content svg {
     display: none;
   }
   .left {
