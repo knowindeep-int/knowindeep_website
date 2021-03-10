@@ -1,6 +1,8 @@
-{% extends "base.html" %} {% load static %} {% block content_head %}
+{% extends "new/new_base.html" %} {% load static %} {% block content_head %}
 <script src="{% static 'js/blogs/index.js' %}"></script>
 {% endblock %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="{% static 'js/script.js' %}"></script>
 <!-- <meta property="og:url" content="https://www.your-domain.com/your-page.html" /> -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="KnowinDeep" /> {% block title %}
@@ -10,10 +12,16 @@
 <!-- <meta property="og:description" content="Your description" /> -->
 <!-- <script type="text/javascript" src="/templates/static/blogs/css/app.js"></script> -->
 {% block content %}
-<div class="contain">
+<!-- <div class="contain">
     <img src="{% static 'images/cover.png'%}" class="cover images">
     <div class="centered"><span class="cap"><span class="know"><b>Know </span> In Deep</span></b>
         <div>We use modern approaches to let out users grip the<br> technical knowledge to its best.</div>
+    </div>
+</div> -->
+<div class="content">
+    <div class="heading">
+        <h1>KnowInDeep</h1>
+        <p>We use modern approaches to let our users grip the technical knowledge to its best.</p>
     </div>
 </div>
 
