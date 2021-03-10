@@ -20,7 +20,7 @@ def topics(request):
             "projects":Project.get_popular_approved_completed_projects(),
             "all_projects" : Project.get_all_approved_projects()
         }
-    return render(request,"blogs/index.html",context)
+    return render(request,"new/blogs/new_index.html",context)
 
 def subtopics(request,slug):
     project = Project.objects.get(slug=slug)
