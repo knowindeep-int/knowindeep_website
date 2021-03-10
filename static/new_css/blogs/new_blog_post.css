@@ -47,7 +47,7 @@ ul li {
   max-width: 1300px;
 }
 
-.content {
+.chapter-page-content {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -66,7 +66,7 @@ ul li {
   color: #1a1d20;
 }
 
-.content svg {
+.chapter-page-content svg {
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -80,13 +80,13 @@ ul li {
   margin: 3rem 0 13rem 0;
 }
 
-.window .left {
+.window .chapter-page-left {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
 
-.window .left .active {
+.window .chapter-page-left .active {
   background-color: goldenrod;
   border: none;
 }
@@ -147,36 +147,7 @@ ul li {
   color: #ffffff;
 }
 
-.footer .left {
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
 
-.footer .left svg {
-  cursor: pointer;
-  margin-right: 0.6rem;
-}
-
-.footer .list ul {
-  margin-left: 0;
-  list-style: none;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.footer .list ul li a {
-  color: rgba(255, 255, 255, 0.55);
-  text-decoration: none;
-}
-
-.footer .list ul li a:hover {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.footer .list ul li p {
-  margin-bottom: 5px;
-}
 
 @media only screen and (max-width: 1200px) {
   .window {
@@ -185,7 +156,7 @@ ul li {
   .window button {
     background-color: goldenrod;
   }
-  .window .left {
+  .window .chapter-page-left {
     display: none;
   }
   .window .right {
@@ -197,10 +168,10 @@ ul li {
 }
 
 @media only screen and (max-width: 870px) {
-  .content svg {
+  .chapter-page-content svg {
     display: none;
   }
-  .content .window {
+  .chapter-page-content .window {
     margin: 1rem 0 2rem 0;
   }
 }
