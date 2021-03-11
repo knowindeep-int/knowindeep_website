@@ -77,7 +77,7 @@ ul li {
 }
 
 #base-color {
-    color: goldenrod;
+    color: #f9a80d;
 }
 
 #base-color:hover {
@@ -85,7 +85,7 @@ ul li {
 }
 
 .base-dropdown-content a:hover {
-    background-color: goldenrod;
+    background-color: #f9a80d;
     color: white;
 }
 
