@@ -35,7 +35,7 @@ def subtopics(request,slug):
             "project":project,
             "has_liked": has_liked
         }
-        return render(request,"new/blogs/new_subtopic.html",context)
+        return render(request,"new/blogs/new_project_page.html",context)
     return HttpResponse('You are not allowed to access this page', status =500)
 
 def chapter_post(request,slug, chapter):
@@ -62,7 +62,7 @@ def chapter_post(request,slug, chapter):
             "author": author,
             # "has_liked": has_liked
         }
-        return render(request,"new/blogs/new_blog_post.html", context)
+        return render(request,"new/blogs/new_chapter_page.html", context)
     return HttpResponse('You are not allowed to access this page', status =500)
 
 def remove(request,slug):
