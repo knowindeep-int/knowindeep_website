@@ -37,13 +37,13 @@
 
 
                 {% for chapter in chapters %} {% if chapter.slug == chapter_content.slug %}
-                <button type="button" class="list-group-item list-group-item-action active" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</button>
+                <a type="button" class="list-group-item list-group-item-action active" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
                 <script>
                     ch_list.push('{{chapter.slug}}')
                     console.log(ch_list)
                 </script>
                 {%else%}
-                <button type="button" class="list-group-item list-group-item-action" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</button>
+                <a type="button" class="list-group-item list-group-item-action" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
                 <script>
                     ch_list.push('{{chapter.slug}}')
                     console.log(ch_list)

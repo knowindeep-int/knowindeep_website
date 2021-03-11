@@ -35,7 +35,7 @@ def subtopics(request,slug):
             "project":project,
             "has_liked": has_liked
         }
-        return render(request,"blogs/subtopic.html",context)
+        return render(request,"new/blogs/new_subtopic.html",context)
     return HttpResponse('You are not allowed to access this page', status =500)
 
 def chapter_post(request,slug, chapter):
