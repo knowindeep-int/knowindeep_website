@@ -98,9 +98,7 @@ ul li {
 }
 
 .base-footer {
-    position: absolute;
-    width: 100vw;
-    bottom: 0;
+    width: 100%;
 }
 
 .base-footer_content {
