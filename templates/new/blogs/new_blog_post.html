@@ -30,21 +30,20 @@
 <script>
     var ch_list = new Array;
 </script>
-<div class="chapter-page-content">
+    <div class="content">
     <div class="window">
-        <div class="chapter-page-left">
+        <div class="left">
             <div class="list-group">
-                <!-- <button type="button" class="list-group-item btn-warning list-group-item-action active" aria-current="true">
-                          Image Style
-                        </button> -->
+
+
                 {% for chapter in chapters %} {% if chapter.slug == chapter_content.slug %}
-                <a type="button" class="list-group-item list-group-item-action active" aria-current="true" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                <button type="button" class="list-group-item list-group-item-action active" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</button>
                 <script>
                     ch_list.push('{{chapter.slug}}')
                     console.log(ch_list)
                 </script>
                 {%else%}
-                <a type="button" class="list-group-item list-group-item-action" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                <button type="button" class="list-group-item list-group-item-action" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</button>
                 <script>
                     ch_list.push('{{chapter.slug}}')
                     console.log(ch_list)
@@ -52,16 +51,13 @@
                 {% endif %} {% endfor %}
             </div>
         </div>
-
-
+        
 
         <div class="right">
             <div class="head">
                 <h1>{{chapter_content}}</h1>
                 <p>Author: {{chapter_content.author}}<span style="color: #f9a80d;"> | </span>Date: {{chapter_content.date_posted}}</p>
-                {%if chapter_content.link_to.image%}
-                <img src="{{chapter_content.link_to.image}}" class="head1"> {% else %}
-                <img src="{% static 'images/blog-pic.png' %}" class="head1"> {%endif%}
+                <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
             </div>
             <div class="middle">
                 {{chapter_content.content | safe}}
@@ -72,6 +68,7 @@
             </div>
         </div>
     </div>
+
     <script>
         function previous() {
             for (var i = 0; i < ch_list.length; i++) {
