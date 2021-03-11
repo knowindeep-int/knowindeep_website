@@ -66,7 +66,15 @@ body {
 
 .index-cards .card {
     width: 26rem;
+    -o-object-fit: cover;
+    object-fit: cover;
     margin-bottom: 2rem;
+}
+
+.index-cards .card img {
+    height: 40%;
+    -o-object-fit: cover;
+    object-fit: cover;
 }
 
 .index-cta {
