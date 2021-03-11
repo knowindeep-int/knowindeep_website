@@ -18,7 +18,12 @@
 </head>
 
 <body>
-
+    <script>
+        function getLoginPopUp(){
+            document.getElementsByTagName('body')[0].setAttribute('style', 'position: fixed;background-color: #d0d0d0 ;')
+            document.getElementById('login_div').setAttribute('style', 'display: block;')
+        }
+    </script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div style="max-width: 1300px;" class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -30,13 +35,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" aria-current="page" href="{% url 'blogs:index' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Teach with Us</a>
+                        <a class="nav-link" href="{% url 'teach:list_of_projects' %}">Teach with Us</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -44,33 +49,32 @@
                 </form>
 
                 <!-- <a style="padding: 0;" class="nav-link" href="#">Login</a> -->
-
+                {% if request.user.is_authenticated %}
                 <div onclick="myFunction()" class="base-dropdown">
                     <button class="base-dropbtn">
-                        <img src="https://images.unsplash.com/photo-1517530094915-500495b15ade?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="">
+                        <img src="/media/{{request.user.user.dp}}" alt="">
                     </button>
                     <div id="base-myDropdown" class="base-dropdown-content">
                         <a id="base-first" href="#" style="display: flex; margin-top: 0.5rem;">
-                            <div class="base-pic"><img style="width: 45px; height: 45px;" src="https://images.unsplash.com/photo-1517530094915-500495b15ade?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt=""></div>
-                            <div class="baseinfo" style="margin-left: 5px;">abc@gmail.com <br> ABC</div>
+                            <div class="base-pic"><img style="width: 45px; height: 45px;" src="/media/{{request.user.user.dp}}" alt=""></div>
+                            <div class="baseinfo" style="margin-left: 5px;">{{request.user.email}}<br> {{request.user.username}}</div>
                         </a>
                         <hr class="base-dropdown-divider">
-                        <a href="#">Write a story</a>
-                        <a href="#">Stories</a>
+                        <a href="#">My Projects</a>
                         <a href="#">Stats</a>
-                        <a href="#">Design your profile</a>
-                        <a href="#">Settings</a>
+                        <a href="/@me">My Profile</a>
                         <hr class="base-dropdown-divider">
-                        <a href="#">Teach with Us</a>
-                        <a href="#">Readaing list</a>
-                        <a href="#">Publication</a>
-                        <a href="#">Medium Partner Program</a>
+                        <a href="{% url 'teach:list_of_projects' %}">Teach with Us</a>
                         <hr class="base-dropdown-divider">
-                        <a id="base-color" href="#">Become a member</a>
                         <a href="#">Help</a>
-                        <a href="#">Sign Out</a>
+                        <a href="{% url 'site_users:logout' %}">Sign Out</a>
                     </div>
                 </div>
+                {% else %}
+                        <div class="nav-item login">
+                            <a onclick="getLoginPopUp()" class="nav-link" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog" >Login</a>
+                        </div>
+                {% endif %}
             </div>
         </div>
     </nav>
