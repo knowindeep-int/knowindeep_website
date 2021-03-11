@@ -86,9 +86,9 @@
             <h1 class="display-5">SignIn</h1>
         </div>
         <div class="sin">
-            <button style="width: 350px;" type="button" class="btn btn-primary btn-lg mb-3"><i class="bi bi-google"></i>  Login with Google</button>
+            <button onclick="window.location.href='{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}'" style="width: 350px;" type="button" class="btn btn-primary btn-lg mb-3"><i class="bi bi-google"></i>  Login with Google</button>
             <span style="text-align: center; font-weight: 600; font-style: italic;">--------------- or ---------------</span>
-            <button type="button" class="btn btn-dark btn-lg mt-3 mb-2"><i class="bi bi-github"></i>  Login with Github</button>
+            <button type="button" class="btn btn-dark btn-lg mt-3 mb-2" onclick="window.location.href='{% url 'social:begin' 'github' %}?next={{request.path}}'"><i class="bi bi-github"></i>  Login with Github</button>
         </div>
     </div>
     <div id="overlay" onclick="off()"></div>
