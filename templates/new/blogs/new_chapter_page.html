@@ -27,10 +27,10 @@
     var ch_list = new Array;
 </script>
 
-<div class="content">
-    <div class="window">
+<div class="chapter-content">
+    <div class="chapter-window">
 
-        <div class="left">
+        <div class="chapter-left">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
@@ -56,16 +56,21 @@
         </div>
 
 
-        <div class="right">
-            <div class="head">
-                <h1>{{chapter_content}}</h1>
-                <p>Author: {{chapter_content.author}}<span style="color: #f9a80d;"> | </span>Date: {{chapter_content.date_posted.date}}</p>
+        <div class="chapter-right">
+            <div class="chapter-head">
+                <div class="chapter-bkmrk">
+                    <div class="chapter-flex mb-2">
+                <h1 style="margin-bottom: 0;">{{chapter_content}}</h1>
+                <p style="margin: 0;">Author: {{chapter_content.author}}<span style="color: #f9a80d; font-weight: 600; font-size: 1.3rem;"> | </span>Date: {{chapter_content.date_posted.date}}</p>
+                </div>
                 <!-- <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt=""> -->
+                <i style="font-size: 1.6rem; margin: auto 0;" class="bi bi-bookmarks"></i>
+                </div>
             </div>
-            <div class="middle">
+            <div class="chapter-middle">
                 {{chapter_content.content | safe}}
             </div>
-            <div class="foot">
+            <div class="chapter-foot">
                 {% if chapters.0 != chapter_content %}
                 <button class="btn btn-md btn-warning" onclick="previous()">Previous</button> 
                 {%else%}
