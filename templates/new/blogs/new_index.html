@@ -10,12 +10,66 @@
 {% endblock %} {% block title %}
 <title>KnowInDeep</title>
 {% endblock %} {% block content %}
-
+{%csrf_token%}
+<script>
+    function fill(e){
+        var p = e.id;
+        if(e.classList[0]=='pop'){
+            if(document.getElementsByClassName('bookmark-pop')[p-1].classList[3]=='bi-bookmarks'){
+                $.ajax({
+            'method':'POST',
+            'url':'{% url "api:create_book" %}',
+            'data':{
+                'pk':e.classList[1],
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })
+            }
+           else{
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:delete_book" %}',
+            'data':{
+                'pk':e.classList[1],
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })       
+           }
+        
+        }
+        else{
+            document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+            document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+        }
+   
+    }
+    // function create_bookmark(){
+        
+    // }
+   
+</script>
 <div class="index-content">
     <div class="container">
         <h3>Our Popular Projects</h3>
         <div class="index-cards">
             {% for project in projects %}
+            <!-- <script>
+                alert('{{project.bookmark.all}}')
+            </script> -->
             <div class="card">
                 {%if project.image%}
                 <img src="{{project.image}}" class="card-img-top" alt="...">{% else %}
@@ -46,7 +100,11 @@
                         <a href="#" class="btn btn-danger" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %}
-                    <a><i class="bi bi-bookmarks mt-2"></i></a>
+                    {%if project.bookmark.all%}
+                    <a onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks-fill"></i></a>
+                    {%else%}
+                    <a onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks"></i></a>                    
+                    {%endif%}
                     {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
                     
                 </div>
@@ -86,7 +144,7 @@
                         <a href="#" class="btn btn-danger" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %}
-                    <a><i class="bi bi-bookmarks mt-2"></i></a>
+                    <a onclick="fill(this)" id="{{forloop.counter}}" class="all"><i class="bi bi-bookmarks mt-2 bookmark-all"></i></a>
                     {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
 
                 </div>

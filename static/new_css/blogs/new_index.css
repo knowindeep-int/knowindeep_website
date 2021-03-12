@@ -162,5 +162,7 @@ body {
     }
 }
 
-
+.pop,.all{
+    cursor: pointer;
+}
 /*# sourceMappingURL=index.css.map */
