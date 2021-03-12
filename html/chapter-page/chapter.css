@@ -60,7 +60,16 @@ body {
           flex: 3;
 }
 
-.chapter-window .chapter-right .chapter-head h1 {
+.chapter-window .chapter-right .chapter-head .chapter-bkmrk {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.chapter-window .chapter-right .chapter-head .chapter-bkmrk h1 {
   font-weight: 600;
 }
 

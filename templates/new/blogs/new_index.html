@@ -52,8 +52,40 @@
         
         }
         else{
-            document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
-            document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+            if(document.getElementsByClassName('bookmark-pop')[p-1].classList[3]=='bi-bookmarks'){
+                $.ajax({
+            'method':'POST',
+            'url':'{% url "api:create_book" %}',
+            'data':{
+                'pk':e.classList[1],
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })
+            }
+           else{
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:delete_book" %}',
+            'data':{
+                'pk':e.classList[1],
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })       
+           }
         }
    
     }
@@ -100,10 +132,12 @@
                         <a href="#" class="btn btn-danger" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %}
+                    {%if request.user.is_authenticated%}
                     {%if project.bookmark.all%}
                     <a onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks-fill"></i></a>
                     {%else%}
                     <a onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks"></i></a>                    
+                    {%endif%}
                     {%endif%}
                     {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
                     
@@ -144,7 +178,14 @@
                         <a href="#" class="btn btn-danger" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %}
-                    <a onclick="fill(this)" id="{{forloop.counter}}" class="all"><i class="bi bi-bookmarks mt-2 bookmark-all"></i></a>
+                    
+                    {%if request.user.is_authenticated%}
+                    {%if project.bookmark.all%}
+                    <a onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"></i></a>
+                    {%else%}
+                    <a onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"></i></a>                    
+                    {%endif%}
+                    {%endif%}
                     {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
 
                 </div>
