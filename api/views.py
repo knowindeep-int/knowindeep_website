@@ -376,3 +376,30 @@ def api_get_suggestion(request):
         sug = SuggestionSerializer(suggestions,many = True)
         data = {'suggestions':sug.data,'pk':pk}
         return Response(data,status= status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_create_bookmark(request):
+    if request.method == 'POST':
+        pk= request.POST['pk']
+        project = Project.objects.get(pk = pk)
+        profile = Profile.objects.get(user = request.user)
+        project.bookmark.add(profile)
+        data = {
+            'message':'created successfully',
+            'pk': pk
+        }
+        return Response(data,status=status.HTTP_200_OK)
+
+
+@api_view(['POST',])
+def api_delete_bookmark(request):
+    if request.method == 'POST':
+        pk= request.POST['pk']
+        project = Project.objects.get(pk = pk)
+        profile = Profile.objects.get(user = request.user)
+        project.bookmark.remove(profile)
+        data = {
+            'message':'deleted successfully',
+            'pk': pk
+        }
+        return Response(data,status=status.HTTP_200_OK)
