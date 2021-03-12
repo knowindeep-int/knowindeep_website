@@ -67,8 +67,16 @@
             </div>
             <div class="foot">
                 {% if chapters.0 != chapter_content %}
-                <button class="btn btn-md btn-warning" onclick="previous()">Previous</button> {% endif %} {% if chapters.last != chapter_content %}
-                <button id="nxt_btn_project" class="btn btn-md btn-warning" onclick="next()">Next</button> {% endif %}
+                <button class="btn btn-md btn-warning" onclick="previous()">Previous</button> 
+                {%else%}
+                <button class="btn btn-md btn-warning chapter-btn-hide" onclick="previous()">Previous</button>
+                {%endif%}
+
+                {% if chapters.last != chapter_content %}  
+                <button id="nxt_btn_project" class="btn btn-md btn-warning" onclick="next()">Next</button>
+                {%else%}
+                <button id="nxt_btn_project" class="btn btn-md btn-warning chapter-btn-hide" onclick="next()">Next</button>
+                {% endif %}
             </div>
         </div>
     </div>
