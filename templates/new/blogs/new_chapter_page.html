@@ -3,7 +3,7 @@
 
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'new_css/blogs/new_blog_post.css' %}"> {% block title %}
+<link rel="stylesheet" href="{% static 'new_css/blogs/new_chapter_page.css' %}"> {% block title %}
 <title>{{ chapter_content.link_to.title |title }} | {{ chapter_content |title }}</title>
 {% endblock %} {% endblock %}
 
@@ -26,17 +26,17 @@
 <script>
     var ch_list = new Array;
 </script>
-    <div class="content">
-        
+
+<div class="content">
     <div class="window">
-       
+
         <div class="left">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
                 <li class="breadcrumb-item">{{ chapter_content | title }}</li>
             </ol>
-            
+
             <div class="list-group">
                 {% for chapter in chapters %} {% if chapter.slug == chapter_content.slug %}
                 <a type="button" class="list-group-item list-group-item-action active" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
@@ -45,7 +45,7 @@
                     console.log(ch_list)
                 </script>
                 {%else%}
-                
+
                 <a type="button" class="list-group-item list-group-item-action" href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
                 <script>
                     ch_list.push('{{chapter.slug}}')
@@ -54,7 +54,7 @@
                 {% endif %} {% endfor %}
             </div>
         </div>
-        
+
 
         <div class="right">
             <div class="head">
@@ -67,11 +67,8 @@
             </div>
             <div class="foot">
                 {% if chapters.0 != chapter_content %}
-                <button class="btn btn-md btn-warning" onclick="previous()">Previous</button>
-                {% endif %}
-                {% if chapters.last != chapter_content %}
-                <button id="nxt_btn_project" class="btn btn-md btn-warning" onclick="next()">Next</button>
-                {% endif %}
+                <button class="btn btn-md btn-warning" onclick="previous()">Previous</button> {% endif %} {% if chapters.last != chapter_content %}
+                <button id="nxt_btn_project" class="btn btn-md btn-warning" onclick="next()">Next</button> {% endif %}
             </div>
         </div>
     </div>
