@@ -93,15 +93,9 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: space-evenly;
-    -ms-flex-pack: space-evenly;
-    justify-content: space-evenly;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
     margin-bottom: 5px;
-}
-
-.index-cta .btn-dark {
-    background-color: #f9a80d;
-    border: goldenrod;
 }
 
 .index-cta .index-share svg {
@@ -111,6 +105,11 @@ body {
     bottom: 0;
     color: #f9a80d;
     margin-bottom: 10px;
+}
+
+.index-btn-hide {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .list-group-item {
