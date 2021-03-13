@@ -2,7 +2,51 @@
 <script src="{% static 'js/blogs/subtopic.js' %}"></script>
 <link rel="stylesheet" href="{% static 'new_css/blogs/new_project_page.css' %}">{% endblock %} {% block title %}
 <title>{{ project.title |title}}</title>
-{% endblock %} {%csrf_token%} {% block content %}
+{% endblock %}  {% block content %} {%csrf_token%}
+<script>
+    function fill(e){
+            if(document.getElementsByClassName('mt-2')[0].classList[2]=='bi-bookmarks'){
+                $.ajax({
+            'method':'POST',
+            'url':'{% url "api:create_book" %}',
+            'data':{
+                'pk':'{{project.pk}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                 alert('1')
+                document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })
+            }
+           else{
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:delete_book" %}',
+            'data':{
+                'pk':'{{project.pk}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                 alert(document.getElementsByClassName('mt-2')[0].classList)
+                document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })       
+           }
+        
+        
+    }
+    // function create_bookmark(){
+        
+    // }
+   
+</script>
 <div class="container project-main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
@@ -13,7 +57,13 @@
     <img id="img1" src="{{project.image}}" alt="" onerror=this.src=""> {% endif %}
     <div class="project-content">
         <div class="project-header">
-            <h1>{{ project.title | title }}<i style=" position: absolute; right: 0; font-size: 2rem;" class="bi bi-bookmarks mt-5"><span style=" font-style: normal; font-size: 1.6rem;">0</span></i>
+            <h1>{{ project.title | title }}  {%if request.user.is_authenticated%}
+                {%if project.bookmark.all%}
+                <a onclick="fill(this)" ><i class="bi mt-2  bi-bookmarks-fill"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>
+                {%else%}
+                <a onclick="fill(this)"><i class="bi mt-2 bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>                    
+                {%endif%}
+                {%endif%}
             </h1>
             <h4>By {{project.author}} <span style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
             <p style="margin-bottom: 0;">share on</p>

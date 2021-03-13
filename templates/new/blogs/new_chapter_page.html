@@ -26,6 +26,90 @@
 <script>
     var ch_list = new Array;
 </script>
+<script>
+    function fill(e){
+        alert('3')
+        var p = e.id;
+        if(e.classList[0]=='pop'){
+            if(document.getElementsByClassName('bookmark-pop')[p-1].classList[3]=='bi-bookmarks'){
+                $.ajax({
+            'method':'POST',
+            'url':'{% url "api:create_book" %}',
+            'data':{
+                'pk':e.classList[1],
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })
+            }
+           else{
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:delete_book" %}',
+            'data':{
+                'pk':e.classList[1],
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })       
+           }
+        
+        }
+        else{
+            if(document.getElementsByClassName('bookmark-pop')[p-1].classList[3]=='bi-bookmarks'){
+                $.ajax({
+            'method':'POST',
+            'url':'{% url "api:create_book" %}',
+            'data':{
+                'pk':e.classList[1],
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })
+            }
+           else{
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:delete_book" %}',
+            'data':{
+                'pk':e.classList[1],
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+            },error:function(error){
+                console.log('error')
+            },
+        })       
+           }
+        }
+   
+    }
+    // function create_bookmark(){
+        
+    // }
+   
+</script>
 
 <div class="chapter-content">
     <div class="chapter-window">
@@ -64,7 +148,13 @@
                 <p style="margin: 0;">Author: {{chapter_content.author}}<span style="color: #f9a80d; font-weight: 600; font-size: 1.3rem;"> | </span>Date: {{chapter_content.date_posted.date}}</p>
                 </div>
                 <!-- <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt=""> -->
-                <i style="font-size: 1.6rem; margin: auto 0;" class="bi bi-bookmarks"></i>
+                {%if request.user.is_authenticated%}
+                {%if project.bookmark.all%}
+                <a onclick="fill(this)"><i class="bi bi-bookmarks-fill" ><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{project.bookmark.all.count}}</span></i></a>
+                {%else%}
+                <a  onclick="fill(this)"><i class="bi bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{project.bookmark.all.count}}</span></i></a>                    
+                {%endif%}
+                {%endif%}
                 </div>
             </div>
             <div class="chapter-middle">
