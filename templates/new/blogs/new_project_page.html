@@ -15,8 +15,13 @@
             },
             success:function(data){
                 //  alert('1')
-                document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
-                document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
             },error:function(error){
                 console.log('error')
             },
@@ -32,8 +37,13 @@
             },
             success:function(data){
                 //  alert(document.getElementsByClassName('mt-2')[0].classList)
-                document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
-                document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
             },error:function(error){
                 console.log('error')
             },
