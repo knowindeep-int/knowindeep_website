@@ -400,6 +400,7 @@ def api_delete_bookmark(request):
         project.bookmark.remove(profile)
         data = {
             'message':'deleted successfully',
-            'pk': pk
+            'pk': pk,
+            'count': project.bookmark.all().count(),
         }
         return Response(data,status=status.HTTP_200_OK)
