@@ -384,9 +384,11 @@ def api_create_bookmark(request):
         project = Project.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
         project.bookmark.add(profile)
+        
         data = {
             'message':'created successfully',
-            'pk': pk
+            'pk': pk,
+            'count': project.bookmark.all().count()
         }
         return Response(data,status=status.HTTP_200_OK)
 

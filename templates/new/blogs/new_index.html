@@ -25,8 +25,13 @@
             },
             success:function(data){
                 // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
-                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
-                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+                // document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
             },error:function(error){
                 console.log('error')
             },
@@ -42,8 +47,13 @@
             },
             success:function(data){
                 // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
-                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
-                document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+                // document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
             },error:function(error){
                 console.log('error')
             },
@@ -62,8 +72,13 @@
             },
             success:function(data){
                 // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
-                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
-                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+                // document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
             },error:function(error){
                 console.log('error')
             },
@@ -79,8 +94,13 @@
             },
             success:function(data){
                 // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
-                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
-                document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+                // document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
             },error:function(error){
                 console.log('error')
             },
@@ -134,9 +154,9 @@
                     {% endif %} {% endif %}
                     {%if request.user.is_authenticated%}
                     {%if project.bookmark.all%}
-                    <a onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks-fill"><span id="{{project.bookmark.all.count}}-1" style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></a>
+                    <a onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks-fill"><span  style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></a>
                     {%else%}
-                    <a onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks"><span id="{{project.bookmark.all.count}}" style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></a>                    
+                    <a onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks"><span style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></a>                    
                     {%endif%}
                     {%endif%}
                     {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
