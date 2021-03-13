@@ -406,3 +406,33 @@ def api_delete_bookmark(request):
             'count': project.bookmark.all().count(),
         }
         return Response(data,status=status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_create_chapter_bookmark(request):
+    if request.method == 'POST':
+        pk= request.POST['pk']
+        chapter = Chapter.objects.get(pk = pk)
+        profile = Profile.objects.get(user = request.user)
+        chapter.bookmark.add(profile)
+        
+        data = {
+            'message':'created successfully',
+            'pk': pk,
+            'count': chapter.bookmark.all().count()
+        }
+        return Response(data,status=status.HTTP_200_OK)
+
+
+@api_view(['POST',])
+def api_delete_chapter_bookmark(request):
+    if request.method == 'POST':
+        pk= request.POST['pk']
+        chapter = Chapter.objects.get(pk = pk)
+        profile = Profile.objects.get(user = request.user)
+        chapter.bookmark.remove(profile)
+        data = {
+            'message':'deleted successfully',
+            'pk': pk,
+            'count': chapter.bookmark.all().count(),
+        }
+        return Response(data,status=status.HTTP_200_OK)

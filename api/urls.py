@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import api_create_suggestion, api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_project_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status,api_create_suggestion, api_resolve_suggestion,api_get_suggestion,api_search_languages,api_delete_lang,api_create_bookmark,api_delete_bookmark
+from .views import api_create_suggestion, api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_project_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status,api_create_suggestion, api_resolve_suggestion,api_get_suggestion,api_search_languages,api_delete_lang,api_create_bookmark,api_delete_bookmark,api_create_chapter_bookmark,api_delete_chapter_bookmark
 
 
 app_name = "api"
@@ -30,4 +30,6 @@ urlpatterns = [
     path('deleteLanguage', api_delete_lang, name = "delete_lang"),
     path('createBookmark', api_create_bookmark, name = "create_book"),
     path('deleteBookmark', api_delete_bookmark, name = "delete_book"),
+    path('createChapterBookmark', api_create_chapter_bookmark, name = "create_chap_book"),
+    path('deleteChapterBookmark', api_delete_chapter_bookmark, name = "delete_chap_book"),
 ]
