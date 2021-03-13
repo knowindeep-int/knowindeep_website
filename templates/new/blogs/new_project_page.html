@@ -5,7 +5,7 @@
 {% endblock %}  {% block content %} {%csrf_token%}
 <script>
     function fill(e){
-            if(document.getElementsByClassName('mt-2')[0].classList[2]=='bi-bookmarks'){
+            if(document.getElementsByClassName('mt-5')[0].classList[2]=='bi-bookmarks'){
                 $.ajax({
             'method':'POST',
             'url':'{% url "api:create_book" %}',
@@ -69,9 +69,9 @@
         <div class="project-header">
             <h1>{{ project.title | title }}  {%if request.user.is_authenticated%}
                 {%if project.bookmark.all%}
-                <a onclick="fill(this)" ><i class="bi mt-5  bi-bookmarks-fill" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>
+                <a onclick="fill(this)" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>
                 {%else%}
-                <a onclick="fill(this)"><i class="bi mt-5 bi-bookmarks" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>                    
+                <a onclick="fill(this)" class="{{project.pk}}" ><i class="bi mt-5 bi-bookmarks" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>                    
                 {%endif%}
                 {%endif%}
             </h1>
