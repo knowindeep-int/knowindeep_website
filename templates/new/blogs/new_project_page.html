@@ -14,7 +14,7 @@
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
             },
             success:function(data){
-                 alert('1')
+                //  alert('1')
                 document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
                 document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
             },error:function(error){
@@ -31,7 +31,7 @@
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
             },
             success:function(data){
-                 alert(document.getElementsByClassName('mt-2')[0].classList)
+                //  alert(document.getElementsByClassName('mt-2')[0].classList)
                 document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
                 document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
             },error:function(error){
@@ -59,9 +59,9 @@
         <div class="project-header">
             <h1>{{ project.title | title }}  {%if request.user.is_authenticated%}
                 {%if project.bookmark.all%}
-                <a onclick="fill(this)" ><i class="bi mt-2  bi-bookmarks-fill"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>
+                <a onclick="fill(this)" ><i class="bi mt-5  bi-bookmarks-fill" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>
                 {%else%}
-                <a onclick="fill(this)"><i class="bi mt-2 bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>                    
+                <a onclick="fill(this)"><i class="bi mt-5 bi-bookmarks" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></a>                    
                 {%endif%}
                 {%endif%}
             </h1>
