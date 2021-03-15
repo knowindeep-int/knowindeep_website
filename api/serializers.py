@@ -116,7 +116,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
             instance.skills.add(language)
 
-        instance.user.save()
+        # instance.user.save()
         instance.save()
         return instance
 
