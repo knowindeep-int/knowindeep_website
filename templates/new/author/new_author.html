@@ -25,7 +25,7 @@
    
 </script>
 <script>
-         function updateProfile(field, value) {
+        function updateProfile(field, value) {
         event.preventDefault();
         var dp = '{{ profile.dp }}'
         var first_name = '{{ profile.user.first_name }}'
@@ -85,12 +85,14 @@
         reply(event)
     }
 
+
 </script>
 <div class="container profile-content">
     <div class="profile-left">
         <div class="profile-image">
-            <img src="{{profile.dp.url}}"  alt="" onerror=this.src="">
-            <button class="btn btn-light"><i class="bi bi-pencil"></i></button>
+            <img src="{{profile.dp.url}}" id="filebur"  alt="" onerror=this.src="">
+            <button id="buttonid" class="btn btn-light"><i class="bi bi-pencil"></i></button>
+            <input id='fileid' type='file' hidden/>
             <h1 id="name">{{profile.user.username}}</h1>
         </div>
         <div class="profile-details">
@@ -275,6 +277,59 @@
  
 
 //     });
+document.getElementById('buttonid').addEventListener('click', openDialog);
+
+function openDialog() {
+    document.getElementById('fileid').click();
+    event.preventDefault();
+    
+
+}
+$('#fileid').change(function(){
+    // alert('6')
+    var file = document.getElementById('fileid').files[0];
+    var formData = new FormData();
+    formData.append('dp', file);
+    formData.append('profile_id', '{{profile.pk}}');
+    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+    formData.append('username', '{{profile.user.username}}');
+    formData.append('description', '{{profile.description}}');
+    formData.append('email_id', '{{profile.user.email}}');
+    formData.append('linkedin_id', '{{profile.linkedin_id}}');
+    formData.append('twitter_id', '{{profile.twitter_id}}');
+    formData.append('github_id', '{{profile.github_id}}');
+    formData.append('first_name', '{{profile.user.first_name}}');
+    formData.append('last_name', '{{profile.user.last_name}}');
+    formData.append('isAuthor', '{{profile.isAuthor}}');
+    formData.append('isAuthor', '{{profile.isAuthor}}');
+    formData.append('account_number', '{{profile.account_number}}');
+    formData.append('total_earnings', '{{profile.total_earnings}}');
+    formData.append('skills', '{{profile.skills}}');
+    formData.append('phone_number', '{{profile.phone_number}}');
+    // console.log(formData['dp'])
+    $.ajax({
+        method:'POST',
+        url: '{% url "api:update_profile" %}',
+        contentType: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        data:formData,
+        success: function(data) {
+                // document.getElementById('name').innerHTML = data.username
+                // document.getElementById('desc').innerHTML = data.description
+                // document.getElementById('pho').innerHTML = data.phone_number
+                // document.getElementById('git').innerHTML = data.github_id
+                // document.getElementById('link').innerHTML = data.linkedin_id
+                // document.getElementById('twit').innerHTML = data.twitter_id
+                 document.getElementById('filebur').src = data.dp
+                console.log(data)
+            },
+            error: function(error) {
+                console.log('error')
+            },
+            
+    })
+})
 function reply_click(e) {
 e.target.classList.toggle("second");
 var a=e.target.id;
