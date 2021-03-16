@@ -235,6 +235,7 @@ ul li {
 }
 
 @media print {
+    html,
     body {
         display: none;
     }
