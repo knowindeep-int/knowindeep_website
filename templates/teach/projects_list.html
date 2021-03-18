@@ -10,6 +10,7 @@
     
     <!-- <script src="{% static 'js/teach/teach.js' %}"></script> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script>sessionStorage.removeItem('pk')</script>
@@ -27,7 +28,60 @@
 
     <link href="style.css" rel="stylesheet"> -->
     <!-- <link href="style1.css" rel="stylesheet"> -->
-    
+    <style>
+        .ui-autocomplete-category {
+          font-weight: bold;
+          padding: .2em .4em;
+          margin: .8em 0 .2em;
+          line-height: 1.5;
+        }
+    </style>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+        $( function() {
+          $.widget( "custom.catcomplete", $.ui.autocomplete, {
+            _create: function() {
+              this._super();
+              this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+            },
+            _renderMenu: function( ul, items ) {
+              var that = this,
+                currentCategory = "";
+              $.each( items, function( index, item ) {
+                var li;
+                if ( item.category != currentCategory ) {
+                  ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                  currentCategory = item.category;
+                }
+                li = that._renderItemData( ul, item );
+                if ( item.category ) {
+                  li.attr( "aria-label", item.category + " : " + item.label );
+                }
+              });
+            }
+          });
+        // });
+
+
+        var data = [
+      { label: "anders", category: "" },
+      { label: "andreas", category: "" },
+      { label: "antal", category: "" },
+      { label: "annhhx10", category: "Products" },
+      { label: "annk K12", category: "Products" },
+      { label: "annttop C13", category: "Products" },
+      { label: "anders andersson", category: "People" },
+      { label: "andreas andersson", category: "People" },
+      { label: "andreas johnson", category: "People" }
+    ];
+ 
+    $( "#search" ).catcomplete({
+      delay: 0,
+      source: data
+    });
+  } );
+        </script>    
 </head>
 
 <div class="container center1">
@@ -43,7 +97,7 @@
   <button type="submit" onclick="implementSearchProjects()">Search</button>
   <div class= "results"></div>
 ======= -->
-  <input type="text" name="search" id="search_projects_ongoing" autocomplete="off">
+  <input type="text" name="search" id="search" autocomplete="off">
   <button type="submit" onclick="">Search</button>
   
 <!-- >>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d -->

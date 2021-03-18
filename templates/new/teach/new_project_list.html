@@ -6,18 +6,73 @@
     <!-- <meta charset="utf-8"> -->
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     {% block content_head %}
+    
+
+ 
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+    
+
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static  'new_css/teach/new_project_list.css' %}">
+
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+    
+    <script src="{% static 'js/blogs/index.js' %}"></script>
     <script>sessionStorage.removeItem('pk')</script>
+
+    
+
+ 
     {% endblock %}
 
     {% block content %}
+    
+
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
+  <script>
+  $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
+
     <script>
         var project_titles_ongoing = []
         {% if ongoing_projects %}
@@ -90,9 +145,14 @@
         // }
         })
     </script>
-    
-    
 
+    
+    
+    
+<div class="ui-widget">
+    <label for="tags">Tags: </label>
+    <input id="tags">
+  </div>
     <div class="container flex-column align-items-center mt-4">
         <h1>Your Ongoing Projects</h1>
           <div style="z-index: 1;" id="search" class="input-group my-4">
@@ -126,27 +186,27 @@
 
                         <div class="index-cta py-2 px-4 mx-1 ">
                             <div class="index-button">
-                                <a style="color: white;" href="#" class="btn btn-warning py-1 px-2 ">Details</a>
+                                <a style="color: white;" href="{% url 'teach:add_course' project.pk %}"  class="btn btn-warning py-1 px-2 ">GO TO BLOG</a>
                             </div>
 
-                            <div class="btn-group">
-                                <button id="drpdwn" style="background-color: transparent; box-shadow: none;" type="button" class="btn btn-light border-0 p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                            <!-- <div class="btn-group"> -->
+                                <!-- <button id="drpdwn" style="background-color: transparent; box-shadow: none;" type="button" class="btn btn-light border-0 p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img style="color: #f9a80d; width: 1.2rem;" src="/media/share.svg" alt="">
-                                </button>
-                                <ul class="dropdown-menu dropend">
+                                </button> -->
+                                <!-- <ul class="dropdown-menu dropend"> -->
                                 <!-- <li><a class="dropdown-item" href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-linkedin"></i> Linkedin</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-link-45deg"></i> Copy Link</a></li> -->
-                                <li><a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{url}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="dropdown-item"><i class="bi bi-twitter"></i> Twitter</a></li>
+                                <!-- <li><a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{url}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="dropdown-item"><i class="bi bi-twitter"></i> Twitter</a></li>
 
                                 <li><a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{url}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="dropdown-item"><i class="bi bi-facebook"></i> Facebook</a></li>
 
                                 <li><a data-href="" class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url={{url}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><i class="bi bi-linkedin"></i> Linkedin</a></li>
 
                                 <li><a href="#" onclick="{{function}};return false;" data-href="{{url}}" class="dropdown-item"><i class="bi bi-link-45deg"></i> Copy Link</a></li>
-                            </ul>
-                            </div>
+                            </ul> -->
+                            <!-- </div> -->
 
                         </div>
                     </div>
@@ -188,17 +248,21 @@
                         <hr>
                         <div class="index-cta py-2 px-4 mx-1 ">
                             <div class="index-button">
-                                <a style="color: white;" href="#" class="btn btn-warning py-1 px-2 ">Details</a>
+                                <a style="color: white;" href="{% url 'blogs:sub_topic' project.slug %}" class="btn btn-warning py-1 px-2 ">GO TO BLOG</a>
                             </div>
                             <div class="btn-group">
                                 <button style="background-color: transparent; box-shadow: none;" type="button" class="btn btn-light border-0 p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img style="color: #f9a80d; width: 1.2rem;" src="/media/share.svg" alt="">
                                 </button>
                                 <ul class="dropdown-menu dropend">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-linkedin"></i> Linkedin</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-link-45deg"></i> Copy Link</a></li>
+                                    
+                                    <li><a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="dropdown-item"><i class="bi bi-twitter"></i> Twitter</a></li>
+    
+                                    <li><a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="dropdown-item"><i class="bi bi-facebook"></i> Facebook</a></li>
+    
+                                    <li><a data-href="" class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><i class="bi bi-linkedin"></i> Linkedin</a></li>
+    
+                                    <li><a href="#" onclick="copyProjectPageURLToClipBoard(this);return false;" data-href="{{project.getCompleteUrl}}" class="dropdown-item"><i class="bi bi-link-45deg"></i> Copy Link</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -274,7 +338,7 @@
         
         </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> -->
 
 
   {% endblock %}
