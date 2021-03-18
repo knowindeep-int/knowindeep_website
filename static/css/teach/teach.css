@@ -19,7 +19,7 @@ a {
 }
 
 html {
-    height: 100%
+    height: 100%;
 }
 
 a.main-button {
@@ -160,10 +160,7 @@ header {
     padding: 0;
 }
 
-.functional-buttons ul li {
-    display: inline-block;
-    margin-left: 10px;
-}
+
 
 .functional-buttons ul li a {
     display: inline-block;
@@ -204,10 +201,7 @@ header {
     .functional-buttons {
         margin-left: 7.5%;
     }
-    .functional-buttons ul li {
-        display: inline-block;
-        margin-left: 3px;
-    }
+   
   
     .background-header .functional-buttons ul li:first-child a {
         padding: 6px 10px;
@@ -448,9 +442,7 @@ ul.stack {
     padding: 0 30px;
 }
 
-li {
-    padding: 5px 0
-}
+
 
 .heads {
     color: #f9a80d;
@@ -904,11 +896,6 @@ div.spans h5 {
     }
 }
 
-body {
-    font-family: 'Georgia-Regular-font';
-    font-size: 18px;
-    line-height: 30px;
-}
 
 h1,
 h2,
@@ -997,9 +984,6 @@ h6,
     padding-left: 0;
 }
 
-.list li {
-    padding-left: 40px;
-}
 
 .list li:hover {
     background-color: #f9a80d;
