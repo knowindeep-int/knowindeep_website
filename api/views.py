@@ -437,3 +437,19 @@ def api_delete_chapter_bookmark(request):
             'count': chapter.bookmark.all().count(),
         }
         return Response(data,status=status.HTTP_200_OK)
+
+@api_view(['GET',])
+def api_get_ch_pr_au(request):
+    if request.method == 'GET':
+        chapter = Chapter.objects.all()
+        project = Project.objects.all()
+        author = Profile.objects.all()
+        chapters = ChapterSerializer(chapter,many = True)
+        projects = ProjectSerializer(project,many = True)
+        authors = ProfileSerializer(author,many = True) 
+        data={
+            'chapter':chapters.data,
+            'author':authors.data,
+            'project':projects.data,
+        }
+        return Response(data,status=status.HTTP_200_OK)

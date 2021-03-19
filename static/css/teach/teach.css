@@ -7,9 +7,8 @@
     font-family: "georgia";
     src: url("/georgiabold.ttf") format("truetype");
 } */
-
 body {
-    transition: all 0.5s;
+    font-family: "Montserrat", sans-serif;
 }
 
 
@@ -903,20 +902,20 @@ h3,
 .h1,
 .h2,
 .h3 {
-    font-family: 'gilroy';
+    : 'gilroy';
     font-weight: bold;
 }
 
 h4,
 .h4 {
-    font-family: 'gilroy';
+    /* font-family: 'gilroy'; */
 }
 
 h5,
 h6,
 .h5,
 .h6 {
-    font-family: 'georgia';
+    /* font-family: 'georgia'; */
 }
 
 h1,
@@ -1270,12 +1269,12 @@ h8 {
 
 .male {
     margin-left: 60px !important;
-    font-family: georgia;
+    /* font-family: georgia; */
 }
 
 .container-fluid h3 {
     font-weight: bold;
-    font-family: gilroy !important;
+    /* font-family: gilroy !important; */
     font-size: 45px;
 }
 
@@ -1307,7 +1306,7 @@ h8 {
 
 .male {
     margin-left: 60px !important;
-    font-family: georgia;
+    /* font-family: georgia; */
 }
 
 .w3-container {
