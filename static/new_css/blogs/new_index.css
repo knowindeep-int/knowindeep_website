@@ -96,6 +96,7 @@ body {
     -ms-flex-pack: distribute;
     justify-content: space-around;
     margin-bottom: 5px;
+    flex-wrap: wrap;
 }
 
 .index-cta .index-share svg {

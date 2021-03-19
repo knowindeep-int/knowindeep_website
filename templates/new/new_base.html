@@ -9,11 +9,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css"> 
+
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'new_css/new_style.css' %}">
+
+
+      
    
     <!-- <script src="http://code.jquery.com/jquery-1.11.3.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -73,6 +76,22 @@
 
   }
 
+  for(var i=0;i<data.chapter.length;i++){
+    Data.push({
+                    category: "chapter",
+                    label: data.chapter[i].title
+                });
+
+  }
+
+  for(var i=0;i<data.author.length;i++){
+    Data.push({
+                    category: "author",
+                    label: data.author[i].username
+                });
+
+  }
+
 //   var data = [
 //     { label: "anders", category: "" },
 //     { label: "andreas", category: "" },
@@ -86,9 +105,9 @@
 //   ];
 
 
-  $( "#search_projects_completed" ).catcomplete({
+  $( "#searchNavbar" ).catcomplete({
     delay: 0,
-    source: data
+    source: Data
   });
 } );
 
@@ -123,7 +142,7 @@
                     {%endif%}
                 </ul>
                 <form class="d-flex">
-                    <input style="height: 30px;" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input id="searchNavbar" style="height: 30px;" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
 
                 <!-- <a style="padding: 0;" class="nav-link" href="#">Login</a> -->

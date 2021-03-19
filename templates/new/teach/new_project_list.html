@@ -329,7 +329,7 @@
                   $.each( items, function( index, item ) {
                     var li;
                     if ( item.category != currentCategory ) {
-                      ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                      ul.append( "<a href='https://www.google.com' class='ui-autocomplete-category'>" + item.category + "</a>" );
                       currentCategory = item.category;
                     }
                     li = that._renderItemData( ul, item );
@@ -347,14 +347,17 @@
               for(var i=0; i< project_titles_ongoing.length; i++){
                 ongoingData.push({
                     category: "",
-                    label: project_titles_ongoing[i]['title']
+                    label: project_titles_ongoing[i]['title'],
+                    value: "/"+ project_titles_ongoing[i]['slug']
+                    
                 });
 
               }
               for(var i=0; i< project_titles.length; i++){
                 completedData.push({
                     category: "",
-                    label: project_titles[i]['title']
+                    label: project_titles[i]['title'],
+                    value: "/"+ project_titles[i]['slug']
                 });
 
               }
@@ -374,11 +377,17 @@
             
               $( "#search_projects_completed" ).catcomplete({
                 delay: 0,
-                source: completedData
+                source: completedData,
+                select: function( event, ui ) { 
+                    window.location.href = ui.item.value;
+                }
               });
               $( "#search_projects_ongoing" ).catcomplete({
                 delay: 0,
-                source: ongoingData
+                source: ongoingData,
+                select: function( event, ui ) { 
+                    window.location.href = ui.item.value;
+                }
             });
 
             } );
