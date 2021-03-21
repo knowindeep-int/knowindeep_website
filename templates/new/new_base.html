@@ -72,7 +72,8 @@
                     for (var i = 0; i < data.project.length; i++) {
                         Data.push({
                             category: "project",
-                            label: data.project[i].title
+                            label: data.project[i].title,
+                            value: '/' + data.project[i].slug 
                         });
 
                     }
@@ -80,7 +81,8 @@
                     for (var i = 0; i < data.chapter.length; i++) {
                         Data.push({
                             category: "chapter",
-                            label: data.chapter[i].title
+                            label: data.chapter[i].title,
+                            value: '/' + data.chapter[i].project_slug + '/' + data.chapter[i].slug
                         });
 
                     }
@@ -88,7 +90,8 @@
                     for (var i = 0; i < data.author.length; i++) {
                         Data.push({
                             category: "author",
-                            label: data.author[i].username
+                            label: data.author[i].username,
+                            value: '/@' + data.author[i].username
                         });
 
                     }
@@ -108,7 +111,10 @@
 
                     $("#searchNavbar").catcomplete({
                         delay: 0,
-                        source: Data
+                        source: Data,
+                        select: function(event, ui) {
+                            window.location.href = ui.item.value;
+                        }
                     });
                 });
 
