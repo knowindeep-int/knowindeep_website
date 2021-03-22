@@ -1,0 +1,107 @@
+{% extends "new/new_base.html" %}{% load static %}
+
+<!-- Required meta tags -->
+{% block content_head %}
+<script src="{% static 'js/blogs/index.js' %}"></script>
+{% endblock %}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'new_css/blogs/new_index.css' %}">
+<script src="{% static 'js/script.js' %}"></script>
+{% block title %}
+<title>KnowInDeep</title>
+{% endblock %}
+
+<body>
+
+
+
+
+
+
+
+
+
+    {% block content %}
+
+    <div class="content">
+        <div class="container">
+            <h3>Our Popular Projects</h3>
+
+            <div class=" cards">
+                {% for project in projects %}
+                <div class="card">
+                    {%if project.image%}
+                    <img class="card-img-top" src="{{project.image}}" alt="Card image cap"> {%else%}
+                    <img class="card-img-top" src="{% static 'images/blog-pic.png' %}" alt="Card image cap"> {%endif%}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title | title }}</h5>
+                        <h6 class="card-text">{{project.description | truncatewords:10}}</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Author Name: <span>{{project.author}}</span></li>
+                            <li class="list-group-item">Hours to complete: <span>{{project.no_of_hours}}</span></li>
+                            <li class="list-group-item">Level: <span>{{project.difficulty_level}}</span></li>
+                            <li class="list-group-item">Languages Used:
+                                <div>
+                                    {% for language in project.languages.all %}{% if language.image %}
+                                    <img src="{{language.image.url}}" class="lang"> {% endif %}{% endfor %}
+
+                                </div>
+                        </ul>
+                        <a class="btn btn-primary" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> &emsp; GO TO BLOG
+                            &emsp;</a> {% if request.user.is_superuser %} {% if not project.isApproved %}
+                        <a class="btn btn-primary" href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
+                        <a class="btn btn-primary" href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a> {% endif %} {% endif %} {% if project.isApproved %} {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl
+                        function="copyProjectPageURLToClipBoard(this)" %} {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <h3>All Our Projects</h3>
+            <div class=" cards">
+                {% for project in all_projects %}
+                <div class="card">
+                    {%if project.image%}
+                    <img class="card-img-top" src="{{project.image}}" alt="Card image cap"> {%else%}
+                    <img class="card-img-top" src="{% static 'images/blog-pic.png' %}" alt="Card image cap"> {%endif%}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title | title }}</h5>
+                        <h6 class="card-text">{{project.description | truncatewords:10}}</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Author Name: <span>{{project.author}}</span></li>
+                            <li class="list-group-item">Hours to complete: <span>{{project.no_of_hours}}</span></li>
+                            <li class="list-group-item">Level: <span>{{project.difficulty_level}}</span></li>
+                            <li class="list-group-item">Languages Used:
+                                <div>
+                                    {% for language in project.languages.all %}{% if language.image %}
+                                    <img src="{{language.image.url}}" class="lang"> {% endif %}{% endfor %}
+
+                                </div>
+                        </ul>
+                        <a class="btn btn-primary" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> &emsp; GO TO BLOG
+                            &emsp;</a> {% if request.user.is_superuser %} {% if not project.isApproved %}
+                        <a class="btn btn-primary" href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
+                        <a class="btn btn-primary" href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a> {% endif %} {% endif %} {% if project.isApproved %} {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl
+                        function="copyProjectPageURLToClipBoard(this)" %} {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+
+
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#1a1d20" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,261.3C480,277,600,267,720,245.3C840,224,960,192,1080,176C1200,160,1320,160,1380,160L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+
+    {%endblock content%}
+</body>
+
+</html>

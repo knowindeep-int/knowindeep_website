@@ -52,7 +52,7 @@ def list_of_projects(request):
             'completed_projects': completed_projects,
             'ongoing_projects': ongoing_projects,
         }
-        return render(request, 'teach/projects_list.html',context=context)
+        return render(request, 'new/teach/new_project_list.html',context=context)
     return redirect("/")
 
 def text_editor(request,pk = None, chapter_pk = None):

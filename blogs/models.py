@@ -140,6 +140,7 @@ class Project(models.Model):
     # topic_image = models.ImageField(null=True, upload_to='media/')
     # topic_content = models.CharField(max_length=300, blank=True, null=True)
     author = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name = "projects")
+    bookmark = models.ManyToManyField(to=Profile,blank=True,related_name= "bookmarks_project")
     date_approved = models.DateTimeField(default = None, blank =True ,null=True)  
     description = models.TextField(null = True, blank = True)
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
@@ -153,7 +154,7 @@ class Project(models.Model):
     overview = models.CharField(max_length=300, null = True, blank = True)
     pre_req = models.CharField(max_length=300,null= True,blank=True)
     slug = models.SlugField(null=True,blank=True)
-    title = models.CharField(max_length=25)  
+    title = models.CharField(max_length=25) 
     
     
     def __str__(self):
@@ -308,8 +309,10 @@ class Project(models.Model):
         
 class Chapter(models.Model):
     author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
+    bookmark = models.ManyToManyField(to=Profile,blank=True,related_name='bookmarks_chapter')
     content = RichTextUploadingField(blank=True,null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True) 
     link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")
     slug = models.SlugField(null=True,blank=True)
     title = models.CharField(max_length=30,null=True,blank=True)
