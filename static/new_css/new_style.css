@@ -234,5 +234,12 @@ ul li {
     }
 }
 
+@media print {
+    html,
+    body {
+        display: none;
+    }
+}
+
 
 /*# sourceMappingURL=base.css.map */

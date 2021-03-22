@@ -26,6 +26,6 @@ def author_page(request, slug):
         "is_verified":is_verified,
         "progresses":packages
     }
-    return render(request,"author/author_page.html",context)
+    return render(request,"new/author/new_author.html",context)
     # return render(request, 'front-end/profile page/index.html', context)
  
