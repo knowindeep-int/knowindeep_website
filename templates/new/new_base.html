@@ -50,11 +50,15 @@
         }
 
 
+        function implementSearch() {
 
+search_input = document.getElementById('searchNavbar').value;
         $.ajax({
-            url: '{% url "api:get_ch_pr_au" %}',
+            url: '{% url "api:search" %}',
             method: "GET",
-            data: {},
+            data: {
+                'search_input': search_input,
+            },
             success: function(data) {
                 $(function() {
                     $.widget("custom.catcomplete", $.ui.autocomplete, {
@@ -79,29 +83,29 @@
                         }
                     });
                     var Data = []
-                    for (var i = 0; i < data.project.length; i++) {
+                    for (var i = 0; i < data.projects.length; i++) {
                         Data.push({
                             category: "project",
-                            label: data.project[i].title,
-                            value: '/' + data.project[i].slug 
+                            label: data.projects[i].title,
+                            value: '/' + data.projects[i].slug 
                         });
 
                     }
 
-                    for (var i = 0; i < data.chapter.length; i++) {
+                    for (var i = 0; i < data.chapters.length; i++) {
                         Data.push({
                             category: "chapter",
-                            label: data.chapter[i].title,
-                            value: '/' + data.chapter[i].project_slug + '/' + data.chapter[i].slug
+                            label: data.chapters[i].title,
+                            value: '/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug
                         });
 
                     }
 
-                    for (var i = 0; i < data.author.length; i++) {
+                    for (var i = 0; i < data.authors.length; i++) {
                         Data.push({
                             category: "author",
-                            label: data.author[i].username,
-                            value: '/@' + data.author[i].username
+                            label: data.authors[i].username,
+                            value: '/@' + data.authors[i].username
                         });
 
                     }
@@ -133,6 +137,7 @@
                 console.log('error')
             },
         });
+    }
     </script>
     <nav style="z-index: 2" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div style="max-width: 1300px;" class="container-fluid">
@@ -157,7 +162,7 @@
                     {%endif%}
                 </ul>
                 <form class="d-flex">
-                    <input id="searchNavbar" style="height: 30px;" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input id="searchNavbar" style="height: 30px;" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" onkeyup="implementSearch();" >
                 </form>
 
                 <!-- <a style="padding: 0;" class="nav-link" href="#">Login</a> -->
