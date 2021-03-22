@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "new/new_base.html" %}
 {% load static %}
 {% block content %}
 
@@ -10,6 +10,7 @@
     
     <!-- <script src="{% static 'js/teach/teach.js' %}"></script> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script>sessionStorage.removeItem('pk')</script>
@@ -27,7 +28,60 @@
 
     <link href="style.css" rel="stylesheet"> -->
     <!-- <link href="style1.css" rel="stylesheet"> -->
-    
+    <style>
+        .ui-autocomplete-category {
+          font-weight: bold;
+          padding: .2em .4em;
+          margin: .8em 0 .2em;
+          line-height: 1.5;
+        }
+    </style>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+        $( function() {
+          $.widget( "custom.catcomplete", $.ui.autocomplete, {
+            _create: function() {
+              this._super();
+              this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+            },
+            _renderMenu: function( ul, items ) {
+              var that = this,
+                currentCategory = "";
+              $.each( items, function( index, item ) {
+                var li;
+                if ( item.category != currentCategory ) {
+                  ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                  currentCategory = item.category;
+                }
+                li = that._renderItemData( ul, item );
+                if ( item.category ) {
+                  li.attr( "aria-label", item.category + " : " + item.label );
+                }
+              });
+            }
+          });
+        // });
+
+
+        var data = [
+      { label: "anders", category: "" },
+      { label: "andreas", category: "" },
+      { label: "antal", category: "" },
+      { label: "annhhx10", category: "Products" },
+      { label: "annk K12", category: "Products" },
+      { label: "annttop C13", category: "Products" },
+      { label: "anders andersson", category: "People" },
+      { label: "andreas andersson", category: "People" },
+      { label: "andreas johnson", category: "People" }
+    ];
+ 
+    $( "#search" ).catcomplete({
+      delay: 0,
+      source: data
+    });
+  } );
+        </script>    
 </head>
 
 <div class="container center1">
@@ -43,7 +97,7 @@
   <button type="submit" onclick="implementSearchProjects()">Search</button>
   <div class= "results"></div>
 ======= -->
-  <input type="text" name="search" id="search_projects_ongoing" autocomplete="off">
+  <input type="text" name="search" id="search" autocomplete="off">
   <button type="submit" onclick="">Search</button>
   
 <!-- >>>>>>> 4e2dd0eb047e4cd93a68ae5fd330cee122f5868d -->
@@ -289,92 +343,6 @@
 
 </div>
 </div>
-<!-- <div id= "results">
-    results are
-</div> -->
-<!-- <div class="container jumbotron text-center" style="color: black;">
-    <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Ongoing Projects</h3>
-    <div class="row">
-        <button type="button" class="btn btn-primary" onclick="location.href='{% url 'teach:add_course' %}';">Create New Project</button>
-    </div>
-    {% if ongoing_projects %}
-    {% for project in ongoing_projects %}
-    <div class="col-sm-4">
-
-        <div class="card hoverable">
-
-            <div class="card-image">
-                <img class="blogImage" src="media/{{ project.image }}">
-            </div>
-            <img class="image" src="media/{{ blog.topic_image }}">
-            <div class="card-content">
-                <span class="card-title">{{ project.title }}</span>
-
-                <p>{{ project.overview }}</p>
-                <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
-                <p>Hours To Complete: {{ project.no_of_hours }}</p>
-                <p>Level: {{ project.difficulty_level }}</p>
-                <p>Languages Used: {{project.languages.all|join:', '}}</p>
-                <div>
-                    {% for language in project.languages.all %} {% if language.image %}
-                    <img src="{{language.image}}" class="lang"> {% endif %} {% endfor %}
-                    
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4 ml-4">
-                    <a href="#" onclick="location.href='{% url 'teach:add_course' pk=project.pk %}';">Go to blog</a>
-                </div>
-            </div>
-        
-    </div>
-</div>
-{% endfor %}
-{% else %}
-No Projects to Show!
-{% endif %}
-
-</div> -->
-
-
-<!-- <div class="container text-center" style="color: black;">
-    <h3><i class="fa fa-line-chart"></i>&nbsp&nbsp Your Completed Projects</h3>
-    {% if completed_projects %}
-    {% for project in completed_projects %}
-    <div class="col-sm-4">
-
-        <div class="card hoverable">
-
-            <div class="card-image">
-                <img class="blogImage" src="media/{{ project.image }}">
-            </div>
-            <img class="image" src="media/{{ blog.topic_image }}">
-            <div class="card-content">
-                <span class="card-title">{{ project.title }}</span>
-
-                <p>{{ project.overview }}</p>
-                <p>Author Name: {{ project.author.user.first_name }}{{project.author.user.last_name}}</p>
-                <p>Hours To Complete: {{ project.no_of_hours }}</p>
-                <p>Level: {{ project.difficulty_level }}</p>
-                <p>Languages Used: {{project.languages.all|join:', '}}</p>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4 ml-4">
-                    <a href="#" onclick="location.href='{% url 'blogs:sub_topic' project.slug %}';">Go to blog</a>
-                </div>
-            </div>
-        
-    </div>
-</div>
-{% endfor %}
-{% else %}
-No Projects to Show!
-{% endif %} -->
-
-<!-- </div>
- -->
  
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
  <script>

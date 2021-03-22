@@ -1,0 +1,148 @@
+{% extends "new/new_base.html" %}{% load static %} {% block content_head %}
+<script src="{% static 'js/blogs/subtopic.js' %}"></script>
+<link rel="stylesheet" href="{% static 'new_css/blogs/new_project_page.css' %}">{% endblock %} {% block title %}
+<title>{{ project.title |title}}</title>
+{% endblock %}  {% block content %} {%csrf_token%}
+<script>
+    function fill(e){
+            if(document.getElementsByClassName('mt-5')[0].classList[2]=='bi-bookmarks'){
+                $.ajax({
+            'method':'POST',
+            'url':'{% url "api:create_book" %}',
+            'data':{
+                'pk':'{{project.pk}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                //  alert('1')
+                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
+            },error:function(error){
+                console.log('error')
+            },
+        })
+            }
+           else{
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:delete_book" %}',
+            'data':{
+                'pk':'{{project.pk}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                //  alert(document.getElementsByClassName('mt-2')[0].classList)
+                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
+            },error:function(error){
+                console.log('error')
+            },
+        })       
+           }
+        
+        
+    }
+    // function create_bookmark(){
+        
+    // }
+   
+</script>
+<div class="container project-main">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
+    </ol>
+    {% if not project.image %}
+    <img id="img1" src="{% static 'images/layer.png' %}" alt="" onerror=this.src=""> {% else %}
+    <img id="img1" src="{{project.image}}" alt="" onerror=this.src=""> {% endif %}
+    <div class="project-content">
+        <div class="project-header">
+            <h1>{{ project.title | title }}  {%if request.user.is_authenticated%}
+                {%if project.bookmark.all%}
+                <div onclick="fill(this)" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                {%else%}
+                <div onclick="fill(this)" class="{{project.pk}}" ><i class="bi mt-5 bi-bookmarks" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>                    
+                {%endif%}
+                {%endif%}
+            </h1>
+            <h4>By {{project.author}} <span style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
+            <p style="margin-bottom: 0;">share on</p>
+            <div class="social-icons">
+                <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com." title="Share by Email"><img src="{% static 'images/gmail.svg' %}" class="shareon">
+                </a>
+                <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" data-action="share/whatsapp/share"><img src="{% static 'images/whatsapp.svg' %}" class="shareon"></a>
+                <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><img src="{% static 'images/linkedin.svg' %}" class="shareon"></a>
+                <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum" class="twitter-share" data-text="Lorem Ipsum" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=580')"><img src="{% static 'images/twitter.svg' %}" class="shareon"></a>
+                <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="{% static 'images/facebook.svg' %}" class="shareon"></a>
+                <a><img src="{% static 'images/instagram.svg' %}" class="shareon"></a>
+            </div>
+        </div>
+        <div class="project-description">{{project.overview}}</div>
+        <div class="project-info">
+            <div class="qna">
+                <h4>What will you in this course:</h4>
+                <p>>{{ project.description }}</p>
+            </div>
+            <div class="qna">
+                <h4>Pre-Requisites for this couse:</h4>
+                {% for pre_req in project.pre_req.all %}
+                <p>{{pre_req}}</p>
+                {% endfor %}
+            </div>
+            <div class="qna">
+                <h4>Difficulty Level:</h4>
+                <p>{{ project.difficulty_level}}</p>
+            </div>
+            <div class="qna">
+                <h4>Course Duration</h4>
+                <p>{{ project.no_of_hours }}</p>
+            </div>
+            <div class="qna">
+                <h4>Languages Used:</h4>
+                {% if language.image.url %} {% for language in project.languages.all %}
+                <img src="{{language.image.url}}" class="la"> {% endfor %} {% endif %}
+            </div>
+        </div>
+        <div class="project-cards">
+            {% if chapters %} {% for chapter in chapters %}
+            <div class="project-card">
+                <div class="number">{{ forloop.counter }}</div>
+                <div class="card-info">
+                    <h4> <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
+                        {{ chapter.title }} 
+                    </a></h4>
+                    <p>{{ chapter }}</p>
+                </div>
+                <div class="share-icon">
+                    {% include 'dropdown/new_dropdown.html' with width="2rem" url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
+                    <!-- <svg width="2rem" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="share-square" class="svg-inline--fa fa-share-square fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z"></path></svg> -->
+                </div>
+            </div>
+            {% endfor %} {% else %}
+            <h1>No blogs for the particular url</h1>
+            {% endif %}
+        </div>
+        <div class="project-author">
+            <h3><strong>About the Author</strong></h3>
+            <div class="author-image">
+                <img src="{{project.author.dp.url}}" alt="" onerror=this.src="">
+            </div>
+            <div class="author-info">
+                <h4>{{project.author}}</h4>
+                <p>{{project.author.description}}</p>
+            </div>
+        </div>
+        <div class="margin"></div>
+    </div>
+</div>
+{% endblock %}

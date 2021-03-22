@@ -86,14 +86,16 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ['user', 'description', 'phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set', 'username']
+        fields = ['user', 'description', 'phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set', 'username','dp']
         extra_kwargs = {'skills': {'required': False}, 'user': {'required': False}, 'username': {'required': False}}
         read_only_fields = ('user',)
 
     def update(self, instance, validated_data):  
-        print(instance.description)   
+        print(instance.dp.url)   
         skills = validated_data.get('skills')
-        instance.dp = self.validated_data.get('dp', instance.dp)
+        # instance.dp = self.validated_data.get('dp', instance.dp)
+        if 'dp'in validated_data:
+            instance.dp = (validated_data['dp'], instance.user.email)[validated_data.get('dp') is None]
         instance.user.email = (validated_data['email_id'], instance.user.email)[validated_data.get('email_id') is None]
         instance.user.username = (validated_data['username'], instance.user.username)[validated_data.get('username') is None]
         instance.user.last_name = (validated_data['last_name'], instance.user.last_name)[validated_data.get('last_name') is None]
@@ -116,7 +118,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
             instance.skills.add(language)
 
-        instance.user.save()
+        # instance.user.save()
         instance.save()
         return instance
 
