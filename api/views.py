@@ -115,13 +115,23 @@ def increase_post_view(request):
 @api_view(['POST',])
 def update_profile(request):
     if request.method == "POST":
-        print(Profile.objects.get(pk=request.POST.get('profile_id')))
-        profile_serializer = ProfileSerializer(data = request.data)
-        if not profile_serializer.is_valid():
-            print(profile_serializer.errors)
-            return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
-        updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.POST.get('profile_id')), validated_data=request.data)
-        se = ProfileSerializer(updated_profile)
+        profile = Profile.objects.get(pk=request.POST.get('profile_id'))
+        if request.POST.get('field') == "username":
+            profile.user.username =  request.POST.get('value')
+            profile.user.save()
+        # value = getattr(profile, request.POST.get('value'))
+        else:
+            setattr(profile, request.POST.get('field'), request.POST.get('value'))
+        profile.save()
+        # print(Profile.objects.get(pk=request.POST.get('profile_id')))
+        # print(getattr(Profile.objects.get(pk=request.POST.get('profile_id')),'description'))
+        # profile_serializer = ProfileSerializer(data = request.data)
+        # if not profile_serializer.is_valid():
+            # print(profile_serializer.errors)
+            # return Response({'message':profile_serializer.errors}, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
+        # updated_profile = profile_serializer.update(instance = Profile.objects.get(pk=request.POST.get('profile_id')), validated_data=request.data)
+        se = ProfileSerializer(profile)
+        print(se.data)
         return Response(se.data, status = status.HTTP_200_OK)
 
 @api_view(['GET',])

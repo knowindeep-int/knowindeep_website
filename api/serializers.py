@@ -89,6 +89,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ['user', 'description', 'phone_number','linkedin_id','github_id','twitter_id','isAuthor','account_number','total_earnings','skills_set', 'username','dp']
         extra_kwargs = {'skills': {'required': False}, 'user': {'required': False}, 'username': {'required': False}}
         read_only_fields = ('user',)
+        depth = 2
 
     def update(self, instance, validated_data):  
         print(instance.dp.url)   

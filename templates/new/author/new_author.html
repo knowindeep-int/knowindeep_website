@@ -27,7 +27,7 @@
 <script>
         function updateProfile(field, value) {
         event.preventDefault();
-        var dp = '{{ profile.dp }}'
+        var dp = '{{ profile.dp.url}}'
         var first_name = '{{ profile.user.first_name }}'
         var last_name = '{{ profile.user.last_name }}'
         var description = '{{ profile.description }}'
@@ -40,27 +40,19 @@
         var account_number = '{{ profile.isAuthor }}'
         var total_earnings = '{{ profile.total_earnings }}'
         var skills = '{{ profile.skills }}'
+        var field = field
+        var value = value
 
         let data = {
             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-            'username':'{{profile.user.username}}',
             'profile_id':'{{profile.pk}}',
-            "description": description,
-            "email_id": email_id,
-            "phone_number": phone_number,
-            "first_name": first_name,
-            "linkedin_id": linkedin_id,
-            "twitter_id": twitter_id,
-            "github_id": github_id,
-            "skills": skills,
-            "isAuthor": isAuthor,
-            "account_number": account_number,
-            "total_earnings": total_earnings,
-            'last_name':last_name,
+            'field': field,
+            'value': value
+
         }
         // console.log('{{ profile.total_earnings }}')
         // console.log('{{ profile.description }}')
-        data[field] = value
+        // data[field] = value
 
         $.ajax({
             url: '{% url "api:update_profile" %}',
@@ -68,7 +60,8 @@
             data: data,
             dataType: 'json',
             success: function(data) {
-                document.getElementById('name').innerHTML = data.username
+                document.getElementById('name').innerHTML = data.user['username']
+                document.getElementById('name2').innerHTML = data.user['username']
                 document.getElementById('desc').innerHTML = data.description
                 document.getElementById('pho').innerHTML = data.phone_number
                 document.getElementById('git').innerHTML = data.github_id
@@ -91,7 +84,7 @@
 <div class="container profile-content">
     <div class="profile-left">
         <div class="profile-image">
-            <img src="{{profile.dp.url}}" id="filebur"  alt="" onerror=this.src="">
+            <img src="{{profile.dp}}" id="filebur"  alt="" onerror=this.src="">
             <button id="buttonid" class="btn btn-light"><i class="bi bi-pencil"></i></button>
             <input id='fileid' type='file' hidden/>
             <h1 id="name">{{profile.user.username}}</h1>
@@ -100,7 +93,7 @@
             <div class="profile-detail pb-0 pt-3">
                 <div class="des pb-2">
                     <h5>Name</h5>
-                    <p>{{profile.user.username}}</p>
+                    <p id="name2">{{profile.user.username}}</p>
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="inp_name" type="text" placeholder="Enter Name" value="{{profile.user.username}}" >
                 </div>
                 <div class="but">
