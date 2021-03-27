@@ -40,7 +40,7 @@ class Language(models.Model):
 class Profile(models.Model):
     account_number = models.CharField(max_length=30, null=True, blank=True)
     description = models.CharField(max_length=200, null = True, blank = True)
-    dp = models.ImageField(null=True,upload_to='profiles/', blank = True)
+    dp = models.URLField(null=True, blank = True)
     github_id = models.URLField(max_length=70,null=True,blank=True)
     isAuthor = models.BooleanField(default=False)
     linkedin_id = models.URLField(max_length=70,null=True,blank=True)
@@ -148,7 +148,6 @@ class Project(models.Model):
     isApproved = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default = False) 
     languages = models.ManyToManyField(to = Language, blank = True)
-    no_of_hours = models.DecimalField(null = True, blank = True, decimal_places = 1, max_digits = 4)
     no_of_views = models.IntegerField(default=0)
     no_of_likes = models.IntegerField(default=0)
     overview = models.CharField(max_length=300, null = True, blank = True)
@@ -247,8 +246,6 @@ class Project(models.Model):
             return "overview"
         if project.image == None or project.image == "":
             return "image"
-        if project.no_of_hours == None or project.no_of_hours == "":
-            return "no_of_hours"
         if project.chapters.all().count() == 0 :
             return "chapter"
         return None

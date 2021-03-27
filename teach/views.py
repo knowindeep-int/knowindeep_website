@@ -25,7 +25,7 @@ def add_course(request, pk = None):
             #json.dumps(list(project.languages.all())
             overview = project.overview
             difficulty_level = project.difficulty_level
-            no_of_hours = project.no_of_hours
+            
             context = {
                 'languages': languages,
                 # 'pre_reqs': pre_reqs,
@@ -33,7 +33,6 @@ def add_course(request, pk = None):
                 'status': status,
                 'overview': overview,
                 'difficulty_level': difficulty_level,
-                'no_of_hours': no_of_hours,
                 'selected_languages': selected_languages,
                 'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
                 'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG

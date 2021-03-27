@@ -517,16 +517,7 @@ function createImagePage() {
         }
     }
 
-    if (document.getElementsByClassName("male_time") != null) {
-        for (var i = 0; i < document.getElementsByClassName("male_time").length; i++) {
-            if (document.getElementsByClassName("male_time")[i].checked) {
-                no_of_hours = document.getElementsByClassName("male_time")[i].value
-            }
-        }
-      
-    }
-   
-        //saveDraft('no_of_hours',parseInt(no_of_hours))
+
     
     showhide("9")
     div_1 = document.getElementById("1");
@@ -591,7 +582,7 @@ function createImagePage() {
                         <div style="color: black;" id="image_input_div">
                         <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;" ><div id="error_image" ></div></div>`
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
-    document.getElementById('next_btn').setAttribute('onclick', 'createNumberOfHours();')
+    document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage();')
     document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
     document.getElementById('current').innerHTML = 5
     document.getElementsByClassName('w3-amber')[0].style = "width:70%"
@@ -612,82 +603,7 @@ function checkImage(){
     }
     addLocalImage(document.getElementById('image_input'))
 }
-function createNumberOfHours() {
-    
-    // if(document.getElementById('fig-caption') == null){
-    //     alert('7')
-    //     document.getElementById("error_image").innerHTML = "Cannot Be Empty!";
-    //     document.getElementById("error_image").style = "color: red;";
-    //     return;
-    // }
-    // else {
-    //     document.getElementById("error_image").innerHTML = "";
-    // }
-    saveImageDraft()
-    showhide("10");
-    div_1 = document.getElementById("1");
-    div_1.setAttribute("style", "display: none;");
-    div_1.innerHTML = "";
 
-    div_2 = document.getElementById("2");
-    div_2.setAttribute("style", "display: none;");
-    div_2.innerHTML = "";
-
-    div_3 = document.getElementById("3");
-    div_3.setAttribute("style", "display: none;");
-    div_3.innerHTML = "";
-
-    div_4 = document.getElementById("4");
-    div_4.setAttribute("style", "display: none;");
-    div_4.innerHTML = "";
-
-    div_5 = document.getElementById("5");
-    div_5.setAttribute("style", "display: none;");
-    div_5.innerHTML = "";
-
-    div_7 = document.getElementById("7");
-    div_7.setAttribute("style", "display: none;");
-    div_7.innerHTML = "";
-
-    div_8 = document.getElementById("8");
-    div_8.setAttribute("style", "display: none;");
-    div_8.innerHTML = "";
-
-    div_9 = document.getElementById("9");
-    div_9.setAttribute("style", "display: none;");
-    div_9.innerHTML = "";
-
-    div = document.getElementById("10");
-    var content = ""
-    content += "<div class='container container-fluid container-fluid1'><img src='/media/images/no_of_hours.png' class='icon1'>"
-    content += "<h3> ADD HOURS REQUIRED FOR THE PROJECT</h3>";
-    content += '<div style="color: black;">'  ;
-    content += '<div class="dot">'+
-        '<span class= "dot-bar"><input class="male_time" type="radio" id="0-2" name="hours" value="0.2" style="opacity: 1;">' +
-        '<label for="0-2">0-2 HOURS</label></span>' +
-        '<span class= "dot-bar"><input class="male_time" type="radio" id="2-4" name="hours" value="2.4"  style="opacity: 1;">' +
-        '<label for="2-4">2-4 HOURS</label></span>' +
-        '<span class= "dot-bar"><input class="male_time" type="radio" id=">4" name="hours" value=".4" style="opacity: 1;">' +
-        '<label for=">4">MORE THAN 4 HOURS</label></span><div id="error_numb" ></div></div></div>';
-    // div.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
-    //     '</div>';
-    div.innerHTML = content
-    if(no_of_hours == "0.2"){
-        document.getElementById('0-2').checked = true;
-    }
-    else if(no_of_hours == "2.4"){
-        console.log(80)
-        document.getElementById('2-4').checked = true;
-    }
-    else if(no_of_hours == "0.4"){
-        document.getElementById('>4').checked = true;
-    }
-    document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage()')
-    document.getElementById('prev_btn').setAttribute('onclick', 'createImagePage();')
-    document.getElementById('current').innerHTML = 6;
-    document.getElementsByClassName('w3-amber')[0].style = "width:84%"
-
-}
 
 
 function createDifficultyPage() {
@@ -923,7 +839,6 @@ function assignParam(
     title = null,
     description = null,
     difficulty_level = null,
-    no_of_hours = null,
     languages = null,
     overview = null,
     pre_reqs = null,
@@ -938,7 +853,6 @@ function assignParam(
         var title = title;
         var description = description;
         var difficulty_level = difficulty_level;
-        var no_of_hours = no_of_hours;
         var languages = languages;
         var overview = overview;
         var pre_reqs = pre_reqs;

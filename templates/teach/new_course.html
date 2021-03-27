@@ -62,7 +62,7 @@
         console.log('1') 
     }
     else if(document.referrer.indexOf('http://127.0.0.1:8000/teach/chapter') != -1){
-        createNumberOfHours();
+        createImagePage();
         console.log('2') 
     }
     else if('{{status}}' == 'description'){
@@ -81,10 +81,7 @@
         createImagePage();
         console.log('6')    
     }
-    else if('{{status}}' == 'no_of_hours'){
-        createNumberOfHours();  
-        console.log('7')  
-    }
+
     else if('{{status}}' == 'chapter'){
         document.location.href = 'http://127.0.0.1:8000/teach/chapter/' + pk    
         console.log('8')   
@@ -109,7 +106,6 @@ if('{{project.title}}'){
     title = '{{project.title}}',
     description = `{{project.description}}`,
     difficulty_level = '{{difficulty_level}}',
-    no_of_hours = '{{no_of_hours}}',
     overview = `{{overview}}`,
     pre_reqs = `{{project.pre_req |safe |linebreaksbr}}`,
     pk = '{{project.pk}}',
@@ -140,7 +136,6 @@ else{
         counter = 1,
         chapter_count = 2,
         difficulty_level = '',
-        no_of_hours = '',
         languages = [],
         overview = "",
         pre_reqs = "",
@@ -358,17 +353,8 @@ function die(e){
     }
 
     function createChapterPage(){
-        for (var i = 0; i < document.getElementsByClassName("male_time").length; i++) {
-       if (document.getElementsByClassName("male_time")[i].checked) {
-           no_of_hours = document.getElementsByClassName("male_time")[i].value
-       }
-   }
-   if ($('input:checked').length == 0){
-        document.getElementById("error_numb").innerHTML = "Cannot Be Empty!";
-        document.getElementById("error_numb").style = "color: red;";
-        return;
-    }
-    saveDraft('no_of_hours',no_of_hours)
+
+        saveImageDraft()
     document.location.href = '/teach/chapter/' + pk
         // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         // '</div>';
@@ -377,10 +363,8 @@ function die(e){
    
     //     for (var i = 0; i < document.getElementsByClassName("time_radio_input").length; i++) {
     //         if (document.getElementsByClassName("time_radio_input")[i].checked) {
-    //             no_of_hours = document.getElementsByClassName("time_radio_input")[i].value
     //         }
     //     }
-    //     saveDraft('no_of_hours',no_of_hours)
     //     //document.location.href = "/" + "teach";
     //     $.ajax({
     //         method: 'POST',

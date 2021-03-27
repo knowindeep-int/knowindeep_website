@@ -84,7 +84,6 @@
                 <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><img src="{% static 'images/linkedin.svg' %}" class="shareon"></a>
                 <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum" class="twitter-share" data-text="Lorem Ipsum" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=580')"><img src="{% static 'images/twitter.svg' %}" class="shareon"></a>
                 <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="{% static 'images/facebook.svg' %}" class="shareon"></a>
-                <a><img src="{% static 'images/instagram.svg' %}" class="shareon"></a>
             </div>
         </div>
         <div class="project-description">{{project.overview}}</div>
@@ -102,10 +101,6 @@
             <div class="qna">
                 <h4>Difficulty Level:</h4>
                 <p>{{ project.difficulty_level}}</p>
-            </div>
-            <div class="qna">
-                <h4>Course Duration</h4>
-                <p>{{ project.no_of_hours }}</p>
             </div>
             <div class="qna">
                 <h4>Languages Used:</h4>
@@ -135,7 +130,7 @@
         <div class="project-author">
             <h3><strong>About the Author</strong></h3>
             <div class="author-image">
-                <img src="{{project.author.dp.url}}" alt="" onerror=this.src="">
+                <img src="{{project.author.dp}}" alt="" onerror=this.src="">
             </div>
             <div class="author-info">
                 <h4>{{project.author}}</h4>

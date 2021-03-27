@@ -5,7 +5,12 @@ from blogs.models import Profile, Package, Progress
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
 
+from blogs.utils import getApiKey
+
+
 def author_page(request, slug):
+    UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
+
     if slug == "me":
         user = request.user
     else:
@@ -24,7 +29,9 @@ def author_page(request, slug):
     context = {
         "profile": profile,
         "is_verified":is_verified,
-        "progresses":packages
+        "progresses":packages,
+        'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
+        'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
     }
     return render(request,"new/author/new_author.html",context)
     # return render(request, 'front-end/profile page/index.html', context)

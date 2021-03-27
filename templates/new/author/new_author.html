@@ -84,7 +84,7 @@
 <div class="container profile-content">
     <div class="profile-left">
         <div class="profile-image">
-            <img src="{{profile.dp}}" id="filebur"  alt="" onerror=this.src="">
+            <img src="{{profile.dp}}" id="filebur"  alt="" onerror=this.src="" >
             <button id="buttonid" class="btn btn-light"><i class="bi bi-pencil"></i></button>
             <input id='fileid' type='file' hidden/>
             <h1 id="name">{{profile.user.username}}</h1>
@@ -279,34 +279,80 @@ function openDialog() {
     
 
 }
+function setImgurHeader(xhr) {  
+    xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID_DEBUG}}') 
+    xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER_DEBUG}}');
+
+}
+var img = document.getElementById('filebur')
+var reader  = new FileReader();
+
+reader.addEventListener("load", function () {
+    img.src=reader.result;                    
+})
+
 $('#fileid').change(function(){
     // alert('6')
     var file = document.getElementById('fileid').files[0];
-    var formData = new FormData();
-    formData.append('dp', file);
-    formData.append('profile_id', '{{profile.pk}}');
-    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
-    formData.append('username', '{{profile.user.username}}');
-    formData.append('description', '{{profile.description}}');
-    formData.append('email_id', '{{profile.user.email}}');
-    formData.append('linkedin_id', '{{profile.linkedin_id}}');
-    formData.append('twitter_id', '{{profile.twitter_id}}');
-    formData.append('github_id', '{{profile.github_id}}');
-    formData.append('first_name', '{{profile.user.first_name}}');
-    formData.append('last_name', '{{profile.user.last_name}}');
-    formData.append('isAuthor', '{{profile.isAuthor}}');
-    formData.append('isAuthor', '{{profile.isAuthor}}');
-    formData.append('account_number', '{{profile.account_number}}');
-    formData.append('total_earnings', '{{profile.total_earnings}}');
-    formData.append('skills', '{{profile.skills}}');
-    formData.append('phone_number', '{{profile.phone_number}}');
+    
+    if (file){
+        reader.readAsDataURL(file);
+    }
+    console.log(img.src)
+    
+    var formData2 =new FormData();
+    formData2.append('image',file);
+    formData2.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+
+    $.ajax({
+
+        method: 'POST',
+        url: 'https://api.imgur.com/3/image',
+        data: formData2,
+        contentType: false,
+        processData: false,
+        async: false,
+        success: function(data){
+            console.log('success!')
+            img.src = data.data.link
+            console.log(img.src)
+        },
+        error: function(error){
+            console.log(error)
+        },
+        beforeSend: setImgurHeader,
+    })
+
+    // var formData = new FormData();
+
+    var formData = {
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+        'profile_id': '{{profile.pk}}',
+        'field': 'dp',
+        'value': img.src
+    };
+
+    // formData.append('dp', img.src);
+    // formData.append('profile_id', '{{profile.pk}}');
+    // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+    // formData.append('username', '{{profile.user.username}}');
+    // formData.append('description', '{{profile.description}}');
+    // formData.append('email_id', '{{profile.user.email}}');
+    // formData.append('linkedin_id', '{{profile.linkedin_id}}');
+    // formData.append('twitter_id', '{{profile.twitter_id}}');
+    // formData.append('github_id', '{{profile.github_id}}');
+    // formData.append('first_name', '{{profile.user.first_name}}');
+    // formData.append('last_name', '{{profile.user.last_name}}');
+    // formData.append('isAuthor', '{{profile.isAuthor}}');
+    // formData.append('isAuthor', '{{profile.isAuthor}}');
+    // formData.append('account_number', '{{profile.account_number}}');
+    // formData.append('total_earnings', '{{profile.total_earnings}}');
+    // formData.append('skills', '{{profile.skills}}');
+    // formData.append('phone_number', '{{profile.phone_number}}');
     // console.log(formData['dp'])
     $.ajax({
         method:'POST',
         url: '{% url "api:update_profile" %}',
-        contentType: 'multipart/form-data',
-        processData: false,
-        contentType: false,
         data:formData,
         success: function(data) {
                 // document.getElementById('name').innerHTML = data.username
