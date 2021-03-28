@@ -26,7 +26,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     {% block title%} {% endblock %} {% block content_head %} {% endblock %}
     <style>
-
         .ui-autocomplete-category {
             text-transform: uppercase;
             padding: 0.2em 0.4em;
@@ -34,11 +33,11 @@
             line-height: 1.5;
             color: #f9a80d;
             border-bottom: 1px solid #dadada;
-            }
-
-            .ui-widget {
+        }
+        
+        .ui-widget {
             font-family: "Montserrat";
-            }
+        }
     </style>
 </head>
 
@@ -52,92 +51,95 @@
 
         function implementSearch() {
 
-search_input = document.getElementById('searchNavbar').value;
-        $.ajax({
-            url: '{% url "api:search" %}',
-            method: "GET",
-            data: {
-                'search_input': search_input,
-            },
-            success: function(data) {
-                $(function() {
-                    $.widget("custom.catcomplete", $.ui.autocomplete, {
-                        _create: function() {
-                            this._super();
-                            this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
-                        },
-                        _renderMenu: function(ul, items) {
-                            var that = this,
-                                currentCategory = "";
-                            $.each(items, function(index, item) {
-                                var li;
-                                if (item.category != currentCategory) {
-                                    ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
-                                    currentCategory = item.category;
-                                }
-                                li = that._renderItemData(ul, item);
-                                if (item.category) {
-                                    li.attr("aria-label", item.category + " : " + item.label);
-                                }
+            search_input = document.getElementById('searchNavbar').value;
+            $.ajax({
+                url: '{% url "api:search" %}',
+                method: "GET",
+                data: {
+                    'search_input': search_input,
+                },
+                success: function(data) {
+                    $(function() {
+                        $.widget("custom.catcomplete", $.ui.autocomplete, {
+                            _create: function() {
+                                this._super();
+                                this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+                            },
+                            _renderMenu: function(ul, items) {
+                                var that = this,
+                                    currentCategory = "";
+                                $.each(items, function(index, item) {
+                                    var li;
+                                    if (item.category != currentCategory) {
+                                        ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                                        currentCategory = item.category;
+                                    }
+                                    li = that._renderItemData(ul, item);
+                                    if (item.category) {
+                                        li.attr("aria-label", item.category + " : " + item.label);
+                                    }
+                                });
+                            }
+                        });
+                        var Data = []
+                        for (var i = 0; i < data.projects.length; i++) {
+                            Data.push({
+                                category: "project",
+                                label: data.projects[i].title,
+                                value: '/' + data.projects[i].slug,
+                                link: '/' + data.projects[i].slug
                             });
+
                         }
-                    });
-                    var Data = []
-                    for (var i = 0; i < data.projects.length; i++) {
-                        Data.push({
-                            category: "project",
-                            label: data.projects[i].title,
-                            value: '/' + data.projects[i].slug 
-                        });
 
-                    }
+                        for (var i = 0; i < data.chapters.length; i++) {
+                            Data.push({
+                                category: "chapter",
+                                label: data.chapters[i].title,
+                                value: '/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug,
+                                link: '/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug
+                            });
 
-                    for (var i = 0; i < data.chapters.length; i++) {
-                        Data.push({
-                            category: "chapter",
-                            label: data.chapters[i].title,
-                            value: '/' + data.chapters[i].project_slug + '/' + data.chapters[i].slug
-                        });
-
-                    }
-
-                    for (var i = 0; i < data.authors.length; i++) {
-                        Data.push({
-                            category: "author",
-                            label: data.authors[i].username,
-                            value: '/@' + data.authors[i].username
-                        });
-
-                    }
-
-                    //   var data = [
-                    //     { label: "anders", category: "" },
-                    //     { label: "andreas", category: "" },
-                    //     { label: "antal", category: "" },
-                    //     { label: "annhhx10", category: "Products" },
-                    //     { label: "annk K12", category: "Products" },
-                    //     { label: "annttop C13", category: "Products" },
-                    //     { label: "anders andersson", category: "People" },
-                    //     { label: "andreas andersson", category: "People" },
-                    //     { label: "andreas johnson", category: "People" }
-                    //   ];
-
-
-                    $("#searchNavbar").catcomplete({
-                        delay: 0,
-                        source: Data,
-                        select: function(event, ui) {
-                            window.location.href = ui.item.value;
                         }
-                    });
-                });
 
-            },
-            error: function(error) {
-                console.log('error')
-            },
-        });
-    }
+                        for (var i = 0; i < data.authors.length; i++) {
+                            Data.push({
+                                category: "author",
+                                label: data.authors[i].username,
+                                value: data.authors[i].username,
+                                link: '/@' + data.authors[i].username,
+                            });
+
+                        }
+
+                        //   var data = [
+                        //     { label: "anders", category: "" },
+                        //     { label: "andreas", category: "" },
+                        //     { label: "antal", category: "" },
+                        //     { label: "annhhx10", category: "Products" },
+                        //     { label: "annk K12", category: "Products" },
+                        //     { label: "annttop C13", category: "Products" },
+                        //     { label: "anders andersson", category: "People" },
+                        //     { label: "andreas andersson", category: "People" },
+                        //     { label: "andreas johnson", category: "People" }
+                        //   ];
+
+
+                        $("#searchNavbar").catcomplete({
+                            delay: 0,
+                            source: Data,
+                            select: function(event, ui) {
+                                window.location.href = ui.item.link;
+                            }
+                        });
+                    });
+
+                },
+                error: function(error) {
+                    console.log('error')
+                },
+            });
+        }
     </script>
     <nav style="z-index: 2" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div style="max-width: 1300px;" class="container-fluid">
@@ -162,7 +164,7 @@ search_input = document.getElementById('searchNavbar').value;
                     {%endif%}
                 </ul>
                 <form class="d-flex">
-                    <input id="searchNavbar" style="height: 30px;" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" onkeyup="implementSearch();" >
+                    <input id="searchNavbar" autocomplete="off" style="height: 30px;" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" onkeyup="implementSearch();">
                 </form>
 
                 <!-- <a style="padding: 0;" class="nav-link" href="#">Login</a> -->
