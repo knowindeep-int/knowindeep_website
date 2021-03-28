@@ -35,6 +35,8 @@ def unique_slug_generator(instance,new_slug=None):
 
 def save_user(backend, user, response, *args, **kwargs):
 
+    user.username = response['name']
+    user.save()
     try:
         profile = models.Profile.objects.get(user=user)
     except models.Profile.DoesNotExist:
@@ -43,11 +45,15 @@ def save_user(backend, user, response, *args, **kwargs):
             dp = response['picture']
         else:
             dp = response['avatar_url']    
-            
+        
+        print(backend)
+        print(user) 
+        print(response)
         profile = models.Profile(
             dp = dp,
             user=user
         )
+
         profile.save()
 
 def getApiKey():

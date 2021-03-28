@@ -1,31 +1,24 @@
 {% extends "new/new_base.html" %} {% load static %} {% block content_head %}
 <!-- <script src="{% static 'js/author/author_page.js'%}"></script> -->
-<link rel="stylesheet" href="{% static 'new_css/author/new_author.css' %}">
-
-
-{% endblock %} 
-{% block content %}
-{%csrf_token%}
+<link rel="stylesheet" href="{% static 'new_css/author/new_author.css' %}"> {% endblock %} {% block content %} {%csrf_token%}
 <script type="text/javascript">
     { % block jquery %
     }
 
     var is_verified = '{{is_verified}}'
-    makeEditable(is_verified); 
+    makeEditable(is_verified);
 
-    function disableEdit(is_verified) ;
+    function disableEdit(is_verified);
 
 
-   
+
 
 
     { % endblock jquery %
     }
-    
-   
 </script>
 <script>
-        function updateProfile(field, value) {
+    function updateProfile(field, value) {
         event.preventDefault();
         var dp = '{{ profile.dp.url}}'
         var first_name = '{{ profile.user.first_name }}'
@@ -44,15 +37,15 @@
         var value = value
 
         let data = {
-            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-            'profile_id':'{{profile.pk}}',
-            'field': field,
-            'value': value
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'profile_id': '{{profile.pk}}',
+                'field': field,
+                'value': value
 
-        }
-        // console.log('{{ profile.total_earnings }}')
-        // console.log('{{ profile.description }}')
-        // data[field] = value
+            }
+            // console.log('{{ profile.total_earnings }}')
+            // console.log('{{ profile.description }}')
+            // data[field] = value
 
         $.ajax({
             url: '{% url "api:update_profile" %}',
@@ -69,32 +62,30 @@
                 document.getElementById('twit').innerHTML = data.twitter_id
                 document.getElementById('earn').innerHTML = data.total_earnings
                 console.log('SUCCESS')
-                // console.log(data)
+                    // console.log(data)
             },
             error: function(error) {
                 console.log('error')
             },
-            
+
         })
         reply(event)
     }
-
-
 </script>
 <div class="container profile-content">
     <div class="profile-left">
         <div class="profile-image">
-            <img src="{{profile.dp}}" id="filebur"  alt="" onerror=this.src="" >
+            <img src="{{profile.dp}}" id="filebur" alt="" onerror=this.src="">
             <button id="buttonid" class="btn btn-light"><i class="bi bi-pencil"></i></button>
             <input id='fileid' type='file' hidden/>
-            <h1 id="name">{{profile.user.username}}</h1>
+            <h1 id="name">{{profile.user.get_full_name | title}}</h1>
         </div>
         <div class="profile-details">
             <div class="profile-detail pb-0 pt-3">
                 <div class="des pb-2">
                     <h5>Name</h5>
-                    <p id="name2">{{profile.user.username}}</p>
-                    <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="inp_name" type="text" placeholder="Enter Name" value="{{profile.user.username}}" >
+                    <p id="name2">{{profile.user.username | title}}</p>
+                    <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="inp_name" type="text" placeholder="Enter Name" value="{{profile.user.username | title}}">
                 </div>
                 <div class="but">
                     <span class="btn-group second name1">
@@ -122,7 +113,7 @@
                 <div class="des pb-2">
                     <h5>Phone Number</h5>
                     <p id="pho">{{profile.phone_number}}</p>
-                    <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="ph-input" type="text" placeholder="Enter Phone Number" value="{{profile.phone_number}}" >
+                    <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="ph-input" type="text" placeholder="Enter Phone Number" value="{{profile.phone_number}}">
                 </div>
                 <div class="but">
                     <span class="btn-group second name1">
@@ -153,7 +144,6 @@
             <div class="profile-info pb-0 pt-3">
                 <div class="desc pb-2">
                     <h5>LinkedIn id</h5>
-                    <p id="link">{{profile.linkedin_id}}</p>
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="link-input" type="text" placeholder="Enter LinkedIn id" value="{{profile.linkedin_id}}">
                 </div>
                 <div class="butt">
@@ -199,9 +189,9 @@
                     <input style="outline: none;" class="p-1 rounded-3 border border-secondary" id="des-input" type="text" placeholder="Enter Name" >
                 </div>
                 <div class="butt"> -->
-                    <!-- <button type="button" class="btn btn-outline-success py-1 px-3 me-2">Save</button>
+            <!-- <button type="button" class="btn btn-outline-success py-1 px-3 me-2">Save</button>
                     <button type="button" class="btn btn-outline-danger py-1 px-2">Cancel</button> -->
-                    <!-- <button type="button" class="btn btn-outline-secondary btn-show py-1 px-3">Edit</button>
+            <!-- <button type="button" class="btn btn-outline-secondary btn-show py-1 px-3">Edit</button>
                 </div>
             </div>
             <div class="profile-info pb-0 pt-4">
@@ -211,9 +201,9 @@
                     <input style="outline: none;" class="p-1 rounded-3 border border-secondary" id="des-input" type="text" placeholder="Enter Name" >
                 </div>
                 <div class="butt"> -->
-                    <!-- <button type="button" class="btn btn-outline-success py-1 px-3 me-2">Save</button>
+            <!-- <button type="button" class="btn btn-outline-success py-1 px-3 me-2">Save</button>
                     <button type="button" class="btn btn-outline-danger py-1 px-2">Cancel</button> -->
-                    <!-- <button type="button" class="btn btn-outline-secondary btn-show py-1 px-3">Edit</button>
+            <!-- <button type="button" class="btn btn-outline-secondary btn-show py-1 px-3">Edit</button>
                 </div>
             </div> -->
         </div>
@@ -223,138 +213,138 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
+    //    $(document).ready(function(){
+    //     for(var i=1;i<8;i++){
+    //         var b=i.toString();
+    //     $("#but-green."+b).hide();
+    //     $("#but-red."+b).hide();
 
-//    $(document).ready(function(){
-//     for(var i=1;i<8;i++){
-//         var b=i.toString();
-//     $("#but-green."+b).hide();
-//     $("#but-red."+b).hide();
+    //     $("#butt-green."+b).hide();
+    //     $("#butt-red."+b).hide();
 
-//     $("#butt-green."+b).hide();
-//     $("#butt-red."+b).hide();
-
-//         $("#but-white."+b).click(function(){
-//             $("#but-white."+b).hide();
-//             $("#but-red."+b).show();
-//             $("#but-green."+b).show();
-//         });
-//         $("#but-green."+b).click(function(){
-//             $("#but-green."+b).hide();
-//             $("#but-red."+b).hide();
-//             $("#but-white."+b).show();
-//         });
-//         $("#but-red."+b).click(function(){
-//             $("#but-red."+b).hide();
-//             $("#but-green."+b).hide();
-//             $("#but-white."+b).show();
-//         });
-
+    //         $("#but-white."+b).click(function(){
+    //             $("#but-white."+b).hide();
+    //             $("#but-red."+b).show();
+    //             $("#but-green."+b).show();
+    //         });
+    //         $("#but-green."+b).click(function(){
+    //             $("#but-green."+b).hide();
+    //             $("#but-red."+b).hide();
+    //             $("#but-white."+b).show();
+    //         });
+    //         $("#but-red."+b).click(function(){
+    //             $("#but-red."+b).hide();
+    //             $("#but-green."+b).hide();
+    //             $("#but-white."+b).show();
+    //         });
 
 
-//         $("#butt-white."+b).click(function(){
-//             $("#butt-white."+b).hide();
-//             $("#butt-red."+b).show();
-//             $("#butt-green."+b).show();
-//         });
-//         $("#butt-green."+b).click(function(){
-//             $("#butt-green."+b).hide();
-//             $("#butt-red."+b).hide();
-//             $("#butt-white."+b).show();
-//         });
-//         $("#butt-red."+b).click(function(){
-//             $("#butt-red."+b).hide();
-//             $("#butt-green."+b).hide();
-//             $("#butt-white."+b).show();
-//         });
 
-//     }
- 
+    //         $("#butt-white."+b).click(function(){
+    //             $("#butt-white."+b).hide();
+    //             $("#butt-red."+b).show();
+    //             $("#butt-green."+b).show();
+    //         });
+    //         $("#butt-green."+b).click(function(){
+    //             $("#butt-green."+b).hide();
+    //             $("#butt-red."+b).hide();
+    //             $("#butt-white."+b).show();
+    //         });
+    //         $("#butt-red."+b).click(function(){
+    //             $("#butt-red."+b).hide();
+    //             $("#butt-green."+b).hide();
+    //             $("#butt-white."+b).show();
+    //         });
 
-//     });
-document.getElementById('buttonid').addEventListener('click', openDialog);
+    //     }
 
-function openDialog() {
-    document.getElementById('fileid').click();
-    event.preventDefault();
-    
 
-}
-function setImgurHeader(xhr) {  
-    xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID_DEBUG}}') 
-    xhr.setRequestHeader('Authorization','Bearer {{IMGUR_BEARER_DEBUG}}');
+    //     });
+    document.getElementById('buttonid').addEventListener('click', openDialog);
 
-}
-var img = document.getElementById('filebur')
-var reader  = new FileReader();
+    function openDialog() {
+        document.getElementById('fileid').click();
+        event.preventDefault();
 
-reader.addEventListener("load", function () {
-    img.src=reader.result;                    
-})
 
-$('#fileid').change(function(){
-    // alert('6')
-    var file = document.getElementById('fileid').files[0];
-    
-    if (file){
-        reader.readAsDataURL(file);
     }
-    console.log(img.src)
-    
-    var formData2 =new FormData();
-    formData2.append('image',file);
-    formData2.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
 
-    $.ajax({
+    function setImgurHeader(xhr) {
+        xhr.setRequestHeader('Authorization', 'Client-ID {{IMGUR_CLIENT_ID_DEBUG}}')
+        xhr.setRequestHeader('Authorization', 'Bearer {{IMGUR_BEARER_DEBUG}}');
 
-        method: 'POST',
-        url: 'https://api.imgur.com/3/image',
-        data: formData2,
-        contentType: false,
-        processData: false,
-        async: false,
-        success: function(data){
-            console.log('success!')
-            img.src = data.data.link
-            console.log(img.src)
-        },
-        error: function(error){
-            console.log(error)
-        },
-        beforeSend: setImgurHeader,
+    }
+    var img = document.getElementById('filebur')
+    var reader = new FileReader();
+
+    reader.addEventListener("load", function() {
+        img.src = reader.result;
     })
 
-    // var formData = new FormData();
+    $('#fileid').change(function() {
+        // alert('6')
+        var file = document.getElementById('fileid').files[0];
 
-    var formData = {
-        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-        'profile_id': '{{profile.pk}}',
-        'field': 'dp',
-        'value': img.src
-    };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        console.log(img.src)
 
-    // formData.append('dp', img.src);
-    // formData.append('profile_id', '{{profile.pk}}');
-    // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
-    // formData.append('username', '{{profile.user.username}}');
-    // formData.append('description', '{{profile.description}}');
-    // formData.append('email_id', '{{profile.user.email}}');
-    // formData.append('linkedin_id', '{{profile.linkedin_id}}');
-    // formData.append('twitter_id', '{{profile.twitter_id}}');
-    // formData.append('github_id', '{{profile.github_id}}');
-    // formData.append('first_name', '{{profile.user.first_name}}');
-    // formData.append('last_name', '{{profile.user.last_name}}');
-    // formData.append('isAuthor', '{{profile.isAuthor}}');
-    // formData.append('isAuthor', '{{profile.isAuthor}}');
-    // formData.append('account_number', '{{profile.account_number}}');
-    // formData.append('total_earnings', '{{profile.total_earnings}}');
-    // formData.append('skills', '{{profile.skills}}');
-    // formData.append('phone_number', '{{profile.phone_number}}');
-    // console.log(formData['dp'])
-    $.ajax({
-        method:'POST',
-        url: '{% url "api:update_profile" %}',
-        data:formData,
-        success: function(data) {
+        var formData2 = new FormData();
+        formData2.append('image', file);
+        formData2.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val())
+
+        $.ajax({
+
+            method: 'POST',
+            url: 'https://api.imgur.com/3/image',
+            data: formData2,
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function(data) {
+                console.log('success!')
+                img.src = data.data.link
+                console.log(img.src)
+            },
+            error: function(error) {
+                console.log(error)
+            },
+            beforeSend: setImgurHeader,
+        })
+
+        // var formData = new FormData();
+
+        var formData = {
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            'profile_id': '{{profile.pk}}',
+            'field': 'dp',
+            'value': img.src
+        };
+
+        // formData.append('dp', img.src);
+        // formData.append('profile_id', '{{profile.pk}}');
+        // formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val() )
+        // formData.append('username', '{{profile.user.username}}');
+        // formData.append('description', '{{profile.description}}');
+        // formData.append('email_id', '{{profile.user.email}}');
+        // formData.append('linkedin_id', '{{profile.linkedin_id}}');
+        // formData.append('twitter_id', '{{profile.twitter_id}}');
+        // formData.append('github_id', '{{profile.github_id}}');
+        // formData.append('first_name', '{{profile.user.first_name}}');
+        // formData.append('last_name', '{{profile.user.last_name}}');
+        // formData.append('isAuthor', '{{profile.isAuthor}}');
+        // formData.append('isAuthor', '{{profile.isAuthor}}');
+        // formData.append('account_number', '{{profile.account_number}}');
+        // formData.append('total_earnings', '{{profile.total_earnings}}');
+        // formData.append('skills', '{{profile.skills}}');
+        // formData.append('phone_number', '{{profile.phone_number}}');
+        // console.log(formData['dp'])
+        $.ajax({
+            method: 'POST',
+            url: '{% url "api:update_profile" %}',
+            data: formData,
+            success: function(data) {
                 // document.getElementById('name').innerHTML = data.username
                 // document.getElementById('desc').innerHTML = data.description
                 // document.getElementById('pho').innerHTML = data.phone_number
@@ -367,68 +357,73 @@ $('#fileid').change(function(){
             error: function(error) {
                 console.log('error')
             },
-            
-    })
-})
-function reply_click(e) {
-e.target.classList.toggle("second");
-var a=e.target.id;
-var p1 = document.getElementsByClassName("btn-group");
-var b= a-1;
-p1[b].classList.toggle("second");
-if(a==1){
-    document.getElementById('inp_name').style = 'display:block;'
-}
-if(a==2){
-    document.getElementById('des-input').style = 'display:block;'
-}
-if(a==3){
-    document.getElementById('ph-input').style = 'display:block;'
-}
-if(a==4){
-    document.getElementById('git-input').style = 'display:block;'
-}if(a==5){
-    document.getElementById('link-input').style = 'display:block;'
-}
-if(a==6){
-    document.getElementById('twit-input').style = 'display:block;'
-}if(a==7){
-    document.getElementById('earn-input').style = 'display:block;'
-}
-// var p2 = document.getElementsByClassName('inputss')
-// p2[b].childNodes[0].disabled = false;
-}
 
-function reply(e) {
-var txt = e.target.id;
-// console.log(e.target.id)
-var numb = txt.match(/\d/g);
-var p1 = document.getElementsByClassName("btn-group");
-p1[numb-1].classList.toggle("second");
-if(numb==1){
-    document.getElementById('inp_name').style = 'display:;'
-}
-if(numb==2){
-    document.getElementById('des-input').style = 'display:none;'
-}
-if(numb==3){
-    document.getElementById('ph-input').style = 'display:none;'
-}
-if(numb==4){
-    document.getElementById('git-input').style = 'display:none;'
-}if(numb==5){
-    document.getElementById('link-input').style = 'display:none;'
-}
-if(numb==6){
-    document.getElementById('twit-input').style = 'display:none;'
-}if(numb==7){
-    document.getElementById('earn-input').style = 'display:none;'
-}
-// var p2 = document.getElementsByClassName('inputss')
-// p2[numb-1].childNodes[0].disabled = true;
-var b=String(numb);
-p3=document.getElementById(b);
-p3.classList.toggle("second");
-}
+        })
+    })
+
+    function reply_click(e) {
+        e.target.classList.toggle("second");
+        var a = e.target.id;
+        var p1 = document.getElementsByClassName("btn-group");
+        var b = a - 1;
+        p1[b].classList.toggle("second");
+        if (a == 1) {
+            document.getElementById('inp_name').style = 'display:block;'
+        }
+        if (a == 2) {
+            document.getElementById('des-input').style = 'display:block;'
+        }
+        if (a == 3) {
+            document.getElementById('ph-input').style = 'display:block;'
+        }
+        if (a == 4) {
+            document.getElementById('git-input').style = 'display:block;'
+        }
+        if (a == 5) {
+            document.getElementById('link-input').style = 'display:block;'
+        }
+        if (a == 6) {
+            document.getElementById('twit-input').style = 'display:block;'
+        }
+        if (a == 7) {
+            document.getElementById('earn-input').style = 'display:block;'
+        }
+        // var p2 = document.getElementsByClassName('inputss')
+        // p2[b].childNodes[0].disabled = false;
+    }
+
+    function reply(e) {
+        var txt = e.target.id;
+        // console.log(e.target.id)
+        var numb = txt.match(/\d/g);
+        var p1 = document.getElementsByClassName("btn-group");
+        p1[numb - 1].classList.toggle("second");
+        if (numb == 1) {
+            document.getElementById('inp_name').style = 'display:;'
+        }
+        if (numb == 2) {
+            document.getElementById('des-input').style = 'display:none;'
+        }
+        if (numb == 3) {
+            document.getElementById('ph-input').style = 'display:none;'
+        }
+        if (numb == 4) {
+            document.getElementById('git-input').style = 'display:none;'
+        }
+        if (numb == 5) {
+            document.getElementById('link-input').style = 'display:none;'
+        }
+        if (numb == 6) {
+            document.getElementById('twit-input').style = 'display:none;'
+        }
+        if (numb == 7) {
+            document.getElementById('earn-input').style = 'display:none;'
+        }
+        // var p2 = document.getElementsByClassName('inputss')
+        // p2[numb-1].childNodes[0].disabled = true;
+        var b = String(numb);
+        p3 = document.getElementById(b);
+        p3.classList.toggle("second");
+    }
 </script>
 {% endblock content %}
