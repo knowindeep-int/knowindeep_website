@@ -521,11 +521,21 @@ function setImgurHeader(xhr) {
                     else{
                         var chapter_pk = ""
                     }
+
+                    function printInnerText(ele){
+ if(ele.childNodes.length >= 1){
+    children = ele.childNodes;
+    for(var i=0;i<children.length;i++)
+     printInnerText(children[i])
+ }else{
+    console.log(ele.innerText);
+ }
+}
                     function addChapter(){
-                        // alert(document.getElementsByClassName('editor')[0].innerHTML.replace(/\s/g, '').length)
-                        if(document.getElementsByClassName('editor')[0].innerHTML.replace(/\s/g, '').length != '0'){
+                        
+                        if(document.getElementsByClassName('editor')[0].innerText.replace(/\s/g, '').length != '0' ){
                         content = document.getElementsByClassName('editor')[0].innerHTML
-                        console.log(content)
+                        // console.log(content)
                         var author = '{{project.author.pk}}'
                         var project = '{{project.pk}}'
                         console.log('809')
