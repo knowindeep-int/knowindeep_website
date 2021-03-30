@@ -120,13 +120,15 @@
                 <p style="margin: 0;">Author: {{chapter_content.author}}<span style="color: #f9a80d; font-weight: 600; font-size: 1.3rem;"> | </span>Date: {{chapter_content.date_posted.date}}</p>
                 </div>
                 <!-- <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt=""> -->
-                {%if request.user.is_authenticated%}
-                {%if chapter_content.bookmark.all%}
+                {%if request.user.is_authenticated%}{%if chapter_content.bookmark.all%}
                 <div onclick="fill(this)" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks-fill" ><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>
                 {%else%}
                 <div  onclick="fill(this)" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>                    
-                {%endif%}
-                {%endif%}
+                {%endif%}{% else %}{%if chapter_content.bookmark.all%}
+                <div onclick="on()" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks-fill" ><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>
+                {%else%}
+                <div  onclick="on()" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>                    
+                {%endif%}{%endif%}
                 </div>
             </div>
             <div class="chapter-middle">
