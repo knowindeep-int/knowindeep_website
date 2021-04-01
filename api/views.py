@@ -4,11 +4,11 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.core.mail import send_mail
-from blogs.models import Project, Chapter, Like, Comment, Profile, Language, Suggestion
+from blogs.models import Project, Chapter, Like, Comment, Profile, Language, Suggestion, Blog
 from django.contrib.auth.models import User
 from knowindeep import Constants
 import os
-from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, SuggestionSerializer
+from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, SuggestionSerializer, BlogSerializer
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -463,3 +463,14 @@ def api_get_ch_pr_au(request):
             'project':projects.data,
         }
         return Response(data,status=status.HTTP_200_OK)
+
+
+@api_view(['GET',])
+def api_get_blogs(request):
+    if request.method == 'GET':
+        print('rerg')
+        pk = request.GET['pk']
+        blog = Blog.objects.get(pk=pk)
+        blog_serializer = BlogSerializer(blog)  
+        data = {'blog':blog_serializer.data}      
+        return Response(data, status=status.HTTP_200_OK)
