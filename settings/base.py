@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'site_users.apps.SiteUsersConfig',
     'blogs.apps.BlogsConfig',
     'author.apps.AuthorConfig',
+    'topic',
 
     # social
     'social_django',

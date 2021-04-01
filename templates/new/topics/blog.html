@@ -1,0 +1,27 @@
+{% extends "new/new_base.html" %}{% load static %}
+
+{% block content %} 
+<!-- <script>
+     $.ajax({
+                    'method': 'GET',
+                    'url': '{% url "api:" %}',
+                    'data': {
+                        'pk': 1,
+                    },
+                    success: function(data) {
+                        // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                        // document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks')
+                        // document.getElementsByClassName('bookmark-pop')[p-1].classList.toggle('bi-bookmarks-fill')
+                        for (var i = 0; i < document.getElementsByClassName(data.pk).length; i++) {
+                            document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                            document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                            document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                        }
+                    },
+                    error: function(error) {
+                        console.log('error')
+                    },
+                })
+</script> -->
+
+{% endblock content %}

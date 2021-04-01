@@ -1,6 +1,6 @@
 from rest_framework import fields, serializers
 
-from blogs.models import Project, Comment, Profile, Language, Chapter, Suggestion
+from blogs.models import Project, Comment, Profile, Language, Chapter, Suggestion, Blog
 
 class ProjectSerializer(serializers.ModelSerializer):
     title = serializers.CharField(allow_blank=True, allow_null=True, required = False, max_length = 25)
@@ -148,4 +148,10 @@ class ChapterSerializer(serializers.ModelSerializer):
 class SuggestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Suggestion
+        fields = "__all__"
+
+
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog
         fields = "__all__"
