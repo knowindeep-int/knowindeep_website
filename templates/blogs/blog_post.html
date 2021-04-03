@@ -44,8 +44,8 @@
 <div class="center">
 
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'project:sub_topic' slug=slug %}">{{ title }}</a></li>
         <li class="breadcrumb-item active">{{ chapter_content | title }}</li>
     </ol>
 
@@ -57,14 +57,14 @@
 				{% for chapter in chapters %}
             {% if chapter.slug == chapter_content.slug %}
             <a class="" id="selected"
-                href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</a>
+                href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</a>
                 <br>
                 <script>ch_list.push('{{chapter.slug}}')
                 console.log(ch_list)
                 </script>
             {% else %}
            <a class="" id="listItem"
-            href="{% url 'blogs:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</a>
+            href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter }}</a>
             <br>
             <script>ch_list.push('{{chapter.slug}}')
              console.log(ch_list)

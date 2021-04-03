@@ -21,9 +21,9 @@ from settings import base as settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-handler404 = "blogs.views.error404"
-handler400 = "blogs.views.error400"
-handler500 = "blogs.views.error500"
+handler404 = "project.views.error404"
+handler400 = "project.views.error400"
+handler500 = "project.views.error500"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,7 +33,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
     re_path("^[@](?P<slug>[-\w]+)",include('author.urls')),
-    path('',include('blogs.urls')),
+    path('',include('project.urls')),
     path('oauth/',include('social_django.urls'),name='social'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

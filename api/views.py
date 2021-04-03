@@ -4,7 +4,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.core.mail import send_mail
-from blogs.models import Project, Chapter, Like, Comment, Profile, Language, Suggestion, Blog
+from project.models import Project, Chapter, Like, Comment, Profile, Language, Suggestion, Blog
 from django.contrib.auth.models import User
 from knowindeep import Constants
 import os

@@ -71,14 +71,14 @@ def remove(request,slug):
         project.isApproved = False
         project.save()
 
-        return redirect('blogs:index')
+        return redirect('project:index')
     return HttpResponse("You are not Authorized to access this Page", status = 500)
 
 def approve(request,slug):
     if request.user.is_superuser:
         project = Project.objects.get(slug=slug)
         project.approveProject
-        return redirect('blogs:index')
+        return redirect('project:index')
     return HttpResponse("You are not Authorized to access this Page", status = 500)
 
 def list_all_blogs(request):

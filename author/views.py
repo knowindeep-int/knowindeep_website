@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from blogs.models import Profile, Package, Progress
+from project.models import Profile, Package, Progress
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
 
-from blogs.utils import getApiKey
+from project.utils import getApiKey
 
 
 def author_page(request, slug):

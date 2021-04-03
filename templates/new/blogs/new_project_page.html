@@ -59,8 +59,8 @@
 </script>
 <div class="container project-main">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'project:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
     </ol>
     {% if not project.image %}
     <img id="img1" src="{% static 'images/layer.png' %}" alt="" onerror=this.src=""> {% else %}
@@ -78,7 +78,7 @@
                 <div onclick="on()" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
                 {%else%}
                 <div onclick="on()" class="{{project.pk}}" ><i class="bi mt-5 bi-bookmarks" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>                    
-                {%endif%}
+                {%endif%}   
                 {%endif%}
             </h1>
             <h4>By {{project.author}} <span style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
@@ -119,7 +119,7 @@
             <div class="project-card">
                 <div class="number">{{ forloop.counter }}</div>
                 <div class="card-info">
-                    <h4> <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
+                    <h4> <a href="{% url 'project:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
                         {{ chapter.title }} 
                     </a></h4>
                     <p>{{ chapter }}</p>

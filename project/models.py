@@ -189,7 +189,7 @@ class Project(models.Model):
 
     @property
     def get_absolute_url(self): 
-        return reverse('blogs:sub_topic', kwargs={'slug': self.slug})
+        return reverse('project:sub_topic', kwargs={'slug': self.slug})
 
     @property
     def approveProject(self):
@@ -342,7 +342,7 @@ class Chapter(models.Model):
     
     @property
     def get_absolute_url(self): 
-        return reverse('blogs:chapter_post', kwargs={'slug': self.link_to.slug, 'chapter': self.slug})
+        return reverse('project:chapter_post', kwargs={'slug': self.link_to.slug, 'chapter': self.slug})
 
    
     

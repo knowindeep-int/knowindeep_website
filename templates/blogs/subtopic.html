@@ -87,8 +87,8 @@
 </script>
 <div class="center">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'blogs:index' %}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'project:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
     </ol>
 </div>
 <div class="img2 row img3">
@@ -137,7 +137,6 @@
                     <br>
                     <div class="spans">
                         <span><h5>Hours To Complete</h5></span>
-                        <div class="field">{{ project.no_of_hours }}</div><br>
                         <span><h5>Level</h5></span>
                         <div class="field">{{ project.difficulty_level}}</div><br>
                         <span><h5>Languages Used</h5></span>
@@ -160,7 +159,7 @@
                         <div class="box">
                             <div class="right-num">{{ forloop.counter }}</div>
                             <div class="mid">
-                                <a href="{% url 'blogs:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
+                                <a href="{% url 'project:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
             {{ chapter }} 
         </a><br>
                                 <span class="clk">{{ chapter }}</span>

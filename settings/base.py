@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     
     # local
     'site_users.apps.SiteUsersConfig',
-    'blogs.apps.BlogsConfig',
+    'project.apps.ProjectConfig',
     'author.apps.AuthorConfig',
     'topic',
 
@@ -201,7 +201,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
-    'blogs.utils.save_user',
+    'project.utils.save_user',
 )
 
 # LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/google/login/callback/'

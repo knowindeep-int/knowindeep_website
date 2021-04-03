@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
-from blogs.models import Language, Project, Profile,Chapter
-from blogs.utils import getApiKey
+from project.models import Language, Project, Profile,Chapter
+from project.utils import getApiKey
 
 def add_course(request, pk = None):
     UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
