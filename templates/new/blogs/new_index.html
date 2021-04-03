@@ -241,11 +241,7 @@
 
                                 </div>
                         </ul>
-                        <a class="btn btn-primary" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> &emsp; GO TO BLOG
-                            &emsp;</a> {% if request.user.is_superuser %} {% if not project.isApproved %}
-                        <a class="btn btn-primary" href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
-                        <a class="btn btn-primary" href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a> {% endif %} {% endif %} {% if project.isApproved %} {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl
-                        function="copyProjectPageURLToClipBoard(this)" %} {% endif %}
+                
                     </div>
                 </div>
                 {% endfor %}
@@ -269,12 +265,7 @@
                                     <img src="{{language.image.url}}" class="lang"> {% endif %}{% endfor %}
 
                                 </div>
-                        </ul>
-                        <a class="btn btn-primary" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';"> &emsp; GO TO BLOG
-                            &emsp;</a> {% if request.user.is_superuser %} {% if not project.isApproved %}
-                        <a class="btn btn-primary" href="#" onclick="location.href='{% url 'blogs:approve' project.slug %}';">Approve</a> {% else %}
-                        <a class="btn btn-primary" href="#" onclick="location.href='{% url 'blogs:remove' project.slug %}';">Remove</a> {% endif %} {% endif %} {% if project.isApproved %} {% include 'dropdown/dropdown.html' with url=project.getCompleteUrl
-                        function="copyProjectPageURLToClipBoard(this)" %} {% endif %}
+                        
                     </div>
                 </div>
                 {% endfor %}
