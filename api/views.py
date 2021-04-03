@@ -4,10 +4,11 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.core.mail import send_mail
-from project.models import Project, Chapter, Like, Comment, Profile, Language, Suggestion, Blog
+from project.models import Project, Chapter, Like, Comment, Profile, Language, Suggestion
 from django.contrib.auth.models import User
 from knowindeep import Constants
 import os
+from blogs.models import Blog
 from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, SuggestionSerializer, BlogSerializer
 from dotenv import load_dotenv
 load_dotenv()

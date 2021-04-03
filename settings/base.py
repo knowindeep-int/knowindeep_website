@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'site_users.apps.SiteUsersConfig',
     'project.apps.ProjectConfig',
     'author.apps.AuthorConfig',
-    'topic',
+    'blogs',
 
     # social
     'social_django',

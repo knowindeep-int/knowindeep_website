@@ -1,5 +1,5 @@
 from django.contrib import admin
-from project.models import Blog,Topic,SubTopic
+from .models import Blog,Topic,SubTopic
 
 # Register your models here.
 admin.site.register(Blog)

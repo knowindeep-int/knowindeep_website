@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import Chapter, Project, Comment, Profile, Like, Language, Package, Progress, Blog, Suggestion
+from .models import Chapter, Project, Comment, Profile, Like, Language, Package, Progress, Suggestion
 # from django.apps import apps
 
 # models = apps.get_models()
@@ -48,14 +48,14 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = [ChapterTopicsInline, LikeInline,CommentInline]
     search_fields = ['title','overview']
 
-class BlogAdmin(admin.ModelAdmin):
-    fieldsets = [
-        'author', 'content', 'title','date_created','description','isApproved'
-    ]
-    list_display = ['title','description']
-    ordering = ['-date_created']
-    readonly_fields = ['date_created','isApproved']
-    search_fields = ['title','date_created']
+# class BlogAdmin(admin.ModelAdmin):
+#     fieldsets = [
+#         'author', 'content', 'title','date_created','description','isApproved'
+#     ]
+#     list_display = ['title','description']
+#     ordering = ['-date_created']
+#     readonly_fields = ['date_created','isApproved']
+#     search_fields = ['title','date_created']
 
 
 

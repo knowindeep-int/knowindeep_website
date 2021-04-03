@@ -11,5 +11,5 @@ urlpatterns = [
     path('approve/<slug:slug>/', views.approve, name = 'approve'),
     path('<slug:slug>/',views.subtopics, name='sub_topic'),
     path('<slug:slug>/<slug:chapter>/',views.chapter_post,name='chapter_post'),
-    path('all_blogs',views.list_all_blogs,name='blogs_list'),
+    # path('all_blogs',views.list_all_blogs,name='blogs_list'),
 ]
