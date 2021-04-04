@@ -7,18 +7,21 @@ import requests
 import sys
 
 from .models import Project,Chapter, Like, Comment
+from blogs.models import Blog
 
 def topics(request):
     context = None
     if request.user.is_superuser:
         context = {
             "projects":Project.get_popular_projects(),
-            "all_projects" : Project.get_all_projects()
+            "all_projects" : Project.get_all_projects(),
+            'blogs': Blog.objects.filter(isCompleted = True)
         }
     else: 
         context = {
             "projects":Project.get_popular_approved_completed_projects(),
-            "all_projects" : Project.get_all_approved_projects()
+            "all_projects" : Project.get_all_approved_projects(),
+            'blogs':Blog.objects.filter(isApproved = True, isCompleted = True)
         }
     return render(request,"new/blogs/new_index.html",context)
 

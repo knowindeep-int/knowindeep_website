@@ -214,7 +214,52 @@
             </div>
             {% endfor %}
         </div>
+        <h3>All our Blogs</h3>
 
+        <div class="index-cards">
+            {% for project in blogs %}
+            <div class="card">
+                {%if project.image%}
+                <img src="{{project.image}}" class="card-img-top" alt="...">{% else %}
+                <img src="{% static 'images/blog-pic.png' %}" class="card-img-top"> {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title | title }}</h5>
+                    <h6 class="card-text">{{project.description | truncatewords:10}}</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Author Name: <span>{{project.author}}</span></li>
+                        <li class="list-group-item">Level: <span>{{project.difficulty_level}}</span></li>
+                        <li class="list-group-item">Languages: </li>
+                    </ul>
+                </div>
+                <div class="index-cta">
+                    <div class="index-button">
+                        <a style="color: white;" href="#" onclick="location.href = '{% url 'project:sub_topic' project.slug %}';" class="btn btn-warning">GO TO BLOG</a>
+                    </div>
+                    {% if request.user.is_superuser %} {% if not project.isApproved %}
+
+                    <div class="index-button-approve">
+                        <a href="#" class="btn btn-success" onclick="location.href='{% url 'project:approve' project.slug %}';">Approve</a>
+                    </div>
+                    {% else %}
+                    <div class="index-button-remove">
+                        <a href="#" class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug %}';">Remove</a>
+                    </div>
+                    {% endif %} {% endif %} {%if request.user.is_authenticated%} {%if project.bookmark.all%}
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    {%else%}
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    {%endif%} {%else%}
+                    {%if project.bookmark.all%}
+                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    {%else%}
+                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    {%endif%}
+                    {%endif%} {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
