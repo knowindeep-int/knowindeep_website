@@ -15,6 +15,7 @@ class Blog(models.Model):
     date_approved = models.DateTimeField(default = None, blank =True ,null=True) 
     image = models.URLField(max_length=200,blank=True,null=True)
     # description = models.TextField(blank=True,null=True)
+    bookmark = models.ManyToManyField(to=Profile,blank=True,related_name='bookmarks_blog')
     isCompleted = models.BooleanField(default = False) 
     isApproved = models.BooleanField(default=False)
     slug = models.SlugField(null=True,blank=True)

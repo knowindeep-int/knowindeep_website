@@ -391,9 +391,21 @@ def api_get_suggestion(request):
 
 @api_view(['POST',])
 def api_create_bookmark(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST['method']=='project':
         pk= request.POST['pk']
         project = Project.objects.get(pk = pk)
+        profile = Profile.objects.get(user = request.user)
+        project.bookmark.add(profile)
+        
+        data = {
+            'message':'created successfully',
+            'pk': pk,
+            'count': project.bookmark.all().count()
+        }
+        return Response(data,status=status.HTTP_200_OK)
+    if request.method == 'POST' and request.POST['method']=='blog':
+        pk= request.POST['pk']
+        project = Blog.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
         project.bookmark.add(profile)
         
@@ -407,9 +419,20 @@ def api_create_bookmark(request):
 
 @api_view(['POST',])
 def api_delete_bookmark(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST['method']=='project':
         pk= request.POST['pk']
         project = Project.objects.get(pk = pk)
+        profile = Profile.objects.get(user = request.user)
+        project.bookmark.remove(profile)
+        data = {
+            'message':'deleted successfully',
+            'pk': pk,
+            'count': project.bookmark.all().count(),
+        }
+        return Response(data,status=status.HTTP_200_OK)
+    if request.method == 'POST' and request.POST['method']=='blog':
+        pk= request.POST['pk']
+        project = Blog.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
         project.bookmark.remove(profile)
         data = {

@@ -22,6 +22,7 @@
                     'data': {
                         'pk': e.classList[1],
                         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'method':'project',
                     },
                     success: function(data) {
                         // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
@@ -44,6 +45,7 @@
                     'data': {
                         'pk': e.classList[1],
                         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'method':'project',
                     },
                     success: function(data) {
                         // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
@@ -61,7 +63,7 @@
                 })
             }
 
-        } else {
+        } else if(e.classList[0] == 'all')   {
             if (document.getElementsByClassName('bookmark-pop')[p - 1].classList[3] == 'bi-bookmarks') {
                 $.ajax({
                     'method': 'POST',
@@ -69,6 +71,7 @@
                     'data': {
                         'pk': e.classList[1],
                         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'method':'project',
                     },
                     success: function(data) {
                         // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
@@ -91,6 +94,7 @@
                     'data': {
                         'pk': e.classList[1],
                         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'method':'project',
                     },
                     success: function(data) {
                         // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
@@ -108,7 +112,57 @@
                 })
             }
         }
-
+        else   {
+            if (document.getElementsByClassName('bookmark-blg')[p - 1].classList[3] == 'bi-bookmarks') {
+                $.ajax({
+                    'method': 'POST',
+                    'url': '{% url "api:create_book" %}',
+                    'data': {
+                        'pk': e.classList[1],
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'method':'blog',
+                    },
+                    success: function(data) {
+                        // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                        // document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+                        // document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+                        for (var i = 0; i < document.getElementsByClassName(data.pk).length; i++) {
+                            // alert(document.getElementsByClassName('bookmark-pop')[p - 1].classList[3])
+                            document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                            document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                            document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                        }
+                    },
+                    error: function(error) {
+                        console.log('error')
+                    },
+                })
+            } else {
+                $.ajax({
+                    'method': 'POST',
+                    'url': '{% url "api:delete_book" %}',
+                    'data': {
+                        'pk': e.classList[1],
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'method':'blog',
+                    },
+                    success: function(data) {
+                        // alert('2'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                        // document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks')
+                        // document.getElementsByClassName('bookmark-all')[p-1].classList.toggle('bi-bookmarks-fill')
+                        for (var i = 0; i < document.getElementsByClassName(data.pk).length; i++) {
+                            // alert('awd')
+                            document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                            document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                            document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                        }
+                    },
+                    error: function(error) {
+                        console.log('error')
+                    },
+                })
+            }
+        }
     }
     // function create_bookmark(){
 
@@ -245,6 +299,17 @@
                         <a href="#" class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'blog' %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %} 
+                    {%if request.user.is_authenticated%} {%if project.bookmark.all%}
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    {%else%}
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    {%endif%} {%else%}
+                    {%if project.bookmark.all%}
+                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    {%else%}
+                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    {%endif%}
+                    {%endif%}
                {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
 
                 </div>
