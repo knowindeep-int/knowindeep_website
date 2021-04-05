@@ -34,16 +34,25 @@ class Blog(models.Model):
     @property
     def getCompleteUrl(self):
         if settings.DEBUG:
-            return "http://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
+            return "http://%s/blogs%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
         else:
-            return "https://%s%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
+            return "https://%s/blogs%s" % ('127.0.0.1:8000' ,self.get_absolute_url)
 
-    
+
+    def canUserView(self, user):
+        return self.isApproved or user.is_superuser    
 class Topic(models.Model):
     author = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
     content = RichTextUploadingField(blank=True,null=True)
     title = models.CharField(max_length = 25, null =False, blank= False)
-    blog = models.ForeignKey(to = Blog, on_delete = models.CASCADE,related_name='topics') 
+    blog = models.ForeignKey(to = Blog, on_delete = models.CASCADE,related_name='topics')
+    slug = models.SlugField(null=True,blank=True)
+ 
+
+    @classmethod
+    def getAllSubTopics(cls, slug):
+        topic = cls.objects.get(slug = slug)
+        return topic.subtopics.all()
 
 
 class SubTopic(models.Model):
@@ -51,6 +60,7 @@ class SubTopic(models.Model):
     content = RichTextUploadingField(blank=True,null=True)
     title = models.CharField(max_length = 25, null =False, blank= False)
     topic = models.ForeignKey(to = Topic, on_delete = models.CASCADE,related_name='subtopics')
+    slug = models.SlugField(null=True,blank=True)
 
 
 def r_pre_save_receiever(sender,instance,*args,**kwargs):
@@ -60,4 +70,6 @@ def r_pre_save_receiever(sender,instance,*args,**kwargs):
         #instance.save()
 
 pre_save.connect(r_pre_save_receiever, sender=Blog)
+pre_save.connect(r_pre_save_receiever, sender=Topic)
+pre_save.connect(r_pre_save_receiever, sender=SubTopic)
 

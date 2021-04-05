@@ -1,0 +1,183 @@
+{% extends "new/new_base.html" %} {% load static %} {% block content_head %}
+<script src="{% static 'js/blogs/blog_post.js' %}"></script>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'new_css/blogs/new_chapter_page.css' %}"> {% block title %}
+<title>{{ chapter_content.link_to.title |title }} | {{ chapter_content.title |title }}</title>
+{% endblock %} {% endblock %}
+
+<script type="text/javascript">
+    { % block jquery %
+    }
+
+
+
+
+    { % endblock %
+    }
+</script>
+
+
+
+
+
+{% block content %}
+{%csrf_token%}
+<script>
+    var ch_list = new Array;
+</script>
+<script>
+    function fill(e){
+            if(document.getElementsByClassName('hel')[0].classList[2]=='bi-bookmarks'){
+                $.ajax({
+            'method':'POST',
+            'url':'{% url "api:create_chap_book" %}',
+            'data':{
+                'pk':'{{chapter_content.pk}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
+                // document.getElementsByClassName('hel')[0].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('hel')[0].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
+            },error:function(error){
+                console.log('error')
+            },
+        })
+            }
+           else{
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:delete_chap_book" %}',
+            'data':{
+                'pk':'{{chapter_content.pk}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                // alert(document.getElementsByClassName('hel')[0].classList)
+                // document.getElementsByClassName('hel')[0].classList.toggle('bi-bookmarks')
+                // document.getElementsByClassName('hel')[0].classList.toggle('bi-bookmarks-fill')
+                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                }
+            },error:function(error){
+                console.log('error')
+            },
+        })       
+           }
+        
+        }
+        
+   
+    // function create_bookmark(){
+        
+    // }
+   
+</script>
+
+<div class="chapter-content">
+    <div class="chapter-window">
+
+        <div class="chapter-left">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'blogs:sub_topic' slug=slug %}">{{ title }}</a></li>
+                <li class="breadcrumb-item">{{ chapter_content.title | title }}</li>
+            </ol>
+
+            <div class="list-group">
+                {% for chapter in chapters %} {% if chapter.slug == chapter_content.slug %}
+                <a type="button" class="list-group-item list-group-item-action active" href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                <script>
+                    ch_list.push('{{chapter.slug}}')
+                    console.log(ch_list)
+                </script>
+                {%else%}
+
+                <a type="button" class="list-group-item list-group-item-action" href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                <script>
+                    ch_list.push('{{chapter.slug}}')
+                    console.log(ch_list)
+                </script>
+                {% endif %} {% endfor %}
+            </div>
+        </div>
+
+
+        <div class="chapter-right">
+            <div class="chapter-head">
+                <div class="chapter-bkmrk">
+                    <div class="chapter-flex mb-2">
+                <h1 style="margin-bottom: 0;">{{chapter_content.title}}</h1>
+                <p style="margin: 0;">Author: {{chapter_content.author}}<span style="color: #f9a80d; font-weight: 600; font-size: 1.3rem;"> | </span>Date: {{chapter_content.date_posted.date}}</p>
+                </div>
+                <!-- <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt=""> -->
+                {%if request.user.is_authenticated%}{%if chapter_content.bookmark.all%}
+                <div onclick="fill(this)" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks-fill" ><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>
+                {%else%}
+                <div  onclick="fill(this)" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>                    
+                {%endif%}{% else %}{%if chapter_content.bookmark.all%}
+                <div onclick="on()" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks-fill" ><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>
+                {%else%}
+                <div  onclick="on()" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>                    
+                {%endif%}{%endif%}
+                </div>
+            </div>
+            <div class="chapter-middle">
+                {{chapter_content.content | safe}}
+            </div>
+            <div class="chapter-foot">
+                {% if chapters.0 != chapter_content %}
+                <button class="btn btn-md btn-warning" onclick="previous()">Previous</button> 
+                {%else%}
+                <button class="btn btn-md btn-warning chapter-btn-hide" onclick="previous()">Previous</button>
+                {%endif%}
+
+                {% if chapters.last != chapter_content %}  
+                <button id="nxt_btn_project" class="btn btn-md btn-warning" onclick="next()">Next</button>
+                {%else%}
+                <button id="nxt_btn_project" class="btn btn-md btn-warning chapter-btn-hide" onclick="next()">Next</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function previous() {
+            for (var i = 0; i < ch_list.length; i++) {
+                console.log(ch_list)
+                if (ch_list[i] == '{{chapter_content.slug}}' && i > 0) {
+                    document.location.href = '/' + '{{slug}}/' + ch_list[i - 1];
+
+                }
+            }
+        }
+
+        function next() {
+            for (var i = 0; i < ch_list.length; i++) {
+                console.log('{{chapter_content.slug}}')
+                if (ch_list[i] == '{{chapter_content.slug}}' && i < ch_list.length - 1) {
+                    document.location.href = '/' + '{{slug}}/' + ch_list[i + 1];
+
+                }
+            }
+        }
+
+    </script>
+
+
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+{% endblock content %}

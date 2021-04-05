@@ -15,8 +15,11 @@ def unique_slug_generator(instance,new_slug=None):
     else:
         if instance.__class__ == models.Blog:
             slug = slugify(instance.title)
-        elif instance.__class__ == models.Chapter:
-            slug = slugify(instance.link_to.title)
+        elif instance.__class__ == models.Topic:
+            slug = slugify(instance.title)
+            print(slug)
+        elif instance.__class__ == models.SubTopic:
+            slug = slugify(instance.title)
             print(slug)
     if slug in DONT_USE:
         new_slug = slug + random_string_generator(size=4)

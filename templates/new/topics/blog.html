@@ -23,7 +23,7 @@
                 <ul class="blogtopic-links">
                     {%for subtopic in topic.subtopics.all%}
                     <li>
-                        <a href="#">{{subtopic.title}}</a>
+                        <a href="{% url 'blogs:sub_topic_page' blog.slug topic.slug subtopic.slug %}">{{subtopic.title}}</a>
                     </li>
                   {%endfor%}
                 </ul>
