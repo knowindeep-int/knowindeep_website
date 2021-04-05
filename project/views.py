@@ -68,19 +68,31 @@ def chapter_post(request,slug, chapter):
         return render(request,"new/blogs/new_chapter_page.html", context)
     return HttpResponse('You are not allowed to access this page', status =500)
 
-def remove(request,slug):
-    if request.user.is_superuser:
+def remove(request,slug,method):
+    
+    if request.user.is_superuser and method=='project':
         project = Project.objects.get(slug=slug)
+        project.isApproved = False
+        project.save()
+
+        return redirect('project:index')
+    if request.user.is_superuser and method=='blog':
+        project = Blog.objects.get(slug=slug)
         project.isApproved = False
         project.save()
 
         return redirect('project:index')
     return HttpResponse("You are not Authorized to access this Page", status = 500)
 
-def approve(request,slug):
-    if request.user.is_superuser:
+def approve(request,slug,method):
+    if request.user.is_superuser and method=='project':
         project = Project.objects.get(slug=slug)
         project.approveProject
+        return redirect('project:index')
+    if request.user.is_superuser and method=='blog':
+        project = Blog.objects.get(slug=slug)
+        project.isApproved = True
+        project.save()
         return redirect('project:index')
     return HttpResponse("You are not Authorized to access this Page", status = 500)
 

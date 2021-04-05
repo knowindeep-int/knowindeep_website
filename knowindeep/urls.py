@@ -33,6 +33,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
     re_path("^[@](?P<slug>[-\w]+)",include('author.urls')),
+    path('blogs/',include('blogs.urls')),
     path('',include('project.urls')),
     path('oauth/',include('social_django.urls'),name='social'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
