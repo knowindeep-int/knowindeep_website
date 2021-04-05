@@ -11,6 +11,7 @@ import os
 from blogs.models import Blog,SubTopic
 from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, SuggestionSerializer, BlogSerializer
 from dotenv import load_dotenv
+from knowindeep.enums import methods
 load_dotenv()
 
 
@@ -391,7 +392,7 @@ def api_get_suggestion(request):
 
 @api_view(['POST',])
 def api_create_bookmark(request):
-    if request.method == 'POST' and request.POST['method']=='project':
+    if request.method == 'POST' and request.POST['method']==methods.PROJECT.value:
         pk= request.POST['pk']
         project = Project.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
@@ -403,7 +404,7 @@ def api_create_bookmark(request):
             'count': project.bookmark.all().count()
         }
         return Response(data,status=status.HTTP_200_OK)
-    if request.method == 'POST' and request.POST['method']=='blog':
+    if request.method == 'POST' and request.POST['method']==methods.BLOG.value:
         pk= request.POST['pk']
         project = Blog.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
@@ -419,7 +420,7 @@ def api_create_bookmark(request):
 
 @api_view(['POST',])
 def api_delete_bookmark(request):
-    if request.method == 'POST' and request.POST['method']=='project':
+    if request.method == 'POST' and request.POST['method']==methods.PROJECT.value:
         pk= request.POST['pk']
         project = Project.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
@@ -430,7 +431,7 @@ def api_delete_bookmark(request):
             'count': project.bookmark.all().count(),
         }
         return Response(data,status=status.HTTP_200_OK)
-    if request.method == 'POST' and request.POST['method']=='blog':
+    if request.method == 'POST' and request.POST['method']==methods.BLOG.value:
         pk= request.POST['pk']
         project = Blog.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
@@ -444,7 +445,7 @@ def api_delete_bookmark(request):
 
 @api_view(['POST',])
 def api_create_chapter_bookmark(request):
-    if request.method == 'POST' and request.POST['method']=='blog':
+    if request.method == 'POST' and request.POST['method']==methods.CHAPTER.value:
         pk= request.POST['pk']
         chapter = Chapter.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
@@ -456,7 +457,7 @@ def api_create_chapter_bookmark(request):
             'count': chapter.bookmark.all().count()
         }
         return Response(data,status=status.HTTP_200_OK)
-    if request.method == 'POST' and request.POST['method']=='subtopic':
+    if request.method == 'POST' and request.POST['method']==methods.SUBTOPIC.value:
         pk= request.POST['pk']
         chapter = SubTopic.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
@@ -472,7 +473,8 @@ def api_create_chapter_bookmark(request):
 
 @api_view(['POST',])
 def api_delete_chapter_bookmark(request):
-    if request.method == 'POST' and request.POST['method']=='chapter':
+    # print(methods.SUBTOPIC.value)
+    if request.method == 'POST' and request.POST['method']==methods.CHAPTER.value:
         pk= request.POST['pk']
         chapter = Chapter.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
@@ -483,7 +485,7 @@ def api_delete_chapter_bookmark(request):
             'count': chapter.bookmark.all().count(),
         }
         return Response(data,status=status.HTTP_200_OK)
-    if request.method == 'POST' and request.POST['method']=='subtopic':
+    if request.method == 'POST' and request.POST['method']==methods.SUBTOPIC.value:
         pk= request.POST['pk']
         chapter = SubTopic.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
