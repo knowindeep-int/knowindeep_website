@@ -36,6 +36,7 @@
             'data':{
                 'pk':'{{chapter_content.pk}}',
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'method':'subtopic',
             },
             success:function(data){
                 // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
@@ -58,6 +59,7 @@
             'data':{
                 'pk':'{{chapter_content.pk}}',
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'method':'subtopic',
             },
             success:function(data){
                 // alert(document.getElementsByClassName('hel')[0].classList)
@@ -155,7 +157,7 @@
             for (var i = 0; i < ch_list.length; i++) {
                 console.log(ch_list)
                 if (ch_list[i] == '{{chapter_content.slug}}' && i > 0) {
-                    document.location.href = '/' + '{{slug}}/' + ch_list[i - 1];
+                    document.location.href = '/blogs/' + '{{slug}}/' +  '{{chapter_content.topic.slug}}/'+ch_list[i - 1];
 
                 }
             }
@@ -165,7 +167,7 @@
             for (var i = 0; i < ch_list.length; i++) {
                 console.log('{{chapter_content.slug}}')
                 if (ch_list[i] == '{{chapter_content.slug}}' && i < ch_list.length - 1) {
-                    document.location.href = '/' + '{{slug}}/' + ch_list[i + 1];
+                    document.location.href = '/blogs/' + '{{slug}}/' +  '{{chapter_content.topic.slug}}/'+ch_list[i + 1];
 
                 }
             }

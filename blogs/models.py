@@ -58,6 +58,7 @@ class Topic(models.Model):
 
 class SubTopic(models.Model):
     author = models.ForeignKey(to =Profile, on_delete = models.CASCADE)
+    bookmark = models.ManyToManyField(to=Profile,blank=True,related_name='bookmarks_sub')
     content = RichTextUploadingField(blank=True,null=True)
     title = models.CharField(max_length = 25, null =False, blank= False)
     topic = models.ForeignKey(to = Topic, on_delete = models.CASCADE,related_name='subtopics')

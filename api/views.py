@@ -8,7 +8,7 @@ from project.models import Project, Chapter, Like, Comment, Profile, Language, S
 from django.contrib.auth.models import User
 from knowindeep import Constants
 import os
-from blogs.models import Blog
+from blogs.models import Blog,SubTopic
 from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, SuggestionSerializer, BlogSerializer
 from dotenv import load_dotenv
 load_dotenv()
@@ -444,9 +444,21 @@ def api_delete_bookmark(request):
 
 @api_view(['POST',])
 def api_create_chapter_bookmark(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST['method']=='blog':
         pk= request.POST['pk']
         chapter = Chapter.objects.get(pk = pk)
+        profile = Profile.objects.get(user = request.user)
+        chapter.bookmark.add(profile)
+        
+        data = {
+            'message':'created successfully',
+            'pk': pk,
+            'count': chapter.bookmark.all().count()
+        }
+        return Response(data,status=status.HTTP_200_OK)
+    if request.method == 'POST' and request.POST['method']=='subtopic':
+        pk= request.POST['pk']
+        chapter = SubTopic.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
         chapter.bookmark.add(profile)
         
@@ -460,9 +472,20 @@ def api_create_chapter_bookmark(request):
 
 @api_view(['POST',])
 def api_delete_chapter_bookmark(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST['method']=='chapter':
         pk= request.POST['pk']
         chapter = Chapter.objects.get(pk = pk)
+        profile = Profile.objects.get(user = request.user)
+        chapter.bookmark.remove(profile)
+        data = {
+            'message':'deleted successfully',
+            'pk': pk,
+            'count': chapter.bookmark.all().count(),
+        }
+        return Response(data,status=status.HTTP_200_OK)
+    if request.method == 'POST' and request.POST['method']=='subtopic':
+        pk= request.POST['pk']
+        chapter = SubTopic.objects.get(pk = pk)
         profile = Profile.objects.get(user = request.user)
         chapter.bookmark.remove(profile)
         data = {

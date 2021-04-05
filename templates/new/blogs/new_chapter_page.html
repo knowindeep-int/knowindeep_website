@@ -36,6 +36,7 @@
             'data':{
                 'pk':'{{chapter_content.pk}}',
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'method':'chapter',
             },
             success:function(data){
                 // alert('1'+document.getElementsByClassName('bookmark-pop')[p-1].classList[3])
@@ -58,6 +59,7 @@
             'data':{
                 'pk':'{{chapter_content.pk}}',
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'method':'chapter',
             },
             success:function(data){
                 // alert(document.getElementsByClassName('hel')[0].classList)
