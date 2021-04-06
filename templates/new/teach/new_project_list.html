@@ -41,18 +41,16 @@
 
 
 <script>
-    var project_titles_ongoing = [] { %
-        if ongoing_projects %
-    } { %
-        for project in ongoing_projects %
-    }
+    var project_titles_ongoing = [] 
+    {%if ongoing_projects %} 
+    {%for project in ongoing_projects %}
     var project_titles_add = {}
     project_titles_add['title'] = "{{project.title}}";
     project_titles_add['slug'] = "{{project.slug}}";
     project_titles_add['pk'] = "{{project.pk}}";
-    project_titles_ongoing.push(project_titles_add) { % endfor %
-    } { % endif %
-    }
+    project_titles_ongoing.push(project_titles_add) 
+    {% endfor %} 
+    {% endif %}
 
     function filterCompletedProjects(project) {
 
@@ -80,17 +78,15 @@
     })
 </script>
 <script>
-    var project_titles = [] { %
-        if completed_projects %
-    } { %
-        for project in completed_projects %
-    }
+    var project_titles = [] 
+    {%if completed_projects %} 
+    {%for project in completed_projects %}
     var project_titles_add = {}
     project_titles_add['title'] = "{{project.title}}";
     project_titles_add['slug'] = "{{project.slug}}";
-    project_titles.push(project_titles_add) { % endfor %
-    } { % endif %
-    }
+    project_titles.push(project_titles_add) 
+    {% endfor %} 
+    {% endif %}
 
     function filterOngoingProjects(project) {
 
@@ -134,7 +130,7 @@
         {% for project in ongoing_projects %}
         <div class="col-12">
             <div class="card">
-                <img src="{{project.image}}" class="card-img-top" alt="...">
+                <img src="{{project.image}}" class="card-img-top" alt="..." onerror=this.src="{% static 'images/kid-black.png'%}">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
                     <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}...</h6>
@@ -196,7 +192,7 @@
         {% for project in completed_projects %}
         <div class="col-12">
             <div class="card">
-                <img src="{{project.image}}" class="  card-img-top" alt="...">
+                <img src="{{project.image}}" class="  card-img-top" alt="..." onerror=this.src="{% static 'images/kid-black.png'%}">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
                     <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}...</h6>
