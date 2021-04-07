@@ -42,6 +42,7 @@
 </head>
 
 <body>
+    {%csrf_token%}
     <script>
         function getLoginPopUp() {
             document.getElementsByTagName('body')[0].setAttribute('style', 'position: fixed;background-color: #d0d0d0 ;')
@@ -140,14 +141,59 @@
                 },
             });
         }
+        //  alert('{{request.user.user.isOnline}}')
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
         );
         chatSocket.onopen = function(e) {
-            console.log('it works.VEDANT IS A FUCKING GENIUS')
-        };
-
+            if('{{request.user.user.isOnline}}'=='False'){
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:update_status" %}',
+            'data':{
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                console.log(data.message)
+            },error:function(error){
+                console.log('error')
+            },
+        }) 
+        }
+        else{
+            console.log('you are cheating bro')
+        }
+    }
+        // chatSocket.onclose = function(e) {
+        //     alert('esdsef')
+        //     $.ajax({
+        //     'method':'POST',
+        //     'url':'{% url "api:update_status" %}',
+        //     'data':{
+        //         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+        //     },
+        //     success:function(data){
+        //         console.log(data.message)
+        //     },error:function(error){
+        //         console.log('error')
+        //     },
+        // }) 
+        // };
+        window.addEventListener("unload", function() {
+            $.ajax({
+            'method':'POST',
+            'url':'{% url "api:update_status" %}',
+            'data':{
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(data){
+                console.log(data.message)
+            },error:function(error){
+                console.log('error')
+            },
+        }) 
+        });
     </script>
     <nav style="z-index: 2" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div style="max-width: 1300px;" class="container-fluid">
