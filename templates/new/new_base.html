@@ -140,6 +140,14 @@
                 },
             });
         }
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+        );
+        chatSocket.onopen = function(e) {
+            console.log('it works.VEDANT IS A FUCKING GENIUS')
+        };
+
     </script>
     <nav style="z-index: 2" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div style="max-width: 1300px;" class="container-fluid">
