@@ -73,7 +73,6 @@ class Profile(models.Model):
         profile = cls(name = name)
         return profile.user
 
-
     @property
     def getOngoingAndCompletedProjects(self):
         projects = self.projects.all()
@@ -98,6 +97,7 @@ class Profile(models.Model):
 
     def is_verified(self, user):
         return user == self.user
+
 
 
 
