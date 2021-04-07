@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'project.apps.ProjectConfig',
     'author.apps.AuthorConfig',
     'blogs',
+    'channels',
 
     # social
     'social_django',
@@ -97,6 +98,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'knowindeep.wsgi.application'
+ASGI_APPLICATION = 'knowindeep.asgi.application'
 
 
 # Database
