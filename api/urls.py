@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import api_create_suggestion, api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_project_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status,api_create_suggestion, api_resolve_suggestion,api_get_suggestion,api_search_languages,api_delete_lang,api_create_bookmark,api_delete_bookmark,api_create_chapter_bookmark,api_delete_chapter_bookmark,api_get_ch_pr_au,api_get_blogs
+from .views import api_create_suggestion, api_detail_chapter_view, api_detail_chapter_update_view, api_all_detail_view, api_like_chapter_view, api_comment_project_view, fetchComments, increase_post_view, update_profile, search_project, api_save_draft, api_save_chapter_draft, api_get_languages_prereqs, api_create_project, api_get_project_absolute_url, api_get_chapter_absolute_url,api_create_chapter,api_update_status,api_create_suggestion, api_resolve_suggestion,api_get_suggestion,api_search_languages,api_delete_lang,api_create_bookmark,api_delete_bookmark,api_create_chapter_bookmark,api_delete_chapter_bookmark,api_get_ch_pr_au,api_get_blogs,api_update_user_status
 
 
 app_name = "api"
@@ -34,4 +34,5 @@ urlpatterns = [
     path('createChapterBookmark', api_create_chapter_bookmark, name = "create_chap_book"),
     path('deleteChapterBookmark', api_delete_chapter_bookmark, name = "delete_chap_book"),
     path('getChapProAuth', api_get_ch_pr_au, name = "get_ch_pr_au"),
+    path('updateUserStatus', api_update_user_status, name = "update_status"),
 ]
