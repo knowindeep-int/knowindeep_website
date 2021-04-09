@@ -43,7 +43,7 @@ class Profile(models.Model):
     dp = models.URLField(null=True, blank = True)
     github_id = models.URLField(max_length=70,null=True,blank=True)
     isAuthor = models.BooleanField(default=False)
-    isOnline = models.BooleanField(default=False)
+    no_of_users = models.IntegerField(default=0)
     linkedin_id = models.URLField(max_length=70,null=True,blank=True)
     phone_number = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(1000000000)])
     skills = models.ManyToManyField(to = Language, related_name="skills", blank = True)
