@@ -1413,9 +1413,13 @@ display: block !important;
 	color: #d9dcdf;
 	margin: 0 7px;
 }
-#bold{
-    margin-left: 10px;
+#bold, #undereline, #italic{
+    margin: 0 10px;
 }
+#italic{
+    transform: translateY(1px);
+}
+
 
 .k{
     width: 72.5%;
