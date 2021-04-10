@@ -159,7 +159,9 @@
                             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
                         },
                         success: function(data) {
-                            console.log(data.message)
+                            if(data.message>=2){
+                                console.log('Two or more users are logged in with the same id')
+                            }
                         },
                         error: function(error) {
                             console.log('error')
