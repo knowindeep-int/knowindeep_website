@@ -525,6 +525,7 @@ ul.stack {
     text-align: center;
     font-size: 1.2em;
     transition: all 1s;
+    border: 5px solid black;
 }
 
 
@@ -1401,6 +1402,19 @@ display: block !important;
 	margin: 11px 5px;
 }
 
+.bi{
+    font-size: 1.4rem;
+
+}
+
+
+#ordered-list svg{
+    width: 20px;
+    height: auto;
+    stroke: 2px;
+    margin: 0 2px 5px 0;
+}
+
 .svg1{
     width: 20px;
     height: auto;
@@ -1408,9 +1422,6 @@ display: block !important;
     /* margin-top: 0px !important; */
     /* margin: 0 5px; */
     padding-bottom: 4px;
-}
-.icons{
-	margin-left: 25px;
 }
 .slash{
 	font-size: 25px;
@@ -1517,9 +1528,7 @@ display: block !important;
                 margin-top: -5px !important;
                 margin: 0 5px;
             }
-            .icons {
-                margin-left: 25px;
-            }
+   
             .slash {
                 font-size: 25px;
                 color: #d9dcdf;
