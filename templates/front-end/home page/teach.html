@@ -6,9 +6,8 @@
         <link rel="stylesheet" href="{% static 'css/chapter/chapter.css'%}">
         {% endblock %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.0.13/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.min.css" integrity="sha512-YBSrHBAMjFhWHodf0RF58XB/x9lmuwBtyJv1LWDHQa1nOaWNXfG3Etc/lEXfW+qBx8ne79JnzccDs59je/ccVA==" crossorigin="anonymous" />
 {% block content %}
 <style>
     pre{
@@ -314,7 +313,7 @@ function setImgurHeader(xhr) {
         </script>
    
     <body>
-      
+
         {% csrf_token %}
         <script>
         //    $('editor').on('change',function(){
@@ -663,23 +662,34 @@ function setImgurHeader(xhr) {
                         {%endfor%}
                     </div>
                 </div>
+             
             <div class="col-lg-9 chapter">
                 
                     <div class="top-bar">
                         <span class="icons">
-                            <button id="bold" onclick="format('bold')"><i class="fas fa-bold" id="bold"></i></button>
-                            <button id="italic" onclick="format('italic')"><i class="fas fa-italic"></i></button>
-                            <button id="underline" onclick="format('underline')"><i class="fas fa-underline" style="font-size: 17px;"></i></button>
+                            <button id="bold" onclick="format('bold')"><i class="bi bi-type-bold"></i></button>
+                            <button id="italic" onclick="format('italic')"><i class="bi bi-type-italic"></i></button>
+                            <button id="underline" onclick="format('underline')"><i class="bi bi-type-underline"></i></button>
                             <span class="slash">|</span>
                             <button id="ordered-list" onclick="addLink()"><svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531.8 534.09"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><path class="cls-1" d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59" transform="translate(-280.31 -224.63)"/><path class="cls-1" d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88" transform="translate(-280.31 -224.63)"/><line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"/><circle class="cls-1" cx="386.8" cy="389.09" r="130"/><line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"/><line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"/></svg></button>
                             <button id="ordered-list" onclick="addCode()"><svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 526 526.75"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><polyline class="cls-1" points="422 206.5 422 102.5 334.5 15 15 15 15 510.5 263 510.5"/><polyline class="cls-1" points="147 147.5 75.5 219 147 290.5"/><polyline class="cls-1" points="208.25 147.5 279.75 219 208.25 290.5"/><circle class="cls-1" cx="381" cy="381.75" r="130"/><line class="cls-1" x1="321.5" y1="381.75" x2="440.5" y2="381.75"/><line class="cls-1" x1="381" y1="441.25" x2="381" y2="322.25"/></svg></button>
                             <button id="ordered-list" onclick="addVideo()"><img class="svg1" src="/media/images/youtube.png" style="width: 30px;"></button>
                             <span class="slash">|</span>
-                            <button id="ordered-list" onclick="format('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
-                            <button id="ordered-list" onclick="format('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+                            <button id="ordered-list" onclick="format('insertUnorderedList')"><i class="bi bi-list-ul"></i></button>
+                            <button id="ordered-list" onclick="format('insertOrderedList')"><i class="bi bi-list-ol"></i></button>
                             <span class="slash">|</span>
-                            <button id="ordered-list" onclick="format('superscript')"><i class="fas fa-superscript" style="position: relative;top: -2px;"></i></button>
-                            <button id="ordered-list" onclick="format('subscript')"><i class="fas fa-subscript" style="position: relative;top: 2px;"></i></button>
+                            <button id="ordered-list" onclick="format('superscript')">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.335 3.25C15.025 3.25 14.749 3.54 14.749 3.864C14.749 4.06291 14.67 4.25368 14.5293 4.39433C14.3887 4.53498 14.1979 4.614 13.999 4.614C13.8001 4.614 13.6093 4.53498 13.4687 4.39433C13.328 4.25368 13.249 4.06291 13.249 3.864C13.249 2.824 14.09 1.75 15.335 1.75C16.045 1.75 16.74 2.082 17.135 2.688C17.551 3.328 17.551 4.148 17.095 4.925C16.86 5.325 16.542 5.619 16.248 5.851C16.101 5.968 15.95 6.075 15.812 6.173L15.752 6.215C15.634 6.298 15.527 6.374 15.424 6.452C15.284 6.557 15.167 6.654 15.073 6.75H16.693C16.8919 6.75 17.0827 6.82902 17.2233 6.96967C17.364 7.11032 17.443 7.30109 17.443 7.5C17.443 7.69891 17.364 7.88968 17.2233 8.03033C17.0827 8.17098 16.8919 8.25 16.693 8.25H14.05C14.0327 8.25059 14.0153 8.25059 13.998 8.25C13.7991 8.25 13.6083 8.17098 13.4677 8.03033C13.327 7.88968 13.248 7.69891 13.248 7.5C13.248 6.342 13.936 5.693 14.521 5.253C14.644 5.16 14.772 5.07 14.889 4.987L14.946 4.947C15.082 4.851 15.204 4.764 15.317 4.674C15.545 4.494 15.7 4.334 15.8 4.166C16.01 3.806 15.94 3.604 15.876 3.506C15.789 3.373 15.596 3.25 15.334 3.25H15.335Z" fill="black"/>
+                                    <path d="M9.48701 9.99999L12.344 6.66799C12.4624 6.17071 12.6914 5.70653 13.014 5.30999C12.6868 5.08705 12.4447 4.75999 12.327 4.38199L8.50001 8.84799L4.35501 4.01099C4.29092 3.93614 4.21272 3.87464 4.12487 3.83001C4.03701 3.78538 3.94123 3.75848 3.84299 3.75087C3.74474 3.74326 3.64596 3.75507 3.55228 3.78563C3.4586 3.81619 3.37186 3.8649 3.297 3.92899C3.22215 3.99307 3.16065 4.07128 3.11602 4.15913C3.07139 4.24698 3.0445 4.34276 3.03689 4.44101C3.02927 4.53925 3.04108 4.63803 3.07164 4.73171C3.10221 4.82539 3.15092 4.91214 3.215 4.98699L7.51301 9.99999L3.21701 15.012C3.15213 15.0867 3.10268 15.1734 3.07148 15.2673C3.04028 15.3612 3.02796 15.4603 3.03523 15.5589C3.0425 15.6576 3.06921 15.7538 3.11382 15.8421C3.15844 15.9304 3.22008 16.009 3.29519 16.0734C3.37031 16.1377 3.45741 16.1866 3.55149 16.2172C3.64557 16.2477 3.74476 16.2594 3.84336 16.2514C3.94196 16.2435 4.03802 16.2161 4.126 16.1709C4.21398 16.1257 4.29215 16.0635 4.356 15.988L8.50001 11.152L12.645 15.988C12.7091 16.0628 12.7873 16.1243 12.8751 16.169C12.963 16.2136 13.0588 16.2405 13.157 16.2481C13.2553 16.2557 13.354 16.2439 13.4477 16.2134C13.5414 16.1828 13.6282 16.1341 13.703 16.07C13.7779 16.0059 13.8394 15.9277 13.884 15.8399C13.9286 15.752 13.9555 15.6562 13.9631 15.558C13.9707 15.4597 13.9589 15.3609 13.9284 15.2673C13.8978 15.1736 13.8491 15.0868 13.785 15.012L9.48601 9.99999H9.48701Z" fill="black"/>
+                                    </svg>
+                            </button>
+                            <button id="ordered-list" onclick="format('subscript')">
+                                <svg  viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.783 4.988C13.9108 4.83675 13.9737 4.64108 13.9578 4.44369C13.9419 4.24629 13.8486 4.06319 13.6982 3.93434C13.5478 3.80548 13.3526 3.74133 13.1551 3.75588C12.9576 3.77043 12.7739 3.86249 12.644 4.012L8.5 8.848L4.355 4.012C4.29092 3.93714 4.21271 3.87564 4.12486 3.83101C4.03701 3.78638 3.94123 3.75949 3.84298 3.75188C3.74474 3.74426 3.64596 3.75607 3.55228 3.78664C3.4586 3.8172 3.37185 3.86591 3.297 3.93C3.22215 3.99408 3.16065 4.07228 3.11602 4.16013C3.07139 4.24799 3.0445 4.34377 3.03688 4.44201C3.02927 4.54026 3.04108 4.63904 3.07164 4.73272C3.1022 4.8264 3.15091 4.91314 3.215 4.988L7.513 10L3.217 15.012C3.08916 15.1632 3.02633 15.3589 3.04222 15.5563C3.0581 15.7537 3.15141 15.9368 3.30179 16.0657C3.45217 16.1945 3.6474 16.2587 3.8449 16.2441C4.0424 16.2296 4.22613 16.1375 4.356 15.988L8.5 11.153L12.35 15.643C12.482 15.101 12.732 14.663 13.015 14.31C12.664 14.07 12.405 13.706 12.301 13.281L9.488 10.001L13.784 4.988H13.783Z" fill="black"/>
+                                    <path d="M15.335 12.25C15.025 12.25 14.749 12.54 14.749 12.864C14.749 13.0629 14.67 13.2537 14.5293 13.3943C14.3887 13.535 14.1979 13.614 13.999 13.614C13.8001 13.614 13.6093 13.535 13.4687 13.3943C13.328 13.2537 13.249 13.0629 13.249 12.864C13.249 11.824 14.09 10.75 15.335 10.75C16.045 10.75 16.74 11.082 17.135 11.688C17.551 12.328 17.551 13.148 17.095 13.925C16.86 14.325 16.542 14.619 16.248 14.851C16.101 14.968 15.95 15.076 15.812 15.173L15.752 15.215C15.634 15.299 15.527 15.374 15.424 15.452C15.2999 15.5427 15.1826 15.6423 15.073 15.75H16.693C16.8919 15.75 17.0827 15.829 17.2233 15.9697C17.364 16.1103 17.443 16.3011 17.443 16.5C17.443 16.6989 17.364 16.8897 17.2233 17.0303C17.0827 17.171 16.8919 17.25 16.693 17.25H14.05C14.0327 17.2506 14.0153 17.2506 13.998 17.25C13.7991 17.25 13.6083 17.171 13.4677 17.0303C13.327 16.8897 13.248 16.6989 13.248 16.5C13.248 15.342 13.936 14.693 14.521 14.253C14.644 14.16 14.772 14.07 14.889 13.988L14.946 13.948C15.0721 13.86 15.1958 13.7686 15.317 13.674C15.545 13.494 15.7 13.334 15.8 13.166C16.01 12.806 15.94 12.604 15.876 12.506C15.789 12.373 15.596 12.25 15.334 12.25H15.335Z" fill="black"/>
+                                    </svg>
+                            </button>
                         </span>
                         <span class="icon-2">
                             <i class="fas fa-image"></i>

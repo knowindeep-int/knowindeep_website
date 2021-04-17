@@ -524,18 +524,10 @@ def api_get_blogs(request):
         data = {'blog':blog_serializer.data}      
         return Response(data, status=status.HTTP_200_OK)
 
-@api_view(['POST'],)
+@api_view(['GET'],)
 def api_update_user_status(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         profile = Profile.getProfile(user = request.user)
         print(profile)
-        if profile.isOnline is True:
-            profile.isOnline = False
-            profile.save()
-            data = {'message':'user is now offline'}
-            return Response(data,status=status.HTTP_200_OK)
-        if profile.isOnline is False:
-            profile.isOnline = True
-            profile.save()
-            data = {'message':'user is now online'}
-            return Response(data,status=status.HTTP_200_OK)
+        data = {'message':profile.no_of_users}
+        return Response(data, status=status.HTTP_200_OK)

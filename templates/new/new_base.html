@@ -147,7 +147,28 @@
             'ws://' +
             window.location.host
         );
-        chatSocket.onmessage = event => console.log("onmessage")
+        chatSocket.onopen = function(e){
+            // console.log({{request.user.user.no_of_users}})
+            // if({{request.user.user.no_of_users}} >=2){
+            //     console.log('Two or more users are logged in with the same id')
+            // }
+            $.ajax({
+                        'method': 'GET',
+                        'url': '{% url "api:update_status" %}',
+                        'data': {
+                            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        },
+                        success: function(data) {
+                            if(data.message>=2){
+                                console.log('Two or more users are logged in with the same id')
+                            }
+                        },
+                        error: function(error) {
+                            console.log('error')
+                        },
+                    })
+        }
+        chatSocket.onmessage = event => console.log({{request.user.user.no_of_users}})
             // chatSocket.onopen = function(e) {
             //     if ('{{request.user.user.isOnline}}' == 'False') {
             //         $.ajax({
@@ -163,7 +184,7 @@
             //                 console.log('error')
             //             },
             //         })
-            //     } else {
+            // //     } else {
             //         console.log('you are cheating bro')
             //     }
             // }
@@ -182,25 +203,25 @@
             //             console.log('error')
             //         },
             //     })
-            // };
-        window.addEventListener("beforeunload", function() {
-            alert("here")
-            if ('{{request.user.user.isOnline}}' == 'True') {
-                $.ajax({
-                    'method': 'POST',
-                    'url': '{% url "api:update_status" %}',
-                    'data': {
-                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                    },
-                    success: function(data) {
-                        console.log(data.message)
-                    },
-                    error: function(error) {
-                        console.log('error')
-                    },
-                })
-            }
-        });
+        //     // };
+        // window.addEventListener("beforeunload", function() {
+        //     alert("here")
+        //     if ('{{request.user.user.isOnline}}' == 'True') {
+        //         $.ajax({
+        //             'method': 'POST',
+        //             'url': '{% url "api:update_status" %}',
+        //             'data': {
+        //                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+        //             },
+        //             success: function(data) {
+        //                 console.log(data.message)
+        //             },
+        //             error: function(error) {
+        //                 console.log('error')
+        //             },
+        //         })
+        //     }
+        // });
     </script>
     <nav style="z-index: 2" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div style="max-width: 1300px;" class="container-fluid">
