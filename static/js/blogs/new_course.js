@@ -149,7 +149,7 @@ function createDescriptionPage() {
     '<h3>How about a working description?</h3>' + 
     "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" + 
     '<div class="search-bar">'+
-    '<input type="text"  class="search-input" placeholder="FOR EXAMPLE" id="description_input" value="' + description + '"> ' 
+    '<input type="text"  class="search-input" placeholder="Ex: App which lets you make notes" id="description_input" value="' + description + '"> ' 
     content += '<span id="error_description"></span>' +
                 '</div>' 
 document.getElementById('next_btn').setAttribute('onclick', 'addPrereqs();createDifficultyPage();')
@@ -286,7 +286,7 @@ function createTitlePage() {
     div.innerHTML += '<div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working title?</h3>' + 
     "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
-    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="title_input" value="' + title + '"> ' +  
+    '<input type="text"  class="example1" placeholder="Ex: Notes App" id="title_input" value="' + title + '"> ' +  
     '<br><span id="error_title"></span></div>'
     document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
@@ -494,7 +494,7 @@ function createOverviewPage() {
     div.innerHTML +='<div class=" container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     '<h3>How about a working overview?</h3>' + 
     "<h6>It's ok if you can't think of a good overview now. You can change it later.</h6>" + 
-    '<input type="text"  class="example1" placeholder="FOR EXAMPLE" id="overview_input" value="' + overview + '"> ' + 
+    '<input type="text"  class="example1" placeholder="Ex: App which lets you make notes" id="overview_input" value="' + overview + '"> ' + 
     '</div>'
     div.innerHTML += " <div id='error_overview'></div>"
     document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')

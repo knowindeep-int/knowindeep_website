@@ -133,7 +133,7 @@
                 <img src="{{project.image}}" class="card-img-top" alt="..." onerror=this.src="{% static 'images/kid-black.png'%}">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
-                    <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}...</h6>
+                    <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }}{{project.author.user.last_name}}</li>
@@ -150,6 +150,9 @@
                 <div class="index-cta py-2 px-4 mx-1 ">
                     <div class="index-button">
                         <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">GO TO BLOG</a>
+                    </div>
+                    <div class="index-button">
+                        <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">DELETE</a>
                     </div>
 
                     <!-- <div class="btn-group"> -->
@@ -195,7 +198,7 @@
                 <img src="{{project.image}}" class="  card-img-top" alt="..." onerror=this.src="{% static 'images/kid-black.png'%}">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
-                    <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}...</h6>
+                    <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }}{{project.author.user.last_name}}</li>
@@ -282,17 +285,17 @@
 
     var title = document.querySelectorAll('.card-title');
     Array.from(title).forEach(function(txt) {
-        txt.textContent = `${txt.textContent.slice(0, 16)}...`
+        txt.textContent = `${txt.textContent.slice(0, 16)}`
     })
 
     var description = document.querySelectorAll('.card-text');
     Array.from(description).forEach(function(txt) {
-        txt.textContent = `${txt.textContent.slice(0, 80)}...`
+        txt.textContent = `${txt.textContent.slice(0, 80)}`
     })
 
     var language = document.querySelectorAll('.lang');
     Array.from(language).forEach(function(txt) {
-        txt.textContent = `${txt.textContent.slice(0, 10)}...`
+        txt.textContent = `${txt.textContent.slice(0, 10)}`
     })
 </script>
 
