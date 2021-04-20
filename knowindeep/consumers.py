@@ -47,9 +47,9 @@ class ChatConsumer(AsyncConsumer):
         profile = Profile.objects.get(user = user)
         profile.no_of_users +=1
         print(profile.no_of_users)
+        profile.save()
         now = datetime.now().time()
         print(now)
-        profile.save()
     
     @database_sync_to_async
     def decreaseUsers(self,user):
