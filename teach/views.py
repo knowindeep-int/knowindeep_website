@@ -86,3 +86,7 @@ def text_editor(request,pk = None, chapter_pk = None):
     }
 
     return render(request, 'front-end/home page/teach.html', context = context)
+
+def delete(request, pk):
+    Project.objects.get(pk = pk).delete()
+    return redirect('teach:list_of_projects')
