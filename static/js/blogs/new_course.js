@@ -84,17 +84,19 @@ function createDescriptionPage() {
 
  
     
-        
-    if (document.getElementById("title_input") != null) {
+    // alert(document.getElementById("title_input").innerText.replace(/\s/g, ''))
+    if (document.getElementById("title_input")) {
+        // alert("success")
 
         title = document.getElementById("title_input").value;
-        saveDraft("title", title);
+        
         if (title.length == 0) {
             document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
             document.getElementById("error_title").style = "color: red;";
             return;
         }
         else {
+            saveDraft("title", title);
             document.getElementById("error_title").innerHTML = "";
         }    
         
