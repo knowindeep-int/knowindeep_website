@@ -12,6 +12,9 @@ class ChatConsumer(AsyncConsumer):
     async def websocket_connect(self, event):
         print("connected", event)
         user = self.scope["user"]
+        ip = self.scope['headers']
+        # print('hello')
+        # print(ip)
         # await self.updateStatus(user, True)
         await self.increaseUsers(user)
         
@@ -43,20 +46,20 @@ class ChatConsumer(AsyncConsumer):
 
     @database_sync_to_async
     def increaseUsers(self,user):
-        print(user)
+        # print(user)
         profile = Profile.objects.get(user = user)
         profile.no_of_users +=1
         print(profile.no_of_users)
         profile.save()
-        now = datetime.now().time()
-        print(now)
+        # now = datetime.now().time()
+        # print(now)
     
     @database_sync_to_async
     def decreaseUsers(self,user):
-        print(user)
+        # print(user)
         profile = Profile.objects.get(user = user)
         profile.no_of_users -=1
         print(profile.no_of_users)
-        now = datetime.now().time()
-        print(now)
+        # now = datetime.now().time()
+        # print(now)
         profile.save()

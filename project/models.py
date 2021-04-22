@@ -9,11 +9,20 @@ from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, int_list_validator, MaxValueValidator
 from django.db.models import Max, Min
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, User
 from django.db.models import Q
 from django.conf import settings
 import os
 from knowindeep import Constants
+
+
+
+class myUser(AbstractUser):
+    username = models.CharField(max_length=30, unique=False)
+    email = models.EmailField(max_length=255, unique=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']  
+
 
 
 class Language(models.Model):
@@ -49,7 +58,7 @@ class Profile(models.Model):
     skills = models.ManyToManyField(to = Language, related_name="skills", blank = True)
     total_earnings = models.IntegerField(null=True, blank=True)
     twitter_id = models.URLField(max_length=70, null=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='user')
+    user = models.OneToOneField(myUser, on_delete=models.CASCADE,related_name='user')
     #email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
     #projects = models.ManyToManyField(to = 'Project', null = True, blank = True)
 
@@ -97,7 +106,6 @@ class Profile(models.Model):
 
     def is_verified(self, user):
         return user == self.user
-
 
 
 

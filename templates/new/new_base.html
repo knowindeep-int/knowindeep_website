@@ -24,6 +24,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <script src="https://ipinfo.io/json?callback=recordData"></script>
     {% block title%} {% endblock %} {% block content_head %} {% endblock %}
     <style>
         .ui-autocomplete-category {
@@ -43,6 +44,9 @@
 
 <body>
     {%csrf_token%}
+    <!-- <script>
+       
+      </script> -->
     <script>
         function getLoginPopUp() {
             document.getElementsByTagName('body')[0].setAttribute('style', 'position: fixed;background-color: #d0d0d0 ;')
@@ -159,6 +163,9 @@
                             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
                         },
                         success: function(data) {
+                            function recordData (data) {
+                            console.log(data.ip)
+                            }
                             if(data.message>=2){
                                 console.log('Two or more users are logged in with the same id')
                             }
@@ -168,7 +175,23 @@
                         },
                     })
         }
-        chatSocket.onmessage = event => console.log({{request.user.user.no_of_users}})
+        // chatSocket.onmessage = function(e){
+        //     $.ajax({
+        //                 'method': 'GET',
+        //                 'url': '{% url "api:update_status" %}',
+        //                 'data': {
+        //                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+        //                 },
+        //                 success: function(data) {
+        //                     if(data.message>=2){
+        //                         console.log('Two or more users are logged in with the same id')
+        //                     }
+        //                 },
+        //                 error: function(error) {
+        //                     console.log('error')
+        //                 },
+        //             })
+        // }
             // chatSocket.onopen = function(e) {
             //     if ('{{request.user.user.isOnline}}' == 'False') {
             //         $.ajax({
