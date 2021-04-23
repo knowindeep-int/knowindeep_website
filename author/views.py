@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 from project.models import Profile, Package, Progress
@@ -35,4 +35,8 @@ def author_page(request, slug):
     }
     return render(request,"new/author/new_author.html",context)
     # return render(request, 'front-end/profile page/index.html', context)
+
+def delete(request):
+    Profile.objects.get(user = request.user).delete()
+    return redirect('project:index')
  
