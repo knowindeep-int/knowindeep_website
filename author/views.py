@@ -36,7 +36,10 @@ def author_page(request, slug):
     return render(request,"new/author/new_author.html",context)
     # return render(request, 'front-end/profile page/index.html', context)
 
-def delete(request):
-    Profile.objects.get(user = request.user).delete()
+def delete(request,slug):
+    print(slug)
+    profile = Profile.objects.get(user = request.user)
+    profile.user.delete()
+    profile.delete()
     return redirect('project:index')
  

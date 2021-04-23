@@ -58,7 +58,7 @@ class Profile(models.Model):
     skills = models.ManyToManyField(to = Language, related_name="skills", blank = True)
     total_earnings = models.IntegerField(null=True, blank=True)
     twitter_id = models.URLField(max_length=70, null=True, blank=True)
-    user = models.OneToOneField(myUser, on_delete=models.SET_NULL,related_name='user',null=True)
+    user = models.OneToOneField(myUser, on_delete=models.CASCADE,related_name='user',null=True)
     #email_id = models.EmailField(max_length=30, unique=True, primary_key=True)
     #projects = models.ManyToManyField(to = 'Project', null = True, blank = True)
 
@@ -134,7 +134,7 @@ class Project(models.Model):
      # topic = models.CharField(max_length=30)
     # topic_image = models.ImageField(null=True, upload_to='media/')
     # topic_content = models.CharField(max_length=300, blank=True, null=True)
-    author = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name = "projects")
+    author = models.ForeignKey(to = Profile, on_delete = models.SET_NULL, related_name = "projects",null=True)
     bookmark = models.ManyToManyField(to=Profile,blank=True,related_name= "bookmarks_project")
     date_approved = models.DateTimeField(default = None, blank =True ,null=True)  
     description = models.TextField(null = True, blank = True)
@@ -300,12 +300,12 @@ class Project(models.Model):
         return self.likes.all().count()
         
 class Chapter(models.Model):
-    author = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True, blank=True)
+    author = models.ForeignKey(Profile,on_delete=models.SET_NULL, null=True, blank=True)
     bookmark = models.ManyToManyField(to=Profile,blank=True,related_name='bookmarks_chapter')
     content = RichTextUploadingField(blank=True,null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True) 
-    link_to = models.ForeignKey(Project,on_delete=models.CASCADE, related_name="chapters")
+    link_to = models.ForeignKey(Project,on_delete=models.SET_NULL, related_name="chapters",null=True)
     slug = models.SlugField(null=True,blank=True)
     title = models.CharField(max_length=30,null=True,blank=True)
    # content = models.CharField(max_length=1000, null=False,blank=False)
@@ -379,7 +379,7 @@ class Chapter(models.Model):
 
 class Like(models.Model):
     link_to = models.ForeignKey(Project, on_delete=models.CASCADE,related_name="likes")
-    profile = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="liked_users")
+    profile = models.ForeignKey(Profile,on_delete=models.SET_NULL,related_name="liked_users",null=True)
 
     # def __str__(self):
     #     return str(self.link_to)
@@ -387,7 +387,7 @@ class Like(models.Model):
 class Comment(models.Model):
     comment_text = models.CharField(max_length=200)
     link_to = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="project_comments")
-    user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='comments',blank=True,null=True)
+    user = models.ForeignKey(Profile,on_delete=models.SET_NULL,related_name='comments',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     
     def __str__(self):
@@ -401,7 +401,7 @@ class Comment(models.Model):
 class Package(models.Model):
     added_on = models.DateTimeField(auto_now_add = True)
     current_chapter = models.ForeignKey(to = Chapter, on_delete = models.CASCADE, null = True)
-    profile = models.ForeignKey(to = Profile, on_delete = models.CASCADE, related_name="packages")
+    profile = models.ForeignKey(to = Profile, on_delete = models.SET_NULL, related_name="packages",null=True)
     project = models.ForeignKey(to = Project, on_delete = models.CASCADE)
     
     def __str__(self):
