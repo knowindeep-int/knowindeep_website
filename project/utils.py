@@ -1,8 +1,6 @@
 from django.utils.text import slugify
 import random
 import string
-from dotenv import load_dotenv
-load_dotenv()
 from django.conf import settings
 import os
 from . import models
@@ -57,14 +55,14 @@ def save_user(backend, user, response, *args, **kwargs):
 
 def getApiKey():
     if settings.DEBUG:
-        UNSPLASH_API_KEY = os.getenv('UNSPLASH_API_KEY_DEBUG')
-        PEXELS_API_KEY = os.getenv('PEXELS_API_KEY_DEBUG')
-        IMGUR_CLIENT_ID = os.getenv('IMGUR_CLIENT_ID_DEBUG')
-        IMGUR_BEARER = os.getenv('IMGUR_BEARER_DEBUG')
+        UNSPLASH_API_KEY = os.environ.get('UNSPLASH_API_KEY_DEBUG')
+        PEXELS_API_KEY = os.environ.get('PEXELS_API_KEY_DEBUG')
+        IMGUR_CLIENT_ID = os.environ.get('IMGUR_CLIENT_ID_DEBUG')
+        IMGUR_BEARER = os.environ.get('IMGUR_BEARER_DEBUG')
         return UNSPLASH_API_KEY,PEXELS_API_KEY,IMGUR_CLIENT_ID,IMGUR_BEARER
     else:
-        UNSPLASH_API_KEY = os.getenv('UNSPLASH_API_KEY')
-        PEXELS_API_KEY = os.getenv('PEXELS_API_KEY')
-        IMGUR_CLIENT_ID = os.getenv('IMGUR_CLIENT_ID')
-        IMGUR_BEARER = os.getenv('IMGUR_BEARER')
+        UNSPLASH_API_KEY = os.environ.get('UNSPLASH_API_KEY')
+        PEXELS_API_KEY = os.environ.get('PEXELS_API_KEY')
+        IMGUR_CLIENT_ID = os.environ.get('IMGUR_CLIENT_ID')
+        IMGUR_BEARER = os.environ.get('IMGUR_BEARER')
         return UNSPLASH_API_KEY,PEXELS_API_KEY,IMGUR_CLIENT_ID,IMGUR_BEARER
