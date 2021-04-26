@@ -32,7 +32,7 @@ urlpatterns = [
     path('site/user/',include('site_users.urls')),
     path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
-    re_path("^[@](?P<slug>[-\w]+)",include('author.urls')),
+    re_path("^[@](?P<slug>[-\w]+)/",include('author.urls')),
     path('blogs/',include('blogs.urls')),
     path('',include('project.urls')),
     path('oauth/',include('social_django.urls'),name='social'),

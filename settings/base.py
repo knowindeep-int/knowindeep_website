@@ -99,7 +99,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'knowindeep.wsgi.application'
 ASGI_APPLICATION = 'knowindeep.asgi.application'
-
+AUTH_USER_MODEL = 'project.myUser'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

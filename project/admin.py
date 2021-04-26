@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import Chapter, Project, Comment, Profile, Like, Language, Package, Progress, Suggestion
+from .models import Chapter, Project, Comment, Profile, Like, Language, Package, Progress, Suggestion, myUser
 # from django.apps import apps
 
 # models = apps.get_models()
@@ -60,7 +60,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 
-
+admin.site.register(myUser)
 admin.site.register(Chapter,ChapterAdmin)
 admin.site.register(Project,ProjectAdmin)
 admin.site.register(Comment)

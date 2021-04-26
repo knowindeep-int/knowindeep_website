@@ -23,6 +23,7 @@ def topics(request):
             "all_projects" : Project.get_all_approved_projects(),
             'blogs':Blog.objects.filter(isApproved = True, isCompleted = True)
         }
+    print(request)
     return render(request,"new/blogs/new_index.html",context)
 
 def subtopics(request,slug):
