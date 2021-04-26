@@ -74,9 +74,7 @@
     }
 </script>
 <div class="container profile-content">
-    <div class="index-button">
-        <a style="color: white;" href="/@me/delete/{{profile.pk}}/" class="btn btn-warning py-1 px-2 ">DELETE PROFILE</a>
-    </div>
+   
     <div class="profile-left">
         <div class="profile-image">
             <img src="{{profile.dp}}" id="filebur" alt="" onerror=this.src="">
@@ -102,7 +100,11 @@
             <div class="profile-detail pb-0 pt-3">
                 <div class="des pb-2">
                     <h5>Description</h5>
+                    {%if profile.description is not 'None'%}
+                    <p id="desc">Enter description</p>
+                    {%else%}
                     <p id="desc">{{profile.description}}</p>
+                    {%endif%}
                     <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="des-input" type="text" placeholder="Enter Description" value="{{profile.description}}">
                 </div>
                 <div class="but">
@@ -116,7 +118,12 @@
             <div class="profile-detail pb-0 pt-3 mb-4">
                 <div class="des pb-2">
                     <h5>Phone Number</h5>
+                    
+                    {%if profile.phone_number is not 'None'%}
+                    <p id="pho">Enter Number</p>
+                    {%else%}
                     <p id="pho">{{profile.phone_number}}</p>
+                      {%endif%}
                     <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="ph-input" type="text" placeholder="Enter Phone Number" value="{{profile.phone_number}}">
                 </div>
                 <div class="but">
@@ -134,7 +141,11 @@
             <div class="profile-info pb-0 pt-0">
                 <div class="desc pb-2">
                     <h5>Github Id</h5>
+                    {%if profile.github_id is not 'None'%}
+                    <p id="git">Enter github</p>
+                    {%else%}
                     <p id="git">{{profile.github_id}}</p>
+                    {%endif%}
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="git-input" type="text" placeholder="Enter Github Id" value="{{profile.github_id}}">
                 </div>
                 <div class="butt">
@@ -148,7 +159,11 @@
             <div class="profile-info pb-0 pt-3">
                 <div class="desc pb-2">
                     <h5>LinkedIn id</h5>
+                    {%if profile.linkedin_id is not 'None'%}
+                    <p id="link">Enter linkedin</p>
+                    {%else%}
                     <p id="link">{{profile.linkedin_id}}</p>
+                    {%endif%}
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="link-input" type="text" placeholder="Enter LinkedIn id" value="{{profile.linkedin_id}}">
                 </div>
                 <div class="butt">
@@ -162,7 +177,11 @@
             <div class="profile-info pb-0 pt-4">
                 <div class="desc pb-2">
                     <h5>Twitter id</h5>
+                    {%if profile.twitter_id is not 'None'%}
+                    <p id="twit">Enter twitter</p>
+                    {%else%}
                     <p id="twit">{{profile.twitter_id}}</p>
+                    {%endif%}
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="twit-input" type="text" placeholder="Enter Twitter id" value="{{profile.twitter_id}}">
                 </div>
                 <div class="butt">
@@ -176,7 +195,11 @@
             <div class="profile-info pb-0 pt-4">
                 <div class="desc pb-2">
                     <h5>Total Earnings</h5>
+                    {%if profile.total_earnings is not 'None'%}
+                    <p id="earn">Enter earnings</p>
+                    {%else%}
                     <p id="earn">{{profile.total_earnings}}</p>
+                    {%endif%}
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="earn-input" type="text" placeholder="Enter Total Earnings" value="{{profile.total_earnings}}">
                 </div>
                 <div class="butt">
