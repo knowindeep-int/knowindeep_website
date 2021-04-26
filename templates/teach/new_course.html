@@ -208,6 +208,7 @@ function saveImageDraft() {
         // contentType: false,
         //processData: false,
         success: function(data){
+            
             pk = data.pk
         },error: function(error){
             console.log(error)
@@ -352,10 +353,23 @@ function die(e){
         )
     }
 
-    function createChapterPage(){
+    function createChapterPage(e){
 
         saveImageDraft()
-    document.location.href = '/teach/chapter/' + pk
+        if (e && e.id == "save_btn"){
+        
+        toastr.options.timeOut = 200
+        toastr.success('Saved successfully!');
+        var audio = new Audio('/media/copy.mp3');
+        audio.volume = 0.5;
+        audio.play();
+        return
+        
+    }
+    else{
+        document.location.href = '/teach/chapter/' + pk 
+    }
+    
         // document.body.innerHTML += '<button id="difficulty_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createProject();">Create</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createImagePage()">Previous</button>' +
         // '</div>';
     }
@@ -568,6 +582,7 @@ function addLocalImage(e){
         <br>
         <div class="container">
             <button class="previous b" id="prev_btn">Previous</button>
+            <button class="next b save_btn" id="save_btn">Save</button>
             <button class="next b" id="next_btn">Next</button>
         </div>
     </div>

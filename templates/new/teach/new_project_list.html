@@ -137,7 +137,7 @@
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }}{{project.author.user.last_name}}</li>
-                        <li class="list-group-item"><strong>Level: </strong>{{project.difficulty_level}}</li>
+                        <li class="list-group-item"><strong>Level: </strong>{{project.difficulty_level | title}}</li>
                         <li class="list-group-item"><strong>Languages: </strong><span class="lang">
                             {% for language in project.languages.all %}
                             <span class="la">{{language}}</span>{% endfor %}
@@ -180,10 +180,10 @@
     </div>
 </div>
 <div id="blue-btn">
-    <button type="button" onclick="location.href='{% url 'teach:add_course' %}';" class="btn btn-outline-primary py-1">CREATE NEW PROJECT</button>
+    <button id="create_new_project_btn" type="button" onclick="location.href='{% url 'teach:add_course' %}';" class="btn btn-outline-primary py-1">CREATE NEW PROJECT</button>
 </div>
 <div class="container flex-column align-items-center">
-    <h1>Your Completed Projects</h1>
+    <h1 id="completed_projects_heading" >Your Completed Projects</h1>
     <div style="z-index: 1;" id="search" class="input-group my-4">
         <input id="search_projects_completed" style="box-shadow: none;" type="text" class="form-control border-end-0" aria-describedby="button-addon2">
         <button class="btn btn-outline-warning border-start-0" type="button" id="button-addon2">Search</button>
@@ -200,8 +200,8 @@
                     <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }}{{project.author.user.last_name}}</li>
-                        <li class="list-group-item"><strong>Level: </strong>{{project.difficulty_level}}</li>
+                        <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }} {{project.author.user.last_name}}</li>
+                        <li class="list-group-item"><strong>Level: </strong>{{project.difficulty_level | title}}</li>
                         <li class="list-group-item"><strong>Languages: </strong><span class="lang">
                                     {% for language in project.languages.all %} {% if language.image %}
                                         <img src="{{language.image.url}}"> 

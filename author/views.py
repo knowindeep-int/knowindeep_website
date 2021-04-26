@@ -43,3 +43,4 @@ def delete(request,slug):
     profile.delete()
     return redirect('project:index')
  
+
