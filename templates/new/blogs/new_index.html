@@ -188,6 +188,8 @@
                         <li class="list-group-item">Author Name: <span>{{project.author}}</span></li>
                         <li class="list-group-item">Level: <span>{{project.difficulty_level}}</span></li>
                         <li class="list-group-item">Languages: </li>
+                        {% for language in project.languages.all %}
+                        <span class="la">{{language}} </span>{% endfor %}
                     </ul>
                 </div>
                 <div class="index-cta">

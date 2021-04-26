@@ -139,9 +139,8 @@
                         <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }}{{project.author.user.last_name}}</li>
                         <li class="list-group-item"><strong>Level: </strong>{{project.difficulty_level}}</li>
                         <li class="list-group-item"><strong>Languages: </strong><span class="lang">
-                                    {% for language in project.languages.all %} {% if language.image %}
-                                        <img src="{{language.image.url}}"> 
-                                    {% endif %} {% endfor %}
+                            {% for language in project.languages.all %}
+                            <span class="la">{{language}}</span>{% endfor %}
                                 </span></li>
                     </ul>
                 </div>
