@@ -44,6 +44,9 @@ def save_user(backend, user, response, *args, **kwargs):
             dp = response['avatar_url']    
 
         user.username = response['name']
+        SUPER_USERS = os.environ.get("SUPER_USERS")
+        if user.email in SUPER_USERS.split(","):
+            user.is_superuser = True
         user.save()
     
         profile = models.Profile(
