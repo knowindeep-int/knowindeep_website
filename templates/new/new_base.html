@@ -308,12 +308,13 @@
     <div id="base-login">
         <span class="icon"><i onclick="off()" class="bi bi-x"></i></span>
         <div class="log">
-            <h1 class="display-5">SignIn</h1>
+            <h1 class="display-5 mb-4">Sign In</h1>
         </div>
         <div class="sin">
             <button onclick="window.location.href='{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}'" style="width: 350px;" type="button" class="btn btn-primary btn-lg mb-3"><i class="bi bi-google"></i>  Login with Google</button>
             <span style="text-align: center; font-weight: 600; font-style: italic;">--------------- or ---------------</span>
             <button type="button" class="btn btn-dark btn-lg mt-3 mb-2" onclick="window.location.href='{% url 'social:begin' 'github' %}?next={{request.path}}'"><i class="bi bi-github"></i>  Login with Github</button>
+            <p style="font-size: 0.6rem;margin: 1rem 0;text-align: center;">*By signing in, you agree to KnowInDeep's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
         </div>
     </div>
     <div id="overlay" onclick="off()"></div>
@@ -418,12 +419,15 @@
         function on() {
             document.getElementById("overlay").style.display = "block";
             document.getElementById("base-login").style.display = "flex";
-
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            document.body.style.overflow = "hidden";
         }
 
         function off() {
             document.getElementById("overlay").style.display = "none";
             document.getElementById("base-login").style.display = "none";
+            document.body.style.overflow = "scroll";
 
         }
 
