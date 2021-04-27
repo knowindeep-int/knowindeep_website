@@ -1,6 +1,8 @@
 {% extends "new/new_base.html" %} {% load static %} {% block content_head %}
 <!-- <script src="{% static 'js/author/author_page.js'%}"></script> -->
-<link rel="stylesheet" href="{% static 'new_css/author/new_author.css' %}"> {% endblock %} {% block content %} {%csrf_token%}
+<link rel="stylesheet" href="{% static 'new_css/author/new_author.css' %}"> 
+<link rel="stylesheet" href="{% static 'new_css/author/dialog.css' %}">
+{% endblock %} {% block content %} {%csrf_token%}
 <script type="text/javascript">
     { % block jquery %
     }
@@ -211,7 +213,7 @@
                 </div>
             </div>
             <div class="butt">
-            <a type="button" class="btn btn-danger"  href="/@me/delete/">Delete Profile</a>
+            <a type="button" class="btn btn-danger" onclick="profileon()">Delete Profile</a>
             </div>
             <!-- <div class="profile-info pb-0 pt-4">
                 <div class="desc pb-2">
@@ -240,6 +242,37 @@
         </div>
     </div>
 </div>
+
+<div id="profiledelete">
+    <div class="dlt-heading">
+        <p>Are you absolutely sure?</p>
+        <i onclick="profileoff()" class="bi bi-x"></i>
+    </div>
+    <div class="dlt-warning">
+        <p>On continuing, your account will be permanently deleted and your data will be lost forever</p>
+    </div>
+    <div class="dlt-btn">
+        <button onclick="location.href='/@me/delete/'" type="button">I understand the consequences, delete this account</button>
+    </div>
+</div>
+
+<div id="profileoverlay" onclick="profileoff()"></div>
+<script>
+    function profileon() {
+        document.getElementById("profileoverlay").style.display = "block";
+        document.getElementById("profiledelete").style.display = "block";
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        document.body.style.overflow = "hidden";
+    }
+
+    function profileoff() {
+        document.getElementById("profileoverlay").style.display = "none";
+        document.getElementById("profiledelete").style.display = "none";
+        document.body.style.overflow = "scroll";
+
+    }
+</script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
