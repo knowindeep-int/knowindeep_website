@@ -419,12 +419,15 @@
         function on() {
             document.getElementById("overlay").style.display = "block";
             document.getElementById("base-login").style.display = "flex";
-
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            document.body.style.overflow = "hidden";
         }
 
         function off() {
             document.getElementById("overlay").style.display = "none";
             document.getElementById("base-login").style.display = "none";
+            document.body.style.overflow = "scroll";
 
         }
 
