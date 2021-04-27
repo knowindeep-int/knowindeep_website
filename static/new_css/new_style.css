@@ -134,8 +134,8 @@ ul li {
   width: 100%;
   text-align: right;
   font-size: 2rem;
-  -webkit-transform: translate(7px, 2px);
-  transform: translate(7px, 2px);
+  -webkit-transform: translate(7px, -5px);
+  transform: translate(7px, -5px);
 }
 
 #base-login .icon i {
