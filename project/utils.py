@@ -36,6 +36,10 @@ def save_user(backend, user, response, *args, **kwargs):
    
     try:
         profile = models.Profile.objects.get(user=user)
+        SUPER_USERS = os.environ.get("SUPER_USERS")
+        if profile.user.email in SUPER_USERS.split(","):
+            profile.user.is_superuser = True
+        profile.save()    
     except models.Profile.DoesNotExist:
         
         if 'picture' in response: 
@@ -48,7 +52,6 @@ def save_user(backend, user, response, *args, **kwargs):
         if user.email in SUPER_USERS.split(","):
             user.is_superuser = True
         user.save()
-    
         profile = models.Profile(
             dp = dp,
             user=user
