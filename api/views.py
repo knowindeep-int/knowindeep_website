@@ -10,9 +10,7 @@ from knowindeep import Constants
 import os
 from blogs.models import Blog,SubTopic
 from .serializers import ProjectSerializer, CommentSerializer, ProfileSerializer, ChapterSerializer, LanguageSerializer, SuggestionSerializer, BlogSerializer
-from dotenv import load_dotenv
 from knowindeep.enums import methods
-load_dotenv()
 
 
 @api_view(['GET',])

@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf.urls import handler404, handler400, handler500
 
-from settings import base as settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+from . import settings
 
 handler404 = "project.views.error404"
 handler400 = "project.views.error400"
@@ -28,9 +29,9 @@ handler500 = "project.views.error500"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('teach/', include('teach.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('ckeditor/', include('ckeditor_uploader.urls')),
     path('site/user/',include('site_users.urls')),
-    path('tinymce/', include('tinymce.urls')),
+    # path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
     re_path("^[@](?P<slug>[-\w]+)/",include('author.urls')),
     path('blogs/',include('blogs.urls')),

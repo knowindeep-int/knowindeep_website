@@ -1,8 +1,7 @@
 from django.utils.text import slugify
 import random
 import string
-from dotenv import load_dotenv
-load_dotenv()
+
 from . import models
 DONT_USE = ['remove','approve','admin','teach',]
 

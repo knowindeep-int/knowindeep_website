@@ -1,12 +1,10 @@
 from django.db import models
 from django.db.models.fields import TextField
-from tinymce.models import HTMLField
 from django.db.models.signals import pre_save,post_save
 from .utils import unique_slug_generator
 from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 from django.urls import reverse
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, int_list_validator, MaxValueValidator
 from django.db.models import Max, Min
 from django.contrib.auth.models import AbstractUser, User
@@ -302,7 +300,7 @@ class Project(models.Model):
 class Chapter(models.Model):
     author = models.ForeignKey(Profile,on_delete=models.SET_NULL, null=True, blank=True)
     bookmark = models.ManyToManyField(to=Profile,blank=True,related_name='bookmarks_chapter')
-    content = RichTextUploadingField(blank=True,null=True)
+    content = models.TextField(blank=True,null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True) 
     link_to = models.ForeignKey(Project,on_delete=models.SET_NULL, related_name="chapters",null=True)
