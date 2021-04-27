@@ -183,6 +183,9 @@ header {
 }
 
 
+
+
+
 /* Responsive Style */
 
 
@@ -929,7 +932,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 1000 !important;
+    font-weight: 1000;
 }
 
 h1,
@@ -1624,9 +1627,7 @@ display: block !important;
                 p {
                     counter-increment: line;
                 }
-                p::before {
-                    content: counter(line);
-                }
+               
                 .editor {
                     counter-increment: line;
                 }
@@ -1646,3 +1647,4 @@ display: block !important;
                 }
                 .nxt{float: right;
                 }
+

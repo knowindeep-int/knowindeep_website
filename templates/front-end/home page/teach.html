@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="{% static 'css/chapter/chapter.css'%}">
         {% endblock %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.min.css" integrity="sha512-YBSrHBAMjFhWHodf0RF58XB/x9lmuwBtyJv1LWDHQa1nOaWNXfG3Etc/lEXfW+qBx8ne79JnzccDs59je/ccVA==" crossorigin="anonymous" />
 {% block content %}
@@ -660,7 +662,7 @@ function setImgurHeader(xhr) {
           
          </script>
          {%if chapter%}
-         <h5 id="modified">Last modified on {{chapter.date_modified}}</h5>
+         <h2 style="font-size: 1.5rem; font-weight: 300 !important" id="modified">Last modified on {{chapter.date_modified}}</h2>
          {%endif%}
             <div class="row">
                 <div class="col-lg-3">
