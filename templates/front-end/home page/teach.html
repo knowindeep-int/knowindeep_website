@@ -531,6 +531,12 @@ function setImgurHeader(xhr) {
  }
 }
                     function addChapter(){
+                                
+                        toastr.options.timeOut = 200
+                        toastr.success('Saved successfully!');
+                        var audio = new Audio('/media/copy.mp3');
+                        audio.volume = 0.5;
+                        audio.play();
                         
                         if(document.getElementsByClassName('editor')[0].innerText.replace(/\s/g, '').length != '0' ){
                         content = document.getElementsByClassName('editor')[0].innerHTML
@@ -553,6 +559,7 @@ function setImgurHeader(xhr) {
                             success: function(data){
                                 console.log('success')
                                 isSaved = true;
+                                document.getElementById('modified').innerHTML = "Last modified on " + data.date_modified
                                 if(chapter_pk == ''){
                                     document.location.href = '/teach/chapter/' + project + '/' + data.chapter_pk
                             }
@@ -571,6 +578,7 @@ function setImgurHeader(xhr) {
                     }
                 }
                     function newChapter(){
+
                         document.location.href = '/teach/chapter/' + '{{project.pk}}'
                     //  content = ""
                     //     var author = '{{project.author.pk}}'
@@ -709,7 +717,7 @@ function setImgurHeader(xhr) {
                 <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createNumberofHours()">Previous</button>
                 <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createProject();">Create Project</button>
                 <button class="nxt but1 but3" id="save_changes_btn" type="button" onclick="addChapter();">Save Changes</button>
-                <button class="nxt but1 but3" id="add_btn" onclick="newChapter();">Add</button>
+                <button class="nxt but1 but3" id="add_btn" onclick="newChapter();">Add Chapter</button>
             </div>
             </div>
         </div>  

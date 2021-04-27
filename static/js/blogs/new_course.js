@@ -80,7 +80,7 @@ function add_language(){
 
 
 
-function createDescriptionPage() {
+function createDescriptionPage(e) {
 
  
     
@@ -107,7 +107,17 @@ function createDescriptionPage() {
             return;
         }
     }
+
     sessionStorage.setItem("pk", pk);
+    if (e && e.id == "save_btn"){
+        
+        toastr.options.timeOut = 200
+        toastr.success('Saved successfully!');
+        var audio = new Audio('/media/copy.mp3');
+        audio.volume = 0.5;
+        audio.play();
+        return
+    }
     // if (document.getElementById("chapter_div") != null) {
     //     for (var i = 0; i < document.getElementsByClassName("chapter_div").length; i++) {
     //         if (document.getElementsByClassName("heading")[i] != null) {
@@ -154,7 +164,9 @@ function createDescriptionPage() {
     '<input type="text"  class="search-input" placeholder="Ex: App which lets you make notes" id="description_input" value="' + description + '"> ' 
     content += '<span id="error_description"></span>' +
                 '</div>' 
-document.getElementById('next_btn').setAttribute('onclick', 'addPrereqs();createDifficultyPage();')
+
+document.getElementById('save_btn').setAttribute('onclick', 'addPrereqs();createDifficultyPage(this);')
+document.getElementById('next_btn').setAttribute('onclick', 'addPrereqs();createDifficultyPage(this);')
 document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
 document.getElementById('prev_btn').setAttribute('onclick', 'createTitlePage()')
 document.getElementById('current').innerHTML = 2
@@ -290,7 +302,8 @@ function createTitlePage() {
     "<h6>It's ok if you can't think of a good title now. You can change it later.</h6>" + 
     '<input type="text"  class="example1" placeholder="Ex: Notes App" id="title_input" value="' + title + '"> ' +  
     '<br><span id="error_title"></span></div>'
-    document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage();')
+    document.getElementById('save_btn').setAttribute('onclick', 'createDescriptionPage(this);')
+    document.getElementById('next_btn').setAttribute('onclick', 'createDescriptionPage(this);')
     document.getElementById('prev_btn').setAttribute('style', 'display:none')
     document.getElementById('prev_btn').setAttribute('style', 'display:inline;')
     document.getElementById('prev_btn').setAttribute('onclick', 'document.location.href = "/teach"')
@@ -434,7 +447,7 @@ var view_count =0
     
 // }
 
-function createOverviewPage() {
+function createOverviewPage(e) {
     if (document.getElementsByClassName("male") != null) {
         for (var i = 0; i < document.getElementsByClassName("male").length; i++) {
             if (document.getElementsByClassName("male")[i].checked) {
@@ -457,6 +470,15 @@ function createOverviewPage() {
     //     }
 
     // }
+    if (e && e.id == "save_btn"){
+        
+        toastr.options.timeOut = 200
+        toastr.success('Saved successfully!');
+        var audio = new Audio('/media/copy.mp3');
+        audio.volume = 0.5;
+        audio.play();
+        return
+    }
     var div_1 = document.getElementById("1")
     div_1.innerHTML = "";
     div_1.setAttribute("style", "display: none;")
@@ -499,8 +521,9 @@ function createOverviewPage() {
     '<input type="text"  class="example1" placeholder="Ex: App which lets you make notes" id="overview_input" value="' + overview + '"> ' + 
     '</div>'
     div.innerHTML += " <div id='error_overview'></div>"
-    document.getElementById('next_btn').setAttribute('onclick', 'createImagePage();')
-    document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage();')
+    document.getElementById('save_btn').setAttribute('onclick', 'createImagePage(this);')
+    document.getElementById('next_btn').setAttribute('onclick', 'createImagePage(this);')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createDifficultyPage(this);')
     document.getElementById('current').innerHTML = 4
     document.getElementsByClassName('w3-amber')[0].style = "width:56%"
 
@@ -508,16 +531,29 @@ function createOverviewPage() {
 
 
 
-function createImagePage() {
+function createImagePage(e) {
     if (document.getElementById("overview_input") != null) {
         overview = document.getElementById("overview_input").value;
-        saveDraft('overview',overview);
+        // saveDraft('overview',overview);
         if (document.getElementById("overview_input").value == "") {
             document.getElementById("error_overview").innerHTML = "Cannot Be Empty!";
             document.getElementById("error_overview").style = "color: red;";
             return;
         }
+        else{
+            saveDraft('overview', overview)
+        }
     }
+    if (e && e.id == "save_btn"){
+        
+        toastr.options.timeOut = 200
+        toastr.success('Saved successfully!');
+        var audio = new Audio('/media/copy.mp3');
+        audio.volume = 0.5;
+        audio.play();
+        return
+    }
+
 
 
     
@@ -584,8 +620,9 @@ function createImagePage() {
                         <div style="color: black;" id="image_input_div">
                         <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;" ><div id="error_image" ></div></div>`
     // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
-    document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage();')
-    document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage();')
+    // document.getElementById('save_btn').setAttribute('onclick', 'createChapterPage(this);')
+    document.getElementById('next_btn').setAttribute('onclick', 'createChapterPage(this);')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createOverviewPage(this);')
     document.getElementById('current').innerHTML = 5
     document.getElementsByClassName('w3-amber')[0].style = "width:70%"
     if(image != "None"){
@@ -608,7 +645,7 @@ function checkImage(){
 
 
 
-function createDifficultyPage() {
+function createDifficultyPage(e) {
 
         if (document.getElementById("description_input") != null) {
         description = document.getElementById("description_input").value;
@@ -641,12 +678,23 @@ function createDifficultyPage() {
         }
         
     }
-    saveDraft('pre_req',pre_reqs)
+    
     if(pre_reqs == ''){
         document.getElementById("error_prereq").innerHTML = "Cannot Be Empty!";
         document.getElementById("error_prereq").style = "color: red;";
         return;
     }
+    saveDraft('pre_req',pre_reqs)
+    if (e && e.id == "save_btn"){
+        
+        toastr.options.timeOut = 200
+        toastr.success('Saved successfully!');
+        var audio = new Audio('/media/copy.mp3');
+        audio.volume = 0.5;
+        audio.play();
+        return
+    }
+    
     // else {
     //     document.getElementById("error_prereq").innerHTML = "";
     // }
@@ -829,9 +877,9 @@ function createDifficultyPage() {
     else if(difficulty_level == "HARD"){
         document.getElementById('hard').checked = true;
     }
-
-    document.getElementById('next_btn').setAttribute('onclick', ';createOverviewPage()')
-    document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage();')
+    document.getElementById('save_btn').setAttribute('onclick', ';createOverviewPage(this)')
+    document.getElementById('next_btn').setAttribute('onclick', ';createOverviewPage(this)')
+    document.getElementById('prev_btn').setAttribute('onclick', 'createDescriptionPage(this);')
     document.getElementById('current').innerHTML = 3;
     document.getElementsByClassName('w3-amber')[0].style = "width:42%"
 

@@ -106,12 +106,12 @@
             </div>
             <div class="qna">
                 <h4>Difficulty Level:</h4>
-                <p>{{ project.difficulty_level}}</p>
+                <p>{{ project.difficulty_level | title}}</p>
             </div>
             <div class="qna">
                 <h4>Languages Used:</h4>
-                {% if language.image.url %} {% for language in project.languages.all %}
-                <img src="{{language.image.url}}" class="la"> {% endfor %} {% endif %}
+                {% for language in project.languages.all %}
+                <span class="la">{{language}} </span>{% endfor %}
             </div>
         </div>
         <div class="project-cards">

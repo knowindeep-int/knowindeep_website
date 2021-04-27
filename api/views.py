@@ -298,7 +298,7 @@ def api_get_chapter_absolute_url(request):
 def api_create_chapter(request):
     if request.method == "POST":
 
-        print(request.data)
+        # print(request.data)
 
         chapter_pk = request.POST.get('chapter_pk', None)
 
@@ -309,8 +309,8 @@ def api_create_chapter(request):
         chapter_serializer = ChapterSerializer(data = request.data)
 
         if not chapter_serializer.is_valid():
-            print(chapter_serializer.data)
-            print(chapter_serializer.errors)
+            # print(chapter_serializer.data)
+            # print(chapter_serializer.errors)
             return Response(chapter_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
         if chapter_pk is None:
@@ -319,11 +319,12 @@ def api_create_chapter(request):
 
         else:
             chapter_serializer.update(chapter_instance= Chapter.objects.get(pk = chapter_pk))
-            # print(chapter_serializer.data['id'])
+        # print(Chapter.objects.get(pk = chapter_pk).date_modified)
         data = {
             'success': 'Chapter saved successfully!',
             'pk': pk,
-            'chapter_pk': chapter_pk
+            'chapter_pk': chapter_pk,
+            'date_modified': timezone.localtime(Chapter.objects.get(pk = chapter_pk).date_modified).strftime("%B %d, %Y, %H:%M %p")
         }
 
         return Response(data, status = status.HTTP_200_OK)
