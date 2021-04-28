@@ -136,7 +136,7 @@
                     <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }}{{project.author.user.last_name}}</li>
+                        <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }} {{project.author.user.last_name}}</li>
                         <li class="list-group-item"><strong>Level: </strong>{{project.difficulty_level | title}}</li>
                         <li class="list-group-item"><strong>Languages: </strong><span class="lang">
                             {% for language in project.languages.all %}
