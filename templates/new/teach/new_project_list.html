@@ -242,7 +242,7 @@
 </div>
 <br><br>
 
-<div id="projectdelete">
+<div style="z-index: 3;" id="projectdelete">
     <div class="dlt-heading">
         <p>Are you absolutely sure?</p>
         <i onclick="projectoff()" class="bi bi-x"></i>
@@ -255,7 +255,7 @@
     </div>
 </div>
 
-<div id="projectoverlay" onclick="projectoff()"></div>
+<div style="z-index: 2;" id="projectoverlay" onclick="projectoff()"></div>
 <script>
 
     function deleteProject() {

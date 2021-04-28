@@ -78,7 +78,7 @@
 <div class="container profile-content">
    
     <div class="profile-left">
-        <div style="z-index: -2;" class="profile-image">
+        <div  class="profile-image">
             <img src="{{profile.dp}}" id="filebur" alt="" onerror=this.src="">
             <button id="buttonid" class="btn btn-light"><i class="bi bi-pencil"></i></button>
             <input id='fileid' type='file' hidden/>
@@ -243,7 +243,7 @@
     </div>
 </div>
 
-<div id="profiledelete">
+<div style="z-index: 3;" id="profiledelete">
     <div class="dlt-heading">
         <p>Are you absolutely sure?</p>
         <i onclick="profileoff()" class="bi bi-x"></i>
@@ -256,7 +256,7 @@
     </div>
 </div>
 
-<div id="profileoverlay" onclick="profileoff()"></div>
+<div style="z-index: 2;" id="profileoverlay" onclick="profileoff()"></div>
 <script>
     function profileon() {
         document.getElementById("profileoverlay").style.display = "block";
@@ -272,14 +272,8 @@
         document.body.style.overflow = "scroll";
 
     }
-
-    document.addEventListener('keyup', function(e) {
-    if (e.keyCode == 27) {
-        profileoff()
-    }
-});
-
 </script>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
