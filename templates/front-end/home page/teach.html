@@ -100,20 +100,20 @@
             
             function createProject(){
    //document.location.href = "/" + "teach";
-   $.ajax({
-       method: 'POST',
-       url: "{% url 'api:create_project' %}",
-       data :{
-           'pk': sessionStorage.getItem('pk'),
-           'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
-       },
-       success: function(data){
-           pk =data.pk
-       }, error: function(error){
-            console.log("ERROR!")
-       }
-   }
-   )
+//    $.ajax({
+//        method: 'POST',
+//        url: "{% url 'api:create_project' %}",
+//        data :{
+//            'pk': sessionStorage.getItem('pk'),
+//            'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+//        },
+//        success: function(data){
+//            pk =data.pk
+//        }, error: function(error){
+//             console.log("ERROR!")
+//        }
+//    }
+//    )
    document.location.href = "{% url 'teach:list_of_projects' %}"
 }
 
@@ -717,12 +717,36 @@ function setImgurHeader(xhr) {
                         <h1>&nbsp;</h1>
                         {%endif%} </div>
                 <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createNumberofHours()">Previous</button>
-                <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createProject();">Create Project</button>
+                <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createProject();">Exit</button>
                 <button class="nxt but1 but3" id="save_changes_btn" type="button" onclick="addChapter();">Save Changes</button>
                 <button class="nxt but1 but3" id="add_btn" onclick="newChapter();">Add Chapter</button>
+                        
             </div>
             </div>
         </div>  
+
+<script>
+    
+    function reviewAndCreateProject(){
+        pk = "{{project.pk}}"
+           $.ajax({
+       method: 'POST',
+       url: "{% url 'api:create_project' %}",
+       data :{
+           'pk': pk,
+           'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+       },
+       success: function(data){
+           pk =data.pk
+       }, error: function(error){
+            console.log("ERROR!")
+       }
+   }
+   )
+   document.location.href = "{% url 'teach:list_of_projects' %}"
+    }
+</script>
+
         <!-- <button id="bold" onclick="format('bold')">B</button>
         <button id="underline" onclick="format('underline')">U</button>
         <button id="italic" onclick="format('italic')">I</button>

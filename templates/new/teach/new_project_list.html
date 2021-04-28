@@ -148,6 +148,9 @@
 
                 <div class="index-cta py-2 px-4 mx-1 ">
                     <div class="index-button">
+                        <a style="color: white;" href="{% url 'project:project_review' project.slug %}" class="btn btn-warning py-1 px-2 ">REVIEW AND CREATE</a>
+                    </div>
+                    <div class="index-button">
                         <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">GO TO BLOG</a>
                     </div>
                     <div class="index-button">

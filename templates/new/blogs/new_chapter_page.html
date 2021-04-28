@@ -97,14 +97,22 @@
 
             <div class="list-group">
                 {% for chapter in chapters %} {% if chapter.slug == chapter_content.slug %}
+                {% if can_review %}
+                <a type="button" class="list-group-item list-group-item-action active" href="{% url 'project:chapter_post_review' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                {%else%}
                 <a type="button" class="list-group-item list-group-item-action active" href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                {% endif %}
                 <script>
                     ch_list.push('{{chapter.slug}}')
                     console.log(ch_list)
                 </script>
                 {%else%}
-
+                
+                {% if can_review %}
+                <a type="button" class="list-group-item list-group-item-action" href="{% url 'project:chapter_post_review' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                {%else%}
                 <a type="button" class="list-group-item list-group-item-action" href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                {%endif %}
                 <script>
                     ch_list.push('{{chapter.slug}}')
                     console.log(ch_list)
@@ -151,6 +159,37 @@
             </div>
         </div>
     </div>
+
+    
+<script>
+    
+    function reviewAndCreateProject(){
+        pk = "{{chapter_content.link_to.pk}}"
+           $.ajax({
+       method: 'POST',
+       url: "{% url 'api:create_project' %}",
+       data :{
+           'pk': pk,
+           'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+       },
+       success: function(data){
+           pk =data.pk
+       }, error: function(error){
+            console.log("ERROR!")
+       }
+   }
+   )
+   document.location.href = "{% url 'teach:list_of_projects' %}"
+    }
+</script>
+    {% if can_review %}
+<div class="index-button">
+    <a style="color: white;" onclick="reviewAndCreateProject()" class="btn btn-warning py-1 px-2 ">REVIEW AND CREATE</a>
+</div>
+<div class="index-button">
+    <a style="color: white;" href="/teach/chapter/{{chapter_content.link_to.pk}}/{{chapter_content.pk}}" class="btn btn-warning py-1 px-2 ">EDIT</a>
+</div>
+{% endif %}
 
     <script>
         function previous() {
