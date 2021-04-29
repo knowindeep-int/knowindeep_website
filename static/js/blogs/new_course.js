@@ -151,7 +151,7 @@ function createDescriptionPage(e) {
   content +=
     '<div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     "<h3>How about a working description?</h3>" +
-    "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" +
+    // "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" +
     '<div class="search-bar">' +
     '<input type="text"  class="search-input" placeholder="Ex: App which lets you make notes" id="description_input" value="' +
     description +
