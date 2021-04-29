@@ -37,7 +37,8 @@ def subtopics(request,slug):
             "chapters": chapters,
             "chapter_heading": slug,
             "project":project,
-            "has_liked": has_liked
+            "has_liked": has_liked,
+            "can_review": False
         }
         return render(request,"new/blogs/new_project_page.html",context)
     return HttpResponse('You are not allowed to access this page', status =500)
@@ -64,6 +65,7 @@ def chapter_post(request,slug, chapter):
             "slug":slug,
             "chapters":chapters,
             "author": author,
+            "can_review": False
             # "has_liked": has_liked
         }
         return render(request,"new/blogs/new_chapter_page.html", context)
@@ -101,6 +103,43 @@ def approve(request,slug,method):
 #     context = {'blogs':Blog.objects.all()}
 #     return render(request,'blogs/list_all_blogs.html',context)
 
+def review_subtopics(request,slug):
+    project = Project.objects.get(slug=slug)
+    if project.canUserView(request.user) and  project.canUserReview(request.user):
+        #blog = Chapter.objects.filter(link_to__slug=slug)
+        chapters = Project.getAllChapters(slug)
+        has_liked = project.has_user_liked(request.user)
+
+        context = {
+            "chapters": chapters,
+            "chapter_heading": slug,
+            "project":project,
+            "has_liked": has_liked,
+            "can_review": True
+        }
+        return render(request,"new/blogs/new_project_page.html",context)
+    return HttpResponse('You are not allowed to access this page', status =500)
+
+
+def chapter_post_review(request,slug, chapter):
+    project = Project.objects.get(slug = slug)
+    if project.canUserView(request.user) and project.canUserReview(request.user):
+        chapter_content = Chapter.objects.get(slug=chapter)
+        #all_blogs = Chapter.objects.filter(link_to__slug=slug)
+        chapters = Project.getAllChapters(slug)
+        #main_blog = Project.objects.get(slug=slug)
+        title = Project.getTitle(slug = slug)
+        author = chapter_content.author
+        context = {
+            "title":title,
+            "chapter_content" : chapter_content,
+            "slug":slug,
+            "chapters":chapters,
+            "author": author,
+            "can_review": True
+        }
+        return render(request,"new/blogs/new_chapter_page.html", context)
+    return HttpResponse('You are not allowed to access this page', status =500)
 
 def error404(request, exception):
     return HttpResponse(request)
@@ -111,3 +150,4 @@ def error400(request, exception):
 def error500(request):
     type_, value, traceback = sys.exc_info()
     return HttpResponse(value)
+

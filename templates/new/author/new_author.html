@@ -102,12 +102,14 @@
             <div class="profile-detail pb-0 pt-3">
                 <div class="des pb-2">
                     <h5>Description</h5>
-                    {%if profile.description is not 'None'%}
+                    {%if profile.description is None %}
                     <p id="desc">Enter description</p>
+                    <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="des-input" type="text" placeholder="Enter Description" value="">
                     {%else%}
+                    <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="des-input" type="text" placeholder="Enter Description" value="{{profile.description}}">
                     <p id="desc">{{profile.description}}</p>
                     {%endif%}
-                    <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="des-input" type="text" placeholder="Enter Description" value="{{profile.description}}">
+                    <!-- <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="des-input" type="text" placeholder="Enter Description" value="{{profile.description}}"> -->
                 </div>
                 <div class="but">
                     <span class="btn-group second name1">
@@ -121,12 +123,14 @@
                 <div class="des pb-2">
                     <h5>Phone Number</h5>
                     
-                    {%if profile.phone_number is not 'None'%}
+                    {%if profile.phone_number is None %}
                     <p id="pho">Enter Number</p>
+                    <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="ph-input" type="text" placeholder="Enter Phone Number" value="">
                     {%else%}
                     <p id="pho">{{profile.phone_number}}</p>
-                      {%endif%}
                     <input style="outline: none; display: none;" class="p-1 rounded-3 border border-secondary" id="ph-input" type="text" placeholder="Enter Phone Number" value="{{profile.phone_number}}">
+                      {%endif%}
+                    
                 </div>
                 <div class="but">
                     <span class="btn-group second name1">
@@ -143,12 +147,14 @@
             <div class="profile-info pb-0 pt-0">
                 <div class="desc pb-2">
                     <h5>Github Id</h5>
-                    {%if profile.github_id is not 'None'%}
+                    {%if profile.github_id is None %}
                     <p id="git">Enter github</p>
+                    <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="git-input" type="text" placeholder="Enter Github Id" value="">
                     {%else%}
                     <p id="git">{{profile.github_id}}</p>
-                    {%endif%}
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="git-input" type="text" placeholder="Enter Github Id" value="{{profile.github_id}}">
+                    {%endif%}
+                    
                 </div>
                 <div class="butt">
                     <span class="btn-group second name1">
@@ -161,12 +167,14 @@
             <div class="profile-info pb-0 pt-3">
                 <div class="desc pb-2">
                     <h5>LinkedIn id</h5>
-                    {%if profile.linkedin_id is not 'None'%}
+                    {%if profile.linkedin_id is None %}
                     <p id="link">Enter linkedin</p>
+                    <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="link-input" type="text" placeholder="Enter LinkedIn id" value="">
                     {%else%}
                     <p id="link">{{profile.linkedin_id}}</p>
-                    {%endif%}
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="link-input" type="text" placeholder="Enter LinkedIn id" value="{{profile.linkedin_id}}">
+                    {%endif%}
+                    
                 </div>
                 <div class="butt">
                     <span class="btn-group second name1">
@@ -179,12 +187,15 @@
             <div class="profile-info pb-0 pt-4">
                 <div class="desc pb-2">
                     <h5>Twitter id</h5>
-                    {%if profile.twitter_id is not 'None'%}
+                    {%if profile.twitter_id is None%}
+                    
                     <p id="twit">Enter twitter</p>
+                    <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="twit-input" type="text" placeholder="Enter Twitter id" value="">
                     {%else%}
                     <p id="twit">{{profile.twitter_id}}</p>
-                    {%endif%}
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="twit-input" type="text" placeholder="Enter Twitter id" value="{{profile.twitter_id}}">
+                    {%endif%}
+                    
                 </div>
                 <div class="butt">
                     <span class="btn-group second name1">
@@ -197,12 +208,17 @@
             <div class="profile-info pb-0 pt-4">
                 <div class="desc pb-2">
                     <h5>Total Earnings</h5>
-                    {%if profile.total_earnings is not 'None'%}
+                    
+                    
+                    {%if profile.total_earnings is None %}
+                    
                     <p id="earn">Enter earnings</p>
+                    <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="earn-input" type="text" placeholder="Enter Total Earnings" value="">
                     {%else%}
                     <p id="earn">{{profile.total_earnings}}</p>
-                    {%endif%}
                     <input style="outline: none;display: none;" class="p-1 rounded-3 border border-secondary" id="earn-input" type="text" placeholder="Enter Total Earnings" value="{{profile.total_earnings}}">
+                    {%endif%}
+                    
                 </div>
                 <div class="butt">
                     <span class="btn-group second name1">
