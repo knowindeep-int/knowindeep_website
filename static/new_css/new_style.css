@@ -325,6 +325,10 @@ nav {
   transform: translate(7px, -15px);
 }
 
+.bi-x {
+  cursor: pointer;
+}
+
 #base-login .log {
   -webkit-box-flex: 2;
   -ms-flex: 2;
