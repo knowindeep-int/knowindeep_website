@@ -105,7 +105,8 @@ def approve(request,slug,method):
 
 def review_subtopics(request,slug):
     project = Project.objects.get(slug=slug)
-    if project.canUserView(request.user) and  project.canUserReview(request.user):
+    # print(project.canUserReview(request.user))
+    if project.canUserView(request.user) or  project.canUserReview(request.user):
         #blog = Chapter.objects.filter(link_to__slug=slug)
         chapters = Project.getAllChapters(slug)
         has_liked = project.has_user_liked(request.user)
@@ -123,7 +124,7 @@ def review_subtopics(request,slug):
 
 def chapter_post_review(request,slug, chapter):
     project = Project.objects.get(slug = slug)
-    if project.canUserView(request.user) and project.canUserReview(request.user):
+    if project.canUserView(request.user) or project.canUserReview(request.user):
         chapter_content = Chapter.objects.get(slug=chapter)
         #all_blogs = Chapter.objects.filter(link_to__slug=slug)
         chapters = Project.getAllChapters(slug)
