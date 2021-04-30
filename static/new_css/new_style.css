@@ -26,7 +26,6 @@ nav {
 }
 
 .nav-logo {
-  margin-top: 1.5vh;
   z-index: 3;
 }
 
@@ -37,6 +36,7 @@ nav {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  align-items: center;
 }
 
 .nav-tabs {
