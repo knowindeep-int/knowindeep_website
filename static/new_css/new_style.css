@@ -418,6 +418,12 @@ nav {
   margin-bottom: 2rem;
 }
 
+.base-left .bi {
+  font-size: 1.6rem;
+  color: #f9a80d;
+  margin-right: 0.5rem;
+}
+
 .base-footer_content .base-left svg {
   cursor: pointer;
   margin-right: 0.6rem;
