@@ -1,0 +1,82 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.tnc-container {
+  max-width: 750px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.tnc-header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.tnc-header h3 {
+  font-size: 1.5rem;
+  color: #757575;
+  font-weight: 500;
+}
+
+.tnc-body p {
+  margin-top: 2em;
+  letter-spacing: -0.003em;
+  line-height: 32px;
+  font-size: 21px;
+}
+
+.tnc-topic h2 {
+  letter-spacing: 0;
+  line-height: 36px;
+  margin-top: 1.95em;
+  font-size: 30px;
+}
+
+.tnc-topic p {
+  margin-top: 2em;
+  letter-spacing: -0.003em;
+  line-height: 32px;
+  font-size: 21px;
+}
+
+.tnc-topic h2 + p {
+  margin-top: 0.86em;
+}
+
+@media only screen and (max-width: 780px) {
+  .tnc-header h1 {
+    font-size: 1.5rem;
+  }
+  .tnc-header h3 {
+    font-size: 1.2rem;
+  }
+  .tnc-body p {
+    margin-top: 1.56em;
+    line-height: 28px;
+    font-size: 18px;
+  }
+  .tnc-topic h2 {
+    line-height: 28px;
+    margin-top: 1.2em;
+    font-size: 22px;
+  }
+  .tnc-topic p {
+    margin-top: 1.56em;
+    line-height: 28px;
+    font-size: 18px;
+  }
+}
+/*# sourceMappingURL=style.css.map */
