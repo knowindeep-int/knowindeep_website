@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="dialog.css">
+    <title>confirm dialog</title>
+</head>
+<body>
+
+    <button onclick="confirmon()">confirm</button>
+    
+    <div id="confirmdelete">
+        <div class="cfm-heading">
+            <p>Are you sure?</p>
+            <i onclick="confirmoff()" class="bi bi-x"></i>
+        </div>
+        <div class="cfm-warning">
+            <p>On continuing, your project will be permanently deleted and the data will be lost forever. There is no going back.</p>
+        </div>
+        <div class="cfm-btn">
+            <button>Confirm</button>
+        </div>
+    </div>
+
+    <div id="confirmoverlay" onclick="confirmoff()"></div>
+    <script>
+        function confirmon() {
+            document.getElementById("confirmoverlay").style.display = "block";
+            document.getElementById("confirmdelete").style.display = "block";
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            document.body.style.overflow = "hidden";
+        }
+
+        function confirmoff() {
+            document.getElementById("confirmoverlay").style.display = "none";
+            document.getElementById("confirmdelete").style.display = "none";
+            document.body.style.overflow = "scroll";
+
+        }
+    </script>
+</body>
+</html>

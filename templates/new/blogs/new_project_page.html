@@ -81,15 +81,15 @@
                 {%endif%}   
                 {%endif%}
             </h1>
-            <h4>By {{project.author}} <span style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
+            <h4><span style="font-size: 1rem;">By</span> {{project.author}} <span style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
             <p style="margin-bottom: 0;">share on</p>
             <div class="social-icons">
-                <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com." title="Share by Email"><img src="{% static 'images/gmail.svg' %}" class="shareon">
+                <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com."  title="Share by Email"><img src="{% static 'images/gmail.svg' %}" class="shareon">
                 </a>
-                <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" data-action="share/whatsapp/share"><img src="{% static 'images/whatsapp.svg' %}" class="shareon"></a>
-                <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'LinkedIn', 'width=640,height=580')"><img src="{% static 'images/linkedin.svg' %}" class="shareon"></a>
-                <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum" class="twitter-share" data-text="Lorem Ipsum" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=580')"><img src="{% static 'images/twitter.svg' %}" class="shareon"></a>
-                <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')" class="share-btn"><img src="{% static 'images/facebook.svg' %}" class="shareon"></a>
+                <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" target="_blank" rel="noopener noreferrer" data-action="share/whatsapp/share"><img src="{% static 'images/whatsapp.svg' %}" class="shareon"></a>
+                <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" target="_blank" rel="noopener noreferrer" ><img src="{% static 'images/linkedin.svg' %}" class="shareon"></a>
+                <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum" class="twitter-share" data-text="Lorem Ipsum" target="_blank" rel="noopener noreferrer"><img src="{% static 'images/twitter.svg' %}" class="shareon"></a>
+                <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" target="_blank" rel="noopener noreferrer" class="share-btn"><img src="{% static 'images/facebook.svg' %}" class="shareon"></a>
             </div>
         </div>
         <div class="project-description">{{project.overview}}</div>
@@ -121,16 +121,16 @@
                 {% if can_review %}
                 <div class="card-info">
                     <h4> <a href="{% url 'project:chapter_post_review' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
-                        {{ chapter.title }} 
+                        {{ chapter.title | safe }} 
                     </a></h4>
-                    <p>{{ chapter }}</p>
+                    <p>{{ chapter | safe }}</p>
                 </div>
                 {% else %}
                 <div class="card-info">
                     <h4> <a href="{% url 'project:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
-                        {{ chapter.title }} 
+                        {{ chapter.title | safe }} 
                     </a></h4>
-                    <p>{{ chapter }}</p>
+                    <p>{{ chapter | safe }}</p>
                 </div>
                 <div class="share-icon">
                     {% include 'dropdown/new_dropdown.html' with width="2rem" url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
@@ -139,7 +139,7 @@
                 {% endif %}
             </div>
             {% endfor %} {% else %}
-            <h1>No blogs for the particular url</h1>
+            <h1>No chapters for this project</h1>
             {% endif %}
         </div>
         <div class="project-author">
@@ -178,7 +178,7 @@
 </script>
 {% if can_review %}
 <div class="index-button">
-    <a style="color: white;" onclick="reviewAndCreateProject()" class="btn btn-warning py-1 px-2 ">REVIEW AND CREATE</a>
+    <a style="color: white;" onclick="reviewAndCreateProject()" class="btn btn-warning py-1 px-2 my-3">CREATE PROJECT</a>
 </div>
 <div class="index-button">
     <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT</a>

@@ -6,7 +6,7 @@ function copyCurrentPageURLToClipBoard(){
     input.select();
     document.execCommand("copy")
     document.body.removeChild(input)
-    toastr.options.timeOut = 200
+    toastr.options.timeOut = 1000
     toastr.success('Copied To ClipBoard');
     var audio = new Audio('/media/copy.mp3');
     audio.play();
@@ -21,7 +21,7 @@ function copyChapterPageURL(e) {
     input.select();
     document.execCommand("copy");
     document.body.removeChild(input);
-    toastr.options.timeOut = 100
+    toastr.options.timeOut = 1000
     toastr.success('Copied To ClipBoard');
     var audio = new Audio('/media/copy.mp3');
     audio.volume = 0.2;

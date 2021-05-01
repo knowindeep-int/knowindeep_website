@@ -100,7 +100,7 @@ function createDescriptionPage(e) {
 
   sessionStorage.setItem("pk", pk);
   if (e && e.id == "save_btn") {
-    toastr.options.timeOut = 200;
+    toastr.options.timeOut = 1000;
     toastr.success("Saved successfully!");
     var audio = new Audio("/media/copy.mp3");
     audio.volume = 0.5;
@@ -151,7 +151,7 @@ function createDescriptionPage(e) {
   content +=
     '<div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">' +
     "<h3>How about a working description?</h3>" +
-    "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" +
+    // "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" +
     '<div class="search-bar">' +
     '<input type="text"  class="search-input" placeholder="Ex: App which lets you make notes" id="description_input" value="' +
     description +
@@ -488,7 +488,7 @@ function createOverviewPage(e) {
 
   // }
   if (e && e.id == "save_btn") {
-    toastr.options.timeOut = 200;
+    toastr.options.timeOut = 1000;
     toastr.success("Saved successfully!");
     var audio = new Audio("/media/copy.mp3");
     audio.volume = 0.5;
@@ -566,7 +566,7 @@ function createImagePage(e) {
     }
   }
   if (e && e.id == "save_btn") {
-    toastr.options.timeOut = 200;
+    toastr.options.timeOut = 1000;
     toastr.success("Saved successfully!");
     var audio = new Audio("/media/copy.mp3");
     audio.volume = 0.5;
@@ -700,7 +700,7 @@ function createDifficultyPage(e) {
   }
   saveDraft("pre_req", pre_reqs);
   if (e && e.id == "save_btn") {
-    toastr.options.timeOut = 200;
+    toastr.options.timeOut = 1000;
     toastr.success("Saved successfully!");
     var audio = new Audio("/media/copy.mp3");
     audio.volume = 0.5;

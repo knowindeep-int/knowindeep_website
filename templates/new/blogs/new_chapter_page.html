@@ -91,16 +91,16 @@
         <div class="chapter-left">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'project:sub_topic' slug=slug %}">{{ title }}</a></li>
-                <li class="breadcrumb-item">{{ chapter_content | title }}</li>
+                <li class="breadcrumb-item"><a href="{% url 'project:sub_topic' slug=slug %}">{{ title | safe }}</a></li>
+                <li class="breadcrumb-item">{{ chapter_content.title | title | safe }}</li>
             </ol>
 
             <div class="list-group">
                 {% for chapter in chapters %} {% if chapter.slug == chapter_content.slug %}
                 {% if can_review %}
-                <a type="button" class="list-group-item list-group-item-action active" href="{% url 'project:chapter_post_review' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                <a type="button" class="list-group-item list-group-item-action active" href="{% url 'project:chapter_post_review' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title| safe }}</a>
                 {%else%}
-                <a type="button" class="list-group-item list-group-item-action active" href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                <a type="button" class="list-group-item list-group-item-action active" href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title | safe }}</a>
                 {% endif %}
                 <script>
                     ch_list.push('{{chapter.slug}}')
@@ -109,9 +109,9 @@
                 {%else%}
                 
                 {% if can_review %}
-                <a type="button" class="list-group-item list-group-item-action" href="{% url 'project:chapter_post_review' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                <a type="button" class="list-group-item list-group-item-action" href="{% url 'project:chapter_post_review' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title | safe}}</a>
                 {%else%}
-                <a type="button" class="list-group-item list-group-item-action" href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title }}</a>
+                <a type="button" class="list-group-item list-group-item-action" href="{% url 'project:chapter_post' slug=slug chapter=chapter.slug %}">{{forloop.counter}}|{{ chapter.title  | safe}}</a>
                 {%endif %}
                 <script>
                     ch_list.push('{{chapter.slug}}')
@@ -126,7 +126,7 @@
             <div class="chapter-head">
                 <div class="chapter-bkmrk">
                     <div class="chapter-flex mb-2">
-                <h1 style="margin-bottom: 0;">{{chapter_content}}</h1>
+                <h1 style="margin-bottom: 0;">{{chapter_content.title | safe}}</h1>
                 <p style="margin: 0;">Author: {{chapter_content.author}}<span style="color: #f9a80d; font-weight: 600; font-size: 1.3rem;"> | </span>Date: {{chapter_content.date_posted.date}}</p>
                 </div>
                 <!-- <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt=""> -->
@@ -184,7 +184,7 @@
 </script>
     {% if can_review %}
 <div class="index-button">
-    <a style="color: white;" onclick="reviewAndCreateProject()" class="btn btn-warning py-1 px-2 ">REVIEW AND CREATE</a>
+    <a style="color: white;" onclick="reviewAndCreateProject()" class="btn btn-warning py-1 px-2 ">CREATE PROJECT</a>
 </div>
 <div class="index-button">
     <a style="color: white;" href="/teach/chapter/{{chapter_content.link_to.pk}}/{{chapter_content.pk}}" class="btn btn-warning py-1 px-2 ">EDIT</a>
