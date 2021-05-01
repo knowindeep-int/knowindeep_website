@@ -121,16 +121,16 @@
                 {% if can_review %}
                 <div class="card-info">
                     <h4> <a href="{% url 'project:chapter_post_review' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
-                        {{ chapter.title }} 
+                        {{ chapter.title | safe }} 
                     </a></h4>
-                    <p>{{ chapter }}</p>
+                    <p>{{ chapter | safe }}</p>
                 </div>
                 {% else %}
                 <div class="card-info">
                     <h4> <a href="{% url 'project:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
-                        {{ chapter.title }} 
+                        {{ chapter.title | safe }} 
                     </a></h4>
-                    <p>{{ chapter }}</p>
+                    <p>{{ chapter | safe }}</p>
                 </div>
                 <div class="share-icon">
                     {% include 'dropdown/new_dropdown.html' with width="2rem" url=chapter.getCompleteUrl function="copyChapterPageURL(this)" %}
