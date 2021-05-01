@@ -100,7 +100,7 @@ function createDescriptionPage(e) {
 
   sessionStorage.setItem("pk", pk);
   if (e && e.id == "save_btn") {
-    toastr.options.timeOut = 200;
+    toastr.options.timeOut = 1000;
     toastr.success("Saved successfully!");
     var audio = new Audio("/media/copy.mp3");
     audio.volume = 0.5;
@@ -488,7 +488,7 @@ function createOverviewPage(e) {
 
   // }
   if (e && e.id == "save_btn") {
-    toastr.options.timeOut = 200;
+    toastr.options.timeOut = 1000;
     toastr.success("Saved successfully!");
     var audio = new Audio("/media/copy.mp3");
     audio.volume = 0.5;
@@ -566,7 +566,7 @@ function createImagePage(e) {
     }
   }
   if (e && e.id == "save_btn") {
-    toastr.options.timeOut = 200;
+    toastr.options.timeOut = 1000;
     toastr.success("Saved successfully!");
     var audio = new Audio("/media/copy.mp3");
     audio.volume = 0.5;
@@ -700,7 +700,7 @@ function createDifficultyPage(e) {
   }
   saveDraft("pre_req", pre_reqs);
   if (e && e.id == "save_btn") {
-    toastr.options.timeOut = 200;
+    toastr.options.timeOut = 1000;
     toastr.success("Saved successfully!");
     var audio = new Audio("/media/copy.mp3");
     audio.volume = 0.5;

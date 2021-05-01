@@ -6,7 +6,7 @@ function copyCurrentPageURLToClipBoard(){
     document.body.appendChild(input)
     input.select();
     document.execCommand("copy")
-    toastr.options.timeOut = 200
+    toastr.options.timeOut = 1000
     toastr.success('Copied To ClipBoard');
     var audio = new Audio('/media/copy.mp3');
     audio.volume = 0.2;
