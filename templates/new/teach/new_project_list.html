@@ -130,7 +130,7 @@
         {% for project in ongoing_projects %}
         <div class="col-12">
             <div class="card">
-                <img src="{{project.image}}" class="card-img-top" alt="..." onerror=this.src="{% static 'images/kid-black.png'%}">
+                <img src="{{project.image}}" class="card-img-top" alt="..." onerror=this.src="/media/images/971.jpg">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
                     <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
@@ -197,7 +197,7 @@
         {% for project in completed_projects %}
         <div class="col-12">
             <div class="card">
-                <img src="{{project.image}}" class="  card-img-top" alt="..." onerror=this.src="{% static 'images/kid-black.png'%}">
+                <img src="{{project.image}}" class="  card-img-top" alt="..." onerror=this.src="/media/images/971.jpg">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
                     <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
