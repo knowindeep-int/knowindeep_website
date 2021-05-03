@@ -460,3 +460,18 @@ nav {
   }
 }
 /*# sourceMappingURL=base.css.map */
+p:last-child{
+  background-color: aqua;
+  display: none;
+}
+p::before {
+ counter-increment: line;
+ content: counter(line) "  ";
+}
+
+body{
+ counter-reset: line;
+}
+p{
+  margin-bottom: 0;
+}
