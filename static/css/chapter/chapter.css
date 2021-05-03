@@ -1622,17 +1622,17 @@ display: block !important;
                 .btn:hover {
                     background-color: RoyalBlue;
                 }
-                h1::before{
+                .editor h1::before{
                     counter-increment: line;
                     content: counter(line) "  "; 
                     font-size: 18px;            
                     font-weight: 100;  
                  }
-                 p:last-child{
+                 .editor p:last-child{
                      background-color: aqua;
                      display: none;
                  }
-                p::before {
+                .editor p::before {
                     counter-increment: line;
                     content: counter(line) "  ";
                 }
