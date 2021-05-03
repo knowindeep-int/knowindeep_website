@@ -1624,9 +1624,14 @@ display: block !important;
                 }
                 h1::before{
                     counter-increment: line;
-                    content: counter(line) "  ";               
+                    content: counter(line) "  "; 
+                    font-size: 18px;            
+                    font-weight: 100;  
                  }
-
+                 p:last-child{
+                     background-color: aqua;
+                     display: none;
+                 }
                 p::before {
                     counter-increment: line;
                     content: counter(line) "  ";
