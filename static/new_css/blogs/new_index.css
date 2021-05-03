@@ -9,6 +9,9 @@ body {
     font-family: "Montserrat", sans-serif;
 }
 
+.base-dropdown-divider{
+margin: 0;
+}
 .index-content {
     position: relative;
     display: -webkit-box;
