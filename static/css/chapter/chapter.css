@@ -1412,7 +1412,7 @@ display: block !important;
     width: 20px;
     height: auto;
     stroke: 2px;
-    margin: 0 2px 5px 0;
+    margin: 0 2px 7px 0;
 }
 
 .svg1{
@@ -1515,7 +1515,7 @@ display: block !important;
                 outline: none;
             }
             .top-bar {
-                width: 1000px;
+                min-width: 820px;
                 height: 40px;
                 background-color: #f1f1f1;
                 border: 1px solid black;
@@ -1540,6 +1540,7 @@ display: block !important;
             .searching {
                 font-size: 10px;
                 height: 25px;
+                margin-top: 5.5px;
             }
             .main-form {
                 display: inline;
@@ -1576,7 +1577,7 @@ display: block !important;
                 .editor {
                     border-style: solid;
                     height: 500px;
-                    width: 1000px;
+                    min-width: 820px;
                     overflow-y: scroll;
                 }
                 .image {
@@ -1621,16 +1622,22 @@ display: block !important;
                 .btn:hover {
                     background-color: RoyalBlue;
                 }
-                p {
+                h1::before{
                     counter-increment: line;
+                    content: counter(line) "  ";               
+                 }
+
+                p::before {
+                    counter-increment: line;
+                    content: counter(line) "  ";
                 }
                
+                body{
+                    counter-reset: line;
+                }
                 .editor {
-                    counter-increment: line;
-                }
-                .editor::before {
-                    content: counter(line);
-                }
+                        content: counter(line);
+                    }                
                 .chapter h5{
                     margin-top: 25px;
                     margin-bottom: 10px;
@@ -1645,3 +1652,10 @@ display: block !important;
                 .nxt{float: right;
                 }
 
+#inpfile{
+    width: 150px;
+}
+
+.list a{
+    border-bottom:1px solid #d2d2d2;
+}

@@ -1167,6 +1167,7 @@ h6,
 
 .next {
     float: right;
+    margin-right: 10px;
 }
 
 .hr {

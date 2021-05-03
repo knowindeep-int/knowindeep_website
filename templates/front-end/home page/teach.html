@@ -662,10 +662,10 @@ function setImgurHeader(xhr) {
           
          </script>
          {%if chapter%}
-         <h2 style="font-size: 1rem; font-weight: 300 !important" id="modified">Last modified on {{chapter.date_modified}}</h2>
+         <h2 style="font-size: 1rem; margin:15px ; font-weight: 300 !important" id="modified">Last modified on {{chapter.date_modified}}</h2>
          {%endif%}
-            <div class="row">
-                <div class="col-lg-3">
+            <div class="row" style="margin-right:0px;margin-top: 20px;">
+                <div class="col-lg-3" style="margin-left:15px;">
                     <div class="list">
                         {% for chapter in chapters%}
                         <a href="/teach/chapter/{{chapter.link_to.pk}}/{{chapter.pk}}">{{chapter.title |safe}}</a>
