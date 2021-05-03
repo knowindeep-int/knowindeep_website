@@ -43,7 +43,7 @@
     </style>
 </head>
 
-<body>
+<body style="overflow-y: scroll;!important ">
     {%csrf_token%}
     <!-- <script>
        
@@ -247,7 +247,7 @@
         //     }
         // });
     </script>
-    <nav>
+    <nav class="sticky-top" style="height: 70px;">
         <div class="hamburger">
             <div class="line"></div>
             <div class="line"></div>
@@ -468,15 +468,11 @@
         function on() {
             document.getElementById("overlay").style.display = "block";
             document.getElementById("base-login").style.display = "flex";
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
-            document.body.style.overflow = "hidden";
         }
 
         function off() {
             document.getElementById("overlay").style.display = "none";
             document.getElementById("base-login").style.display = "none";
-            document.body.style.overflow = "scroll";
 
         }
 
