@@ -62,10 +62,19 @@
         <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'project:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
     </ol>
+   
     {% if not project.image %}
     <img id="img1" src="{% static 'images/layer.png' %}" alt="" onerror=this.src=""> {% else %}
     <img id="img1" src="{{project.image}}" alt="" onerror=this.src=""> {% endif %}
-    <div class="project-content">
+    
+    {% if can_review %}
+    <div class="index-button" style="position: relative;top: -5.7rem;left: 70.8rem;width: 165px; " >
+        <a style="color: white;width: 100%;font-weight: 450;" onclick="reviewAndCreateProject()" class="btn btn-warning py-1 px-2 my-3">CREATE PROJECT</a>
+    </div>
+    <div class="index-button" style="position: relative;top: -6.25rem;left: 70.8rem;width: 165px;">
+        <a style="color: white;width: 100%;font-weight: 450;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT</a>
+    </div>
+    <div class="project-content" style="margin-top: -7rem;">
         <div class="project-header">
             <h1>{{ project.title | title }}  {%if request.user.is_authenticated%}
                 {%if project.bookmark.all%}
@@ -176,12 +185,6 @@
    document.location.href = "{% url 'teach:list_of_projects' %}"
     }
 </script>
-{% if can_review %}
-<div class="index-button">
-    <a style="color: white;" onclick="reviewAndCreateProject()" class="btn btn-warning py-1 px-2 my-3">CREATE PROJECT</a>
-</div>
-<div class="index-button">
-    <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT</a>
-</div>
+
 {% endif %}
 {% endblock %}
