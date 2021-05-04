@@ -637,13 +637,16 @@ function createImagePage(e) {
   // div.innerHTML += '<button id="chapter_right_button" type="button" class="btn btn-primary" style="float: right;" onclick="createNumberOfHours()">Next</button><button id="chapter_left_button" type="button" class="btn btn-primary" style="float: left;" onclick="createOverviewPage()">Previous</button>';
   // document.getElementById('save_btn').setAttribute('onclick', 'createChapterPage(this);')
   document
+  .getElementById("save_btn")
+  .setAttribute("onclick", "createChapterPage(this);");
+  document
     .getElementById("next_btn")
     .setAttribute("onclick", "createChapterPage(this);");
   document
     .getElementById("prev_btn")
     .setAttribute("onclick", "createOverviewPage(this);");
   document.getElementById("current").innerHTML = 5;
-  document.getElementsByClassName("w3-amber")[0].style = "width:70%";
+  // document.getElementsByClassName("w3-amber")[0].style = "width:70%";
   if (image != "None") {
     // document.getElementsByClassName('container')[2].innerHTML += '<img id="project_image">';
     document
