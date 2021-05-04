@@ -165,9 +165,14 @@
     </div>
 </div>
 <script>
-    
     function reviewAndCreateProject(){
         pk = "{{project.pk}}"
+        
+        toastr.options.timeOut = 1000;
+            toastr.success("Created successfully!");
+            var audio = new Audio("/media/copy.mp3");
+            audio.volume = 0.5;
+            audio.play();
            $.ajax({
        method: 'POST',
        url: "{% url 'api:create_project' %}",
@@ -177,12 +182,14 @@
        },
        success: function(data){
            pk =data.pk
+     
        }, error: function(error){
             console.log("ERROR!")
        }
    }
    )
-   document.location.href = "{% url 'teach:list_of_projects' %}"
+   setTimeout(function() {document.location.href = "{% url 'teach:list_of_projects' %}"},1000)
+
     }
 </script>
 
