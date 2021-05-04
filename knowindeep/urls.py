@@ -20,6 +20,7 @@ from django.conf.urls import handler404, handler400, handler500
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from . import views
 from . import settings
 
 handler404 = "project.views.error404"
@@ -28,6 +29,9 @@ handler500 = "project.views.error500"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('about_us/', views.about_us, name = 'about_us'),
+    path('privacy_policy/', views.privacy_policy, name = 'privacy_policy'),
+    path('terms_and_conditions/', views.terms_and_conditions, name = 'terms_and_conditions'),
     path('teach/', include('teach.urls')),
     # path('ckeditor/', include('ckeditor_uploader.urls')),
     path('site/user/',include('site_users.urls')),
