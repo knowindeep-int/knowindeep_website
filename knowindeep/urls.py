@@ -17,23 +17,25 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf.urls import handler404, handler400, handler500
 
-from settings import base as settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-handler404 = "blogs.views.error404"
-handler400 = "blogs.views.error400"
-handler500 = "blogs.views.error500"
+from . import settings
+
+handler404 = "project.views.error404"
+handler400 = "project.views.error400"
+handler500 = "project.views.error500"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('teach/', include('teach.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('ckeditor/', include('ckeditor_uploader.urls')),
     path('site/user/',include('site_users.urls')),
-    path('tinymce/', include('tinymce.urls')),
+    # path('tinymce/', include('tinymce.urls')),
     path('site/api/',include('api.urls')),
-    re_path("^[@](?P<slug>[-\w]+)",include('author.urls')),
-    path('',include('blogs.urls')),
+    re_path("^[@](?P<slug>[-\w]+)/",include('author.urls')),
+    path('blogs/',include('blogs.urls')),
+    path('',include('project.urls')),
     path('oauth/',include('social_django.urls'),name='social'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

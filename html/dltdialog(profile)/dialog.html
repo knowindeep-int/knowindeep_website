@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="dialog.css">
+    <title>profile Delete</title>
+</head>
+<body>
+
+    <button onclick="profileon()">delete</button>
+    
+    <div id="profiledelete">
+        <div class="dlt-heading">
+            <p>Are you absolutely sure?</p>
+            <i onclick="profileoff()" class="bi bi-x"></i>
+        </div>
+        <div class="dlt-warning">
+            <p>On continuing, your account will be permanently deleted and your data will be lost forever</p>
+        </div>
+        <div class="dlt-btn">
+            <button>I understand the consequences, delete this account</button>
+        </div>
+    </div>
+
+    <div id="profileoverlay" onclick="profileoff()"></div>
+    <script>
+        function profileon() {
+            document.getElementById("profileoverlay").style.display = "block";
+            document.getElementById("profiledelete").style.display = "block";
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            document.body.style.overflow = "hidden";
+        }
+
+        function profileoff() {
+            document.getElementById("profileoverlay").style.display = "none";
+            document.getElementById("profiledelete").style.display = "none";
+            document.body.style.overflow = "scroll";
+
+        }
+    </script>
+</body>
+</html>

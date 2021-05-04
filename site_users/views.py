@@ -10,7 +10,7 @@ def login_page(request):
     error = None
 
     if request.user.is_authenticated:
-        return redirect(reverse('blogs:index'))
+        return redirect(reverse('project:index'))
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -18,7 +18,7 @@ def login_page(request):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
-            return redirect(reverse('blogs:index'))
+            return redirect(reverse('project:index'))
         else:
             error = "Username or password is incorrect"
 
@@ -35,7 +35,7 @@ def logout_user(request):
 def register_page(request):
 
     if request.user.is_authenticated:
-        return redirect(reverse('blogs:index'))
+        return redirect(reverse('project:index'))
 
     form = CreateUserForm()
     errors = None

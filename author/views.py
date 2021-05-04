@@ -1,11 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
-from blogs.models import Profile, Package, Progress
+from project.models import Profile, Package, Progress
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
 
+from project.utils import getApiKey
+
+
 def author_page(request, slug):
+    UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
+
     if slug == "me":
         user = request.user
     else:
@@ -24,8 +29,18 @@ def author_page(request, slug):
     context = {
         "profile": profile,
         "is_verified":is_verified,
-        "progresses":packages
+        "progresses":packages,
+        'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
+        'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
     }
     return render(request,"new/author/new_author.html",context)
     # return render(request, 'front-end/profile page/index.html', context)
+
+def delete(request,slug):
+    print(slug)
+    profile = Profile.objects.get(user = request.user)
+    profile.user.delete()
+    profile.delete()
+    return redirect('project:index')
  
+

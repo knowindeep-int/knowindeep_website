@@ -9,7 +9,7 @@ function copyProjectPageURLToClipBoard(e) {
     // document.execCommand("copy");
     navigator.clipboard.writeText(input.value)
     document.body.removeChild(input);
-    toastr.options.timeOut = 200
+    toastr.options.timeOut = 1000
     toastr.success('Copied To ClipBoard');
     var audio = new Audio('/media/copy.mp3');
     audio.volume = 0.2;

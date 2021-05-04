@@ -183,6 +183,9 @@ header {
 }
 
 
+
+
+
 /* Responsive Style */
 
 
@@ -268,6 +271,10 @@ header {
 @media (min-width: 992px) {
     .tm-gallery-page {
         max-width: 1120px;
+    }
+
+    .col-lg-9{
+        width: 66%;
     }
 }
 
@@ -521,6 +528,7 @@ ul.stack {
     text-align: center;
     font-size: 1.2em;
     transition: all 1s;
+    border: 5px solid black;
 }
 
 
@@ -903,7 +911,7 @@ h3,
 .h2,
 .h3 {
     : 'gilroy';
-    font-weight: bold;
+    font-weight: normal;
 }
 
 h4,
@@ -924,7 +932,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 1000 !important;
+    font-weight: 1000;
 }
 
 h1,
@@ -1187,9 +1195,6 @@ h6,
 }
 
 
-
-
-
 .dropdown-menu-arrow {
     top: -17px;
     left: 75px;
@@ -1235,7 +1240,7 @@ h8,
 .search-bar .search-input {
     width: 68%;
     padding: 5px;
-    padding-left: 30px;
+    /* padding-left: 30px; */
     border: 1px solid #dcdcdc;
     box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.07);
     margin: 10px 0px 30px;
@@ -1273,7 +1278,7 @@ h8 {
 }
 
 .container-fluid h3 {
-    font-weight: bold;
+    font-weight: normal;
     /* font-family: gilroy !important; */
     font-size: 45px;
 }
@@ -1397,6 +1402,19 @@ display: block !important;
 	margin: 11px 5px;
 }
 
+.bi{
+    font-size: 1.4rem;
+
+}
+
+
+#ordered-list svg{
+    width: 20px;
+    height: auto;
+    stroke: 2px;
+    margin: 0 2px 7px 0;
+}
+
 .svg1{
     width: 20px;
     height: auto;
@@ -1404,9 +1422,6 @@ display: block !important;
     /* margin-top: 0px !important; */
     /* margin: 0 5px; */
     padding-bottom: 4px;
-}
-.icons{
-	margin-left: 25px;
 }
 .slash{
 	font-size: 25px;
@@ -1500,7 +1515,7 @@ display: block !important;
                 outline: none;
             }
             .top-bar {
-                width: 1000px;
+                min-width: 820px;
                 height: 40px;
                 background-color: #f1f1f1;
                 border: 1px solid black;
@@ -1513,9 +1528,7 @@ display: block !important;
                 margin-top: -5px !important;
                 margin: 0 5px;
             }
-            .icons {
-                margin-left: 25px;
-            }
+   
             .slash {
                 font-size: 25px;
                 color: #d9dcdf;
@@ -1527,6 +1540,7 @@ display: block !important;
             .searching {
                 font-size: 10px;
                 height: 25px;
+                margin-top: 5.5px;
             }
             .main-form {
                 display: inline;
@@ -1563,7 +1577,7 @@ display: block !important;
                 .editor {
                     border-style: solid;
                     height: 500px;
-                    width: 1000px;
+                    min-width: 820px;
                     overflow-y: scroll;
                 }
                 .image {
@@ -1608,18 +1622,27 @@ display: block !important;
                 .btn:hover {
                     background-color: RoyalBlue;
                 }
-                p {
+                .editor h1::before{
                     counter-increment: line;
+                    content: counter(line) "  "; 
+                    font-size: 18px;            
+                    font-weight: 100;  
+                 }
+                 .editor p:last-child{
+                     background-color: aqua;
+                     display: none;
+                 }
+                .editor p::before {
+                    counter-increment: line;
+                    content: counter(line) "  ";
                 }
-                p::before {
-                    content: counter(line);
+               
+                body{
+                    counter-reset: line;
                 }
                 .editor {
-                    counter-increment: line;
-                }
-                .editor::before {
-                    content: counter(line);
-                }
+                        content: counter(line);
+                    }                
                 .chapter h5{
                     margin-top: 25px;
                     margin-bottom: 10px;
@@ -1633,3 +1656,11 @@ display: block !important;
                 }
                 .nxt{float: right;
                 }
+
+#inpfile{
+    width: 150px;
+}
+
+.list a{
+    border-bottom:1px solid #d2d2d2;
+}

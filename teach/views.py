@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
-from blogs.models import Language, Project, Profile,Chapter
-from blogs.utils import getApiKey
+from project.models import Language, Project, Profile,Chapter
+from project.utils import getApiKey
 
 def add_course(request, pk = None):
     UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
@@ -25,7 +25,7 @@ def add_course(request, pk = None):
             #json.dumps(list(project.languages.all())
             overview = project.overview
             difficulty_level = project.difficulty_level
-            no_of_hours = project.no_of_hours
+            
             context = {
                 'languages': languages,
                 # 'pre_reqs': pre_reqs,
@@ -33,7 +33,6 @@ def add_course(request, pk = None):
                 'status': status,
                 'overview': overview,
                 'difficulty_level': difficulty_level,
-                'no_of_hours': no_of_hours,
                 'selected_languages': selected_languages,
                 'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
                 'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
@@ -87,3 +86,7 @@ def text_editor(request,pk = None, chapter_pk = None):
     }
 
     return render(request, 'front-end/home page/teach.html', context = context)
+
+def delete(request, pk):
+    Project.objects.get(pk = pk).delete()
+    return redirect('teach:list_of_projects')

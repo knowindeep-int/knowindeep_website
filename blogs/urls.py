@@ -3,13 +3,9 @@ from django.urls import path
 from . import views
 
 
-app_name = 'blogs' 
+app_name = 'blogs'
 
 urlpatterns = [
-    path('',views.topics, name='index'),
-    path('remove/<slug:slug>/', views.remove, name='remove'),
-    path('approve/<slug:slug>/', views.approve, name = 'approve'),
-    path('<slug:slug>/',views.subtopics, name='sub_topic'),
-    path('<slug:slug>/<slug:chapter>/',views.chapter_post,name='chapter_post'),
-    path('all_blogs',views.list_all_blogs,name='blogs_list'),
+    path('<slug:slug>/',views.blogs, name='sub_topic'),
+    path('<slug:slug>/<slug:topic>/<slug:subtopic>/',views.subtopics,name='sub_topic_page')
 ]
