@@ -169,4 +169,9 @@ margin: 0;
 .pop,.all{
     cursor: pointer;
 }
+.baseinfo{
+    width:190px ;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /*# sourceMappingURL=index.css.map */
