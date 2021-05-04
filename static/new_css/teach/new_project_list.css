@@ -87,8 +87,9 @@ hr {
 }
 
 .card {
-  height: 90vh;
+  height: 700px;
   width: 20rem;
+  min-width: 270px;
   -o-object-fit: cover;
   object-fit: cover;
   margin-bottom: 2rem;
@@ -123,15 +124,28 @@ hr {
   fill: black;
 }
 
-
-.index-cta {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+.del12{ 
+float: right;
+margin-top: -34px;
+width: 40%;
 }
+.gto1{
+  margin-top: 5px;
+  width: 60%;
+}
+.gto1 a{
+  width:97%;
+  font-weight: 450;
+}
+.del12 a{
+  width:100%;
+  font-weight: 450;
+}
+.reveiw a{
+width: 100%;
+font-weight: 450;
+}
+
 
 .dropdown-menu {
   -webkit-transform: translate(-105px, -40px) !important;
