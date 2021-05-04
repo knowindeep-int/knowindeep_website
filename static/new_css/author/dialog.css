@@ -34,8 +34,8 @@ body {
 }
 
 .dlt-heading-text {
-  flex: 3;
-  text-align: right;
+  width: 100%;
+  text-align: center;
 }
 
 .dlt-heading-close {
