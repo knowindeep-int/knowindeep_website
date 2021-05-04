@@ -413,6 +413,9 @@ function die(e){
     }
  
 function deleteImage(e){
+    document.getElementsByClassName('imgusr')[0].remove();  
+    document.getElementById('remove_img_btn').remove()
+    document.getElementById('fig-caption').remove()
     if(e.getAttribute('data-deletehash') != ""){
         var deletehash = e.getAttribute('data-deletehash')
         $.ajax({
@@ -420,9 +423,7 @@ function deleteImage(e){
             type: 'DELETE',
             success: function(data){
                     console.log('image deleted sucessfully!')
-                    document.getElementsByClassName('imgusr')[0].remove();  
-                    document.getElementById('remove_img_btn').remove()
-                    document.getElementById('fig-caption').remove()
+                   
                 },
                 error: function(error){
                     console.log(error)
