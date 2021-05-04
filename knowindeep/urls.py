@@ -31,6 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('about_us/', views.about_us, name = 'about_us'),
     path('privacy_policy/', views.privacy_policy, name = 'privacy_policy'),
+    path('terms_and_conditions/', views.terms_and_conditions, name = 'terms_and_conditions'),
     path('teach/', include('teach.urls')),
     # path('ckeditor/', include('ckeditor_uploader.urls')),
     path('site/user/',include('site_users.urls')),

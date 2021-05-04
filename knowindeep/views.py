@@ -6,3 +6,6 @@ def about_us(request):
 
 def privacy_policy(request):
     return render(request, "new/policy/privacy_policy.html")
+
+def terms_and_conditions(request):
+    return render(request, "new/policy/terms_and_conditions.html")
