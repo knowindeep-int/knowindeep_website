@@ -164,7 +164,7 @@ function createDescriptionPage(e) {
     "<h3>How about a working description?</h3>" +
     // "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" +
     '<div class="search-bar">' +
-    '<input type="text"  class="search-input" placeholder="Ex: App which lets you make notes" id="description_input" value="' +
+    '<input type="text"  class="search-input" placeholder="Keep the description short and simple." maxlength="100" id="description_input" value="' +
     description +
     '"> ';
   content += '<span id="error_description"></span>' + "</div>";
@@ -200,7 +200,6 @@ function createDescriptionPage(e) {
   var italic = "'italic'";
   var ordered = "'insertOrderedList'";
   var unordered = "'insertUnorderedList'"
-  console.log("heygdfg");
   setTimeout(() => {
     getLangPrereq();
   }, 10);
