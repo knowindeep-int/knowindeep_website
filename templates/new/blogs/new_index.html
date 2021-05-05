@@ -214,12 +214,12 @@
                     <div class="index-button-remove">
                         <a  class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'project' %}';">Remove</a>
                     </div>
-                    {% endif %} {% endif %} {%if request.user.is_authenticated%} {%if project.bookmark.all%}
+                    {% endif %} {% endif %} {%if request.user.is_authenticated%} {%if project.bookmark.all and request.user.user in project.bookmark.all%}
                     <div onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks-fill"><span  style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
                     <div onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks"><span style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%} {% else %} 
-                    {%if project.bookmark.all%}
+                    {%if project.bookmark.all and request.user.user in project.bookmark.all%}
                     <div onclick="on();" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks-fill"><span  style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
                     <div onclick="on();" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks"><span style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></div>

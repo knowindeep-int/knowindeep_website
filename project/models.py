@@ -134,6 +134,7 @@ class Project(models.Model):
     # topic_content = models.CharField(max_length=300, blank=True, null=True)
     author = models.ForeignKey(to = Profile, on_delete = models.SET_NULL, related_name = "projects",null=True)
     bookmark = models.ManyToManyField(to=Profile,blank=True,related_name= "bookmarks_project")
+    category = models.CharField(max_length=50, null = True, blank = True,default="")
     date_approved = models.DateTimeField(default = None, blank =True ,null=True)  
     description = models.TextField(null = True, blank = True, default= "")
     difficulty_level = models.CharField(max_length = 100,null = True, blank = True, choices = ((Constants.EASY, Constants.EASY),(Constants.MEDIUM, Constants.MEDIUM), (Constants.HARD, Constants.HARD)))
@@ -230,6 +231,8 @@ class Project(models.Model):
         project = cls.objects.get(pk=pk)
         if project.title == None or project.title == "":
             return "title"
+        if project.category == None or project.category == "":
+            return "category"
         if project.description == None or project.description == "" or project.pre_req == None or project.pre_req == '':
             # print(project.languages.all())
             return "description"
@@ -250,7 +253,7 @@ class Project(models.Model):
 
     
     def canUserView(self, user):
-        return self.isApproved or user.is_superuser
+        return (self.isApproved or user.is_superuser) and user.is_authenticated
 
     def canUserReview(self, user):
         return user == self.author.user

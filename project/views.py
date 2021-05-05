@@ -32,7 +32,7 @@ def subtopics(request,slug):
         #blog = Chapter.objects.filter(link_to__slug=slug)
         chapters = Project.getAllChapters(slug)
         has_liked = project.has_user_liked(request.user)
-
+        print(project.bookmark.all())
         context = {
             "chapters": chapters,
             "chapter_heading": slug,
@@ -52,6 +52,7 @@ def chapter_post(request,slug, chapter):
         #main_blog = Project.objects.get(slug=slug)
         title = Project.getTitle(slug = slug)
         author = chapter_content.author
+        print(request.user)
         # main_blog.increase_view
         # soup = BeautifulSoup(blog_content.content,"lxml")
         # for heading in soup.find_all(["h1", "h2", "h3"]):
