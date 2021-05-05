@@ -65,7 +65,7 @@ width: 200px;
 <body>
 
   <div class="autocomplete" style="width:300px;">
-    <input id="myInput1" type="search"
+    <input id="search_language" type="search"
     class="pret" name="Languages" placeholder="Type here">
   </div>
 
@@ -84,6 +84,7 @@ function autocomplete(inp, arr) {
       for (i = 0; i < arr.length; i++) {
         if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
           b = document.createElement("DIV");
+          b.setAttribute("onclick","addlanguage(this)");
           b.innerHTML =arr[i].substr(0, val.length);
           b.innerHTML += arr[i].substr(val.length);
           b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
@@ -137,7 +138,7 @@ function autocomplete(inp, arr) {
 }
 /*update the list of languages in here*/
 var languages = ["python","Javascript","java","C#","Go","C++","R","Swift","PHP","HTML","CSS","Dart","Kotlin","Perl","Ruby","Rust","Scala"];
-autocomplete(document.getElementById("myInput1"), languages);
+autocomplete(document.getElementById("search_language"), languages);
 </script>
 
 </body>
