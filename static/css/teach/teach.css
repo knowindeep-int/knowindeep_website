@@ -1382,6 +1382,7 @@ display: block !important;
 .editor{
     margin: 0 auto;
     background-color: white;
+    padding: 5px;
     border: solid 1px;
 }
 .top-bar12{

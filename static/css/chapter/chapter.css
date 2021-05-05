@@ -1387,6 +1387,7 @@ display: block !important;
     margin: 0 auto;
     background-color: white;
     border: solid 1px;
+    padding: 5px;
 }
 .top-bar12{
     width: 400px;
@@ -1507,6 +1508,7 @@ display: block !important;
             .editor {
                 border: 1px solid black;
                 height: 500px;
+                padding: 5px;
                 border-bottom-left-radius: 3px;
                 border-bottom-right-radius: 3px;
                 margin-bottom: 10px;
@@ -1623,8 +1625,8 @@ display: block !important;
                     background-color: RoyalBlue;
                 }
                 .editor h1::before{
-                    counter-increment: line;
-                    content: counter(line) "  "; 
+                    /* counter-increment: line; */
+                    /* content: counter(line) "  ";  */
                     font-size: 18px;            
                     font-weight: 100;  
                  }
@@ -1633,15 +1635,15 @@ display: block !important;
                      display: none;
                  }
                 .editor p::before {
-                    counter-increment: line;
-                    content: counter(line) "  ";
+                    /* counter-increment: line; */
+                    /* content: counter(line) "  "; */
                 }
                
                 body{
                     counter-reset: line;
                 }
                 .editor {
-                        content: counter(line);
+                        /* content: counter(line); */
                     }                
                 .chapter h5{
                     margin-top: 25px;

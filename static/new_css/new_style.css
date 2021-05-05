@@ -465,8 +465,8 @@ nav {
   display: none;
 }
 .editor p::before {
- counter-increment: line;
- content: counter(line) "  ";
+ /* counter-increment: line; */
+ /* content: counter(line) "  "; */
 }
 
 body{
