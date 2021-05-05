@@ -221,44 +221,43 @@ function saveImageDraft() {
         
     })
     } 
-    
-    // function getChapterSearches(){
-    //     var search_input = document.getElementById('search_language').value
-    //     $.ajax({
-    //         method: 'GET',
-    //         url: '{% url "api:search_lang"%}',
-    //         data:{
-    //             'search_input':search_input
-    //         },
-    //         success: function(data){
-    //             var div =document.getElementById('results_lang')
-    //             div.innerHTML = ""
-    //             for (var i=0;i<data.languages.length;i++){
-    //                 div.innerHTML += '<p class="lang_results" onclick = "addLanguage(this)">' + data.languages[i].name +'</p>'
-    //             }
-               
-    //             if(data.languages.length == 0){
-    //                 // var btn = document.createElement('button')
-    //                 // btn.classList = "btn btn-primary"
-    //                 // btn.style = "float: right;"
-    //                 // btn.setAttribute('onclick','add_language()')
-    //                 // btn.innerHTML = 'ADD NEW LANGUAGE'
-    //                 // document.getElementById('results_lang').appendChild(btn)
-    //                 // alert('hey')
-    //                 document.getElementById('search_language').addEventListener('keyup',function (e) {
-    //                     if (e.keyCode == '13' && document.getElementById('search_language').value != '') { 
-                     
-    //              add_language();
-    //             }
-    //             });
-    //             }
-    //         },
-    //         error: function(error){
-    //             console.log(error)
-    //         },
-    //     });
-    // };
 
+    var languages123  = ["Language list"];
+    
+    function getChapterSearches(){
+        var search_input = document.getElementById('search_language').value
+        $.ajax({
+            method: 'GET',
+            url: '{% url "api:search_lang"%}',
+            data:{
+                'search_input':search_input
+            },
+            success: function(data){
+                var div =document.getElementById('results_lang')
+                for (var i=0;i<data.languages.length;i++){
+                    languages123[i] =data.languages[i].name;
+                }
+                if(data.languages.length == 0){
+                    // var btn = document.createElement('button')
+                    // btn.classList = "btn btn-primary"
+                    // btn.style = "float: right;"
+                    // btn.setAttribute('onclick','add_language()')
+                    // btn.innerHTML = 'ADD NEW LANGUAGE'
+                    // document.getElementById('results_lang').appendChild(btn)
+                    // alert('hey')
+                    document.getElementById('search_language').addEventListener('keyup',function (e) {
+                        if (e.keyCode == '13' && document.getElementById('search_language').value != '') { 
+                     
+                 add_language();
+                }
+                });
+                }
+            },
+            error: function(error){
+                console.log(error)
+            },
+        });
+    };
     function saveChapterDraft() {
         $.ajax({
             method: "POST",
@@ -301,6 +300,7 @@ function die(e){
     function autocomplete(inp, arr) {
   var currentFocus;
   inp.addEventListener("input", function(e) {
+    getChapterSearches(); 
       var a, b, i, val = this.value;
       closeAllLists();
       if (!val) { return false;}
@@ -316,6 +316,7 @@ function die(e){
           b.innerHTML =arr[i].substr(0, val.length);
           b.innerHTML += arr[i].substr(val.length);
           b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          console.log(arr[i]);
           b.addEventListener("click", function(e) {
               inp.value = this.getElementsByTagName("input")[0].value;
               closeAllLists();
@@ -364,15 +365,13 @@ function die(e){
       closeAllLists(e.target);
   });
 }
-/*update the list of languages in here*/
-var languages1 = ["python","Javascript","java","C#","Go","C++","R","Swift","PHP","HTML","CSS","Dart","Kotlin","Perl","Ruby","Rust","Scala"];
 
     var languages_all = [] 
     // prereqs_all = [] 
     function getLangPrereq(){
         document.getElementById('langs').innerHTML = `<div class="autocomplete" style="width: 68%;"><input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" ></div>`
-   
-autocomplete(document.getElementById("search_language"), languages1);
+
+       autocomplete(document.getElementById("search_language"), languages123);
         $.ajax({
             method: 'GET',
             url: "{% url 'api:get_lang_prereq' %}",
@@ -387,7 +386,7 @@ autocomplete(document.getElementById("search_language"), languages1);
                     languages_all.push(data.languages[i].name)
                 }
                 console.log(data.languages.name)
-                var d1 = document.getElementsByClassName('pret1')[0]
+                var d1 = document.getElementsByClassName('autocomplete')[0]
                 for(var i=0;i<languages_all.length;i++){
                     var b = i+1;
                     if(i == 0){
