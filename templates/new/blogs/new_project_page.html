@@ -91,9 +91,8 @@
             </div>
             <div class="qna">
                 <h4>Pre-Requisites for this couse:</h4>
-                {% for pre_req in project.pre_req.all %}
-                <p>{{pre_req}}</p>
-                {% endfor %}
+                
+                <p>{{project.pre_req | safe}}</p>
             </div>
             <div class="qna">
                 <h4>Difficulty Level:</h4>

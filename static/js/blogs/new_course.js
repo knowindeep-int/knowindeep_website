@@ -414,12 +414,14 @@ setTimeout(function () {
 
  <select id="cat-select">
      <option value="">--Please choose an option--</option>
-     <option value="dog">Dog</option>
-     <option value="cat">Cat</option>
-     <option value="hamster">Hamster</option>
-     <option value="parrot">Parrot</option>
-     <option value="spider">Spider</option>
-     <option value="goldfish">Goldfish</option>
+     <option >App Development</option>
+     <option >Web Development</option>
+     <option >Image Processing</option>
+     <option >Machine Learning</option>
+     <option >Cyber Security</option>
+     <option >Data Analytics</option>
+     <option >Competitive Programming</option>
+     <option >Internet of things</option>
  </select>
  <span id="error_cat"></span></div>`
  document
