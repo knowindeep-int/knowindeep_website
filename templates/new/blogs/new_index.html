@@ -264,14 +264,14 @@
                         <a href="#" class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'project' %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %} {%if request.user.is_authenticated%} {%if project.bookmark.all%}
-                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
-                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%} {%else%}
                     {%if project.bookmark.all%}
-                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
-                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%}
                     {%endif%} {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
 
@@ -313,14 +313,14 @@
                     </div>
                     {% endif %} {% endif %} 
                     {%if request.user.is_authenticated%} {%if project.bookmark.all%}
-                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
-                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%} {%else%}
                     {%if project.bookmark.all%}
-                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
-                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%}
                     {%endif%}
                {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
