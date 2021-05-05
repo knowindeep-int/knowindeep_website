@@ -35,7 +35,7 @@
     <div class="project-content" style="margin-top: -7rem;">
         <div class="project-header">
             <h1>{{ project.title | title }} {%if request.user.is_authenticated%}
-                {%if project.bookmark.all%}
+                {%if project.bookmark.all and request.user.user in project.bookmark.all%}
                 <div onclick="fill(this)" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill"
                         style=" position: absolute; right: 0; font-size: 2rem;"><span
                             style=" font-style: normal; font-size: 1.6rem;">{{project.bookmark.all.count}}</span></i>
@@ -47,7 +47,7 @@
                 </div>
                 {%endif%}
                 {% else %}
-                {%if project.bookmark.all%}
+                {%if project.bookmark.all and request.user.user in project.bookmark.all%}
                 <div onclick="on()" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill"
                         style=" position: absolute; right: 0; font-size: 2rem;"><span
                             style=" font-style: normal; font-size: 1.6rem;">{{project.bookmark.all.count}}</span></i>
