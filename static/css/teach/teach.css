@@ -1462,7 +1462,6 @@ display: block !important;
   
   .autocomplete {
     position: relative;
-    display: inline-block;
   }
   
   /* input {  

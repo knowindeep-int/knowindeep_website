@@ -400,6 +400,9 @@ nav {
   width: 100%;
   /* position: absolute;
     bottom: 0; */
+    left: 0;
+  bottom: 0;
+    /* position: fixed; */
 }
 
 .base-footer_content {
