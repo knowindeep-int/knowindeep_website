@@ -175,12 +175,13 @@ function createDescriptionPage(e) {
   
   content += "<h7>Add Languages</h7>";
   
-  content += `<div id="langs" class="autocomplete" style="width: 68%;padding-bottom: 0; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
-    <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> 
+  content += `<div id="langs" class="autocomplete" style="width: 68%;padding-bottom: 0;height: 38px; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
+    
     <div class="search-bar">
-   <div id ="results_lang" ></div>
+   <div id ="results_lang" > java</div>
     </div>
     </div>`;
+
   // content += '<div style="color: black;">';
   // content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
   // <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>

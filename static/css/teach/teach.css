@@ -1417,9 +1417,6 @@ display: block !important;
 #bold, #undereline, #italic{
     margin: 0 10px;
 }
-#italic{
-    transform: translateY(1px);
-}
 
 
 .k{

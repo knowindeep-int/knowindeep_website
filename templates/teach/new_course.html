@@ -297,7 +297,8 @@ function die(e){
     var languages_all = [] 
     // prereqs_all = [] 
     function getLangPrereq(){
-        document.getElementById('langs').innerHTML = ` <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> `
+        document.getElementById('langs').innerHTML = ` <div class"0909" ><input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()">
+   <div id ="results_lang"></div></div>`
         $.ajax({
             method: 'GET',
             url: "{% url 'api:get_lang_prereq' %}",
