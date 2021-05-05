@@ -139,6 +139,7 @@ def chapter_post_review(request,slug, chapter):
             "author": author,
             "can_review": True
         }
+        print(context)
         return render(request,"new/blogs/new_chapter_page.html", context)
     return HttpResponse('You are not allowed to access this page', status =500)
 

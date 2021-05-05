@@ -92,7 +92,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'project:sub_topic' slug=slug %}">{{ title | safe }}</a></li>
-                <li class="breadcrumb-item">{{ chapter_content.title | title | safe }}</li>
+                <li class="breadcrumb-item">{{ chapter_content.title | safe  }}</li>
             </ol>
 
             <div class="list-group">
@@ -129,7 +129,6 @@
                 <h1 style="margin-bottom: 0;">{{chapter_content.title | safe}}</h1>
                 <p style="margin: 0;">Author: {{chapter_content.author}}<span style="color: #f9a80d; font-weight: 600; font-size: 1.3rem;"> | </span>Date: {{chapter_content.date_posted.date}}</p>
                 </div>
-                <!-- <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt=""> -->
                 {%if request.user.is_authenticated%}{%if chapter_content.bookmark.all%}
                 <div onclick="fill(this)" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks-fill" ><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>
                 {%else%}

@@ -201,18 +201,18 @@
                 </div>
                 <div class="index-cta">
                     <div class="index-button">
-                        <a style="color: white;" href="#" onclick="location.href = '{% url 'project:sub_topic' project.slug %}';" class="btn btn-warning">GO TO BLOG</a>
+                        <a style="color: white;" onclick="location.href = '{% url 'project:sub_topic' project.slug %}';" class="btn btn-warning">GO TO BLOG</a>
                     </div>
 
 
                     {% if request.user.is_superuser %} {% if not project.isApproved %}
 
                     <div class="index-button-approve">
-                        <a href="#" class="btn btn-success" onclick="location.href='{% url 'project:approve' project.slug 'project' %}';">Approve</a>
+                        <a  class="btn btn-success" onclick="location.href='{% url 'project:approve' project.slug 'project' %}';">Approve</a>
                     </div>
                     {% else %}
                     <div class="index-button-remove">
-                        <a href="#" class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'project' %}';">Remove</a>
+                        <a  class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'project' %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %} {%if request.user.is_authenticated%} {%if project.bookmark.all%}
                     <div onclick="fill(this)" id="{{forloop.counter}}" class="pop {{project.pk}}"><i class="bi mt-2 bookmark-pop  bi-bookmarks-fill"><span  style=" font-style: normal; font-size: 1.4rem;" >{{project.bookmark.all.count}}</span></i></div>
@@ -252,26 +252,26 @@
                 </div>
                 <div class="index-cta">
                     <div class="index-button">
-                        <a style="color: white;" href="#" onclick="location.href = '{% url 'project:sub_topic' project.slug %}';" class="btn btn-warning">GO TO BLOG</a>
+                        <a style="color: white;"  onclick="location.href = '{% url 'project:sub_topic' project.slug %}';" class="btn btn-warning">GO TO BLOG</a>
                     </div>
                     {% if request.user.is_superuser %} {% if not project.isApproved %}
 
                     <div class="index-button-approve">
-                        <a href="#" class="btn btn-success" onclick="location.href='{% url 'project:approve' project.slug 'project' %}';">Approve</a>
+                        <a  class="btn btn-success" onclick="location.href='{% url 'project:approve' project.slug 'project' %}';">Approve</a>
                     </div>
                     {% else %}
                     <div class="index-button-remove">
-                        <a href="#" class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'project' %}';">Remove</a>
+                        <a  class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'project' %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %} {%if request.user.is_authenticated%} {%if project.bookmark.all%}
-                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
-                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%} {%else%}
                     {%if project.bookmark.all%}
-                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
-                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="on()" id="{{forloop.counter}}" class="all {{project.pk}}"><i class="bi mt-2 bookmark-all  bi-bookmarks"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%}
                     {%endif%} {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
 
@@ -300,27 +300,27 @@
                 </div>
                 <div class="index-cta">
                     <div class="index-button">
-                        <a style="color: white;" href="#" onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';" class="btn btn-warning">GO TO BLOG</a>
+                        <a style="color: white;"  onclick="location.href = '{% url 'blogs:sub_topic' project.slug %}';" class="btn btn-warning">GO TO BLOG</a>
                     </div>
                     {% if request.user.is_superuser %} {% if not project.isApproved %}
 
                     <div class="index-button-approve">
-                        <a href="#" class="btn btn-success" onclick="location.href='{% url 'project:approve' project.slug 'blog' %}';">Approve</a>
+                        <a  class="btn btn-success" onclick="location.href='{% url 'project:approve' project.slug 'blog' %}';">Approve</a>
                     </div>
                     {% else %}
                     <div class="index-button-remove">
-                        <a href="#" class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'blog' %}';">Remove</a>
+                        <a  class="btn btn-danger" onclick="location.href='{% url 'project:remove' project.slug 'blog' %}';">Remove</a>
                     </div>
                     {% endif %} {% endif %} 
                     {%if request.user.is_authenticated%} {%if project.bookmark.all%}
-                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
-                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="fill(this)" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%} {%else%}
                     {%if project.bookmark.all%}
-                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks-fill"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%else%}
-                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                    <div onclick="on()" id="{{forloop.counter}}" class="blg {{project.pk}}"><i class="bi mt-2 bookmark-blg  bi-bookmarks"><span style=" font-style: normal; font-size: 1.2rem;" >{{project.bookmark.all.count}}</span></i></div>
                     {%endif%}
                     {%endif%}
                {% include 'dropdown/new_dropdown.html' with width="5%" url=project.getCompleteUrl function="copyProjectPageURLToClipBoard(this)" %}
