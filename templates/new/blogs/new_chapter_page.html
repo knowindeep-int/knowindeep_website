@@ -129,11 +129,11 @@
                 <h1 style="margin-bottom: 0;">{{chapter_content.title | safe}}</h1>
                 <p style="margin: 0;">Author: {{chapter_content.author}}<span style="color: #f9a80d; font-weight: 600; font-size: 1.3rem;"> | </span>Date: {{chapter_content.date_posted.date}}</p>
                 </div>
-                {%if request.user.is_authenticated%}{%if chapter_content.bookmark.all%}
+                {%if request.user.is_authenticated%}{%if chapter_content.bookmark.all and request.user.user in chapter_content.bookmark.all%}
                 <div onclick="fill(this)" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks-fill" ><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>
                 {%else%}
                 <div  onclick="fill(this)" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>                    
-                {%endif%}{% else %}{%if chapter_content.bookmark.all%}
+                {%endif%}{% else %}{%if chapter_content.bookmark.all and request.user.user in chapter_content.bookmark.all%}
                 <div onclick="on()" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks-fill" ><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>
                 {%else%}
                 <div  onclick="on()" class="{{chapter_content.pk}}"><i class="bi hel bi-bookmarks"><span  style=" font-style: normal; font-size: 1.6rem; margin: auto 0;" >{{chapter_content.bookmark.all.count}}</span></i></div>                    
