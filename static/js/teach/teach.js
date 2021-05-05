@@ -247,7 +247,7 @@ function createTitlePage() {
     "</div>";
   document
     .getElementById("next_btn")
-    .setAttribute("onclick", "createDescriptionPage();");
+    .setAttribute("onclick", "createCategoryPage();");
   document.getElementById("prev_btn").setAttribute("style", "display:none");
   document.getElementById("current").innerHTML = 1;
 
@@ -255,6 +255,7 @@ function createTitlePage() {
   // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
   // document.getElementById("title_input").dataset.state = 'invalid';
 }
+
 
 function createChapterPage() {
   if (document.getElementById("description_input") != null) {

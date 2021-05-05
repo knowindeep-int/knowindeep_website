@@ -77,24 +77,35 @@ function add_language() {
 
 function createDescriptionPage(e) {
   // alert(document.getElementById("title_input").innerText.replace(/\s/g, ''))
-  if (document.getElementById("title_input")) {
-    // alert("success")
+  // if (document.getElementById("title_input")) {
+  //   // alert("success")
 
-    title = document.getElementById("title_input").value;
+  //   title = document.getElementById("title_input").value;
 
-    if (title.length == 0) {
-      document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
-      document.getElementById("error_title").style = "color: red;";
+  //   if (title.length == 0) {
+  //     document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+  //     document.getElementById("error_title").style = "color: red;";
+  //     return;
+  //   } else {
+  //     saveDraft("title", title);
+  //     document.getElementById("error_title").innerHTML = "";
+  //   }
+
+  //   if (document.getElementById("title_input").value == "") {
+  //     document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+  //     document.getElementById("error_title").style = "color: red;";
+  //     return;
+  //   }
+  // }
+  if (document.getElementById("cat-select") != null) {
+    category = document.getElementById("cat-select").value;
+    // saveDraft('overview',overview);
+    if (document.getElementById("cat-select").value == "") {
+      document.getElementById("error_cat").innerHTML = "Cannot Be Empty!";
+      document.getElementById("error_cat").style = "color: red;";
       return;
     } else {
-      saveDraft("title", title);
-      document.getElementById("error_title").innerHTML = "";
-    }
-
-    if (document.getElementById("title_input").value == "") {
-      document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
-      document.getElementById("error_title").style = "color: red;";
-      return;
+      saveDraft("category", category);
     }
   }
 
@@ -167,7 +178,7 @@ function createDescriptionPage(e) {
   document.getElementById("prev_btn").setAttribute("style", "display:inline;");
   document
     .getElementById("prev_btn")
-    .setAttribute("onclick", "createTitlePage()");
+    .setAttribute("onclick", "createCategoryPage()");
   document.getElementById("current").innerHTML = 2;
   document.getElementsByClassName("w3-amber")[0].style = "width:28%";
 
@@ -324,10 +335,10 @@ function createTitlePage() {
     '<br><span id="error_title"></span></div>';
   document
     .getElementById("save_btn")
-    .setAttribute("onclick", "createDescriptionPage(this);");
+    .setAttribute("onclick", "createCategoryPage(this);");
   document
     .getElementById("next_btn")
-    .setAttribute("onclick", "createDescriptionPage(this);");
+    .setAttribute("onclick", "createCategoryPage(this);");
   document.getElementById("prev_btn").setAttribute("style", "display:none");
   document.getElementById("prev_btn").setAttribute("style", "display:inline;");
   document
@@ -338,6 +349,95 @@ function createTitlePage() {
   // div.setAttribute("class", "jumbotron text-center") ;
   // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
   // document.getElementById("title_input").dataset.state = 'invalid';
+}
+function createCategoryPage(){
+  if (document.getElementById("title_input")) {
+    // alert("success")
+
+    title = document.getElementById("title_input").value;
+
+    if (title.length == 0) {
+      document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+      document.getElementById("error_title").style = "color: red;";
+      return;
+    } else {
+      saveDraft("title", title);
+      document.getElementById("error_title").innerHTML = "";
+    }
+
+    if (document.getElementById("title_input").value == "") {
+      document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+      document.getElementById("error_title").style = "color: red;";
+      return;
+    }
+  }
+  sessionStorage.setItem("pk", pk);
+
+showhide("10");
+setTimeout(function () {
+  sessionStorage.setItem("pk", pk);
+}, 100);
+ div_1 = document.getElementById("1");
+ div_1.setAttribute("style", "display: none;");
+ div_1.innerHTML = "";
+
+ div_2 = document.getElementById("2");
+ div_2.setAttribute("style", "display: none;");
+ div_2.innerHTML = "";
+
+ div_3 = document.getElementById("3");
+ div_3.setAttribute("style", "display: none;");
+ div_3.innerHTML = "";
+
+ div_4 = document.getElementById("4");
+ div_4.setAttribute("style", "display: none;");
+ div_4.innerHTML = "";
+
+ div_5 = document.getElementById("5");
+ div_5.setAttribute("style", "display: none;");
+ div_5.innerHTML = "";
+
+ div_6 = document.getElementById("6");
+ div_6.setAttribute("style", "display: none;");
+ div_6.innerHTML = "";
+
+ div_7 = document.getElementById("7");
+ div_7.setAttribute("style", "display: none;");
+ div_7.innerHTML = "";
+
+ div_8 = document.getElementById("8");
+ div_8.setAttribute("style", "display: none;");
+ div_8.innerHTML = "";
+
+ div_10 = document.getElementById("9");
+ div_10.setAttribute("style", "display: none;");
+ div_10.innerHTML = "";
+
+ div = document.getElementById("10");
+
+ div.innerHTML += `<label for="cat-select">Choose a pet:</label>
+
+ <select id="cat-select">
+     <option value="">--Please choose an option--</option>
+     <option value="dog">Dog</option>
+     <option value="cat">Cat</option>
+     <option value="hamster">Hamster</option>
+     <option value="parrot">Parrot</option>
+     <option value="spider">Spider</option>
+     <option value="goldfish">Goldfish</option>
+ </select>
+ <span id="error_cat"></span></div>`
+ document
+ .getElementById("save_btn")
+ .setAttribute("onclick", "createDescriptionPage(this);");
+document
+ .getElementById("next_btn")
+ .setAttribute("onclick",  "createDescriptionPage(this);");
+document.getElementById("prev_btn").setAttribute("style", "display:inline;");
+document
+ .getElementById("prev_btn")
+ .setAttribute("onclick", "createTitlePage()");
+document.getElementById("current").innerHTML = 2;
 }
 
 var view_count = 0;
