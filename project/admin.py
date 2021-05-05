@@ -39,7 +39,7 @@ class ChapterAdmin(admin.ModelAdmin):
 
 class ProjectAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields':['title','image','overview', 'description', 'no_of_views','pre_req','isApproved', 'languages', 'difficulty_level', 'isCompleted', 'author','date_approved','bookmark',]}),
+        (None, {'fields':['title','image','overview', 'description', 'no_of_views','pre_req','isApproved', 'languages', 'difficulty_level', 'isCompleted', 'author','date_approved','bookmark','category',]}),
         ('Date information', {'fields': [], 'classes': ['collapse']})
     ]
     list_display = ['title','overview','no_of_views']
