@@ -175,14 +175,19 @@ function createDescriptionPage(e) {
   
   content += "<h7>Add Languages</h7>";
   
-  content += `<div id="langs" style="width: 68%;padding-bottom: 0; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
+  content += `<div id="langs" class="autocomplete" style="width: 68%;padding-bottom: 0; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
     <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> 
+    <div class="search-bar">
+   <div id ="results_lang" ></div>
+    </div>
     </div>`;
   // content += '<div style="color: black;">';
   // content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
   // <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
   // <span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
   // <span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
+ 
+ 
   var bold = "'bold'";
   var underline = "'underline'";
   var italic = "'italic'";
@@ -193,11 +198,7 @@ function createDescriptionPage(e) {
   }, 10);
 
   //content += '</select></div>'
-  content += '<div class="search-bar">';
-  //content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"> <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></input>'
-  content += '<div id ="results_lang" ></div>';
 
-  content += "</div>";
   content += '<div id="error_language"></div>';
 
   content += "<h8>Add Prerequisites</h8>";
