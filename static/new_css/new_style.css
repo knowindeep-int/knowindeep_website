@@ -395,11 +395,22 @@ nav {
     justify-content: center;
   }
 }
+body{
+height: 100%;
+ position: relative
+}
+.mains-containers{
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 500px;
 
+}
 .base-footer {
-  width: 100%;
   position: absolute;
-    bottom: 0;
+  bottom: 0;
+  width: 100%;
     /* left: 0;
   bottom: 0; */
     /* position: fixed; */
