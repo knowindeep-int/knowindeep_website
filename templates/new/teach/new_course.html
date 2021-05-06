@@ -96,7 +96,8 @@
                     </button>
                     <span class="slash">|</span>
                     <button id="ordered-list" onclick="addLink()">
-                        <img src="{% static 'images/crlink.jpg' %}" class="crlink1" alt="{% static 'images/crlink.jpg' %}">
+                        <img src="{% static 'images/crlink.jpg' %}" class="crlink1"
+                            alt="{% static 'images/crlink.jpg' %}">
                     </button>
                 </div>
                 <div class="editor" contenteditable="true" spellcheck="false">
@@ -271,5 +272,10 @@
 
 
 </script>
-
+<script>
+    function addLink() {
+        var url = prompt("enter a valid url");
+        document.execCommand("CreateLink", false, url);
+    }
+</script>
 {% endblock content %}
