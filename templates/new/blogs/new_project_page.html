@@ -136,13 +136,12 @@
             {% endif %}
         </div>
 
-            <div class="project-author">
+            <div class="project-author" onclick="window.location.href='{% url 'author:author_page' project.author.user.username %}'">
                 <h3><strong>About the Author</strong></h3>
                 <div class="author-image">
                     <img src="{{project.author.dp}}" alt="" onerror=this.src="">
                 </div>
                 <div class="author-info">
-                    <script>console.log("{{project.author}}")</script>
                     <h4>{{project.author.user.username}}</h4>
                     <p>{{project.author.description}}</p>
                 </div>

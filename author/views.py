@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from project.models import Profile, Package, Progress
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
+from project.models import myUser
 
 from project.utils import getApiKey
 
@@ -14,7 +15,7 @@ def author_page(request, slug):
     if slug == "@me":
         user = request.user
     else:
-        user = User.objects.get(username=slug)
+        user = myUser.objects.get(username=slug)
 
     context = None
 
