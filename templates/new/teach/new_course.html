@@ -61,7 +61,7 @@
                     maxlength="100" id="description_input" value="">
                 <span id="error_description"></span>
             </div>
-            <h7>Add Languages</h7>
+            <h6>Add Languages</h6>
             <div id="langs" class="autocomplete2">
                 <span class="xyz">Java<i id="1" class="fa fa-times" style="display:inline;" aria-hidden="true"
                         onclick="die(event)"></i>
@@ -75,7 +75,7 @@
             </div>
             <div id="error_language">
             </div>
-            <h8>Add Prerequisites</h8>
+            <h6>Add Prerequisites</h6>
             <div class="search-bar">
                 <div class="top-bar12">
                     <button id="bold" onclick="document.execCommand('bold')">
@@ -96,29 +96,7 @@
                     </button>
                     <span class="slash">|</span>
                     <button id="ordered-list" onclick="addLink()">
-                        <svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 531.8 534.09">
-                            <!-- <defs>
-                                <style>
-                                    .cls-1 {
-                                        fill: none;
-                                        stroke: #000;
-                                        stroke-miterlimit: 10;
-                                        stroke-width: 30px;
-                                    }
-                                </style>
-                            </defs> -->
-                            <path class="cls-1"
-                                d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59"
-                                transform="translate(-280.31 -224.63)"></path>
-                            <path class="cls-1"
-                                d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88"
-                                transform="translate(-280.31 -224.63)"></path>
-                            <line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"></line>
-                            <circle class="cls-1" cx="386.8" cy="389.09" r="130"></circle>
-                            <line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"></line>
-                            <line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"></line>
-                        </svg>
+                        <img src="{% static 'images/crlink.jpg' %}" class="crlink1" alt="{% static 'images/crlink.jpg' %}">
                     </button>
                 </div>
                 <div class="editor" contenteditable="true" spellcheck="false">
@@ -159,13 +137,21 @@
             <img src="/media/images/icon.png" class="icon1">
             <h3>How about a working overview?</h3>
             <h6>It's ok if you can't think of a good overview now. You can change it later.</h6>
-            <input type="text" class="example1" placeholder="Ex: App which lets you make notes" id="overview_input" value="">
-         </div>
-        
+            <input type="text" class="example1" placeholder="Ex: App which lets you make notes" id="overview_input"
+                value="">
+        </div>
 
+        <div v-if="current == IMAGE" class="container-fluid container-fluid1 container">
+            <img src="/media/images/no_of_hours.png" class="icon1">
+            <h3>Add image for your page</h3>
+            <div style="color: black;" id="image_input_div">
+                <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;">
+                <div id="error_image"></div>
+            </div>
+        </div>
 
         <div class="container">
-            <button class="previous b" id="prev_btn">Previous</button>
+            <button class="previous b" id="prev_btn" @click="previous">Previous</button>
             <button class="next b save_btn" id="save_btn">Save</button>
             <button class="next b" id="next_btn" @click="next">Next</button>
         </div>
@@ -224,46 +210,66 @@
                 }
             },
             previous: function () {
+                switch (this.current) {
+                    case this.TITLE:
+                        // this.current = this.CATEGORY
+                        break;
+                    case this.CATEGORY:
+                        this.current = this.TITLE
+                        break;
+                    case this.DESCRIPTION:
+                        this.current = this.CATEGORY
+                        break;
+                    case this.DIFFICULTY:
+                        this.current = this.DESCRIPTION
+                        break;
+                    case this.OVERVIEW:
+                        this.current = this.DIFFICULTY
+                        break;
+                    case this.IMAGE:
+                        this.current = this.OVERVIEW;
+                        break;
 
+                }
             },
             save: function () {
 
+            },
+            setStatus: function () {
+                switch ('{{status}}') {
+                    case 'title':
+                        console.log('title')
+                        this.current = this.TITLE;
+                        break;
+                    case 'image':
+                        this.current = this.IMAGE;
+                        break;
+                    case 'overview':
+                        this.current = this.OVERVIEW;
+                        break;
+                    case 'difficulty_level':
+                        this.current = this.DIFFICULTY;
+                        break;
+                    case 'description':
+                        this.current = this.DESCRIPTION;
+                        break;
+                    case 'category':
+                        this.current = this.CATEGORY;
+                        break;
+                    default:
+                        this.current = this.TITLE;
+                        break;
+                }
+                console.log("in view")
+                console.log(this.current)
             }
+        },
+        mounted: function () {
+            this.setStatus()
         }
     })
 
 
-</script>
-<script>
-    window.onload = function () {
-        console.log("hello")
-        console.log('{{status}}')
-        switch ('{{status}}') {
-            case 'title':
-                console.log('title')
-                this.current = this.TITLE;
-                break;
-            case 'image':
-                this.current = this.IMAGE;
-                break;
-            case 'overview':
-                this.current = this.OVERVIEW;
-                break;
-            case 'difficulty_level':
-                this.current = this.DIFFICULTY;
-                break;
-            case 'description':
-                this, current = this.DESCRIPTION;
-                break;
-            case 'category':
-                this.current = this.CATEGORY;
-                break;
-            default: 
-                this.current = this.TITLE;
-                break;
-
-        }
-    }
 </script>
 
 {% endblock content %}
