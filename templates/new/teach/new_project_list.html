@@ -216,6 +216,16 @@
                     <div class="index-button">
                         <a style="color: white;" href="{% url 'project:sub_topic' project.slug %}" class="btn btn-warning py-1 px-2 ">GO TO BLOG</a>
                     </div>
+                    {% if not project.isApproved %} 
+                    <div class="index-button">
+                        <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT</a>
+                    </div>
+
+                    <!-- The code for when the project is approved will go here -->
+
+                    {% else %}
+                    <!-- The code for when the project is not approved will go here -->
+                    {% endif %}
                     <div class="btn-group">
                         <button style="background-color: transparent; box-shadow: none;" type="button" class="btn btn-light border-0 p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img style="color: #f9a80d; width: 1.2rem;" src="/media/share.svg" alt="">
