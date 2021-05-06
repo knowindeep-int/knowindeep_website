@@ -139,7 +139,7 @@
             <div class="project-author" {% if project.author %} onclick="window.location.href='{% url 'author:author_page' project.author.user.username %}'" {% endif %}>
                 <h3><strong>About the Author</strong></h3>
                 <div class="author-image">
-                    <img src="{{project.author.dp}}" alt="" onerror=this.src="">
+                    <img src="{{project.author.dp}}" alt="" onerror=this.src="https://i.pinimg.com/originals/76/54/dd/7654dd5d578818e705c21e9aa05dd3cb.jpg">
                 </div>
                 <div class="author-info">
                     <h4>{{project.author.user.username}}</h4>
