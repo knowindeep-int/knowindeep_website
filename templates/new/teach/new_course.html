@@ -155,6 +155,13 @@
             <br>
         </div>
 
+        <div v-if="current == OVERVIEW" class="container container-fluid container-fluid1">
+            <img src="/media/images/icon.png" class="icon1">
+            <h3>How about a working overview?</h3>
+            <h6>It's ok if you can't think of a good overview now. You can change it later.</h6>
+            <input type="text" class="example1" placeholder="Ex: App which lets you make notes" id="overview_input" value="">
+         </div>
+        
 
 
         <div class="container">
@@ -251,6 +258,10 @@
             case 'category':
                 this.current = this.CATEGORY;
                 break;
+            default: 
+                this.current = this.TITLE;
+                break;
+
         }
     }
 </script>
