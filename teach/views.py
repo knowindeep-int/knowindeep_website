@@ -4,10 +4,14 @@ import json
 from project.models import Language, Project, Profile,Chapter
 from project.utils import getApiKey
 
+import os
+
 def add_course(request, pk = None):
     UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
     if request.user.is_authenticated:
         languages = Language.getAllLanguages()
+        DEBUG = bool(int(os.environ.get('DEBUG')))
+
         # pre_reqs = PreRequisite.getAllPreReqs()
 
         if pk is None:
@@ -15,7 +19,8 @@ def add_course(request, pk = None):
                 'languages' : languages,        
                 # 'pre_reqs' : pre_reqs,
                 'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
-                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
+                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG,
+                'DEBUG':DEBUG
             }
 
         else:
@@ -35,10 +40,11 @@ def add_course(request, pk = None):
                 'difficulty_level': difficulty_level,
                 'selected_languages': selected_languages,
                 'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
-                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
+                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG,
+                'DEBUG':DEBUG
             }
             
-
+        print(context)
         # return render(request, 'teach/new_course.html', context=context)
         return render(request, "new/teach/new_course.html",context=context)
     return redirect("/")

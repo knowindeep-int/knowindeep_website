@@ -15,7 +15,7 @@
 
     <div class="container">
         <div>
-            <h6>Step <span id="current">1</span> of <span id="total">7</span></h6>
+            <h6>Step <span id="current-page">[[ currentPage ]]</span> of <span id="total">6</span></h6>
         </div>
 
         <div class="w3-container">
@@ -39,8 +39,8 @@
             <img src="/media/images/icon.png" class="icon1">
             <h3 for="cat-select">Choose a pet:</h3>
 
-            <select id="cat-select">
-                <option value="">--Please choose an option--</option>
+            <select id="category_input">
+                <option>--Please choose an option--</option>
                 <option>App Development</option>
                 <option>Web Development</option>
                 <option>Image Processing</option>
@@ -173,10 +173,15 @@
     }, 10);
 
 </script>
+{% if DEBUG %}
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+{% else %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+{% endif %}
 <script>
 
     var app = new Vue({
+        delimiters: ["[[", "]]"],
         el: '#app',
         data: {
             TITLE: "TITLE",
@@ -185,16 +190,32 @@
             DIFFICULTY: "DIFFICULTY",
             OVERVIEW: "OVERVIEW",
             IMAGE: "IMAGE",
-            current: "TITLE"
+            pk: -1,
+            current: "TITLE",
+            currentPage: 1
         },
         methods: {
             next: function () {
                 switch (this.current) {
                     case this.TITLE:
-                        this.current = this.CATEGORY
+                        let title = document.getElementById("title_input").value;
+                        if (!!title) {
+                            saveDraft("title", title)
+                            this.current = this.CATEGORY
+                        } else {
+                            // Empty title code should go here
+                            console.log("empty")
+                        }
                         break;
                     case this.CATEGORY:
-                        this.current = this.DESCRIPTION
+                        let category = document.getElementById("category_input").value;
+                        if (!!category) {
+                            saveDraft("category", category)
+                            this.current = this.DESCRIPTION
+                        } else {
+                            // Empty category code should go here
+                            console.log("empty")
+                        }
                         break;
                     case this.DESCRIPTION:
                         this.current = this.DIFFICULTY
@@ -206,7 +227,7 @@
                         this.current = this.IMAGE
                         break;
                     case this.IMAGE:
-                        window.location.href = "{% url 'teach:chapter' project.pk %}"
+                        window.location.href = "{% url 'teach:chapter' 0 %}".replace(/0/, this.pk)
                         break;
 
                 }
@@ -240,28 +261,37 @@
             setStatus: function () {
                 switch ('{{status}}') {
                     case 'title':
-                        console.log('title')
+                        this.currentPage = 1;
                         this.current = this.TITLE;
                         break;
                     case 'image':
+                        this.currentPage = 6;
                         this.current = this.IMAGE;
                         break;
                     case 'overview':
+                        this.currentPage = 5;
                         this.current = this.OVERVIEW;
                         break;
                     case 'difficulty_level':
+                        this.currentPage = 4;
                         this.current = this.DIFFICULTY;
                         break;
                     case 'description':
+                        this.currentPage = 3;
                         this.current = this.DESCRIPTION;
                         break;
                     case 'category':
+                        this.currentPage = 2;
                         this.current = this.CATEGORY;
                         break;
                     default:
                         this.current = this.TITLE;
                         break;
                 }
+                if ("{{ project.pk }}") {
+                    this.pk = "{{ project.pk }}"
+                }
+                var pk = pk
             }
         },
         mounted: function () {
@@ -283,7 +313,10 @@
 
         var data = {};
         data[key] = value;
-        data['pk'] = pk;
+        if (this.pk != -1)
+            data['pk'] = this.pk;
+        else
+            data['pk'] = null;
         data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
         data['isAdded'] = isAdded;
         $.ajax({
