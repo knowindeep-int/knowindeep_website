@@ -1473,11 +1473,8 @@ display: block !important;
   
   .autocomplete{
       padding-bottom: 0;
-      margin: 10px auto;
-      background-color: white;
+      display: inline;
       text-align: left;
-      border: 1px solid #dcdcdc;
-      box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);
   }
   .autocomplete-items {
       width: 200px;
