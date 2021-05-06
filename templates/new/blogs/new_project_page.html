@@ -136,7 +136,7 @@
             {% endif %}
         </div>
 
-            <div class="project-author" onclick="window.location.href='{% url 'author:author_page' project.author.user.username %}'">
+            <div class="project-author" {% if project.author %} onclick="window.location.href='{% url 'author:author_page' project.author.user.username %}'" {% endif %}>
                 <h3><strong>About the Author</strong></h3>
                 <div class="author-image">
                     <img src="{{project.author.dp}}" alt="" onerror=this.src="">
