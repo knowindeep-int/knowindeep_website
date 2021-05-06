@@ -86,20 +86,20 @@
         <div class="project-description">{{project.overview}}</div>
         <div class="project-info">
             <div class="qna">
-                <h4>What will you learn in this course:</h4>
+                <h4 class="my-4">What will you learn in this project</h4>
                 <p>{{ project.overview }}</p>
             </div>
             <div class="qna">
-                <h4>Pre-Requisites for this couse:</h4>
+                <h4 class="my-4">Pre-Requisites for this project</h4>
                 
                 <p>{{project.pre_req | safe}}</p>
             </div>
             <div class="qna">
-                <h4>Difficulty Level:</h4>
+                <h4 class="my-4">Difficulty Level</h4>
                 <p>{{ project.difficulty_level | title}}</p>
             </div>
             <div class="qna">
-                <h4>Languages Used:</h4>
+                <h4 class="my-4">Languages Used</h4>
                 {% for language in project.languages.all %}
                 <span class="la">{{language}} </span>{% endfor %}
             </div>
