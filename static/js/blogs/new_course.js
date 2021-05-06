@@ -413,7 +413,9 @@ setTimeout(function () {
 
  div = document.getElementById("10");
 
- div.innerHTML += `<label for="cat-select">Choose a pet:</label>
+ div.innerHTML += `
+ <div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">
+ <h3 for="cat-select">Choose a pet:</h3>
 
  <select id="cat-select">
      <option value="">--Please choose an option--</option>
