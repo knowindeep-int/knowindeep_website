@@ -206,6 +206,7 @@
                         this.current = this.IMAGE
                         break;
                     case this.IMAGE:
+                        window.location.href = "{% url 'teach:chapter' project.pk %}"
                         break;
 
                 }
