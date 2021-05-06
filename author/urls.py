@@ -7,7 +7,6 @@ app_name = 'author'
 
 urlpatterns = [
 
-    path('', views.author_page, name='author_page'),
-    path('delete/', views.delete, name="delete_profile")
-
+    path('profile/delete/', views.delete, name="delete_profile"),
+    path('author/<str:slug>/', views.author_page, name='author_page'),
 ]

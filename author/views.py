@@ -11,7 +11,7 @@ from project.utils import getApiKey
 def author_page(request, slug):
     UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
 
-    if slug == "me":
+    if slug == "@me":
         user = request.user
     else:
         user = User.objects.get(username=slug)
@@ -36,8 +36,7 @@ def author_page(request, slug):
     return render(request,"new/author/new_author.html",context)
     # return render(request, 'front-end/profile page/index.html', context)
 
-def delete(request,slug):
-    print(slug)
+def delete(request):
     profile = Profile.objects.get(user = request.user)
     profile.user.delete()
     profile.delete()

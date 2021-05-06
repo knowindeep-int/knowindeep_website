@@ -136,16 +136,17 @@
             {% endif %}
         </div>
 
-        <div class="project-author">
-            <h3><strong>About the Author</strong></h3>
-            <div class="author-image">
-                <img src="{{project.author.dp}}" alt="" onerror=this.src="">
+            <div class="project-author">
+                <h3><strong>About the Author</strong></h3>
+                <div class="author-image">
+                    <img src="{{project.author.dp}}" alt="" onerror=this.src="">
+                </div>
+                <div class="author-info">
+                    <script>console.log("{{project.author}}")</script>
+                    <h4>{{project.author.user.username}}</h4>
+                    <p>{{project.author.description}}</p>
+                </div>
             </div>
-            <div class="author-info">
-                <h4>{{project.author}}</h4>
-                <p>{{project.author.description}}</p>
-            </div>
-        </div>
         <div class="margin"></div>
     </div>
 </div>
