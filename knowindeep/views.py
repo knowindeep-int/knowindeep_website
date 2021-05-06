@@ -9,3 +9,6 @@ def privacy_policy(request):
 
 def terms_and_conditions(request):
     return render(request, "new/policy/terms_and_conditions.html")
+
+def terms_for_creators(request):
+    return render(request, "new/policy/terms_for_creators.html")
