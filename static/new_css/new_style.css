@@ -485,6 +485,7 @@ p{
 .autocomplete2{
     width: 69%;
     padding-bottom: 0;
+    display: flex;
     /* margin: 10px auto; */
     background-color: white;
     text-align: left;
@@ -492,4 +493,8 @@ p{
     box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);
     margin: auto;
 
+}
+
+.autocomplete2:first-child{
+    margin-left: 8px !important;
 }
