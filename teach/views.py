@@ -38,7 +38,7 @@ def add_course(request, pk = None):
                 'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
             }
             
-        print(context)
+
         # return render(request, 'teach/new_course.html', context=context)
         return render(request, "new/teach/new_course.html",context=context)
     return redirect("/")

@@ -96,8 +96,8 @@
                     </button>
                     <span class="slash">|</span>
                     <button id="ordered-list" onclick="addLink()">
-                        <img src="{% static 'images/crlink.jpg' %}" class="crlink1"
-                            alt="{% static 'images/crlink.jpg' %}">
+                        <img src="{% static 'images/crlink.png' %}" class="crlink1"
+                            alt="{% static 'images/crlink.png' %}">
                     </button>
                 </div>
                 <div class="editor" contenteditable="true" spellcheck="false">
@@ -276,6 +276,38 @@
     function addLink() {
         var url = prompt("enter a valid url");
         document.execCommand("CreateLink", false, url);
+    }
+
+    function saveDraft(key, value, isAdded = false) {
+        var key = key;
+        var value = value;
+
+        var data = {};
+        data[key] = value;
+        data['pk'] = pk;
+        data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
+        data['isAdded'] = isAdded;
+        $.ajax({
+            method: "POST",
+            url: '{% url "api:save_draft" %}',
+            async: false,
+            data: data,
+            success: function (data) {
+                pk = data.pk
+                if (key == 'pre_req' && '{{status}}' != 'difficulty_level') {
+                    getLangPrereq();
+                }
+
+                if (key == "languages") {
+                    getLangPrereq();
+
+                }
+
+            }, error: function (error) {
+                console.log(error)
+            },
+
+        })
     }
 </script>
 {% endblock content %}
