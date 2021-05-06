@@ -44,6 +44,7 @@
 </head>
 
 <body style="overflow-y: scroll;!important ">
+    <div class="mains-containers">
     {%csrf_token%}
     <!-- <script>
        
@@ -280,13 +281,13 @@
                     
                 </button>
                 <div style="z-index: 2;" id="base-myDropdown" class="base-dropdown-content">
-                    <a id="base-first" href="/@me" style="display: flex;">
+                    <a id="base-first" href="{% url 'author:author_page' slug='@me' %}" style="display: flex;">
                         <div class="base-pic"><img style="width: 45px; height: 45px;" src='{{request.user.user.dp}}' alt="" onerror=this.src="https://devtalk.blender.org/uploads/default/original/2X/c/cbd0b1a6345a44b58dda0f6a355eb39ce4e8a56a.png"></div>
                         <div class="baseinfo" style="margin-left: 5px;">{{request.user.username}}<br> {{request.user.email}}</div>
                     </a>
                     <hr class="base-dropdown-divider">
                     <a href="{% url 'teach:list_of_projects' %}#completed_projects_heading">My Projects</a>
-                    <a href="/@me">My Profile</a>
+                    <a href="{% url 'author:author_page' slug='@me' %}">My Profile</a>
                     <hr class="base-dropdown-divider">
                     <a href="{% url 'teach:list_of_projects' %}">Teach with Us</a>
                     <hr class="base-dropdown-divider">
@@ -352,6 +353,7 @@
 
 
     {% block content %} {% endblock %}
+
     <div class="base-footer">
         <svg id="base-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#1a1d20" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,261.3C480,277,600,267,720,245.3C840,224,960,192,1080,176C1200,160,1320,160,1380,160L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
         <div style="padding-top: 1rem;" class="base-footer_content">
@@ -413,7 +415,7 @@
                         <a href="#">Contact Us</a>
                     </li>
                     <li>
-                        <a href="{% url 'terms_and_conditions' %}">Terms Of Use</a>
+                        <a href="{% url 'terms_of_use' %}">Terms Of Use</a>
                     </li>
                     <li>
                         <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
@@ -422,7 +424,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
 
 

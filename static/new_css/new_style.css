@@ -395,13 +395,24 @@ nav {
     justify-content: center;
   }
 }
+body{
+height: 100%;
+ position: relative
+}
+.mains-containers{
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 500px;
 
+}
 .base-footer {
-  width: 100%;
-  /* position: absolute;
-    bottom: 0; */
-    left: 0;
+  position: absolute;
   bottom: 0;
+  width: 100%;
+    /* left: 0;
+  bottom: 0; */
     /* position: fixed; */
 }
 
@@ -480,4 +491,21 @@ p{
   background-color: white;
   border: 1px solid #dcdcdc;
   box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);  
+}
+
+.autocomplete2{
+    width: 69%;
+    padding-bottom: 0;
+    display: flex;
+    /* margin: 10px auto; */
+    background-color: white;
+    text-align: left;
+    border: 1px solid #dcdcdc;
+    box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);
+    margin: auto;
+
+}
+
+.autocomplete2:first-child{
+    margin-left: 8px !important;
 }

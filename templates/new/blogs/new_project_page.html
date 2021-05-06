@@ -136,16 +136,16 @@
             {% endif %}
         </div>
 
-        <div class="project-author">
-            <h3><strong>About the Author</strong></h3>
-            <div class="author-image">
-                <img src="{{project.author.dp}}" alt="" onerror=this.src="">
+            <div class="project-author" {% if project.author %} onclick="window.location.href='{% url 'author:author_page' project.author.user.username %}'" {% endif %}>
+                <h3><strong>About the Author</strong></h3>
+                <div class="author-image">
+                    <img src="{{project.author.dp}}" alt="" onerror=this.src="https://i.pinimg.com/originals/76/54/dd/7654dd5d578818e705c21e9aa05dd3cb.jpg">
+                </div>
+                <div class="author-info">
+                    <h4>{{project.author.user.username}}</h4>
+                    <p>{{project.author.description}}</p>
+                </div>
             </div>
-            <div class="author-info">
-                <h4>{{project.author}}</h4>
-                <p>{{project.author.description}}</p>
-            </div>
-        </div>
         <div class="margin"></div>
     </div>
 </div>

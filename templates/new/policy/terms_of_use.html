@@ -1,7 +1,7 @@
 {% extends "new/new_base.html" %} {% load static %} {% block content_head %}
 
 <!-- This is where the imports for javascript/ css will go -->
-<link rel="stylesheet" href="{% static 'new_css/policy/terms_and_conditions.css' %}"> 
+<link rel="stylesheet" href="{% static 'new_css/policy/terms_of_use.css' %}"> 
 
 {% endblock content_head %}
 
@@ -14,13 +14,13 @@
     </div>
     <div class="container my-5">
         <div class="row">
-            <p>These Terms of use ("<b>Terms</b>") apply to your access to and use of the websites, mobile applications, and other online products and services (collectively, the "<b>Services</b>) provided by KnowInDeep corporation ("<b>KnowInDeep</b>" or "<b>We</b>"). By clicking your consent (e.g. "<b>Continue</b>,<b>"Sign in</b>,"<b>Sign Up,</b>") or by using our services, you agree to these terms and our <a href="privacy_policy.html">Privacy Policy</a>. </p>
+            <p>These Terms of use ("<b>Terms</b>") apply to your access to and use of the websites, mobile applications, and other online products and services (collectively, the "<b>Services</b>) provided by KnowInDeep corporation ("<b>KnowInDeep</b>" or "<b>We</b>"). By clicking your consent (e.g. "<b>Continue</b>,<b>"Sign in</b>,"<b>Sign Up,</b>") or by using our services, you agree to these terms and our <a href="{% url 'privacy_policy' %}">Privacy Policy</a>. </p>
         </div>
         <div class="row my-4">
-            <p>Our <a href="privacy_policy.html">Privacy Policy</a> explains how we collect and use your information while you use our Services. By using our Services, you are agreeing to be bound by these Terms of Use and our Privacy Policy. Please see our Privacy Policy for information about how we collect, use, share and otherwise process information about you.  </p>
+            <p>Our <a href="{% url 'privacy_policy' %}">Privacy Policy</a> explains how we collect and use your information while you use our Services. By using our Services, you are agreeing to be bound by these Terms of Use and our Privacy Policy. Please see our Privacy Policy for information about how we collect, use, share and otherwise process information about you.  </p>
         </div>
         <div class="row my-4">
-            <p>If you have any questions about these Terms or our Services, please contact us at <b><u><i>knowindeep.tech@gmail.com</i></u></b>.</p>
+            <p>If you have any questions about these Terms or our Services, please contact us at <b><u><a id="kid-mail-id" href="mailto:knowindeep.tech@gmail.com" target="_blank" title="Mail">knowindeep.tech@gmail.com</a></u></b>.</p>
         </div>
     </div>
 </section>

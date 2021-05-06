@@ -200,6 +200,7 @@ function createDescriptionPage(e) {
   var italic = "'italic'";
   var ordered = "'insertOrderedList'";
   var unordered = "'insertUnorderedList'"
+
   setTimeout(() => {
     getLangPrereq();
   }, 10);
@@ -235,9 +236,9 @@ function createDescriptionPage(e) {
     '<button id="bold" onclick="document.execCommand(' +
     ordered +
     ')"><i class="fas fa-list-ol"></i></button>';
-  content += '<button id="bold" onclick="document.execCommand(' +
-  unordered +
-  ')"><i class="fas fa-list-ul"></i></button>';
+    content += '<button id="bold" onclick="document.execCommand(' +
+    unordered +
+    ')"><i class="fas fa-list-ul"></i></button>';
   content += '<span class="slash">|</span>';
   content +=
     '<button id="ordered-list" onclick="addLink()"><svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531.8 534.09"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><path class="cls-1" d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59" transform="translate(-280.31 -224.63)"/><path class="cls-1" d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88" transform="translate(-280.31 -224.63)"/><line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"/><circle class="cls-1" cx="386.8" cy="389.09" r="130"/><line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"/><line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"/></svg></button>';
@@ -413,7 +414,9 @@ setTimeout(function () {
 
  div = document.getElementById("10");
 
- div.innerHTML += `<label for="cat-select">Choose a pet:</label>
+ div.innerHTML += `
+ <div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">
+ <h3 for="cat-select">Choose a pet:</h3>
 
  <select id="cat-select">
      <option value="">--Please choose an option--</option>

@@ -280,7 +280,7 @@ function die(e){
     var txt = e.target.id;
     var p1 = document.getElementsByClassName("xyz");
     var b=txt-1;
-    p1[b].classList.toggle("second");
+    p1[b].remove();
     $.ajax({
             method: "POST",
             url: '{% url "api:delete_lang" %}',
@@ -316,7 +316,6 @@ function die(e){
           b.innerHTML =arr[i].substr(0, val.length);
           b.innerHTML += arr[i].substr(val.length);
           b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-          console.log(arr[i]);
           b.addEventListener("click", function(e) {
               inp.value = this.getElementsByTagName("input")[0].value;
               closeAllLists();
@@ -369,7 +368,7 @@ function die(e){
     var languages_all = [] 
     // prereqs_all = [] 
     function getLangPrereq(){
-        document.getElementById('langs').innerHTML = `<div class="autocomplete" style="width: 68%;"><input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" ></div>`
+        document.getElementById('langs').innerHTML = `<div class="autocomplete" style="width: 100%;"><input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" ></div>`
 
        autocomplete(document.getElementById("search_language"), languages123);
         $.ajax({
@@ -389,13 +388,8 @@ function die(e){
                 var d1 = document.getElementsByClassName('autocomplete')[0]
                 for(var i=0;i<languages_all.length;i++){
                     var b = i+1;
-                    if(i == 0){
-                        d1.insertAdjacentHTML('beforebegin','<span class="xyz mm">'+ languages_all[i] + '<i id="'+b+'" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>')
-                    }
-                    else{
-                        d1.insertAdjacentHTML('beforebegin','<span class="xyz">'+ languages_all[i] + '<i id="'+b+'" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>')
-                    }
-                   
+                        console.log(languages_all[i].substring(0, languages_all[i].indexOf('<')));
+                        d1.insertAdjacentHTML('beforebegin','<span class="xyz">'+ languages_all[i].substring(0, languages_all[i].indexOf('<'))+ '<i id="'+b+'" class="fa fa-times" style="display:inline;" aria-hidden="true" onClick="die(event)"></i></span>')
                 }
                 pre_reqs = data.prerequisites
                 // for(var i= 0; i < data.prerequisites.length; i++){
