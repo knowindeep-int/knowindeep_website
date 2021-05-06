@@ -1,0 +1,195 @@
+ 
+    <style>
+    .lang_results{
+        cursor: pointer;
+    }
+    .editor{
+/* counter-increment: line; */
+}
+.editor::before{
+/* content: counter(line) " "; */
+}
+.editor{
+border-style: solid;
+height: 200px;
+width: 68%;
+overflow-y: scroll;
+text-align: left;
+}
+.container {
+    width: 72.5% !important;
+    padding-bottom: 10px;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 50px 0px 50px 0px !important;
+}
+
+.icon1 {
+    width: 132px;
+    padding: 15px 0px 15px 0px !important;
+    font-size: 40px;
+    margin-top: 110px;
+}
+
+.container-fluid h3 {
+    font-weight: normal;
+    font-size: 45px;
+}
+.container-fluid h3, h7, h8 {
+    padding-top: 10px;
+    font-size: 40px;
+}
+
+.search-bar .search-input {
+    width: 68%;
+    padding: 5px;
+    border: 1px solid #dcdcdc;
+    box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);
+    margin: 10px 0px 30px;
+}
+.autocomplete2 {
+    width: 69%;
+    padding-bottom: 0;
+    display: flex;
+    background-color: white;
+    text-align: left;
+    border: 1px solid #dcdcdc;
+    box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);
+    margin: auto;
+
+}
+.xyz {
+    font-size: 18px;
+    background-color: #f1f1f1 !important;
+    padding: 2px !important;
+    margin-top: 3px!important;
+    margin-bottom: 3px!important;
+    margin-left: 5px !important;
+    display: inline;
+}
+.fa {
+    box-sizing: border-box;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    color: #07051a;
+    text-align: center;
+    transition: all 1s;
+}
+.fa-times {
+    position: relative !important;
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+}
+.autocomplete {
+    padding-bottom: 0;
+    display: inline;
+    width: 100%;
+    text-align: left;
+}
+.autocomplete {
+    position: relative;
+}
+.pret {
+    border: none;
+    width: 98%;
+    margin: 6px;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    padding-bottom: 0 !important;
+}
+.top-bar12 {
+    width: 68%;
+    margin: 0 auto;
+    padding-bottom: 0px;
+    margin-top: 10px;
+    background-color: #f1f1f1;
+    border: solid 1px;
+    border-bottom: none;
+    text-align: left;
+}
+#bold, #undereline, #italic {
+    margin: 0 10px;
+}
+
+.search-bar button {
+    border: none;
+    padding-bottom: 2px;
+}
+.slash {
+    font-size: 25px;
+    color: #d9dcdf;
+    margin: 0 7px;
+}
+.svg1 {
+    width: 20px;
+    height: auto;
+    padding: 0px;
+    padding-bottom: 4px;
+}
+.editor {
+    border-style: solid;
+    height: 200px;
+    width: 68%;
+    overflow-y: scroll;
+    text-align: left;
+    margin: 0 auto;
+    background-color: white;
+    padding: 5px;
+    border: solid 1px;
+}
+</style>
+<div >
+<div class="container container-fluid container-fluid1">
+    <img src="/media/images/icon.png" class="icon1">
+    <h3>How about a working description?</h3>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Keep the description short and simple." maxlength="100" id="description_input" value=""> 
+        <span id="error_description"></span>
+    </div>
+    <h7>Add Languages</h7>
+        <div id="langs" class="autocomplete2">
+            <span class="xyz">Java<i id="1" class="fa fa-times" style="display:inline;" aria-hidden="true" onclick="die(event)"></i>
+            </span>
+            <div class="autocomplete" style="width: 100%;">
+                <input type="search" class="pret" id="search_language" name="Languages" placeholder="Type here">
+            </div>
+        </div>
+        <div class="autocomplete" style="width: 100%;">
+            <input type="search" class="pret" id="search_language" name="Languages" placeholder="Type here">
+        </div>
+    <div id="error_language">
+    </div>
+    <h8>Add Prerequisites</h8>
+    <div class="search-bar">
+        <div class="top-bar12">
+            <button id="bold" onclick="document.execCommand('bold')">
+                <i class="fas fa-bold"></i>
+            </button>
+            <button id="underline" onclick="document.execCommand('italic')">
+                <i class="fas fa-italic"></i>
+            </button>
+            <button id="italic" onclick="document.execCommand('underline')">
+                <i class="fas fa-underline" style="font-size: 17px;"></i>
+            </button>
+            <span class="slash">|</span>
+            <button id="bold" onclick="document.execCommand('insertOrderedList')">
+                <i class="fas fa-list-ol"></i>
+            </button>
+            <button id="bold" onclick="document.execCommand('insertUnorderedList')">
+                <i class="fas fa-list-ul"></i>
+            </button>
+                <span class="slash">|</span>
+                <button id="ordered-list" onclick="addLink()">
+                    <svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531.8 534.09">                        <defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><path class="cls-1" d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59" transform="translate(-280.31 -224.63)"></path><path class="cls-1" d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88" transform="translate(-280.31 -224.63)"></path><line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"></line><circle class="cls-1" cx="386.8" cy="389.09" r="130"></circle><line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"></line><line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"></line></svg>
+                </button>
+            </div>
+            <div class="editor" contenteditable="true" spellcheck="false">
+
+            </div><div id="error_prereq">
+
+            </div>
+        </div>
+    </div>
+</div>
