@@ -4,13 +4,15 @@
         {% block content_head %}
         <script src = "{% static 'js/chapter/teach.js'%}"></script>
         <link rel="stylesheet" href="{% static 'css/chapter/chapter.css'%}">
+        <link rel="stylesheet" href="{% static  'new_css/teach/dialog.css' %}">  
         {% endblock %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.min.css" integrity="sha512-YBSrHBAMjFhWHodf0RF58XB/x9lmuwBtyJv1LWDHQa1nOaWNXfG3Etc/lEXfW+qBx8ne79JnzccDs59je/ccVA==" crossorigin="anonymous" />
-{% block content %}
+  
+        {% block content %}
 <style>
     pre{
         color: orange;
@@ -19,7 +21,20 @@
 </style>
         <script>
 
+function projecton() {
+        document.getElementById("projectoverlay").style.display = "block";
+        document.getElementById("projectdelete").style.display = "block";
+        // document.documentElement.scrollTop = 0;
+        // document.body.scrollTop = 0;
+        // document.body.style.overflow = "hidden";
+    }
 
+    function projectoff() {
+        document.getElementById("projectoverlay").style.display = "none";
+        document.getElementById("projectdelete").style.display = "none";
+        document.body.style.overflow = "scroll";
+
+    }
 
 
 
@@ -719,13 +734,45 @@ function setImgurHeader(xhr) {
                 <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createNumberofHours()">Previous</button>
                 <button class="prev but1 but3" style="margin-left: 0;" onclick="addChapter();createProject();">Exit</button>
                 <button class="nxt but1 but3" id="save_changes_btn" type="button" onclick="addChapter();">Save Changes</button>
+                <button class="nxt but1 but3" id="delete_btn" type="button" onclick="projecton();">Delete Chapter</button>
                 <button class="nxt but1 but3" id="add_btn" onclick="newChapter();">Add Chapter</button>
                         
             </div>
             </div>
         </div>  
+        
+<div style="z-index: 3;" id="projectdelete">
+    <div class="dlt-heading">
+        <p>Are you absolutely sure?</p>
+        <p class="dlt-heading-close"><i onclick="projectoff()" class="bi bi-x"></i></p>
+    </div>
+    <div class="dlt-warning">
+        <p>On continuing, your chapter will be permanently deleted and the data will be lost forever. There is no going back.</p>
+    </div>
+    <div class="dlt-btn">
+        <button onclick="deleteChapter()">I understand the consequences, delete this chapter</button>
+    </div>
+</div>
 
+<div style="z-index: 2;" id="projectoverlay" onclick="projectoff()"></div>
 <script>
+    function deleteChapter(){
+        pk = '{{chapter.pk}}'
+        $.ajax({
+       method: 'POST',
+       url: "{% url 'api:delete_chapter' %}",
+       data :{
+           'pk': pk,
+           'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+       },
+       success: function(data){
+         location.href = '{% url 'teach:chapter' project.pk %}'
+       }, error: function(error){
+            console.log("ERROR!")
+       }
+   }
+   )
+    }
     
     function reviewAndCreateProject(){
         pk = "{{project.pk}}"

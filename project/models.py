@@ -255,6 +255,11 @@ class Project(models.Model):
     def canUserView(self, user):
         return user.is_authenticated and (user.is_superuser or user == self.author.user)
 
+    def canUserViewProject(self, user):
+        if(self.isApproved):
+            return True
+        return user.is_authenticated and (user.is_superuser or user == self.author.user)
+
     def canUserReview(self, user):
         return user == self.author.user
 

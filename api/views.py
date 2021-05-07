@@ -531,3 +531,11 @@ def api_update_user_status(request):
         print(profile)
         data = {'message':profile.no_of_users}
         return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_delete_chapter(request):
+    if request.method == 'POST':
+        chapter = Chapter.objects.get(pk = request.POST['pk'])
+        chapter.delete()
+        data = {'pk':chapter.pk}
+        return Response(data, status=status.HTTP_200_OK)
