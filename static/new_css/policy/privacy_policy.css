@@ -12,3 +12,6 @@ body {
     position: relative;
 }
 
+#privacy-date-text {
+    color: gray;
+}
