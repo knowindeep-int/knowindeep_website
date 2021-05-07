@@ -19,7 +19,17 @@ body {
   width: 30%;
   background-color: white;
 }
-
+#projectcreate {
+  display: none;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 5px;
+  border: 2px solid rgb(194, 194, 194);
+  width: 30%;
+  background-color: white;
+}
 .dlt-heading {
   display: flex;
   align-items: center;
@@ -73,6 +83,18 @@ body {
 }
 
 #projectoverlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: -1;
+}
+#projectoverlay2 {
   position: fixed;
   display: none;
   width: 100%;
