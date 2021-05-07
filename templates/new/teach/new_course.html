@@ -135,9 +135,38 @@
             <img src="/media/images/icon.png" class="icon1">
             <h3>How about a working overview?</h3>
             <h6>It's ok if you can't think of a good overview now. You can change it later.</h6>
-            <input type="text" class="example1" placeholder="Ex: App which lets you make notes" id="overview_input"
-                value="">
-            <div id="error_overview" class="error9"></div>
+            <div class="search-bar">
+                <div class="top-bar12">
+                    <button id="bold" onclick="document.execCommand('bold')">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button id="underline" onclick="document.execCommand('italic')">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button id="italic" onclick="document.execCommand('underline')">
+                        <i class="fas fa-underline" style="font-size: 17px;"></i>
+                    </button>
+                    <span class="slash">|</span>
+                    <button id="bold" onclick="document.execCommand('insertOrderedList')">
+                        <i class="fas fa-list-ol"></i>
+                    </button>
+                    <button id="bold" onclick="document.execCommand('insertUnorderedList')">
+                        <i class="fas fa-list-ul"></i>
+                    </button>
+                    <span class="slash">|</span>
+                    <button id="ordered-list" onclick="addLink()">
+                        <img src="{% static 'images/crlink.png' %}" class="crlink1"
+                            alt="{% static 'images/crlink.png' %}">
+                    </button>
+                </div>
+                <div class="editor" id="editor2" contenteditable="true" spellcheck="false">
+
+                </div>
+                <div id="error_prereq" class="error9">
+
+                </div>
+            </div>
+        
         </div>
 
         <div v-if="current == IMAGE" class="container-fluid container-fluid1 container">
@@ -255,11 +284,11 @@
                         this.current = this.OVERVIEW}
                         break;
                     case this.OVERVIEW:
-                        let ovr=document.getElementById("overview_input").value
+                        let ovr=document.getElementById("editor2").innerHTML
                         if(ovr==""){
                             document.getElementById('error_image').innerHTML="Please write an overview to prcoceed"
                         } else {
-                            saveDraft("overview",ovr.value)
+                            saveDraft("overview",ovr)
                             this.current = this.IMAGE
                         }
                         break;
