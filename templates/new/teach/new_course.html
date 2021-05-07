@@ -196,22 +196,26 @@
             next: function () {
                 switch (this.current) {
                     case this.TITLE:
-                        if(document.getElementById("title_input").value==""){
-                        document.getElementsById('error_title').innerHTML="Please choose a Title to prcoceed"}
-                        else if(document.getElementById("title_input").value){
-                        var t=document.getElementById("title_input").value
-                        saveDraft("TITLE",t);
-                        this.current = this.CATEGORY}
+                        let title = document.getElementById("title_input").value;
+                        if(!!title){
+                            saveDraft("title",title)
+                            this.current = this.CATEGORY    
+                        } else {
+                            document.getElementsById('error_title').innerHTML="Please choose a Title to prcoceed"
+                        }
                         break;
                     case this.CATEGORY:
-                        if(document.getElementById("cat-select").value==""){
-                        document.getElementsById('error_cat').innerHTML="Please choose a category to prcoceed"}
-                        else if(document.getElementById("cat-select").value){
-                        var c=document.getElementById("cat-select").value
-                        saveDraft("CATEGORY",c);
-                        this.current = this.DESCRIPTION
+                        let category = document.getElementById("cat-select").value
+                        if(!!category) {
+                            saveDraft("category",category)
+                            this.current = this.DESCRIPTION
+                        } else {
+                            document.getElementsById('error_cat').innerHTML="Please choose a category to prcoceed"
+                        }
                         break;
-                    case this.DESCRIPTION:                        
+                    case this.DESCRIPTION:
+                        let description = document.getElementById("description_input").value
+                        let languages = document.getElementsByClassName("xyz")                        
                         if(document.getElementById("description_input").value==""){
                         document.getElementsById('error_descriptiont').innerHTML="Please write a description to prcoceed"}
                         else if(document.getElementById("description_input").value){
