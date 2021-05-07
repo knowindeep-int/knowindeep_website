@@ -214,29 +214,28 @@
                         }
                         break;
                     case this.DESCRIPTION:
+                        let prereq1=document.getElementById("editor1")
                         let description = document.getElementById("description_input").value
-                        let languages = document.getElementsByClassName("xyz")                        
-                        if(document.getElementById("description_input").value==""){
+                        let languages = document.getElementsByClassName("xyz")     
+
+                        if(description==""){
                         document.getElementsById('error_descriptiont').innerHTML="Please write a description to prcoceed"}
-                        else if(document.getElementById("description_input").value){
-                        var d=document.getElementById("description_input").value
-                        saveDraft("DESCRIPTION",d);}
                         
-                        if(document.getElementsByClassName("xyz")==null){
+                        else if(languages==null){
                             document.getElementsById('error_language').innerHTML="Please choose a preffered language to prcoceed"}
-                        else if(document.getElementsByClassName("xyz")){
-                            var xyz=document.getElementsByClassName("xyz")
-                        for (let j = 0; j < xyz.length; j++) {
-                            saveDraft("LANGUAGE",xyz[j].innerHTML)                            
-                        }    
-                        }
-                        if(document.getElementsById("editor1")==""){
+                        
+                        else if(prereq1.innerHTML==""){
                             document.getElementsById('error_prereq').innerHTML="Please write the pre-requsites to prcoceed"
                         }
-                        else if(document.getElementsById("editor1")){
-                        var prereq1=document.getElementById("editor1").innerHTML
-                        saveDraft("PRE_REQ",prereq1);
-                        this.current = this.DIFFICULTY}
+                        else {
+                            for (let j = 0; j < languages.length; j++) {   
+                                languages1[j] +=languages[j].innerHTML;
+                            }    
+                            saveDraft("language",languages1) 
+                            saveDraft("description",description);
+                            saveDraft("pre_req",prereq1.innerHTML);
+                            this.current = this.DIFFICULTY
+                        }
                         break;
                     case this.DIFFICULTY:
                         var diff = document.getElementsByName('diff');
@@ -250,16 +249,17 @@
                         document.getElementsById('error_diff').innerHTML="Please choose a difficulty level to prcoceed"
                         }
                         else if(dif!=0){
-                        saveDraft("DIFFICULTY",dif);
+                        saveDraft("difficulty",dif);
                         this.current = this.OVERVIEW}
                         break;
                     case this.OVERVIEW:
-                        if(document.getElementById("overview_input").value==""){
-                        document.getElementsById('error_image').innerHTML="Please write an overview to prcoceed"}
-                        else if(document.getElementById("overview_input").value){
-                        var o=document.getElementById("overview_input").value
-                        saveDraft("OVERVIEW",o)
-                        this.current = this.IMAGE}
+                        let ovr=document.getElementById("overview_input").value
+                        if(ovr==""){
+                            document.getElementsById('error_image').innerHTML="Please write an overview to prcoceed"
+                        } else {
+                            saveDraft("overview",ovr.value)
+                            this.current = this.IMAGE
+                        }
                         break;
                     case this.IMAGE:
                         window.location.href = "{% url 'teach:chapter' 0 %}".replace(/0/, this.pk)
