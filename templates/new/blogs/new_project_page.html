@@ -7,11 +7,40 @@
 
 <script src="{% static 'js/blogs/subtopic.js' %}"></script>
 <link rel="stylesheet" href="{% static 'new_css/blogs/new_project_page.css' %}">
+<link rel="stylesheet" href="{% static  'new_css/teach/dialog.css' %}">
 {% endblock content_head %} 
 
 {% block content %} {%csrf_token%}
 
+<div style="z-index: 3;" id="projectdelete">
+    <div class="dlt-heading">
+        <p>Are you absolutely sure?</p>
+        <p class="dlt-heading-close"><i onclick="projectoff()" class="bi bi-x"></i></p>
+    </div>
+    <div class="dlt-warning">
+        <p>On continuing, your project will be created.</p>
+    </div>
+    <div class="dlt-btn">
+        <button onclick="reviewAndCreateProject()">On continuing, you agree to KnowInDeep's Terms of Creators.</button>
+    </div>
+</div>
 
+<div style="z-index: 2;" id="projectoverlay" onclick="projectoff()"></div>
+<script>
+function projectoff() {
+    document.getElementById("projectoverlay").style.display = "none";
+    document.getElementById("projectdelete").style.display = "none";
+    document.body.style.overflow = "scroll";
+
+}
+function projecton() {
+        document.getElementById("projectoverlay").style.display = "block";
+        document.getElementById("projectdelete").style.display = "block";
+        // document.documentElement.scrollTop = 0;
+        // document.body.scrollTop = 0;
+        // document.body.style.overflow = "hidden";
+    }
+</script>
 <div class="container project-main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
@@ -24,7 +53,7 @@
 
     {% if can_review %}
     <div class="index-button" style="position: relative;top: -5.7rem;left: 70.8rem;width: 165px; ">
-        <a style="color: white;width: 100%;font-weight: 450;" onclick="reviewAndCreateProject()"
+        <a style="color: white;width: 100%;font-weight: 450;" onclick="projecton()"
             class="btn btn-warning py-1 px-2 my-3">CREATE PROJECT</a>
     </div>
     <div class="index-button" style="position: relative;top: -6.25rem;left: 70.8rem;width: 165px;">
