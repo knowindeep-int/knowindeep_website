@@ -229,14 +229,24 @@
                     </ul>
                 </div>
                 <hr>
+                <div style="padding: 1rem;">
+                    <div style="text-align: center;color: #008800;">Approved<i class="fa fa-check" aria-hidden="true"></i></div>
+                <!--         
+                    <div style="
+                    text-align: center;
+                    color: #ca0909;
+                ">Approval Pending</div> -->
+                </div>
+                <hr>
                 <div class="index-cta py-2 px-4 mx-1 ">
-                    <div class="index-button">
+                    <div class="index-button"style="display: inline;">
                         <a style="color: white;" href="{% url 'project:sub_topic' project.slug %}" class="btn btn-warning py-1 px-2 ">GO TO BLOG</a>
                     </div>
                     {% if not project.isApproved %} 
-                    <div class="index-button">
-                        <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT</a>
+                    <div class="index-button"style="float: right;display: inline; width 50%">
+                        <a style="color: white; width: 100%;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT</a>
                     </div>
+                    
 
                     <!-- The code for when the project is approved will go here -->
 
