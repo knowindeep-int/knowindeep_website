@@ -506,3 +506,10 @@ p{
 .autocomplete2:first-child{
     margin-left: 8px !important;
 }
+
+.upbanner{
+padding: 300px 0px 100px 0;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center center;
+}
