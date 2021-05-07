@@ -133,7 +133,7 @@
                 <img src="{{project.image}}" class="card-img-top" alt="..." onerror=this.src="/media/images/971.jpg">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
-                    <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
+                    <h6 class="card-text px-2 text-center">{{project.description | slice:":40"}}</h6>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }} {{project.author.user.last_name}}</li>
@@ -217,7 +217,7 @@
                 <img src="{{project.image}}" class="  card-img-top" alt="..." onerror=this.src="/media/images/971.jpg">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
-                    <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
+                    <h6 class="card-text px-2 text-center">{{project.description | slice:":40"}}</h6>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }} {{project.author.user.last_name}}</li>
