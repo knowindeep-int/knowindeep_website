@@ -41,7 +41,7 @@ def subtopics(request,slug):
             "can_review": False
         }
         return render(request,"new/blogs/new_project_page.html",context)
-    return HttpResponse('You are not allowed to access this page', status =500)
+    return render(request, "new/error/unauthorised_page.html")
 
 def chapter_post(request,slug, chapter):
     project = Project.objects.get(slug = slug)
@@ -70,7 +70,7 @@ def chapter_post(request,slug, chapter):
             # "has_liked": has_liked
         }
         return render(request,"new/blogs/new_chapter_page.html", context)
-    return HttpResponse('You are not allowed to access this page', status =500)
+    return render(request, "new/error/unauthorised_page.html")
 
 def remove(request,slug,method):
     
@@ -86,7 +86,7 @@ def remove(request,slug,method):
         project.save()
 
         return redirect('project:index')
-    return HttpResponse("You are not Authorized to access this Page", status = 500)
+    return render(request, "new/error/unauthorised_page.html")
 
 def approve(request,slug,method):
     if request.user.is_superuser and method=='project':
@@ -98,7 +98,7 @@ def approve(request,slug,method):
         project.isApproved = True
         project.save()
         return redirect('project:index')
-    return HttpResponse("You are not Authorized to access this Page", status = 500)
+    return render(request, "new/error/unauthorised_page.html")
 
 # def list_all_blogs(request):
 #     context = {'blogs':Blog.objects.all()}
@@ -120,7 +120,7 @@ def review_subtopics(request,slug):
             "can_review": True
         }
         return render(request,"new/blogs/new_project_page.html",context)
-    return HttpResponse('You are not allowed to access this page', status =500)
+    return render(request, "new/error/unauthorised_page.html")
 
 
 def chapter_post_review(request,slug, chapter):
@@ -142,7 +142,7 @@ def chapter_post_review(request,slug, chapter):
         }
         print(context)
         return render(request,"new/blogs/new_chapter_page.html", context)
-    return HttpResponse('You are not allowed to access this page', status =500)
+    return render(request, "new/error/unauthorised_page.html")
 
 def error404(request, exception):
     return HttpResponse(request)
