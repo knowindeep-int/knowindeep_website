@@ -154,7 +154,7 @@
                         <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT BLOG</a>
                     </div>
                     <div class="index-button del12">
-                        <a style="color: white;" data-href="{{project.pk}}" id="delete-project-button" class="btn btn-warning py-1 px-2 ">DELETE</a>
+                        <a style="color: white;" data-href="{{project.pk}}" onclick="projecton('{{project.pk}}')" id="delete-project-button" class="btn btn-warning py-1 px-2 ">DELETE</a>
                     </div>
 
                     <!-- <div class="btn-group"> -->
@@ -302,7 +302,8 @@
         window.location.href = '{% url 'teach:delete_ongoing_project' 0 %}'.replace(/0/, pk);
     }
 
-    function projecton() {
+    function projecton(pk) {
+        document.getElementById("projectdelete").setAttribute("delete-project-id", pk);
         document.getElementById("projectoverlay").style.display = "block";
         document.getElementById("projectdelete").style.display = "block";
         document.documentElement.scrollTop = 0;
@@ -331,12 +332,10 @@
 
     }
 
-    document.getElementById("delete-project-button").onclick = function(e) {
-        projecton();
-        let pk = document.getElementById("delete-project-button").getAttribute("data-href");
-        console.log(pk);
-        document.getElementById("projectdelete").setAttribute("delete-project-id", pk);
-    }
+    // document.getElementById("delete-project-button").onclick = function(e) {
+    //     projecton();
+    //     let pk = document.getElementById("delete-project-button").getAttribute("data-href");
+    // }
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous"></script>
