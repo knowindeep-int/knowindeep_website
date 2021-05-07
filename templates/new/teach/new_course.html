@@ -201,16 +201,17 @@
                             saveDraft("title",title)
                             this.current = this.CATEGORY    
                         } else {
-                            document.getElementsById('error_title').innerHTML="Please choose a Title to prcoceed"
+                            console.log("empty")
+                            document.getElementById('error_title').innerHTML="Please choose a Title to prcoceed"
                         }
                         break;
                     case this.CATEGORY:
-                        let category = document.getElementById("cat-select").value
+                        let category = document.getElementById("category_input").value
                         if(!!category) {
                             saveDraft("category",category)
                             this.current = this.DESCRIPTION
                         } else {
-                            document.getElementsById('error_cat').innerHTML="Please choose a category to prcoceed"
+                            document.getElementById('error_cat').innerHTML="Please choose a category to prcoceed"
                         }
                         break;
                     case this.DESCRIPTION:
@@ -219,13 +220,13 @@
                         let languages = document.getElementsByClassName("xyz")     
 
                         if(description==""){
-                        document.getElementsById('error_descriptiont').innerHTML="Please write a description to prcoceed"}
+                        document.getElementById('error_descriptiont').innerHTML="Please write a description to prcoceed"}
                         
                         else if(languages==null){
-                            document.getElementsById('error_language').innerHTML="Please choose a preffered language to prcoceed"}
+                            document.getElementById('error_language').innerHTML="Please choose a preffered language to prcoceed"}
                         
                         else if(prereq1.innerHTML==""){
-                            document.getElementsById('error_prereq').innerHTML="Please write the pre-requsites to prcoceed"
+                            document.getElementById('error_prereq').innerHTML="Please write the pre-requsites to prcoceed"
                         }
                         else {
                             for (let j = 0; j < languages.length; j++) {   
@@ -246,7 +247,7 @@
                             }
                         }
                         if(dif==0){
-                        document.getElementsById('error_diff').innerHTML="Please choose a difficulty level to prcoceed"
+                        document.getElementById('error_diff').innerHTML="Please choose a difficulty level to prcoceed"
                         }
                         else if(dif!=0){
                         saveDraft("difficulty",dif);
@@ -255,7 +256,7 @@
                     case this.OVERVIEW:
                         let ovr=document.getElementById("overview_input").value
                         if(ovr==""){
-                            document.getElementsById('error_image').innerHTML="Please write an overview to prcoceed"
+                            document.getElementById('error_image').innerHTML="Please write an overview to prcoceed"
                         } else {
                             saveDraft("overview",ovr.value)
                             this.current = this.IMAGE
