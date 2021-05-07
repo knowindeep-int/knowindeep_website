@@ -1,0 +1,393 @@
+{% extends "new/new_base.html" %} {% load static %}
+
+{% block content_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'new_css/teach/new_course.css' %}">
+<script type="text/javascript" src="..git pulg/static/blogs/css/app.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+{% endblock content_head %}
+
+{% block content %}
+
+<div id="app">
+
+    <div class="container">
+        <div>
+            <h6>Step <span id="current-page">[[ currentPage ]]</span> of <span id="total">6</span></h6>
+        </div>
+
+        <div class="w3-container">
+
+            <div class="w3-light-orange w3-tiny">
+                <div class="w3-container w3-amber" style="width:14%"></div>
+            </div>
+
+            <div v-if="current == TITLE" class="container container-fluid container-fluid1" id="kid-project-title"><img
+                    src="/media/images/icon.png" class="icon1">
+                <h3>How about a working title?</h3>
+                <h6>It's ok if you can't think of a good title now. You can change it later.</h6>
+                <input type="text" class="example1" placeholder="Ex: Notes App" id="title_input" value="{{title}}">
+                <br><span id="error_title" class="error9"></span>
+            </div>
+
+        </div>
+
+
+        <div v-if="current == CATEGORY" class="container container-fluid container-fluid1" id="kid-project-category">
+            <img src="/media/images/icon.png" class="icon1">
+            <h3 for="cat-select">Choose a pet:</h3>
+
+            <select id="category_input">
+                <option>--Please choose an option--</option>
+                <option>App Development</option>
+                <option>Web Development</option>
+                <option>Image Processing</option>
+                <option>Machine Learning</option>
+                <option>Cyber Security</option>
+                <option>Data Analytics</option>
+                <option>Competitive Programming</option>
+                <option>Internet of things</option>
+            </select>
+            <span id="error_cat" class="error9"></span>
+        </div>
+
+        <div v-if="current == DESCRIPTION" class="container container-fluid container-fluid1" id="kid-project-category">
+            <img src="/media/images/icon.png" class="icon1">
+            <h3>How about a working description?</h3>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Keep the description short and simple."
+                    maxlength="100" id="description_input" value="">
+                <span id="error_description" class="error9"></span>
+            </div>
+            <h6>Add Languages</h6>
+            <div id="langs" class="autocomplete2">
+                <span class="xyz">Java<i id="1" class="fa fa-times" style="display:inline;" aria-hidden="true"
+                        onclick="die(event)"></i>
+                </span>
+                <div class="autocomplete" style="width: 100%;">
+                    <input type="search" class="pret" id="search_language" name="Languages" placeholder="Type here">
+                </div>
+            </div>
+            <div id="error_language" class="error9">
+            </div>
+            <h6>Add Prerequisites</h6>
+            <div class="search-bar">
+                <div class="top-bar12">
+                    <button id="bold" onclick="document.execCommand('bold')">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button id="underline" onclick="document.execCommand('italic')">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button id="italic" onclick="document.execCommand('underline')">
+                        <i class="fas fa-underline" style="font-size: 17px;"></i>
+                    </button>
+                    <span class="slash">|</span>
+                    <button id="bold" onclick="document.execCommand('insertOrderedList')">
+                        <i class="fas fa-list-ol"></i>
+                    </button>
+                    <button id="bold" onclick="document.execCommand('insertUnorderedList')">
+                        <i class="fas fa-list-ul"></i>
+                    </button>
+                    <span class="slash">|</span>
+                    <button id="ordered-list" onclick="addLink()">
+                        <img src="{% static 'images/crlink.png' %}" class="crlink1"
+                            alt="{% static 'images/crlink.png' %}">
+                    </button>
+                </div>
+                <div class="editor" id="editor1" contenteditable="true" spellcheck="false">
+
+                </div>
+                <div id="error_prereq" class="error9">
+
+                </div>
+            </div>
+        </div>
+
+        <div v-if="current == DIFFICULTY" class="container-fluid container-fluid1 container">
+            <img src="/media/images/no_of_hours.png" class="icon1">
+            <h3>Add difficulty level for the project</h3>
+            <br>
+            <div class="dot">
+                <span class="dot-bar">
+                    <input class="male" type="radio" id="easy" name="diff" value="EASY">
+                    <label for="easy">EASY</label>
+                </span>
+                <span class="dot-bar">
+                    <input class="male" type="radio" id="medium" name="diff" value="MEDIUM">
+                    <label for="medium">MEDIUM</label>
+                </span>
+                <span class="dot-bar">
+                    <input class="male" type="radio" id="hard" name="diff" value="HARD">
+                    <label for="hard">HARD</label>
+                </span>
+                <div id="error_diff" class="error9">
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+        </div>
+
+        <div v-if="current == OVERVIEW" class="container container-fluid container-fluid1">
+            <img src="/media/images/icon.png" class="icon1">
+            <h3>How about a working overview?</h3>
+            <h6>It's ok if you can't think of a good overview now. You can change it later.</h6>
+            <input type="text" class="example1" placeholder="Ex: App which lets you make notes" id="overview_input"
+                value="">
+            <div id="error_overview" class="error9"></div>
+        </div>
+
+        <div v-if="current == IMAGE" class="container-fluid container-fluid1 container">
+            <img src="/media/images/no_of_hours.png" class="icon1">
+            <h3>Add image for your page</h3>
+            <div style="color: black;" id="image_input_div">
+                <input id="image_input" type="file" onchange="checkImage()" style="color: black;right: -50px;">
+                <div id="error_image"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <button class="previous b" id="prev_btn" @click="previous">Previous</button>
+            <button class="next b save_btn" id="save_btn">Save</button>
+            <button class="next b" id="next_btn" @click="next">Next</button>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    var bold = "'bold'";
+    var underline = "'underline'";
+    var italic = "'italic'";
+    var ordered = "'insertOrderedList'";
+    var unordered = "'insertUnorderedList'"
+
+    setTimeout(() => {
+        getLangPrereq();
+    }, 10);
+
+</script>
+{% if DEBUG %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+{% else %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+{% endif %}
+<script>
+
+    var app = new Vue({
+        delimiters: ["[[", "]]"],
+        el: '#app',
+        data: {
+            TITLE: "TITLE",
+            CATEGORY: "CATEGORY",
+            DESCRIPTION: "DESCRIPTION",
+            DIFFICULTY: "DIFFICULTY",
+            OVERVIEW: "OVERVIEW",
+            IMAGE: "IMAGE",
+            pk: -1,
+            current: "TITLE",
+            currentPage: 1
+        },
+        methods: {
+            next: function () {
+                switch (this.current) {
+                    case this.TITLE:
+                        let title = document.getElementById("title_input").value;
+                        if(!!title){
+                            saveDraft("title",title)
+                            this.current = this.CATEGORY    
+                        } else {
+                            document.getElementsById('error_title').innerHTML="Please choose a Title to prcoceed"
+                        }
+                        break;
+                    case this.CATEGORY:
+                        let category = document.getElementById("cat-select").value
+                        if(!!category) {
+                            saveDraft("category",category)
+                            this.current = this.DESCRIPTION
+                        } else {
+                            document.getElementsById('error_cat').innerHTML="Please choose a category to prcoceed"
+                        }
+                        break;
+                    case this.DESCRIPTION:
+                        let description = document.getElementById("description_input").value
+                        let languages = document.getElementsByClassName("xyz")                        
+                        if(document.getElementById("description_input").value==""){
+                        document.getElementsById('error_descriptiont').innerHTML="Please write a description to prcoceed"}
+                        else if(document.getElementById("description_input").value){
+                        var d=document.getElementById("description_input").value
+                        saveDraft("DESCRIPTION",d);}
+                        
+                        if(document.getElementsByClassName("xyz")==null){
+                            document.getElementsById('error_language').innerHTML="Please choose a preffered language to prcoceed"}
+                        else if(document.getElementsByClassName("xyz")){
+                            var xyz=document.getElementsByClassName("xyz")
+                        for (let j = 0; j < xyz.length; j++) {
+                            saveDraft("LANGUAGE",xyz[j].innerHTML)                            
+                        }    
+                        }
+                        if(document.getElementsById("editor1")==""){
+                            document.getElementsById('error_prereq').innerHTML="Please write the pre-requsites to prcoceed"
+                        }
+                        else if(document.getElementsById("editor1")){
+                        var prereq1=document.getElementById("editor1").innerHTML
+                        saveDraft("PRE_REQ",prereq1);
+                        this.current = this.DIFFICULTY}
+                        break;
+                    case this.DIFFICULTY:
+                        var diff = document.getElementsByName('diff');
+                        var dif=0;
+                        for(var i = 0; i < diff.length; i++){
+                            if(diff[i].checked){
+                                dif = diff[i].value;
+                            }
+                        }
+                        if(dif==0){
+                        document.getElementsById('error_diff').innerHTML="Please choose a difficulty level to prcoceed"
+                        }
+                        else if(dif!=0){
+                        saveDraft("DIFFICULTY",dif);
+                        this.current = this.OVERVIEW}
+                        break;
+                    case this.OVERVIEW:
+                        if(document.getElementById("overview_input").value==""){
+                        document.getElementsById('error_image').innerHTML="Please write an overview to prcoceed"}
+                        else if(document.getElementById("overview_input").value){
+                        var o=document.getElementById("overview_input").value
+                        saveDraft("OVERVIEW",o)
+                        this.current = this.IMAGE}
+                        break;
+                    case this.IMAGE:
+                        window.location.href = "{% url 'teach:chapter' 0 %}".replace(/0/, this.pk)
+                        break;
+
+                }
+            },
+            previous: function () {
+                switch (this.current) {
+                    case this.TITLE:
+                        // this.current = this.CATEGORY
+                        break;
+                    case this.CATEGORY:
+                        this.current = this.TITLE
+                        break;
+                    case this.DESCRIPTION:
+                        this.current = this.CATEGORY
+                        break;
+                    case this.DIFFICULTY:
+                        this.current = this.DESCRIPTION
+                        break;
+                    case this.OVERVIEW:
+                        this.current = this.DIFFICULTY
+                        break;
+                    case this.IMAGE:
+                        this.current = this.OVERVIEW;
+                        break;
+
+                }
+            },
+            save: function () {
+
+            },
+            setStatus: function () {
+                switch ('{{status}}') {
+                    case 'title':
+                        this.currentPage = 1;
+                        this.current = this.TITLE;
+                        break;
+                    case 'image':
+                        this.currentPage = 6;
+                        this.current = this.IMAGE;
+                        break;
+                    case 'overview':
+                        this.currentPage = 5;
+                        this.current = this.OVERVIEW;
+                        break;
+                    case 'difficulty_level':
+                        this.currentPage = 4;
+                        this.current = this.DIFFICULTY;
+                        break;
+                    case 'description':
+                        this.currentPage = 3;
+                        this.current = this.DESCRIPTION;
+                        break;
+                    case 'category':
+                        this.currentPage = 2;
+                        this.current = this.CATEGORY;
+                        break;
+                    default:
+                        this.current = this.TITLE;
+                        break;
+                }
+                if ("{{ project.pk }}") {
+                    this.pk = "{{ project.pk }}"
+                }
+                var pk = pk
+            }
+        },
+        mounted: function () {
+            this.setStatus()
+        }
+    })
+
+
+</script>
+<script>
+    function addLink() {
+        var url = prompt("enter a valid url");
+        document.execCommand("CreateLink", false, url);
+    }
+
+    function saveDraft(key, value, isAdded = false) {
+        var key = key;
+        var value = value;
+
+        var data = {};
+        data[key] = value;
+        if (this.pk != -1)
+            data['pk'] = this.pk;
+        else
+            data['pk'] = null;
+        data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
+        data['isAdded'] = isAdded;
+        $.ajax({
+            method: "POST",
+            url: '{% url "api:save_draft" %}',
+            async: false,
+            data: data,
+            success: function (data) {
+                pk = data.pk
+                if (key == 'pre_req' && '{{status}}' != 'difficulty_level') {
+                    getLangPrereq();
+                }
+
+                if (key == "languages") {
+                    getLangPrereq();
+
+                }
+
+            }, error: function (error) {
+                console.log(error)
+            },
+
+        })
+    }
+</script>
+{% endblock content %}
+
+function alphanumeric(inputtxt){
+    var letterNumber = /^[0-9a-zA-Z]+$/;
+    if((inputtxt.value.match(letterNumber)) 
+    {
+    return true;
+    }
+    else
+    { 
+    alert("message"); 
+    return false; 
+    }
+    }

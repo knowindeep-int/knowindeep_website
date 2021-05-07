@@ -187,6 +187,7 @@ def api_save_draft(request):
         if not project_serializer.is_valid():
             return Response(project_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
         updated_project = project_serializer.update(instance = project, data = request.data)
+        print(updated_project)
         pk = project.pk
         data = {
             'success': "Project updated successfully!", 
