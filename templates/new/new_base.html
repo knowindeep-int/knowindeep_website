@@ -265,7 +265,7 @@
                 <ul>
                     <li><a href="{% url 'project:index' %}">Home</a></li>
                     <li><a href="{% url 'about_us' %}">About Us</a></li>
-                    <li><a href="{% url 'teach:list_of_projects' %}">Teach with Us</a></li>
+                    <li><a {% if request.user.is_authenticated %} href="{% url 'teach:list_of_projects' %}" {% else %} href="#0" onclick="on({% url 'teach:list_of_projects' %})" {% endif %}>Teach with Us</a></li>
                 </ul>
             </div>
         </div>
@@ -299,7 +299,7 @@
             {% else %}
             <div class="nav-item login">
                 <!-- <a onclick="getLoginPopUp()" class="nav-link" id="loginLink cate" data-href="{% url 'site_users:login' %}" target="#loginDialog">Login</a> -->
-                <a onclick="on()" style=" cursor: pointer;" class="nav-link" id="loginLink cate">Login</a>
+                <a onclick="on('')" style=" cursor: pointer;" class="nav-link" id="loginLink cate">Login</a>
             </div>
             {% endif %}
             </div>
@@ -344,9 +344,9 @@
             <h1 class="display-5 mb-4">Sign In</h1>
         </div>
         <div class="sin">
-            <button onclick="window.location.href='{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}'" style="width: 350px;" type="button" class="btn btn-primary btn-lg mb-3"><i class="bi bi-google"></i>  Login with Google</button>
+            <button id="kid-google-login" style="width: 350px;" type="button" class="btn btn-primary btn-lg mb-3"><i class="bi bi-google"></i>  Login with Google</button>
             <span style="text-align: center; font-weight: 600; font-style: italic;">--------------- or ---------------</span>
-            <button type="button" class="btn btn-dark btn-lg mt-3 mb-2" onclick="window.location.href='{% url 'social:begin' 'github' %}?next={{request.path}}'"><i class="bi bi-github"></i>  Login with Github</button>
+            <button id="kid-github-login" type="button" class="btn btn-dark btn-lg mt-3 mb-2"><i class="bi bi-github"></i>  Login with Github</button>
             <p style="font-size: 0.6rem;margin: 1rem 0;text-align: center;">*By signing in, you agree to KnowInDeep's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
         </div>
     </div>
@@ -468,7 +468,17 @@
     </script> 
 
     <script>
-        function on() {
+        function on(onNext) {
+            if(!!onNext)
+                next = onNext;
+            else
+                next = "{{request.path}}"
+            document.getElementById('kid-google-login').onclick = function() {
+                window.location.href = "{% url 'social:begin' 'google-oauth2' %}?next=" + next;
+            }
+            document.getElementById('kid-github-login').onclick = function() {
+                window.location.href = "{% url 'social:begin' 'github' %}?next=" + next;
+            }
             document.getElementById("overlay").style.display = "block";
             document.getElementById("base-login").style.display = "flex";
         }
@@ -504,6 +514,8 @@
             } { % endblock jquery %
             }
         })
+
+        var next = ""
     </script>
 </body>
 
