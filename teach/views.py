@@ -67,6 +67,17 @@ def text_editor(request,pk = None, chapter_pk = None):
     if not chapter_pk:
         project = Project.objects.get(pk = pk)
         chapters = project.chapters.all()
+        if chapter_pk is not None:
+            chapter = Chapter.objects.get(pk = chapter_pk)
+            context = {
+            'chapters':chapters,
+            'project': project,
+            'chapter':chapter,
+            'UNSPLASH_API_KEY_DEBUG':UNSPLASH_API_KEY_DEBUG,
+            'PEXELS_API_KEY_DEBUG':PEXELS_API_KEY_DEBUG , 
+            'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
+            'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG ,
+            }
         print(project.slug)
         context = {
             'chapters':chapters,
@@ -76,6 +87,7 @@ def text_editor(request,pk = None, chapter_pk = None):
             'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
             'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG ,
             }
+        
 
         return render(request, 'front-end/home page/teach.html',context=context)
     
