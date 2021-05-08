@@ -227,7 +227,7 @@
                     case this.TITLE:
                         let title = document.getElementById("title_input").value;
                         if(!!title){
-                            saveDraft("title",title)
+                            saveDraft("title",title, false, this.pk)
                             this.current = this.CATEGORY    
                         } else {
                             console.log("empty")
@@ -237,7 +237,8 @@
                     case this.CATEGORY:
                         let category = document.getElementById("category_input").value
                         if(!!category) {
-                            saveDraft("category",category)
+                            console.log(this.pk)
+                            saveDraft("category",category, false,pkVal=this.pk)
                             this.current = this.DESCRIPTION
                         } else {
                             document.getElementById('error_cat').innerHTML="Please choose a category to prcoceed"
@@ -262,9 +263,9 @@
                             for (let j = 0; j < languages.length; j++) {   
                                 languages1[j] +=languages[j].innerHTML;
                             }    
-                            saveDraft("language",languages1) 
-                            saveDraft("description",description);
-                            saveDraft("pre_req",prereq1.innerHTML);
+                            saveDraft("language",languages1, false,pkVal=this.pk) 
+                            saveDraft("description",description,false, pkVal=this.pk);
+                            saveDraft("pre_req",prereq1.innerHTML, false,pkVal=this.pk);
                             this.current = this.DIFFICULTY
                         }
                         break;
@@ -280,7 +281,7 @@
                         document.getElementById('error_diff').innerHTML="Please choose a difficulty level to prcoceed"
                         }
                         else if(dif!=0){
-                        saveDraft("difficulty",dif);
+                        saveDraft("difficulty",dif,false, pkVal=this.pk);
                         this.current = this.OVERVIEW}
                         break;
                     case this.OVERVIEW:
@@ -288,7 +289,7 @@
                         if(ovr==""){
                             document.getElementById('error_image').innerHTML="Please write an overview to prcoceed"
                         } else {
-                            saveDraft("overview",ovr)
+                            saveDraft("overview",ovr,false, pkVal=this.pk)
                             this.current = this.IMAGE
                         }
                         break;
@@ -373,14 +374,16 @@
         document.execCommand("CreateLink", false, url);
     }
 
-    function saveDraft(key, value, isAdded = false) {
+    function saveDraft(key, value, isAdded = false, pkVal) {
         var key = key;
         var value = value;
+        console.log(pkVal)
+        return;
 
         var data = {};
         data[key] = value;
-        if (this.pk != -1)
-            data['pk'] = this.pk;
+        if (pkVal != -1)
+            data['pk'] = pkVal;
         else
             data['pk'] = null;
         data['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
