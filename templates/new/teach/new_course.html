@@ -237,7 +237,6 @@
                     case this.CATEGORY:
                         let category = document.getElementById("category_input").value
                         if(!!category) {
-                            console.log(this.pk)
                             saveDraft("category",category, false,pkVal=this.pk)
                             this.current = this.DESCRIPTION
                         } else {
@@ -377,8 +376,6 @@
     function saveDraft(key, value, isAdded = false, pkVal) {
         var key = key;
         var value = value;
-        console.log(pkVal)
-        return;
 
         var data = {};
         data[key] = value;
