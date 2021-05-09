@@ -15,7 +15,7 @@ def author_page(request, slug):
     if slug == "@me":
         user = request.user
     else:
-        user = myUser.objects.get(username=slug)
+        user = myUser.objects.get(email=slug)
 
     context = None
 

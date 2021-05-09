@@ -60,8 +60,7 @@
                 {%endif%}
                 {%endif%}
             </h1>
-            <h4><span style="font-size: 1rem;">By</span> {{project.author}} <span
-                    style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
+            <h4><span style="font-size: 1rem;">By</span> <a href="{% url 'author:author_page' project.author.user.email %}" style="color: black; text-decoration: none;">{{project.author}}</a> <span style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
             <p style="margin-bottom: 0;">share on</p>
             <div class="social-icons">
                 <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com."
@@ -136,7 +135,7 @@
             {% endif %}
         </div>
 
-            <div class="project-author" {% if project.author %} onclick="window.location.href='{% url 'author:author_page' project.author.user.username %}'" {% endif %}>
+            <div class="project-author" {% if project.author %} onclick="window.location.href='{% url 'author:author_page' project.author.user.email %}'" {% endif %}>
                 <h3><strong>About the Author</strong></h3>
                 <div class="author-image">
                     <img src="{{project.author.dp}}" alt="" onerror=this.src="https://i.pinimg.com/originals/76/54/dd/7654dd5d578818e705c21e9aa05dd3cb.jpg">
