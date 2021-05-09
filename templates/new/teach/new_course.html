@@ -29,7 +29,7 @@
                     src="/media/images/icon.png" class="icon1">
                 <h3>How about a working title?</h3>
                 <h6>It's ok if you can't think of a good title now. You can change it later.</h6>
-                <input type="text" class="example1" placeholder="Ex: Notes App" id="title_input" value="{{title}}">
+                <input type="text" class="example1" placeholder="Ex: Notes App" id="title_input" value="{{project.title}}">
                 <br><span id="error_title" class="error9"></span>
             </div>
 
@@ -59,7 +59,7 @@
             <h3>How about a working description?</h3>
             <div class="search-bar">
                 <input type="text" class="search-input" placeholder="Keep the description short and simple."
-                    maxlength="100" id="description_input" value="">
+                    maxlength="100" id="description_input" value="{{project.description}}">
                 <span id="error_description" class="error9"></span>
             </div>
             <h6>Add Languages</h6>
@@ -99,7 +99,7 @@
                     </button>
                 </div>
                 <div class="editor" id="editor1" contenteditable="true" spellcheck="false">
-
+                    {{project.pre_req |safe}}
                 </div>
                 <div id="error_prereq" class="error9">
 
@@ -272,6 +272,15 @@
                         }
                         break;
                     case this.DIFFICULTY:
+                        difficulty_level = '{{project.difficulty_level}}'
+                    if (difficulty_level == "EASY") {
+                        document.getElementById("easy").checked = true;
+                    } else if (difficulty_level == "MEDIUM") {
+                        console.log(80);
+                        document.getElementById("medium").checked = true;
+                    } else if (difficulty_level == "HARD") {
+                        document.getElementById("hard").checked = true;
+                    }
                         var diff = document.getElementsByName('diff');
                         var dif=0;
                         for(var i = 0; i < diff.length; i++){
@@ -360,7 +369,7 @@
                 if ("{{ project.pk }}") {
                     this.pk = "{{ project.pk }}"
                 }
-                var pk = pk
+         
             }
         },
         mounted: function () {
@@ -394,7 +403,7 @@
             async: false,
             data: data,
             success: function (data) {
-                pk = data.pk
+                app.pk = data.pk
                 if (key == 'pre_req' && '{{status}}' != 'difficulty_level') {
                     getLangPrereq();
                 }

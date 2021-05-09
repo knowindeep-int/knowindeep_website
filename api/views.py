@@ -191,7 +191,8 @@ def api_save_draft(request):
         pk = project.pk
         data = {
             'success': "Project updated successfully!", 
-            'pk': pk
+            'pk': pk,
+            'project':project_serializer.data,
         }
         return Response(data, status = status.HTTP_200_OK)
     
