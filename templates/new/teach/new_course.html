@@ -15,11 +15,11 @@
 <div id="app">
 
     <div class="container">
-        <div>
+        <div class="head12">
             <h6>Step <span id="current-page">[[ currentPage ]]</span> of <span id="total">6</span></h6>
         </div>
 
-        <div class="w3-container">
+        <div class="w3-container" style="margin-bottom: 50px;">
 
             <div class="w3-light-orange w3-tiny">
                 <div class="w3-container w3-amber" style="width:14%"></div>
@@ -179,10 +179,12 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container cont12" style="width: 100% !important;">
             <button class="previous b" id="prev_btn" @click="previous">Previous</button>
+            <div class="right1">
             <button class="next b save_btn" id="save_btn">Save</button>
             <button class="next b" id="next_btn" @click="next">Next</button>
+            </div>
         </div>
 
     </div>
