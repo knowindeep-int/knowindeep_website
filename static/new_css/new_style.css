@@ -532,13 +532,20 @@ background-position: center center;
 }
 
 @media screen and (max-width: 768px) and (min-width:600px){
-  .wid{
+  .wid {
     width: 95% !important;
   }
-  .container{
-    margin-right: 30px !important;
-    margin-left: 30px !important;
+  .slick-initialized .slick-slide{
+    margin-right: 5.5rem;
+    margin-left: 5.5rem;
   }
+  .container{
+    width: 95% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    max-width: 1000px !important;
+  }
+
 }
 
 .head12{   
