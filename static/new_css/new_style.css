@@ -588,3 +588,8 @@ background-position: center center;
 .error9{
   color: rgb(196, 13, 13);
 }
+
+.noa1 li a{
+  color: black;
+  text-decoration: none;
+}
