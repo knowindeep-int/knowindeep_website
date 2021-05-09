@@ -105,8 +105,6 @@ hr {
 }
 
 .card .card-img-top {
-  width: 100%;
-
   -o-object-fit: cover;
   object-fit: cover;
 }
@@ -165,5 +163,7 @@ font-weight: 450;
   display: block;
 }
 
-
+.card-img-top{
+  height: 240px !important;
+}
 /*# sourceMappingURL=style.css.map */
