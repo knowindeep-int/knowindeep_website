@@ -19,11 +19,9 @@
             <h6>Step <span id="current-page">[[ currentPage ]]</span> of <span id="total">6</span></h6>
         </div>
 
-        <div class="w3-container" style="margin-bottom: 50px;">
-
-            <div class="w3-light-orange w3-tiny">
-                <div class="w3-container w3-amber" style="width:14%"></div>
-            </div>
+        <div class="w3-light-orange w3-tiny" style="margin: 10px 0 0 0; background-color: #ffc107;height: 2px;">
+            <div class="w3-container w3-amber" id="obar" style="width: 16.66666667%;background-color: #ffc107;"></div>
+        </div>
 
             <div v-if="current == TITLE" class="container container-fluid container-fluid1" id="kid-project-title"><img
                     src="/media/images/icon.png" class="icon1">
@@ -32,9 +30,6 @@
                 <input type="text" class="example1" placeholder="Ex: Notes App" id="title_input" value="{{project.title}}">
                 <br><span id="error_title" class="error9"></span>
             </div>
-
-        </div>
-
 
         <div v-if="current == CATEGORY" class="container container-fluid container-fluid1" id="kid-project-category">
             <img src="/media/images/icon.png" class="icon1">
@@ -51,7 +46,7 @@
                 <option>Competitive Programming</option>
                 <option>Internet of things</option>
             </select>
-            <span id="error_cat" class="error9"></span>
+            <div id="error_cat" class="error9"></div>
         </div>
 
         <div v-if="current == DESCRIPTION" class="container container-fluid container-fluid1" id="kid-project-category">
@@ -179,7 +174,7 @@
             </div>
         </div>
 
-        <div class="container cont12" style="width: 100% !important;">
+        <div class="container cont12" style="width: 100% !important; padding-top: 20px !important;">
             <button class="previous b" id="prev_btn" @click="previous">Previous</button>
             <div class="right1">
             <button class="next b save_btn" id="save_btn">Save</button>
@@ -376,7 +371,6 @@
             this.setStatus()
         }
     })
-
 
 </script>
 <script>
