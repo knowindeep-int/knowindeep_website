@@ -79,7 +79,7 @@
    
     <div class="profile-left">
         <div  class="profile-image">
-            <img src="{{profile.dp}}" id="filebur" alt="" onerror=this.src="">
+            <img src="{{profile.dp}}" id="filebur" alt="" onerror=this.src="https://i.pinimg.com/originals/76/54/dd/7654dd5d578818e705c21e9aa05dd3cb.jpg">
             <button id="buttonid" class="btn btn-light"><i class="bi bi-pencil"></i></button>
             <input id='fileid' type='file' hidden/>
             <h1 id="name">{{profile.user.username | title}}</h1>
@@ -261,14 +261,14 @@
 
 <div style="z-index: 3;" id="profiledelete">
     <div class="dlt-heading">
-        <p>Are you absolutely sure?</p>
-        <i onclick="profileoff()" class="bi bi-x"></i>
+        <p class="dlt-heading-text">Are you absolutely sure?</p>
+        <p class="dlt-heading-close"><i onclick="profileoff()" class="bi bi-x"></i></p>
     </div>
     <div class="dlt-warning">
         <p>On continuing, your account will be permanently deleted and your data will be lost forever</p>
     </div>
     <div class="dlt-btn">
-        <button onclick="location.href='/@me/delete/'" type="button">I understand the consequences, delete this account</button>
+        <button onclick="location.href='{% url 'author:delete_profile' %}'" type="button">I understand the consequences, delete this account</button>
     </div>
 </div>
 

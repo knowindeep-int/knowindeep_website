@@ -77,24 +77,35 @@ function add_language() {
 
 function createDescriptionPage(e) {
   // alert(document.getElementById("title_input").innerText.replace(/\s/g, ''))
-  if (document.getElementById("title_input")) {
-    // alert("success")
+  // if (document.getElementById("title_input")) {
+  //   // alert("success")
 
-    title = document.getElementById("title_input").value;
+  //   title = document.getElementById("title_input").value;
 
-    if (title.length == 0) {
-      document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
-      document.getElementById("error_title").style = "color: red;";
+  //   if (title.length == 0) {
+  //     document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+  //     document.getElementById("error_title").style = "color: red;";
+  //     return;
+  //   } else {
+  //     saveDraft("title", title);
+  //     document.getElementById("error_title").innerHTML = "";
+  //   }
+
+  //   if (document.getElementById("title_input").value == "") {
+  //     document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+  //     document.getElementById("error_title").style = "color: red;";
+  //     return;
+  //   }
+  // }
+  if (document.getElementById("cat-select") != null) {
+    category = document.getElementById("cat-select").value;
+    // saveDraft('overview',overview);
+    if (document.getElementById("cat-select").value == "") {
+      document.getElementById("error_cat").innerHTML = "Cannot Be Empty!";
+      document.getElementById("error_cat").style = "color: red;";
       return;
     } else {
-      saveDraft("title", title);
-      document.getElementById("error_title").innerHTML = "";
-    }
-
-    if (document.getElementById("title_input").value == "") {
-      document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
-      document.getElementById("error_title").style = "color: red;";
-      return;
+      saveDraft("category", category);
     }
   }
 
@@ -153,7 +164,7 @@ function createDescriptionPage(e) {
     "<h3>How about a working description?</h3>" +
     // "<h6>It's ok if you can't think of a good description now. You can change it later.</h6>" +
     '<div class="search-bar">' +
-    '<input type="text"  class="search-input" placeholder="Ex: App which lets you make notes" id="description_input" value="' +
+    '<input type="text"  class="search-input" placeholder="Keep the description short and simple." maxlength="100" id="description_input" value="' +
     description +
     '"> ';
   content += '<span id="error_description"></span>' + "</div>";
@@ -167,35 +178,35 @@ function createDescriptionPage(e) {
   document.getElementById("prev_btn").setAttribute("style", "display:inline;");
   document
     .getElementById("prev_btn")
-    .setAttribute("onclick", "createTitlePage()");
+    .setAttribute("onclick", "createCategoryPage()");
   document.getElementById("current").innerHTML = 2;
   document.getElementsByClassName("w3-amber")[0].style = "width:28%";
 
-  // div.setAttribute("class", "jumbotron text-center");
+  // div.setAttribute("class", "jumbotron text-center"); 
+  
   content += "<h7>Add Languages</h7>";
-  content += `<div id="langs" style="width: 68%;padding-bottom: 0; margin:10px auto; background-color:white ;text-align:left; border: 1px solid #dcdcdc; box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);">
-    <input type="search" class="pret" id="search_language" name="Languages"  placeholder="Type here" onkeyup="getChapterSearches()"> 
-    </div>`;
+  
+  content += `<div id="langs" class="autocomplete2"></div>`;
+
   // content += '<div style="color: black;">';
   // content += '<select id="selectpicker" multiple data-live-search="true" style="display: block;color: black;">';
   // <span class="xyz mm">javascript1 <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
   // <span class="xyz">javascript2 <i id="2" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
   // <span class="xyz">javascript3 <i id="3" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></span>
+ 
+ 
   var bold = "'bold'";
   var underline = "'underline'";
   var italic = "'italic'";
   var ordered = "'insertOrderedList'";
-  console.log("heygdfg");
+  var unordered = "'insertUnorderedList'"
+
   setTimeout(() => {
     getLangPrereq();
   }, 10);
 
   //content += '</select></div>'
-  content += '<div class="search-bar">';
-  //content += '<input type="search" style = "color:black;" id="search_language" class="search-input" placeholder="Type here" onkeyup="getChapterSearches()"> <i id="1" class="fa fa-times" aria-hidden="true" onClick="die(event)"></i></input>'
-  content += '<div id ="results_lang" ></div>';
 
-  content += "</div>";
   content += '<div id="error_language"></div>';
 
   content += "<h8>Add Prerequisites</h8>";
@@ -225,6 +236,9 @@ function createDescriptionPage(e) {
     '<button id="bold" onclick="document.execCommand(' +
     ordered +
     ')"><i class="fas fa-list-ol"></i></button>';
+    content += '<button id="bold" onclick="document.execCommand(' +
+    unordered +
+    ')"><i class="fas fa-list-ul"></i></button>';
   content += '<span class="slash">|</span>';
   content +=
     '<button id="ordered-list" onclick="addLink()"><svg class="svg1" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531.8 534.09"><defs><style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:30px;}</style></defs><path class="cls-1" d="M451.41,436,327.12,560.3c-37.9,37.9-42.61,94.64-10.51,126.74s88.84,27.39,126.74-10.51l44.86-41.59" transform="translate(-280.31 -224.63)"/><path class="cls-1" d="M488.21,399.21,616,271.45c37.9-37.91,94.64-42.61,126.74-10.52s27.39,88.84-10.52,126.74L688,431.88" transform="translate(-280.31 -224.63)"/><line class="cls-1" x1="348.12" y1="167.77" x2="165.47" y2="350.42"/><circle class="cls-1" cx="386.8" cy="389.09" r="130"/><line class="cls-1" x1="327.3" y1="389.09" x2="446.3" y2="389.09"/><line class="cls-1" x1="386.8" y1="448.59" x2="386.8" y2="329.59"/></svg></button>';
@@ -320,10 +334,10 @@ function createTitlePage() {
     '<br><span id="error_title"></span></div>';
   document
     .getElementById("save_btn")
-    .setAttribute("onclick", "createDescriptionPage(this);");
+    .setAttribute("onclick", "createCategoryPage(this);");
   document
     .getElementById("next_btn")
-    .setAttribute("onclick", "createDescriptionPage(this);");
+    .setAttribute("onclick", "createCategoryPage(this);");
   document.getElementById("prev_btn").setAttribute("style", "display:none");
   document.getElementById("prev_btn").setAttribute("style", "display:inline;");
   document
@@ -334,6 +348,99 @@ function createTitlePage() {
   // div.setAttribute("class", "jumbotron text-center") ;
   // div.innerHTML += "<h2 style='color: black;'>TITLE PAGE</h2>" + "<input id='title_input' type='text' style='color: black;' value='" + title +  "'  required>" + '<span id="error_title"></span>' + ' <button type="button" class="btn btn-primary" style="float: right;" onclick="createDescriptionPage();">Next</button>'
   // document.getElementById("title_input").dataset.state = 'invalid';
+}
+function createCategoryPage(){
+  if (document.getElementById("title_input")) {
+    // alert("success")
+
+    title = document.getElementById("title_input").value;
+
+    if (title.length == 0) {
+      document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+      document.getElementById("error_title").style = "color: red;";
+      return;
+    } else {
+      saveDraft("title", title);
+      document.getElementById("error_title").innerHTML = "";
+    }
+
+    if (document.getElementById("title_input").value == "") {
+      document.getElementById("error_title").innerHTML = "Cannot Be Empty!";
+      document.getElementById("error_title").style = "color: red;";
+      return;
+    }
+  }
+  sessionStorage.setItem("pk", pk);
+
+showhide("10");
+setTimeout(function () {
+  sessionStorage.setItem("pk", pk);
+}, 100);
+ div_1 = document.getElementById("1");
+ div_1.setAttribute("style", "display: none;");
+ div_1.innerHTML = "";
+
+ div_2 = document.getElementById("2");
+ div_2.setAttribute("style", "display: none;");
+ div_2.innerHTML = "";
+
+ div_3 = document.getElementById("3");
+ div_3.setAttribute("style", "display: none;");
+ div_3.innerHTML = "";
+
+ div_4 = document.getElementById("4");
+ div_4.setAttribute("style", "display: none;");
+ div_4.innerHTML = "";
+
+ div_5 = document.getElementById("5");
+ div_5.setAttribute("style", "display: none;");
+ div_5.innerHTML = "";
+
+ div_6 = document.getElementById("6");
+ div_6.setAttribute("style", "display: none;");
+ div_6.innerHTML = "";
+
+ div_7 = document.getElementById("7");
+ div_7.setAttribute("style", "display: none;");
+ div_7.innerHTML = "";
+
+ div_8 = document.getElementById("8");
+ div_8.setAttribute("style", "display: none;");
+ div_8.innerHTML = "";
+
+ div_10 = document.getElementById("9");
+ div_10.setAttribute("style", "display: none;");
+ div_10.innerHTML = "";
+
+ div = document.getElementById("10");
+
+ div.innerHTML += `
+ <div class="container container-fluid container-fluid1"><img src="/media/images/icon.png" class="icon1">
+ <h3 for="cat-select">Choose a pet:</h3>
+
+ <select id="cat-select">
+     <option value="">--Please choose an option--</option>
+     <option >App Development</option>
+     <option >Web Development</option>
+     <option >Image Processing</option>
+     <option >Machine Learning</option>
+     <option >Cyber Security</option>
+     <option >Data Analytics</option>
+     <option >Competitive Programming</option>
+     <option >Internet of things</option>
+ </select>
+ <span id="error_cat"></span></div>`
+ document
+ .getElementById("save_btn")
+ .setAttribute("onclick", "createDescriptionPage(this);");
+document
+ .getElementById("next_btn")
+ .setAttribute("onclick",  "createDescriptionPage(this);");
+document.getElementById("prev_btn").setAttribute("style", "display:inline;");
+document
+ .getElementById("prev_btn")
+ .setAttribute("onclick", "createTitlePage()");
+document.getElementById("current").innerHTML = 2;
 }
 
 var view_count = 0;

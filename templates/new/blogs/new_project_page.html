@@ -1,144 +1,127 @@
-{% extends "new/new_base.html" %}{% load static %} {% block content_head %}
-<script src="{% static 'js/blogs/subtopic.js' %}"></script>
-<link rel="stylesheet" href="{% static 'new_css/blogs/new_project_page.css' %}">{% endblock %} {% block title %}
+{% extends "new/new_base.html" %} {% load static %}
+
+{% block content_head %}
+{% block title %}
 <title>{{ project.title |title}}</title>
-{% endblock %}  {% block content %} {%csrf_token%}
-<script>
-    function fill(e){
-            if(document.getElementsByClassName('mt-5')[0].classList[2]=='bi-bookmarks'){
-                $.ajax({
-            'method':'POST',
-            'url':'{% url "api:create_book" %}',
-            'data':{
-                'pk':'{{project.pk}}',
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-            },
-            success:function(data){
-                //  alert('1')
-                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
-                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
-                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
-                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
-                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
-                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
-                }
-            },error:function(error){
-                console.log('error')
-            },
-        })
-            }
-           else{
-            $.ajax({
-            'method':'POST',
-            'url':'{% url "api:delete_book" %}',
-            'data':{
-                'pk':'{{project.pk}}',
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-            },
-            success:function(data){
-                //  alert(document.getElementsByClassName('mt-2')[0].classList)
-                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
-                // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
-                for(var i=0; i< document.getElementsByClassName(data.pk).length; i++ ){
-                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
-                document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
-                document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
-                }
-            },error:function(error){
-                console.log('error')
-            },
-        })       
-           }
-        
-        
-    }
-    // function create_bookmark(){
-        
-    // }
-   
-</script>
+{% endblock title %} 
+
+<script src="{% static 'js/blogs/subtopic.js' %}"></script>
+<link rel="stylesheet" href="{% static 'new_css/blogs/new_project_page.css' %}">
+{% endblock content_head %} 
+
+{% block content %} {%csrf_token%}
+
+
 <div class="container project-main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'project:index' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'project:sub_topic' slug=chapter_heading  %}">{{ project.topic | title }}</a></li>
     </ol>
-   
+
     {% if not project.image %}
     <img id="img1" src="{% static 'images/layer.png' %}" alt="" onerror=this.src=""> {% else %}
     <img id="img1" src="{{project.image}}" alt="" onerror=this.src=""> {% endif %}
-    
+
     {% if can_review %}
-    <div class="index-button" style="position: relative;top: -5.7rem;left: 70.8rem;width: 165px; " >
-        <a style="color: white;width: 100%;font-weight: 450;" onclick="reviewAndCreateProject()" class="btn btn-warning py-1 px-2 my-3">CREATE PROJECT</a>
+    <div class="index-button" style="position: relative;top: -5.7rem;left: 70.8rem;width: 165px; ">
+        <a style="color: white;width: 100%;font-weight: 450;" onclick="reviewAndCreateProject()"
+            class="btn btn-warning py-1 px-2 my-3">CREATE PROJECT</a>
     </div>
     <div class="index-button" style="position: relative;top: -6.25rem;left: 70.8rem;width: 165px;">
-        <a style="color: white;width: 100%;font-weight: 450;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT</a>
+        <a style="color: white;width: 100%;font-weight: 450;" href="{% url 'teach:add_course' project.pk %}"
+            class="btn btn-warning py-1 px-2 ">EDIT</a>
     </div>
+    {% endif %}
     <div class="project-content" style="margin-top: -7rem;">
         <div class="project-header">
-            <h1>{{ project.title | title }}  {%if request.user.is_authenticated%}
-                {%if project.bookmark.all%}
-                <div onclick="fill(this)" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+            <h1>{{ project.title | title }} {%if request.user.is_authenticated%}
+                {%if project.bookmark.all and request.user.user in project.bookmark.all%}
+                <div onclick="fill(this)" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill"
+                        style=" position: absolute; right: 0; font-size: 2rem;"><span
+                            style=" font-style: normal; font-size: 1.6rem;">{{project.bookmark.all.count}}</span></i>
+                </div>
                 {%else%}
-                <div onclick="fill(this)" class="{{project.pk}}" ><i class="bi mt-5 bi-bookmarks" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>                    
+                <div onclick="fill(this)" class="{{project.pk}}"><i class="bi mt-5 bi-bookmarks"
+                        style=" position: absolute; right: 0; font-size: 2rem;"><span
+                            style=" font-style: normal; font-size: 1.6rem;">{{project.bookmark.all.count}}</span></i>
+                </div>
                 {%endif%}
                 {% else %}
-                {%if project.bookmark.all%}
-                <div onclick="on()" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>
+                {%if project.bookmark.all and request.user.user in project.bookmark.all%}
+                <div onclick="on()" class="{{project.pk}}"><i class="bi mt-5  bi-bookmarks-fill"
+                        style=" position: absolute; right: 0; font-size: 2rem;"><span
+                            style=" font-style: normal; font-size: 1.6rem;">{{project.bookmark.all.count}}</span></i>
+                </div>
                 {%else%}
-                <div onclick="on()" class="{{project.pk}}" ><i class="bi mt-5 bi-bookmarks" style=" position: absolute; right: 0; font-size: 2rem;"><span  style=" font-style: normal; font-size: 1.6rem;" >{{project.bookmark.all.count}}</span></i></div>                    
-                {%endif%}   
+                <div onclick="on()" class="{{project.pk}}"><i class="bi mt-5 bi-bookmarks"
+                        style=" position: absolute; right: 0; font-size: 2rem;"><span
+                            style=" font-style: normal; font-size: 1.6rem;">{{project.bookmark.all.count}}</span></i>
+                </div>
+                {%endif%}
                 {%endif%}
             </h1>
-            <h4><span style="font-size: 1rem;">By</span> {{project.author}} <span style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
+            <h4><span style="font-size: 1rem;">By</span> <a href="{% url 'author:author_page' project.author.user.email %}" style="color: black; text-decoration: none;">{{project.author}}</a> <span style="color: #f9a80d; margin: 0 1rem;">|</span> {{project.date_approved.date}}</h4>
             <p style="margin-bottom: 0;">share on</p>
             <div class="social-icons">
-                <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com."  title="Share by Email"><img src="{% static 'images/gmail.svg' %}" class="shareon">
+                <a href="mailto:knowindeep.tech@gmail.com?subject=Hey ,this subject is for Testing!&amp;body=Check out this site http://www.google.com."
+                    title="Share by Email"><img src="{% static 'images/gmail.svg' %}" class="shareon">
                 </a>
-                <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" target="_blank" rel="noopener noreferrer" data-action="share/whatsapp/share"><img src="{% static 'images/whatsapp.svg' %}" class="shareon"></a>
-                <a data-href="" class="linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}" target="_blank" rel="noopener noreferrer" ><img src="{% static 'images/linkedin.svg' %}" class="shareon"></a>
-                <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum" class="twitter-share" data-text="Lorem Ipsum" target="_blank" rel="noopener noreferrer"><img src="{% static 'images/twitter.svg' %}" class="shareon"></a>
-                <a data-href="" href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}" target="_blank" rel="noopener noreferrer" class="share-btn"><img src="{% static 'images/facebook.svg' %}" class="shareon"></a>
+                <a href="https://api.whatsapp.com/send?text={{project.getCompleteUrl}}" target="_blank"
+                    rel="noopener noreferrer" data-action="share/whatsapp/share"><img
+                        src="{% static 'images/whatsapp.svg' %}" class="shareon"></a>
+                <a data-href="" class="linkedin-share"
+                    href="https://www.linkedin.com/shareArticle?mini=true&url={{project.getCompleteUrl}}"
+                    target="_blank" rel="noopener noreferrer"><img src="{% static 'images/linkedin.svg' %}"
+                        class="shareon"></a>
+                <a data-href="" href="https:www.twitter.com/share?url={{project.getCompleteUrl}}&text=Lorem Ipsum"
+                    class="twitter-share" data-text="Lorem Ipsum" target="_blank" rel="noopener noreferrer"><img
+                        src="{% static 'images/twitter.svg' %}" class="shareon"></a>
+                <a data-href=""
+                    href="https://www.facebook.com/sharer/sharer.php?app_id=&sdk=joey&display=popup&ref=plugin&src=share_button&u={{project.getCompleteUrl}}"
+                    target="_blank" rel="noopener noreferrer" class="share-btn"><img
+                        src="{% static 'images/facebook.svg' %}" class="shareon"></a>
             </div>
         </div>
         <div class="project-description">{{project.overview}}</div>
         <div class="project-info">
             <div class="qna">
-                <h4>What will you in this course:</h4>
-                <p>{{ project.description }}</p>
+                <h4 class="my-4">What will you learn in this project</h4>
+                <p>{{ project.overview }}</p>
             </div>
             <div class="qna">
-                <h4>Pre-Requisites for this couse:</h4>
-                {% for pre_req in project.pre_req.all %}
-                <p>{{pre_req}}</p>
-                {% endfor %}
+                <h4 class="my-4">Pre-Requisites for this project</h4>
+                
+                <p>{{project.pre_req | safe}}</p>
             </div>
             <div class="qna">
-                <h4>Difficulty Level:</h4>
+                <h4 class="my-4">Difficulty Level</h4>
                 <p>{{ project.difficulty_level | title}}</p>
             </div>
             <div class="qna">
-                <h4>Languages Used:</h4>
+                <h4 class="my-4">Languages Used</h4>
                 {% for language in project.languages.all %}
                 <span class="la">{{language}} </span>{% endfor %}
             </div>
         </div>
+        
         <div class="project-cards">
             {% if chapters %} {% for chapter in chapters %}
             <div class="project-card">
                 <div class="number">{{ forloop.counter }}</div>
                 {% if can_review %}
                 <div class="card-info">
-                    <h4> <a href="{% url 'project:chapter_post_review' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
-                        {{ chapter.title | safe }} 
-                    </a></h4>
+                    <h4> <a href="{% url 'project:chapter_post_review' slug=chapter_heading chapter=chapter.slug %}"
+                            id="blogLink" class="add">
+                            {{ chapter.title | safe }}
+                        </a></h4>
                     <p>{{ chapter | safe }}</p>
                 </div>
                 {% else %}
                 <div class="card-info">
-                    <h4> <a href="{% url 'project:chapter_post' slug=chapter_heading chapter=chapter.slug %}" id="blogLink" class="add">
-                        {{ chapter.title | safe }} 
-                    </a></h4>
+                    <h4> <a href="{% url 'project:chapter_post' slug=chapter_heading chapter=chapter.slug %}"
+                            id="blogLink" class="add">
+                            {{ chapter.title | safe }}
+                        </a></h4>
                     <p>{{ chapter | safe }}</p>
                 </div>
                 <div class="share-icon">
@@ -151,40 +134,102 @@
             <h1>No chapters for this project</h1>
             {% endif %}
         </div>
-        <div class="project-author">
-            <h3><strong>About the Author</strong></h3>
-            <div class="author-image">
-                <img src="{{project.author.dp}}" alt="" onerror=this.src="">
+
+            <div class="project-author" {% if project.author %} onclick="window.location.href='{% url 'author:author_page' project.author.user.email %}'" {% endif %}>
+                <h3><strong>About the Author</strong></h3>
+                <div class="author-image">
+                    <img src="{{project.author.dp}}" alt="" onerror=this.src="https://i.pinimg.com/originals/76/54/dd/7654dd5d578818e705c21e9aa05dd3cb.jpg">
+                </div>
+                <div class="author-info">
+                    <h4>{{project.author.user.username}}</h4>
+                    <p>{{project.author.description}}</p>
+                </div>
             </div>
-            <div class="author-info">
-                <h4>{{project.author}}</h4>
-                <p>{{project.author.description}}</p>
-            </div>
-        </div>
         <div class="margin"></div>
     </div>
 </div>
+
 <script>
-    
-    function reviewAndCreateProject(){
-        pk = "{{project.pk}}"
-           $.ajax({
-       method: 'POST',
-       url: "{% url 'api:create_project' %}",
-       data :{
-           'pk': pk,
-           'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
-       },
-       success: function(data){
-           pk =data.pk
-       }, error: function(error){
-            console.log("ERROR!")
-       }
-   }
-   )
-   document.location.href = "{% url 'teach:list_of_projects' %}"
+    function fill(e) {
+        if (document.getElementsByClassName('mt-5')[0].classList[2] == 'bi-bookmarks') {
+            $.ajax({
+                'method': 'POST',
+                'url': '{% url "api:create_book" %}',
+                'data': {
+                    'pk': '{{project.pk}}',
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function (data) {
+                    //  alert('1')
+                    // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
+                    // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+                    for (var i = 0; i < document.getElementsByClassName(data.pk).length; i++) {
+                        document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                        document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                        document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                    }
+                }, error: function (error) {
+                    console.log('error')
+                },
+            })
+        }
+        else {
+            $.ajax({
+                'method': 'POST',
+                'url': '{% url "api:delete_book" %}',
+                'data': {
+                    'pk': '{{project.pk}}',
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function (data) {
+                    //  alert(document.getElementsByClassName('mt-2')[0].classList)
+                    // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks')
+                    // document.getElementsByClassName('mt-2')[0].classList.toggle('bi-bookmarks-fill')
+                    for (var i = 0; i < document.getElementsByClassName(data.pk).length; i++) {
+                        document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks')
+                        document.getElementsByClassName(data.pk)[i].children[0].classList.toggle('bi-bookmarks-fill')
+                        document.getElementsByClassName(data.pk)[i].children[0].children[0].innerHTML = data.count
+                    }
+                }, error: function (error) {
+                    console.log('error')
+                },
+            })
+        }
+
+
     }
+    // function create_bookmark(){
+
+    // }
+
+    function reviewAndCreateProject() {
+        pk = "{{project.pk}}"
+
+        toastr.options.timeOut = 1000;
+        toastr.success("Created successfully!");
+        var audio = new Audio("/media/copy.mp3");
+        audio.volume = 0.5;
+        audio.play();
+        $.ajax({
+            method: 'POST',
+            url: "{% url 'api:create_project' %}",
+            data: {
+                'pk': pk,
+                'csrfmiddlewaretoken': $('input[name= csrfmiddlewaretoken]').val()
+            },
+            success: function (data) {
+                pk = data.pk
+
+            }, error: function (error) {
+                console.log("ERROR!")
+            }
+        }
+        )
+        setTimeout(function () { document.location.href = "{% url 'teach:list_of_projects' %}" }, 1000)
+
+    }
+
+
 </script>
 
-{% endif %}
 {% endblock %}

@@ -125,7 +125,7 @@
     </div>
 </div>
 <div class="container mt-3">
-    <div class="row slider">
+    <div class="row slider wid">
 
         {% for project in ongoing_projects %}
         <div class="col-12">
@@ -133,7 +133,7 @@
                 <img src="{{project.image}}" class="card-img-top" alt="..." onerror=this.src="/media/images/971.jpg">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
-                    <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
+                    <h6 class="card-text px-2 text-center">{{project.description | slice:":40"}}</h6>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }} {{project.author.user.last_name}}</li>
@@ -154,7 +154,7 @@
                         <a style="color: white;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT BLOG</a>
                     </div>
                     <div class="index-button del12">
-                        <a style="color: white;" data-href="{{project.pk}}" id="delete-project-button" class="btn btn-warning py-1 px-2 ">DELETE</a>
+                        <a style="color: white;" data-href="{{project.pk}}" onclick="projecton('{{project.pk}}')" id="delete-project-button" class="btn btn-warning py-1 px-2 ">DELETE</a>
                     </div>
 
                     <!-- <div class="btn-group"> -->
@@ -183,7 +183,7 @@
     </div>
 </div>
 <div id="blue-btn">
-    <button id="create_new_project_btn" type="button" onclick="location.href='{% url 'teach:add_course' %}';" class="btn btn-outline-primary py-1">CREATE NEW PROJECT</button>
+    <button id="create_new_project_btn" type="button" onclick="projectoncr()" class="btn btn-outline-primary py-1">CREATE NEW PROJECT</button>
 </div>
 <div class="container flex-column align-items-center">
     <h1 id="completed_projects_heading" >Your Completed Projects</h1>
@@ -192,15 +192,32 @@
         <button class="btn btn-outline-warning border-start-0" type="button" id="button-addon2">Search</button>
     </div>
 </div>
+<div style="z-index: 3;" id="projectcreate">
+    <div class="dlt-heading">
+        <p>Are you absolutely sure?</p>
+        <p class="dlt-heading-close"><i onclick="projectoffcr()" class="bi bi-x"></i></p>
+    </div>
+    <div class="dlt-warning">
+        <p>On continuing, your project will be created.
+            On continuing, you agree to <a href="{% url 'terms_for_creators' %}" target="_blank">KnowInDeep's Terms of Creators</a>.
+        </p>
+    </div>
+    <div class="dlt-btn">
+        <button onclick="location.href='{% url 'teach:add_course' %}';">CREATE </button>
+    </div>
+</div>
+
+<div style="z-index: 2;" id="projectoverlay2" onclick="projectoffcr()"></div>
+
 <div class="container mt-3">
-    <div class="row slider">
+    <div class="row slider wid">
         {% for project in completed_projects %}
         <div class="col-12">
             <div class="card">
                 <img src="{{project.image}}" class="  card-img-top" alt="..." onerror=this.src="/media/images/971.jpg">
                 <div class="card-body pb-3 ">
                     <h5 class="card-title">{{project | title }}</h5>
-                    <h6 class="card-text px-2 text-center">{{project.overview | slice:":40"}}</h6>
+                    <h6 class="card-text px-2 text-center">{{project.description | slice:":40"}}</h6>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Author Name: </strong>{{ project.author.user.first_name }} {{project.author.user.last_name}}</li>
@@ -212,10 +229,30 @@
                     </ul>
                 </div>
                 <hr>
+                <div style="padding: 1rem;">
+                    <div style="text-align: center;color: #008800;">Approved<i class="fa fa-check" aria-hidden="true"></i></div>
+                <!--         
+                    <div style="
+                    text-align: center;
+                    color: #ca0909;
+                ">Approval Pending</div> -->
+                </div>
+                <hr>
                 <div class="index-cta py-2 px-4 mx-1 ">
-                    <div class="index-button">
+                    <div class="index-button"style="display: inline;">
                         <a style="color: white;" href="{% url 'project:sub_topic' project.slug %}" class="btn btn-warning py-1 px-2 ">GO TO BLOG</a>
                     </div>
+                    {% if not project.isApproved %} 
+                    <div class="index-button"style="float: right;display: inline; width 50%">
+                        <a style="color: white; width: 100%;" href="{% url 'teach:add_course' project.pk %}" class="btn btn-warning py-1 px-2 ">EDIT</a>
+                    </div>
+                    
+
+                    <!-- The code for when the project is approved will go here -->
+
+                    {% else %}
+                    <!-- The code for when the project is not approved will go here -->
+                    {% endif %}
                     <div class="btn-group">
                         <button style="background-color: transparent; box-shadow: none;" type="button" class="btn btn-light border-0 p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img style="color: #f9a80d; width: 1.2rem;" src="/media/share.svg" alt="">
@@ -247,7 +284,7 @@
 <div style="z-index: 3;" id="projectdelete">
     <div class="dlt-heading">
         <p>Are you absolutely sure?</p>
-        <i onclick="projectoff()" class="bi bi-x"></i>
+        <p class="dlt-heading-close"><i onclick="projectoff()" class="bi bi-x"></i></p>
     </div>
     <div class="dlt-warning">
         <p>On continuing, your project will be permanently deleted and the data will be lost forever. There is no going back.</p>
@@ -265,7 +302,8 @@
         window.location.href = '{% url 'teach:delete_ongoing_project' 0 %}'.replace(/0/, pk);
     }
 
-    function projecton() {
+    function projecton(pk) {
+        document.getElementById("projectdelete").setAttribute("delete-project-id", pk);
         document.getElementById("projectoverlay").style.display = "block";
         document.getElementById("projectdelete").style.display = "block";
         document.documentElement.scrollTop = 0;
@@ -279,13 +317,25 @@
         document.body.style.overflow = "scroll";
 
     }
-
-    document.getElementById("delete-project-button").onclick = function(e) {
-        projecton();
-        let pk = document.getElementById("delete-project-button").getAttribute("data-href");
-        console.log(pk);
-        document.getElementById("projectdelete").setAttribute("delete-project-id", pk);
+    function projectoncr() {
+        document.getElementById("projectoverlay2").style.display = "block";
+        document.getElementById("projectcreate").style.display = "block";
+        // document.documentElement.scrollTop = 0;
+        // document.body.scrollTop = 0;
+        // document.body.style.overflow = "hidden";
     }
+
+    function projectoffcr() {
+        document.getElementById("projectoverlay2").style.display = "none";
+        document.getElementById("projectcreate").style.display = "none";
+        document.body.style.overflow = "scroll";
+
+    }
+
+    // document.getElementById("delete-project-button").onclick = function(e) {
+    //     projecton();
+    //     let pk = document.getElementById("delete-project-button").getAttribute("data-href");
+    // }
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous"></script>

@@ -187,10 +187,12 @@ def api_save_draft(request):
         if not project_serializer.is_valid():
             return Response(project_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
         updated_project = project_serializer.update(instance = project, data = request.data)
+        print(updated_project)
         pk = project.pk
         data = {
             'success': "Project updated successfully!", 
-            'pk': pk
+            'pk': pk,
+            'project':project_serializer.data,
         }
         return Response(data, status = status.HTTP_200_OK)
     
@@ -529,4 +531,12 @@ def api_update_user_status(request):
         profile = Profile.getProfile(user = request.user)
         print(profile)
         data = {'message':profile.no_of_users}
+        return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['POST',])
+def api_delete_chapter(request):
+    if request.method == 'POST':
+        chapter = Chapter.objects.get(pk = request.POST['pk'])
+        chapter.delete()
+        data = {'pk':chapter.pk}
         return Response(data, status=status.HTTP_200_OK)

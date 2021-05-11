@@ -105,8 +105,6 @@ hr {
 }
 
 .card .card-img-top {
-  width: 100%;
-
   -o-object-fit: cover;
   object-fit: cover;
 }
@@ -146,7 +144,6 @@ width: 100%;
 font-weight: 450;
 }
 
-
 .dropdown-menu {
   -webkit-transform: translate(-105px, -40px) !important;
   transform: translate(-105px, -40px) !important;
@@ -163,5 +160,9 @@ font-weight: 450;
 }
 .show {
   display: block;
+}
+
+.card-img-top{
+  height: 240px !important;
 }
 /*# sourceMappingURL=style.css.map */

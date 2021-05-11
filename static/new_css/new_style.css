@@ -210,6 +210,7 @@ nav {
   position: absolute;
   background-color: #ffffff;
   min-width: 230px;
+  top: 50px;
   -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   right: -85px;
@@ -281,6 +282,17 @@ nav {
   -webkit-transform: translateX(-3%);
   transform: translateX(-3%);
 }
+
+#base-myDropdown:before {
+  position: absolute;
+  top: -9px;
+  left:166px;
+  display: inline-block;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #fff;
+  border-left: 9px solid transparent;
+  content: '';
+  }
 
 #base-myDropdown a {
   padding: 1rem !important;
@@ -396,10 +408,22 @@ nav {
   }
 }
 
+.mains-containers{
+  min-height: 100vh;
+  position: relative;
+}
+.page-container{
+padding-bottom: 350px;
+}
 .base-footer {
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  /* position: absolute;
-    bottom: 0; */
+  height: 350px;
+  z-index: -1;
+    /* left: 0;
+  bottom: 0; */
+    /* position: fixed; */
 }
 
 .base-footer_content {
@@ -462,8 +486,8 @@ nav {
   display: none;
 }
 .editor p::before {
- counter-increment: line;
- content: counter(line) "  ";
+ /* counter-increment: line; */
+ /* content: counter(line) "  "; */
 }
 
 body{
@@ -471,4 +495,101 @@ body{
 }
 p{
   margin-bottom: 0;
+}
+
+#results_lang{
+  background-color: white;
+  border: 1px solid #dcdcdc;
+  box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);  
+}
+
+.autocomplete2{
+    width: 69%;
+    padding-bottom: 0;
+    display: flex;
+    /* margin: 10px auto; */
+    background-color: white;
+    text-align: left;
+    border: 1px solid #dcdcdc;
+    box-shadow: inset 1px 2px 8px rgb(0 0 0 / 7%);
+    margin: auto;
+
+}
+
+.autocomplete2:first-child{
+    margin-left: 8px !important;
+}
+
+.upbanner{
+padding: 300px 0px 100px 0;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center center;
+}
+
+.wid{
+  width: 90% !important;
+}
+
+@media screen and (max-width: 768px) and (min-width:600px){
+  .wid {
+    width: 95% !important;
+  }
+  .slick-initialized .slick-slide{
+    margin-right: 5.5rem;
+    margin-left: 5.5rem;
+  }
+  .container{
+    width: 95% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    max-width: 1000px !important;
+  }
+
+}
+
+.head12{   
+   padding: 15px 10px 5px 10px;;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: white;
+    width: 100%;
+    margin-top: -50px;
+    text-align: left;
+}
+
+.head12 h6{
+  font-weight: 900;
+  font-size: 20px;
+  
+}
+.cont12{
+  background-color: white !important;
+  padding: 20px 0px 20px 0px !important;
+    margin-bottom: -50px;
+}
+
+.cont12 .previous{
+  float: left;
+}
+
+.right1{
+  float: right;
+}
+
+
+.b {
+  background-color: #004a80;
+  color: white;
+  border: none;
+  padding: 5px 20px;
+}
+
+.error9{
+  color: rgb(196, 13, 13);
+}
+
+.noa1 li a{
+  color: black;
+  text-decoration: none;
 }

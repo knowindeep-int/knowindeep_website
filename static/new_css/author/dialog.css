@@ -23,13 +23,24 @@ body {
 .dlt-heading {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0.8rem;
   border-bottom: 1px solid rgb(138, 138, 138);
 }
 
+
 .dlt-heading p {
   font-weight: bold;
+}
+
+.dlt-heading-text {
+  width: 100%;
+  text-align: center;
+}
+
+.dlt-heading-close {
+  flex: 1;
+  text-align: right; 
 }
 
 .dlt-heading i {

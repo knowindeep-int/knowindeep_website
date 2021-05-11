@@ -4,10 +4,14 @@ import json
 from project.models import Language, Project, Profile,Chapter
 from project.utils import getApiKey
 
+import os
+
 def add_course(request, pk = None):
     UNSPLASH_API_KEY_DEBUG,PEXELS_API_KEY_DEBUG ,IMGUR_CLIENT_ID_DEBUG,IMGUR_BEARER_DEBUG = getApiKey()  
     if request.user.is_authenticated:
         languages = Language.getAllLanguages()
+        DEBUG = bool(int(os.environ.get('DEBUG') or 1 ))
+
         # pre_reqs = PreRequisite.getAllPreReqs()
 
         if pk is None:
@@ -15,7 +19,8 @@ def add_course(request, pk = None):
                 'languages' : languages,        
                 # 'pre_reqs' : pre_reqs,
                 'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
-                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
+                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG,
+                'DEBUG':DEBUG
             }
 
         else:
@@ -35,10 +40,13 @@ def add_course(request, pk = None):
                 'difficulty_level': difficulty_level,
                 'selected_languages': selected_languages,
                 'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
-                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG
+                'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG,
+                'DEBUG':DEBUG
             }
             
-        return render(request, 'teach/new_course.html', context=context)
+        print(context)
+        # return render(request, 'teach/new_course.html', context=context)
+        return render(request, "new/teach/new_course.html",context=context)
     return redirect("/")
 
 
@@ -59,6 +67,17 @@ def text_editor(request,pk = None, chapter_pk = None):
     if not chapter_pk:
         project = Project.objects.get(pk = pk)
         chapters = project.chapters.all()
+        if chapter_pk is not None:
+            chapter = Chapter.objects.get(pk = chapter_pk)
+            context = {
+            'chapters':chapters,
+            'project': project,
+            'chapter':chapter,
+            'UNSPLASH_API_KEY_DEBUG':UNSPLASH_API_KEY_DEBUG,
+            'PEXELS_API_KEY_DEBUG':PEXELS_API_KEY_DEBUG , 
+            'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
+            'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG ,
+            }
         print(project.slug)
         context = {
             'chapters':chapters,
@@ -68,6 +87,7 @@ def text_editor(request,pk = None, chapter_pk = None):
             'IMGUR_CLIENT_ID_DEBUG': IMGUR_CLIENT_ID_DEBUG,
             'IMGUR_BEARER_DEBUG' : IMGUR_BEARER_DEBUG ,
             }
+        
 
         return render(request, 'front-end/home page/teach.html',context=context)
     

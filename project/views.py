@@ -28,11 +28,11 @@ def topics(request):
 
 def subtopics(request,slug):
     project = Project.objects.get(slug=slug)
-    if project.canUserView(request.user):
+    if project.canUserViewProject(request.user):
         #blog = Chapter.objects.filter(link_to__slug=slug)
         chapters = Project.getAllChapters(slug)
         has_liked = project.has_user_liked(request.user)
-
+        print(project.bookmark.all())
         context = {
             "chapters": chapters,
             "chapter_heading": slug,
@@ -41,7 +41,7 @@ def subtopics(request,slug):
             "can_review": False
         }
         return render(request,"new/blogs/new_project_page.html",context)
-    return HttpResponse('You are not allowed to access this page', status =500)
+    return render(request, "new/error/unauthorised_page.html")
 
 def chapter_post(request,slug, chapter):
     project = Project.objects.get(slug = slug)
@@ -52,6 +52,7 @@ def chapter_post(request,slug, chapter):
         #main_blog = Project.objects.get(slug=slug)
         title = Project.getTitle(slug = slug)
         author = chapter_content.author
+        print(request.user)
         # main_blog.increase_view
         # soup = BeautifulSoup(blog_content.content,"lxml")
         # for heading in soup.find_all(["h1", "h2", "h3"]):
@@ -69,7 +70,7 @@ def chapter_post(request,slug, chapter):
             # "has_liked": has_liked
         }
         return render(request,"new/blogs/new_chapter_page.html", context)
-    return HttpResponse('You are not allowed to access this page', status =500)
+    return render(request, "new/error/unauthorised_page.html")
 
 def remove(request,slug,method):
     
@@ -85,7 +86,7 @@ def remove(request,slug,method):
         project.save()
 
         return redirect('project:index')
-    return HttpResponse("You are not Authorized to access this Page", status = 500)
+    return render(request, "new/error/unauthorised_page.html")
 
 def approve(request,slug,method):
     if request.user.is_superuser and method=='project':
@@ -97,7 +98,7 @@ def approve(request,slug,method):
         project.isApproved = True
         project.save()
         return redirect('project:index')
-    return HttpResponse("You are not Authorized to access this Page", status = 500)
+    return render(request, "new/error/unauthorised_page.html")
 
 # def list_all_blogs(request):
 #     context = {'blogs':Blog.objects.all()}
@@ -119,7 +120,7 @@ def review_subtopics(request,slug):
             "can_review": True
         }
         return render(request,"new/blogs/new_project_page.html",context)
-    return HttpResponse('You are not allowed to access this page', status =500)
+    return render(request, "new/error/unauthorised_page.html")
 
 
 def chapter_post_review(request,slug, chapter):
@@ -139,8 +140,9 @@ def chapter_post_review(request,slug, chapter):
             "author": author,
             "can_review": True
         }
+        print(context)
         return render(request,"new/blogs/new_chapter_page.html", context)
-    return HttpResponse('You are not allowed to access this page', status =500)
+    return render(request, "new/error/unauthorised_page.html")
 
 def error404(request, exception):
     return HttpResponse(request)
