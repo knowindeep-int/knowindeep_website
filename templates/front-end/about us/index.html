@@ -62,85 +62,47 @@
 			    </div>
 			  </div>
 			  
-			</div> 
-<!-- 
+			</div>
+
+			<div class="main">
+				<h1>Meet The Founders</h1>
 			  
-				  <ul class="cards">
+				  <ul class="cards" style="display: flex;">
 				    <li class="cards_item">
 				      <div class="card">
-				        <div class="card_image"><img src="rahul.jpg"></div>
+				        <div class="card_image"><img src="rahul.jpg" class="fimg"></div>
 				        <div class="card_content">
-				          <h5 class="card-title">Rahul Kedia</h5>
+				          <h2 class="card-title1">Rahul Kedia</h2>
+						  <h5 class="dull">Founder</h5>
+						  <hr class="rule09">
 				      <p class="card-text">He is the founder. An IIT (ISM) Dhanbad undergraduate, a coder by heart and businessman by blood. He is enthusiastic about Image Processing and has freelanced for many firms. He is constantly in search of solutions to problems he personally faces and knows the struggle of every programmer out there.</p>
 				        </div>
 				      </div>
 				    </li>
 				    <li class="cards_item">
 				      <div class="card">
-				        <div class="card_image"><img src="niket.jpg"></div>
+				        <div class="card_image"><img src="niket.jpg" class="fimg"></div>
 				        <div class="card_content">
-				          <h5 class="card-title">Niket Kumar</h5>
+				          <h2 class="card-title1">Niket Kumar</h2>
+						  <h5 class="dull">Co-Founder</h5>
+						  <hr class="rule09">
 				      <p class="card-text">The co-founder, also an IIT (ISM) undergraduate, having worked in business, marketing, and public relations for many firms. He is passionate about technology and how it could be made accessible on a larger scale. As a beginner in programming, the problems which he faced, he knows are a holdback.</p>
 				        </div>
 				      </div>
 				    </li>
 				    <li class="cards_item">
 				      <div class="card">
-				        <div class="card_image"><img src="priyansh.jpg"></div>
+				        <div class="card_image"><img src="priyansh.jpg" class="fimg"></div>
 				        <div class="card_content">
-				          <h5 class="card-title">Priyansh Kedia</h5>
+				          <h2 class="card-title1">Priyansh Kedia</h2>
+						  <h5 class="dull">Co-Founder</h5>
+						  <hr class="rule09">
 				      <p class="card-text">A coding enthusiast from BITS Pilani, Priyansh is an engineering undergraduate and a co-founder. Priyansh is a techie with work experience in Android and backend development. Having freelanced for many firms, he has created a niche for himself. </p>
 				        </div>
 				      </div>
 				    </li>
 				   </ul>
-			</div> -->
-<div class="main">
-	<h1>Meet The Founders</h1>
-				  <div style="display: flex;">
-				  	<div class="card mb-3">
-				  <div class="row no-gutters">
-				    <div class="col-md-4">
-				      <img src="rahul.jpg" class="card-img" alt="...">
-				    </div>
-				    <div class="col-md-8">
-				      <div class="card-body">
-				        <h5 class="card-title">Rahul Kedia</h5>
-								      <p class="card-text">He is the founder. An IIT (ISM) Dhanbad undergraduate, a coder by heart and businessman by blood. He is enthusiastic about Image Processing and has freelanced for many firms. He is constantly in search of solutions to problems he personally faces and knows the struggle of every programmer out there.</p>
-								     
-				      </div>
-				    </div>
-				  </div>
-</div><div class="card mb-3">
-  <div class="row no-gutters">
-    <div class="col-md-4">
-      <img src="rahul.jpg" class="card-img" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">Rahul Kedia</h5>
-				      <p class="card-text">He is the founder. An IIT (ISM) Dhanbad undergraduate, a coder by heart and businessman by blood. He is enthusiastic about Image Processing and has freelanced for many firms. He is constantly in search of solutions to problems he personally faces and knows the struggle of every programmer out there.</p>
-				   
-      </div>
-    </div>
-  </div>
-</div><div class="card mb-3">
-  <div class="row no-gutters">
-    <div class="col-md-4">
-      <img src="rahul.jpg" class="card-img" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">Rahul Kedia</h5>
-				      <p class="card-text">He is the founder. An IIT (ISM) Dhanbad undergraduate, a coder by heart and businessman by blood. He is enthusiastic about Image Processing and has freelanced for many firms. He is constantly in search of solutions to problems he personally faces and knows the struggle of every programmer out there.</p>
-			
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-
+			</div>
 
 </div>
 
@@ -163,10 +125,16 @@
 	margin-bottom: 30px;
 	text-align: center;
 }
-img {
+.card-title1{
+	margin: 10px 20px !important;
+}
+
+.fimg {
   height: 100%;
   width: 100%;
-  vertical-align: middle;
+  object-fit: cover;
+  height: 350px;
+  object-position: 0 0;
 }
 
 .card{
@@ -174,12 +142,24 @@ img {
   padding: 0;
 
 }
-
-.cards_item {
-  display: flex;
-  padding: 1rem;
+.rule09{
+	width: 90%;
+    margin: 10px auto;
+    color: orange;
+	height: 2px;
 }
-
+.cards_item {
+	display: flex;
+  padding: 1rem;
+  width: 33.33%;
+}
+.dull{
+	color: silver;
+	margin: 0 20px 10px 20px;
+}
+.card-text{
+margin: 0 10px 30px 20px !important;
+}
 </style>
 
 	</div>
